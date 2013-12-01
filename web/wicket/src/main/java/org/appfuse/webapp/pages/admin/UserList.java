@@ -29,7 +29,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 import java.util.*;
 
 /**
- * Page for displaying user list.
+ * Page displaying a user list.
  *
  * @author Marcin Zajączkowski, 2010-09-11
  */

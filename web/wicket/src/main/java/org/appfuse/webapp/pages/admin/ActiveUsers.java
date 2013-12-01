@@ -16,7 +16,11 @@ import org.wicketstuff.annotation.mount.MountPath;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO: MZA: Partial duplication with UserList. Can be removed?
+/**
+ * Page displaying a list of users that have logged in and their sessions have not expired.
+ *
+ * TODO: MZA: Partial duplication with UserList. Can be removed?
+ */
 @MountPath("admin/activeUsers")
 public class ActiveUsers extends AbstractWebPage {
 

@@ -31,7 +31,7 @@ import java.util.Set;
 import static java.lang.String.format;
 
 /**
- * Resusable form for editing users.
+ * Reusable form for editing users.
  *
  * Available abstract methods can be used to define specific behavior for different pages.
  *
@@ -45,7 +45,7 @@ public abstract class UserEditPanel extends Panel {
 
     private final List<Role> allAvailableRoles;
 
-    //TODO: wrap allAvailableRoles into detacheable model
+    //TODO: wrap allAvailableRoles into detachable model
     public UserEditPanel(String id, IModel<User> userModel, List<Role> allAvailableRoles) {
         super(id, userModel);
         this.allAvailableRoles = allAvailableRoles;

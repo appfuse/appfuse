@@ -22,7 +22,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 import java.util.Map;
 
 /**
- * Page for login to the system.
+ * A login page.
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */
@@ -74,7 +74,7 @@ public class Login extends AbstractWebPage {
         };
     }
 
-    //TODO: MZA: Move to is needed somewhere else
+    //TODO: MZA: Move to if needed somewhere else
     @SuppressWarnings("unchecked")
     private Object getValueForKeyFromConfigOrReturnNullIfNoConfig(String configProperty) {
         Map<String, Object> config = (Map<String, Object>)getServletContext().getAttribute(Constants.CONFIG);

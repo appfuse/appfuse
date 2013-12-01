@@ -10,7 +10,7 @@ import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 
 /**
- * Page for editing current user from list and administrative addition of a new user.
+ * Page for editing a current user from list and an administrative addition of a new user.
  *
  * @author Marcin Zajączkowski, 2011-03-12
  */
