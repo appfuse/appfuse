@@ -22,7 +22,7 @@ public class SeleniumITCase extends SeleniumBaseTestCase {
         log.debug("");
         setDriver(new FirefoxDriver());
         log.debug("");
-        baseUrl = "http://localhost:8888/";
+        baseUrl = "http://localhost:8888/appfuse-gwt-2.2.2-SNAPSHOT";
         getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         getDriver().manage().window().setSize(new Dimension(1024, 900));
     }

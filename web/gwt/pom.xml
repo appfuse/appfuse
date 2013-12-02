@@ -125,6 +125,9 @@
                         </resource>
                         <resource>
                             <directory>../common/src/main/webapp</directory>
+                            <excludes>
+                            	<exclude>index.jsp</exclude>
+                            </excludes>
                         </resource>
                         <resource>
                             <directory>../common/target/classes</directory>
