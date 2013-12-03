@@ -1,4 +1,4 @@
-package org.appfuse.webapp;
+package org.appfuse.webapp.integration;
 
 import static org.junit.Assert.assertTrue;
 
@@ -13,7 +13,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class SeleniumITCase extends SeleniumBaseTestCase {
+public class AppfuseSeleniumITCase extends SeleniumBaseTestCase {
 
 
     @Before

@@ -36,7 +36,7 @@ import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
  */
 public abstract class AbstractBaseRequest implements ServletContextAware, CxfMessageContextAware {
 
-	protected final transient Log log = LogFactory.getLog(getClass());
+    protected final transient Log log = LogFactory.getLog(getClass());
 
     @Autowired @Qualifier("messageSource")
     protected MessageSource messages;
@@ -46,21 +46,21 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
     protected SimpleMailMessage message;
 
     private ServletContext servletContext;
-    private AuthenticationTrustResolver authenticationTrustResolver = new AuthenticationTrustResolverImpl();
-    
+    private final AuthenticationTrustResolver authenticationTrustResolver = new AuthenticationTrustResolverImpl();
+
     /**
      * CXF JAX-RS MessageContext
      */
     public MessageContext messageContext;
-	
-    public void setServletContext(ServletContext servletContext) {
+
+    @Override public void setServletContext(final ServletContext servletContext) {
         this.servletContext = servletContext;
     }
 
-    @Context
-    public void setMessageContext(MessageContext messageContext) {
-		this.messageContext = messageContext;
-	}
+    @Override @Context
+    public void setMessageContext(final MessageContext messageContext) {
+        this.messageContext = messageContext;
+    }
 
     /**
      * Convenience method for getting a i18n key's value.  Calling
@@ -71,7 +71,7 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
      * @param locale the current locale
      * @return
      */
-    public String getText(String msgKey, Locale locale) {
+    public String getText(final String msgKey, final Locale locale) {
         return messages.getMessage(msgKey, null, locale);
     }
 
@@ -84,7 +84,7 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
      * @param locale the current locale
      * @return
      */
-    public String getText(String msgKey, String arg, Locale locale) {
+    public String getText(final String msgKey, final String arg, final Locale locale) {
         return getText(msgKey, new Object[] { arg }, locale);
     }
 
@@ -96,7 +96,7 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
      * @param locale the current locale
      * @return
      */
-    public String getText(String msgKey, Object[] args, Locale locale) {
+    public String getText(final String msgKey, final Object[] args, final Locale locale) {
         return messages.getMessage(msgKey, args, locale);
     }
 
@@ -107,19 +107,19 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
      * @param msg the message to send.
      * @param url the URL of the application.
      */
-    protected void sendUserMessage(User user, String templateName, String msg, String url) {
+    protected void sendUserMessage(final User user, final String templateName, final String msg, final String url) {
         if (log.isDebugEnabled()) {
             log.debug("sending e-mail to user [" + user.getEmail() + "]...");
         }
 
         message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
 
-        Map<String, Serializable> model = new HashMap<String, Serializable>();
+        final Map<String, Serializable> model = new HashMap<String, Serializable>();
         model.put("user", user);
 
         // TODO: once you figure out how to get the global resource bundle in
         // WebWork, then figure it out here too.  In the meantime, the Username
-        // and Password labels are hard-coded into the template. 
+        // and Password labels are hard-coded into the template.
         // model.put("bundle", getTexts());
         model.put("message", msg);
         model.put("applicationURL", url);
@@ -127,53 +127,53 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
     }
 
     protected String getCurrentUsername() {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	if(authentication != null && !isAnonymousLogin()) {
-    		return authentication.getName();
-    	}
-    	return null;
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null && !isAnonymousLogin()) {
+            return authentication.getName();
+        }
+        return null;
     }
-    
+
     protected boolean isAnonymousLogin() {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	return authenticationTrustResolver.isAnonymous(authentication);
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authenticationTrustResolver.isAnonymous(authentication);
     }
 
     protected boolean isRememberMeLogin() {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	return authenticationTrustResolver.isRememberMe(authentication);
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authenticationTrustResolver.isRememberMe(authentication);
     }
 
     protected boolean isFullyAuthenticated() {
-    	return !isAnonymousLogin() && !isRememberMeLogin();
+        return !isAnonymousLogin() && !isRememberMeLogin();
     }
 
-    
-	/**
-	 * 
-	 * @return
-	 */
+
+    /**
+     * 
+     * @return
+     */
     protected HttpServletRequest getServletRequest() {
-    	HttpServletRequest request = RequestFactoryServlet.getThreadLocalRequest(); 
-    	if(request == null) { // jax-rs
-    		return messageContext.getHttpServletRequest();
-    	}
-    	return request;    
+        final HttpServletRequest request = RequestFactoryServlet.getThreadLocalRequest();
+        if(request == null) { // jax-rs
+            return messageContext.getHttpServletRequest();
+        }
+        return request;
     }
-    
+
     /**
      * 
      * @return
      */
     protected HttpServletResponse getServletResponse() {
-    	HttpServletResponse response = RequestFactoryServlet.getThreadLocalResponse();    
-    	if(response == null) { // jax-rs
-    		return messageContext.getHttpServletResponse();
-    	}
-    	return response;
+        final HttpServletResponse response = RequestFactoryServlet.getThreadLocalResponse();
+        if(response == null) { // jax-rs
+            return messageContext.getHttpServletResponse();
+        }
+        return response;
     }
-    
+
     protected ServletContext getServletContext() {
-    	return servletContext;
+        return servletContext;
     }
 }

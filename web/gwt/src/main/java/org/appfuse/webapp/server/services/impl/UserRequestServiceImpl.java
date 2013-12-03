@@ -228,7 +228,7 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      */
     @Override
     public String sendPasswordHint(final String username) {
-        final Locale locale = getServletRequest().getLocale();
+        final Locale locale = LocaleContextHolder.getLocale();
 
         // ensure that the username has been sent
         if (username == null) {
@@ -269,7 +269,7 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      */
     @Override
     public String requestRecoveryToken(final String username) {
-        final Locale locale = getServletRequest().getLocale();
+        final Locale locale = LocaleContextHolder.getLocale();
 
         log.debug("Sending recovery token to user " + username);
         try {
