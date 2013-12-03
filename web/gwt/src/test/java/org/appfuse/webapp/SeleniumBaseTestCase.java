@@ -3,29 +3,58 @@ package org.appfuse.webapp;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.tuckey.web.filters.urlrewrite.utils.StringUtils;
 
+@ContextConfiguration(locations = {
+        "classpath:/applicationContext-resources.xml"
+})
+@RunWith(SpringJUnit4ClassRunner.class)
 public abstract class SeleniumBaseTestCase {
 
     protected final Log log = LogFactory.getLog(getClass());
 
     private final int waitTimeOutSeconds = 60;
+
+    private String baseUrl;
     private WebDriver driver;
 
-    // protected final StringBuffer verificationErrors = new StringBuffer();
 
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public WebDriver getDriver() {
+        return driver;
+    }
+
+    @Value("#{systemProperties.baseUrl}") 
+    public void setBaseUrl(final String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
+    public void setDriver(final WebDriver driver) {
+        this.driver = driver;
+    }
+
+
+
+    /**
+     * WaitFor callback interface.
+     * 
+     */
     protected interface WaitFor {
         boolean isFinished();
     }
 
-    public SeleniumBaseTestCase() {
-        super();
-    }
 
     private boolean waitFor(final WaitFor waitFor) {
         boolean isFinished = false;
@@ -111,14 +140,6 @@ public abstract class SeleniumBaseTestCase {
         final String alertText = alert.getText();
         alert.accept();
         return alertText;
-    }
-
-    WebDriver getDriver() {
-        return driver;
-    }
-
-    void setDriver(final WebDriver driver) {
-        this.driver = driver;
     }
 
     @After

@@ -420,6 +420,11 @@
 								</goals>
 							</execution>
 						</executions>
+                        <configuration>
+                           <systemPropertyVariables>
+                                <baseUrl>http://${cargo.host}:${cargo.port}/${project.build.finalName}/</baseUrl>
+                           </systemPropertyVariables>
+                        </configuration>
 					</plugin>
                 </plugins>
             </build>

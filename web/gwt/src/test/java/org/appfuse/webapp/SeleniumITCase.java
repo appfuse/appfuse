@@ -15,14 +15,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class SeleniumITCase extends SeleniumBaseTestCase {
 
-    private String baseUrl;
 
     @Before
     public void setUp() throws Exception {
         log.debug("");
         setDriver(new FirefoxDriver());
-        log.debug("");
-        baseUrl = "http://localhost:8888/appfuse-gwt-2.2.2-SNAPSHOT";
         getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         getDriver().manage().window().setSize(new Dimension(1024, 900));
     }
@@ -64,7 +61,7 @@ public class SeleniumITCase extends SeleniumBaseTestCase {
 
     public void testLoadBaseUrl() throws InterruptedException {
         log.debug("");
-        getDriver().get(baseUrl);
+        getDriver().get(getBaseUrl());
         assertTrue(waitForTitle(getDriver(), "^Login[\\s\\S]*$"));
     }
 
