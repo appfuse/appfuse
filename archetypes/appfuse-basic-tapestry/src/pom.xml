@@ -412,7 +412,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -729,7 +728,7 @@
         <!-- Framework dependency versions -->
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
         <bootstrap.version>2.3.2</bootstrap.version>
-        <spring.version>3.2.5.RELEASE</spring.version>
+        <spring.version>4.0.0.RC2</spring.version>
         <tapestry.version>5.3.7</tapestry.version>
 
         <!-- Testing dependency versions -->
