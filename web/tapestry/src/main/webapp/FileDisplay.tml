@@ -2,7 +2,7 @@
       heading="message:display.heading" menu="AdminMenu"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-<div class="col-lg-10">
+<div class="col-md-10">
     <h2>${message:display.heading}</h2>
 
     <p>Below is a list of attributes that were gathered in FileUpload.java.</p>

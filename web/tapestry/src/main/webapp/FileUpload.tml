@@ -1,12 +1,12 @@
 <html t:type="layout" title="message:upload.title" heading="message:upload.heading"
       menu="AdminMenu" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-<div class="col-lg-3">
+<div class="col-md-3">
     <h2>${message:upload.heading}</h2>
     ${message:upload.message}
 </div>
 
-<div class="col-lg-7">
+<div class="col-md-7">
 
     <form t:type="form" t:id="upload" class="well form-horizontal">
 

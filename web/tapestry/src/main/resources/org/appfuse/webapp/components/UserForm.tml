@@ -1,11 +1,11 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 
-<div class="col-lg-2">
+<div class="col-md-2">
     <h2>${heading}</h2>
     ${infoMessage}
 </div>
 
-<div class="col-lg-7">
+<div class="col-md-7">
     <!-- Add Error Block Here -->
 
     <form t:type="form" t:id="form" class="well form-horizontal" autocomplete="off" role="form">
