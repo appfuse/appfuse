@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.appfuse.model.User;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +21,23 @@ public class UserRequestServiceTest extends BaseServiceTestCase {
 
     @Autowired private UserRequestService userRequestService;
 
-
+    @After
+    public void tearDown() throws Exception {
+        logout();
+    }
 
     @Test public void testGetCurrentUser() {
-        performLogout();
         User user = userRequestService.getCurrentUser();
         Assert.assertNull(user);
-        performLogin("admin");
+        login("admin");
         user = userRequestService.getCurrentUser();
         Assert.assertNotNull(user);
-        performLogout();
+        logout();
         user = userRequestService.getCurrentUser();
         Assert.assertNull(user);
     }
 
     @Test public void testSignUp() throws Exception {
-        performLogout();
         User user = userRequestService.signUp();
         Assert.assertTrue(user.getId() == null);
 
@@ -53,7 +55,7 @@ public class UserRequestServiceTest extends BaseServiceTestCase {
     }
 
     @Test public void testEditProfile() throws Exception {
-        performLogin("admin");
+        login("admin");
         User user = userRequestService.editProfile();
         final int version = user.getVersion();
         user.setPhoneNumber("555555");
@@ -62,27 +64,26 @@ public class UserRequestServiceTest extends BaseServiceTestCase {
     }
 
     @Test public void testGetUser() {
-        performLogout();
         try {
             userRequestService.getUser(-2L);
             Assert.fail("Expected AuthenticationException");
         } catch (final AuthenticationException e) {
         }
 
-        performLogin("user");
+        login("user");
         try {
             userRequestService.getUser(-2L);
             Assert.fail("Expected AccessDeniedException");
         } catch (final AccessDeniedException e) {
         }
 
-        performLogin("admin");
+        login("admin");
         final User user = userRequestService.getUser(-1L);
         Assert.assertNotNull(user);
     }
 
     @Test public void testSaveUser() throws Exception {
-        performLogin("admin");
+        login("admin");
         User user = userRequestService.getUser(-2L);
         final int version = user.getVersion();
         user.setPhoneNumber("aaaaa");
@@ -91,19 +92,20 @@ public class UserRequestServiceTest extends BaseServiceTestCase {
     }
 
     @Test public void testCountUsers() {
+        login("admin");
         final UsersSearchCriteria searchCriteria = new UsersSearchCriteria();
         final long count = userRequestService.countUsers(searchCriteria);
         Assert.assertTrue(count > 0);
     }
 
     @Test public void testSearchUsers() {
+        login("admin");
         final UsersSearchCriteria searchCriteria = new UsersSearchCriteria();
         final long count = userRequestService.countUsers(searchCriteria);
         List<User> results = userRequestService.searchUsers(searchCriteria, 0, (int) count);
         Assert.assertEquals(count, results.size());
         results = userRequestService.searchUsers(searchCriteria, 0, (int) count, "username", true);
         Assert.assertEquals(count, results.size());
-
     }
 
     @Test public void testSendPasswordHint() {

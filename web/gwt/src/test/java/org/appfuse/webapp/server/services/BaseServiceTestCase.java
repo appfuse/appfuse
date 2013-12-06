@@ -53,7 +53,7 @@ public abstract class BaseServiceTestCase {
         return userManager;
     }
 
-    protected void performLogin(final String username) {
+    protected void login(final String username) {
         final User user = userManager.getUserByUsername(username);
         final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                 user.getUsername(), "", user.getAuthorities());
@@ -61,7 +61,7 @@ public abstract class BaseServiceTestCase {
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
-    protected void performLogout() {
+    protected void logout() {
         SecurityContextHolder.getContext().setAuthentication(null);
     }
 
