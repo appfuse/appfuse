@@ -17,11 +17,11 @@
 	    <g:SimplePanel ui:field="messages" />
 	
        	<b:Controls ui:field="usernameGroup">
-       		<b:TextBox ui:field="username" placeholder="{i18n.user_username}" controlGroup="{usernameGroup}" errorLabel="{usernameErrors}" />
+       		<b:TextBox ui:field="username" name="j_username" placeholder="{i18n.user_username}" controlGroup="{usernameGroup}" errorLabel="{usernameErrors}" />
        		<b:HelpInline ui:field="usernameErrors"></b:HelpInline>
        	</b:Controls>
        	<b:Controls  ui:field="passwordGroup">
-       		<b:PasswordTextBox ui:field="password" placeholder="{i18n.user_password}" controlGroup="{passwordGroup}" errorLabel="{passwordErrors}" />
+       		<b:PasswordTextBox ui:field="password" name="j_password" placeholder="{i18n.user_password}" controlGroup="{passwordGroup}" errorLabel="{passwordErrors}" />
        		<b:HelpInline ui:field="passwordErrors"></b:HelpInline>
        	</b:Controls>
 	

@@ -13,6 +13,21 @@
         <property name="basename" value="org.appfuse.webapp.client.application.ApplicationResources"/>
         <property name="useCodeAsDefaultMessage" value="true"/>
     </bean> 
+    
+    <!-- Overriding mail sender to add smtp.port property -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${mail.host}"/>
+        <property name="port" value="${mail.port}"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!-- Uncomment if you need to authenticate with your SMTP Server -->
+        <!--property name="username" value="${mail.username}"/>
+        <property name="password" value="${mail.password}"/>
+        <property name="javaMailProperties">
+            <value>
+                mail.smtp.auth=true
+            </value>
+        </property-->
+    </bean>    
 
     <!-- Activates scanning of @Autowired -->
     <context:annotation-config/>

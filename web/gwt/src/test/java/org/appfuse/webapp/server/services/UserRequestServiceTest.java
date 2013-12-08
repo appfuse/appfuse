@@ -17,7 +17,7 @@ import org.subethamail.wiser.WiserMessage;
  *	@author ivangsa
  *
  */
-public class UserRequestServiceTest extends BaseServiceTestCase {
+public abstract class UserRequestServiceTest extends BaseServiceTestCase {
 
     @Autowired private UserRequestService userRequestService;
 

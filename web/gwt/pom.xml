@@ -379,6 +379,9 @@
                                     <url>${cargo.container.url}</url>
                                     <extractDir>${installDir}</extractDir>
                                 </zipUrlInstaller>
+                                <systemProperties>
+                                	<mail.port>25250</mail.port>
+                                </systemProperties>
                             </container>
                             <configuration>
                                 <home>${project.build.directory}/${cargo.container}/container</home>
@@ -423,6 +426,7 @@
                         <configuration>
                            <systemPropertyVariables>
                                 <baseUrl>http://${cargo.host}:${cargo.port}/${project.build.finalName}/</baseUrl>
+                                <mail.port>25250</mail.port>
                            </systemPropertyVariables>
                         </configuration>
 					</plugin>

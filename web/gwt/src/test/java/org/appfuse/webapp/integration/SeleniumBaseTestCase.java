@@ -1,17 +1,29 @@
 package org.appfuse.webapp.integration;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.subethamail.wiser.Wiser;
+import org.subethamail.wiser.WiserMessage;
 import org.tuckey.web.filters.urlrewrite.utils.StringUtils;
 
 @ContextConfiguration(locations = {
@@ -24,7 +36,18 @@ public abstract class SeleniumBaseTestCase {
 
     private final int waitTimeOutSeconds = 60;
 
-    private String baseUrl;
+    protected int smtpPort = 25250;
+    public Wiser wiser;
+
+    /**
+     * WaitFor callback interface.
+     * 
+     */
+    protected interface WaitFor {
+        boolean isFinished();
+    }
+
+    private String baseUrl = "http://localhost:8080/";
     private WebDriver driver;
 
 
@@ -36,7 +59,7 @@ public abstract class SeleniumBaseTestCase {
         return driver;
     }
 
-    @Value("#{systemProperties.baseUrl}") 
+    @Value("#{systemProperties.baseUrl}")
     public void setBaseUrl(final String baseUrl) {
         this.baseUrl = baseUrl;
     }
@@ -45,18 +68,44 @@ public abstract class SeleniumBaseTestCase {
         this.driver = driver;
     }
 
+    @Value("${mail.port}")
+    public void setSmtpPort(final int smtpPort) {
+        this.smtpPort = smtpPort;
+    }
 
+    @Before
+    public void setUp() throws Exception {
+        log.debug("");
 
-    /**
-     * WaitFor callback interface.
-     * 
-     */
-    protected interface WaitFor {
-        boolean isFinished();
+        wiser = new Wiser();
+        wiser.setPort(smtpPort);
+        wiser.start();
+
+        setDriver(new FirefoxDriver());
+        getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        getDriver().manage().window().setSize(new Dimension(1024, 900));
     }
 
 
-    private boolean waitFor(final WaitFor waitFor) {
+    @After
+    public void tearDown() throws Exception {
+        if (getDriver() != null) {
+            getDriver().quit();
+        }
+        if (wiser != null) {
+            wiser.stop();
+        }
+    }
+
+    protected List<MimeMessage> getMailMessages() throws MessagingException {
+        final List<MimeMessage> messages = new ArrayList<MimeMessage>();
+        for (final WiserMessage message : wiser.getMessages()) {
+            messages.add(message.getMimeMessage());
+        }
+        return messages;
+    }
+
+    protected boolean waitFor(final WaitFor waitFor) {
         boolean isFinished = false;
         for (int second = 0; second < waitTimeOutSeconds; second++) {
             try {
@@ -105,14 +154,14 @@ public abstract class SeleniumBaseTestCase {
         return waitForAlert(null);
     }
 
-    private boolean waitForAlert(final String alertText) {
+    protected boolean waitForAlert(final String alertText) {
         return waitFor(new WaitFor() {
             @Override public boolean isFinished() {
                 String regex = alertText;
                 if (StringUtils.isBlank(regex) || "*".equals(regex)) {
                     regex = "^[\\s\\S]*$";
                 }
-                return closeAlertAndGetItsText().matches(regex);
+                return closeAlertAndGetItsText(true).matches(regex);
             }
         });
     }
@@ -135,16 +184,15 @@ public abstract class SeleniumBaseTestCase {
         }
     }
 
-    private String closeAlertAndGetItsText() {
+    private String closeAlertAndGetItsText(final boolean accept) {
         final Alert alert = driver.switchTo().alert();
         final String alertText = alert.getText();
-        alert.accept();
+        if (accept) {
+            alert.accept();
+        } else {
+            alert.dismiss();
+        }
         return alertText;
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        getDriver().quit();
     }
 
 }

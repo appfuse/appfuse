@@ -4,28 +4,17 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class AppfuseSeleniumITCase extends SeleniumBaseTestCase {
+public class AppFuseWebITCase extends SeleniumBaseTestCase {
 
-
-    @Before
-    public void setUp() throws Exception {
-        log.debug("");
-        setDriver(new FirefoxDriver());
-        getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        getDriver().manage().window().setSize(new Dimension(1024, 900));
-    }
 
     @Test
     public void testSeleniumTestCase() throws Exception {
+
         testLoadBaseUrl();
 
         testSignUp();
@@ -57,6 +46,7 @@ public class AppfuseSeleniumITCase extends SeleniumBaseTestCase {
         testUploadFile();
 
         testLogout();
+
     }
 
     public void testLoadBaseUrl() throws InterruptedException {

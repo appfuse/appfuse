@@ -88,30 +88,29 @@ public class LoginViewImpl extends Composite implements LoginView, Editor<LoginV
         //
         signupParaElement.setInnerHTML(i18n.login_signup("#" + SignUpPlace.PREFIX + ":"));
 
-        //
-        {
-            final HTMLPanel passwordHintHtml = new HTMLPanel(i18n.login_passwordHint());
-            final NodeList<Element> anchors = passwordHintHtml.getElement().getElementsByTagName("a");
-            final Element a = anchors.getItem(0);
-            final Anchor link = new Anchor(a.getInnerHTML());
-            link.addClickHandler(new ClickHandler() {
+        final HTMLPanel passwordHintHtml = new HTMLPanel(i18n.login_passwordHint());
+        final NodeList<Element> anchors = passwordHintHtml.getElement().getElementsByTagName("a");
+        final Element a = anchors.getItem(0);
+        final Anchor link = new Anchor(a.getInnerHTML());
+        link.getElement().setId("signUpLink");
+        link.addClickHandler(new ClickHandler() {
 
-                @Override
-                public void onClick(final ClickEvent event) {
-                    delegate.onPasswordHintClick();
-                }
-            });
-            passwordHintHtml.addAndReplaceElement(link, a);
-            try {// fails on dev mode..
-                HTMLPanel.wrap(passwordHintParaElement).add(passwordHintHtml);
-            } catch (final Throwable e) {
-                e.printStackTrace();
+            @Override
+            public void onClick(final ClickEvent event) {
+                delegate.onPasswordHintClick();
             }
+        });
+        passwordHintHtml.addAndReplaceElement(link, a);
+        try {// fails on dev mode..
+            HTMLPanel.wrap(passwordHintParaElement).add(passwordHintHtml);
+        } catch (final Throwable e) {
+            e.printStackTrace();
         }
 
         final HTMLPanel passwordRecoveryParaHtml = new HTMLPanel(i18n.updatePassword_requestRecoveryTokenLink());
         final Element passwordRecoveryA = passwordRecoveryParaHtml.getElement().getElementsByTagName("a").getItem(0);
         final Anchor passwordRecoveryLink = new Anchor(passwordRecoveryA.getInnerHTML());
+        passwordRecoveryLink.getElement().setId("requestRecoveryTokenLink");
         passwordRecoveryLink.addClickHandler(new ClickHandler() {
 
             @Override
