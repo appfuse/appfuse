@@ -26,19 +26,19 @@
     </scm>
 
 	<modules>
-<!-- 		<module>appfuse-core</module> -->
-<!-- 		<module>appfuse-basic-jsf</module> -->
-<!-- 		<module>appfuse-basic-spring</module> -->
-<!-- 		<module>appfuse-basic-struts</module> -->
-<!-- 		<module>appfuse-basic-tapestry</module> -->
-<!--         <module>appfuse-basic-wicket</module> -->
+		<module>appfuse-core</module>
+		<module>appfuse-basic-jsf</module>
+		<module>appfuse-basic-spring</module>
+		<module>appfuse-basic-struts</module>
+		<module>appfuse-basic-tapestry</module>
+        <module>appfuse-basic-wicket</module>
 		<module>appfuse-basic-gwt</module>
-<!-- 		<module>appfuse-modular-jsf</module> -->
-<!-- 		<module>appfuse-modular-struts</module> -->
-<!-- 		<module>appfuse-modular-spring</module> -->
-<!-- 		<module>appfuse-modular-tapestry</module> -->
+		<module>appfuse-modular-jsf</module>
+		<module>appfuse-modular-struts</module>
+		<module>appfuse-modular-spring</module>
+		<module>appfuse-modular-tapestry</module>
  		<module>appfuse-modular-gwt</module>
-<!-- 		<module>appfuse-ws</module> -->
+		<module>appfuse-ws</module>
 	</modules>
 
     <!-- Default properties used when testing archetypes -->
