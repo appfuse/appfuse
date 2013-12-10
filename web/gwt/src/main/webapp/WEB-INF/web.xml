@@ -111,9 +111,6 @@
     <listener>
         <listener-class>org.appfuse.webapp.listener.UserCounterListener</listener-class>
     </listener>
-    <listener>
-        <listener-class>org.appfuse.webapp.jsp.EscapeXmlELResolverListener</listener-class>
-    </listener>
 
     <servlet>
         <servlet-name>dispatcher</servlet-name>
