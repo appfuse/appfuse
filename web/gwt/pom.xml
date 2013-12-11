@@ -358,7 +358,7 @@
 
     <profiles>
         <profile>
-            <id>integration-test</id>
+            <id>itest</id>
             <activation>
                 <property>
                     <name>!skipTests</name>
