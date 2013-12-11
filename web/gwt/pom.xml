@@ -64,7 +64,7 @@
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
-                    <src>src/test/resources/sample-data.xml</src>
+                    <src>../../data/common/src/test/resources/sample-data.xml</src>
                     <type>${dbunit.operation.type}</type>
                     <schema>${dbunit.schema}</schema>
                     <skip>${skipTests}</skip>
@@ -134,6 +134,14 @@
                             <targetPath>WEB-INF/classes</targetPath>
                         </resource>
                     </webResources>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         	<plugin>
@@ -359,11 +367,6 @@
     <profiles>
         <profile>
             <id>itest</id>
-            <activation>
-                <property>
-                    <name>!skipTests</name>
-                </property>
-            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -438,7 +441,6 @@
         <profile>
         	<id>gwtDebug</id>
         	<properties>
-        		<skipTests>true</skipTests>
 				<gwt.draftCompile>true</gwt.draftCompile>
 				<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>        
         	</properties>

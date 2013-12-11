@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.8.v20121106</version>
+                <version>8.1.14.v20131031</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -96,6 +96,14 @@
                             </includes>
                         </resource>
                     </webResources>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>
@@ -111,8 +119,10 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
+                                <include>ApplicationResources_el*.properties</include>
                                 <include>ApplicationResources_zh*.properties</include>
                                 <include>ApplicationResources_ko*.properties</include>
+                                <include>displaytag_el*.properties</include>
                                 <include>displaytag_zh*.properties</include>
                             </includes>
                         </configuration>
@@ -137,7 +147,7 @@
                     <modules>
                         <module>${gwtModuleName}</module>
                     </modules>
-                   	<i18nMessagesBundle>${project.groupId}.webapp.client.application.ApplicationResources</i18nMessagesBundle>
+                   	<i18nMessagesBundle>${package}.webapp.client.application.ApplicationResources</i18nMessagesBundle>
                    	<generateDirectory>${basedir}/src/main/java</generateDirectory>
                 </configuration>
                 <executions>
@@ -180,7 +190,7 @@
                                 <classpath/>
                                 <argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
                                 <argument>${project.build.outputDirectory}</argument>
-                                <argument>${project.groupId}.webapp.client.requests.ApplicationRequestFactory</argument>
+                                <argument>${package}.webapp.client.requests.ApplicationRequestFactory</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -235,7 +245,7 @@
             <version>${commons.fileupload.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
+            <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons.io.version}</version>
         </dependency>
@@ -303,11 +313,6 @@
     <profiles>
         <profile>
             <id>itest</id>
-            <activation>
-                <property>
-                    <name>!skipTests</name>
-                </property>
-            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -402,7 +407,7 @@
         	<id>gwtDebug</id>
         	<properties>
 				<gwt.draftCompile>true</gwt.draftCompile>
-            	<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>  				
+            	<gwtModuleName>${package}.webapp.MainModuleDebug</gwtModuleName>  				
         	</properties>
         </profile>           
     </profiles>
