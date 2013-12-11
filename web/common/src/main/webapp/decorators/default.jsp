@@ -8,18 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="<c:url value="/images/favicon.ico"/>"/>
     <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
-
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/lib/bootstrap-2.3.2.min.css'/>" />
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/lib/bootstrap-responsive-2.3.2.min.css'/>" />
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/style.css'/>" />
+    <t:assets/>
     <decorator:head/>
-
-    <c:if test="${!jqueryProvided}">
-    <script type="text/javascript" src="<c:url value='/scripts/lib/jquery-1.8.2.min.js'/>"></script>
-    </c:if>
-    <script type="text/javascript" src="<c:url value='/scripts/lib/bootstrap-2.3.2.min.js'/>"></script>
-    <script type="text/javascript" src="<c:url value='/scripts/lib/plugins/jquery.cookie.js'/>"></script>
-    <script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
 </head>
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/><decorator:getProperty property="body.class" writeEntireProperty="true"/>>
     <c:set var="currentMenu" scope="request"><decorator:getProperty property="meta.menu"/></c:set>

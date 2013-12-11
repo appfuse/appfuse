@@ -10,7 +10,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 import javax.servlet.http.Cookie;
 
 /**
- * Page for loging out.
+ * Page for logging out from the system.
  *
  * @author Marcin Zajączkowski, 2011-02-06
  */

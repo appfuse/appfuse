@@ -27,6 +27,8 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.util.StringUtils;
 
+import static junit.framework.Assert.assertTrue;
+
 @ContextConfiguration(locations = {
         "classpath:/applicationContext-resources.xml", "classpath:/applicationContext-dao.xml",
         "classpath:/applicationContext-service.xml", "classpath*:/applicationContext.xml",
@@ -113,5 +115,9 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
 
     protected int getSmtpPort() {
         return smtpPort;
+    }
+
+    protected void assertTextPresent(Document document, String text) {
+        assertTrue(document.toString().contains(text));
     }
 }

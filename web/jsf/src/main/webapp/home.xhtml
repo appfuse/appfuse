@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/layouts/default.xhtml">
+    <ui:define name="title">#{text['home.title']}</ui:define>
+    <ui:define name="menu">Home</ui:define>
+
+    <ui:define name="body">
+        <h2>#{text['home.heading']}</h2>
+
+        <p>#{text['home.message']}</p>
+
+        <h:form id="editUser">
+            <ul class="glassList">
+                <li>
+                    <h:commandLink value="#{text['menu.user']}" action="#{userForm.edit}"/>
+                </li>
+                <li>
+                    <h:commandLink value="#{text['menu.selectFile']}" action="selectFile"/>
+                </li>
+            </ul>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

@@ -30,7 +30,6 @@
 
     <description>
         Tapestry Module for AppFuse: includes Tapestry with Spring and Flash messages support.
-        Include this module in your dependencies if you want to use Tapestry as your web framework.
     </description>
 
     <scm>
@@ -132,6 +131,14 @@
                             <targetPath>WEB-INF</targetPath>
                         </resource>
                     </webResources>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>
@@ -231,6 +238,10 @@
                     <groupId>struts-menu</groupId>
                     <artifactId>struts-menu</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>opensymphony</groupId>
+                    <artifactId>sitemesh</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -283,16 +294,22 @@
             <artifactId>bootstrap</artifactId>
             <version>${bootstrap.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-datepicker</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <!-- Downgrade jQuery so it works with HtmlUnit -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>1.8.3</version>
+        </dependency>
     </dependencies>
 
     <profiles>
         <profile>
-            <id>integration-test</id>
-            <activation>
-                <property>
-                    <name>!skipTests</name>
-                </property>
-            </activation>
+            <id>itest</id>
             <build>
                 <plugins>
                     <plugin>

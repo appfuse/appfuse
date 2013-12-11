@@ -45,7 +45,7 @@ public class UserFormTest extends BasePageTestCase {
         user.setConfirmPassword("user");
         bean.setUser(user);
 
-        assertEquals("mainMenu", bean.save());
+        assertEquals("home", bean.save());
         assertNotNull(bean.getUser());
         assertFalse(bean.hasErrors());
     }

@@ -23,7 +23,6 @@
         <version>2.2.2-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-basic-wicket</artifactId>
     <name>AppFuse Basic Archetype - Wicket</name>
     <packaging>pom</packaging>

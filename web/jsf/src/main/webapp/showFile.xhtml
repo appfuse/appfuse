@@ -1,53 +1,50 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/layouts/default.xhtml">
+    <ui:define name="title">#{text['display.title']}</ui:define>
+    <ui:define name="menu">AdminMenu</ui:define>
 
-<f:view>
-<f:loadBundle var="text" basename="#{basePage.bundleName}"/>
-<h:head>
-    <title>#{text['display.title']}</title>
-    <meta name="menu" content="AdminMenu"/>
-    <c:set var="jqueryProvided" value="false" scope="request"/>
-</h:head>
+    <ui:define name="body">
+        <div class="span10">
+            <h2>#{text['display.heading']}</h2>
 
-<div class="span10">
-    <h2>#{text['display.heading']}</h2>
-    <p>Below is a list of attributes that were gathered in FileUpload.java.</p>
+            <p>Below is a list of attributes that were gathered in FileUpload.java.</p>
 
-    <table class="table-striped" cellpadding="5">
-        <tr>
-            <th>Friendly Name:</th>
-            <td>${friendlyName}</td>
-        </tr>
-        <tr>
-            <th>Filename:</th>
-            <td>${fileName}</td>
-        </tr>
-        <tr>
-            <th>File content type:</th>
-            <td>${contentType}</td>
-        </tr>
-        <tr>
-            <th>File size:</th>
-            <td>${size}</td>
-        </tr>
-        <tr>
-            <th class="tallCell">File Location:</th>
-            <td>The file has been written to: <br />
-                <a href="${link}">${location}</a>
-            </td>
-        </tr>
-    </table>
-    <div id="actions" class="form-actions">
-        <a class="btn btn-primary" href="mainMenu" >
-            <i class="icon-ok"></i>
-            #{text['button.done']}
-        </a>
-        <a class="btn" href="selectFile">
-            <i class="icon-upload"></i>
-            Upload Another
-        </a>
-    </div>
-</div>
-
-</f:view>
+            <table class="table-striped" cellpadding="5">
+                <tr>
+                    <th>Friendly Name:</th>
+                    <td>${friendlyName}</td>
+                </tr>
+                <tr>
+                    <th>Filename:</th>
+                    <td>${fileName}</td>
+                </tr>
+                <tr>
+                    <th>File content type:</th>
+                    <td>${contentType}</td>
+                </tr>
+                <tr>
+                    <th>File size:</th>
+                    <td>${size}</td>
+                </tr>
+                <tr>
+                    <th class="tallCell">File Location:</th>
+                    <td>The file has been written to: <br/>
+                        <a href="${link}">${location}</a>
+                    </td>
+                </tr>
+            </table>
+            <div id="actions" class="form-actions">
+                <a class="btn btn-primary" href="home">
+                    <i class="icon-ok icon-white"></i>
+                    #{text['button.done']}
+                </a>
+                <a class="btn" href="selectFile">
+                    <i class="icon-upload"></i>
+                    Upload Another
+                </a>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
 </html>

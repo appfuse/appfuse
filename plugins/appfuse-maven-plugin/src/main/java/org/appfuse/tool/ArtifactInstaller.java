@@ -340,7 +340,12 @@ public class ArtifactInstaller {
             parseXMLFile(existingFile, pojoName, "    </Menus>", "menu.config");
         } else {
             createLoadFileTask("src/main/webapp/common/" + pojoName + "-menu-light.jsp", "menu-light.jsp").execute();
+
             File existingFile = new File(destinationDirectory + "/src/main/webapp/decorators/default.jsp");
+            File jsfConfig = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
+            if (jsfConfig.exists()) {
+                existingFile = new File(destinationDirectory + "/src/main/webapp/layouts/default.xhtml");
+            }
 
             parseXMLFile(existingFile, pojoName, "<!-- Add new menu items here -->", "menu-light.jsp");
         }

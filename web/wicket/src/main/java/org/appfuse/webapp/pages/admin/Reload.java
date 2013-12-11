@@ -1,7 +1,7 @@
 package org.appfuse.webapp.pages.admin;
 
 import org.apache.wicket.RestartResponseException;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.model.ResourceModel;
 import org.appfuse.webapp.listener.StartupListener;
 import org.appfuse.webapp.AbstractWebPage;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -20,7 +20,7 @@ public class Reload extends AbstractWebPage {
 
         StartupListener.setupContext(getServletContext());
         
-        getSession().info(createDefaultInfoNotificationMessage(Model.of(getString("reload.succeeded"))));
+        getSession().info(createDefaultInfoNotificationMessage(new ResourceModel("reload.succeeded")));
         throw new RestartResponseException(getApplication().getHomePage());
     }
 }

@@ -272,23 +272,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
-                    <artifactId>spring-aop</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-beans</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-expression</artifactId>
+                    <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -299,22 +283,16 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
-                    <artifactId>spring-aop</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-beans</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
+                    <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-ldap</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
         <!-- Upgrade version of AspectJ used by Spring Security -->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -458,6 +436,7 @@
                 <jdbc.url><![CDATA[jdbc:derby://localhost/appfuse;create=true]]></jdbc.url>
                 <jdbc.username>any</jdbc.username>
                 <jdbc.password>value</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -472,6 +451,7 @@
                 <jdbc.url><![CDATA[jdbc:h2:/tmp/appfuse;MVCC=TRUE]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password />
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -486,6 +466,7 @@
                 <jdbc.url><![CDATA[jdbc:hsqldb:/tmp/appfuse;shutdown=true]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password />
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -502,6 +483,7 @@
                 <jdbc.url><![CDATA[jdbc:oracle:thin:@localhost:1521:XE]]></jdbc.url>
                 <jdbc.username>system</jdbc.username>
                 <jdbc.password>system</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1 from DUAL]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -515,6 +497,7 @@
                 <jdbc.url><![CDATA[jdbc:postgresql://localhost/appfuse]]></jdbc.url>
                 <jdbc.username>postgres</jdbc.username>
                 <jdbc.password>postgres</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -532,6 +515,7 @@
                 <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:1433/appfuse]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password>appfuse</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
 
@@ -593,17 +577,18 @@
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>5.1.22</jdbc.version>
+        <jdbc.version>5.1.27</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>
             <![CDATA[jdbc:mysql://localhost/appfuse?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]>
         </jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password />
+        <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
 
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.url>
-            http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.42/bin/apache-tomcat-7.0.42.zip
+            http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.47/bin/apache-tomcat-7.0.47.zip
         </cargo.container.url>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
         <cargo.host>localhost</cargo.host>
@@ -613,50 +598,55 @@
         <acegijsf.version>1.1.3</acegijsf.version>
         <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <asm.version>2.2.3</asm.version>
-        <aspectj.version>1.6.10</aspectj.version>
+        <aspectj.version>1.7.4</aspectj.version>
         <cargo.version>1.4.4</cargo.version>
         <commons.lang.version>2.6</commons.lang.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
         <commons.collections.version>3.2.1</commons.collections.version>
-        <commons.dbcp.version>1.3</commons.dbcp.version>
-        <commons.fileupload.version>1.2.2</commons.fileupload.version>
+        <commons.dbcp.version>1.4</commons.dbcp.version>
+        <commons.fileupload.version>1.3</commons.fileupload.version>
         <commons.io.version>2.4</commons.io.version>
-        <cxf.version>2.7.1</cxf.version>
+        <cxf.version>2.7.7</cxf.version>
         <displaytag.version>1.2</displaytag.version>
-        <dwr.version>2.0.3</dwr.version>
-        <ehcache.version>2.6.2</ehcache.version>
+        <dwr.version>2.0.10</dwr.version>
+        <ehcache.version>2.6.6</ehcache.version>
         <ehcache.web.version>2.0.4</ehcache.web.version>
-        <el.version>1.2</el.version>
-        <hibernate.version>4.1.8.Final</hibernate.version>
-        <hibernate.entitymanager.version>4.1.8.Final</hibernate.entitymanager.version>
+        <el.version>2.2</el.version>
+        <hibernate.version>4.2.7.Final</hibernate.version>
+        <hibernate.entitymanager.version>4.2.7.Final</hibernate.entitymanager.version>
         <hibernate.search.version>4.1.1.Final</hibernate.search.version>
         <javamail.version>1.4.1</javamail.version>
-        <jetty.version>8.1.8.v20121106</jetty.version>
-        <jsf.version>2.1.9</jsf.version>
+        <jetty.version>8.1.14.v20131031</jetty.version>
+        <jsf.version>2.2.4</jsf.version>
         <mockito.version>1.9.5</mockito.version>
         <jpa.version>2.0-cr-1</jpa.version>
         <jsp.version>2.1</jsp.version>
         <jstl.version>1.2</jstl.version>
-        <junit.version>4.10</junit.version>
+        <junit.version>4.11</junit.version>
         <log4j.version>1.2.17</log4j.version>
-        <primefaces.version>3.5</primefaces.version>
-        <servlet.version>3.0.1</servlet.version>
+        <omnifaces.version>1.6.3</omnifaces.version>
+        <prettyfaces.version>3.3.3</prettyfaces.version>
+        <primefaces.version>4.0</primefaces.version>
+        <servlet.version>3.1.0</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>
-        <slf4j.version>1.6.1</slf4j.version>
-        <spring.version>3.2.4.RELEASE</spring.version>
+        <slf4j.version>1.7.5</slf4j.version>
+        <spring.version>3.2.5.RELEASE</spring.version>
         <spring.security.version>3.1.4.RELEASE</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
-        <struts.version>2.3.14.2</struts.version>
+        <struts.version>2.3.14.3</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
         <tapestry.version>5.3.7</tapestry.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>3.0</webtest.version>
         <wiser.version>1.2</wiser.version>
-        <bootstrap.version>2.2.1</bootstrap.version>
-        <wicket.version>6.3.0</wicket.version>
-        <wicketstuff.version>${wicket.version}</wicketstuff.version>        
+        <bootstrap.version>2.3.2</bootstrap.version>
+        <wicket.version>6.12.0</wicket.version>
+        <wicketstuff.version>6.12.0</wicketstuff.version>
+        <wicket.bootstrap.version>0.8.4</wicket.bootstrap.version>
+        <wicket.webjars.version>0.3.2</wicket.webjars.version>
+        <wro4j.version>1.7.2</wro4j.version>
         <gwt.version>2.5.0</gwt.version>
         <json.version>20090211</json.version>
         <gin.version>2.0.0</gin.version>
@@ -664,8 +654,8 @@
         <javax.validation.version>1.0.0.GA</javax.validation.version>
         <hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
         <selenium.version>2.37.1</selenium.version>
-
+        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <copyright.year>2003-2013</copyright.year>
+        <copyright.year>2003-2014</copyright.year>
     </properties>
 </project>

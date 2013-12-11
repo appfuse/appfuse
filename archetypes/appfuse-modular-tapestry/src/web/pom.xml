@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.8.v20121106</version>
+                <version>8.1.14.v20131031</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -96,6 +96,14 @@
                             </includes>
                         </resource>
                     </webResources>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>
@@ -111,8 +119,10 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
+                                <include>ApplicationResources_el*.properties</include>
                                 <include>ApplicationResources_zh*.properties</include>
                                 <include>ApplicationResources_ko*.properties</include>
+                                <include>displaytag_el*.properties</include>
                                 <include>displaytag_zh*.properties</include>
                             </includes>
                         </configuration>
@@ -270,16 +280,22 @@
             <artifactId>bootstrap</artifactId>
             <version>${bootstrap.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-datepicker</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <!-- Downgrade jQuery so it works with HtmlUnit -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>1.8.3</version>
+        </dependency>
     </dependencies>
 
     <profiles>
         <profile>
-            <id>integration-test</id>
-            <activation>
-                <property>
-                    <name>!skipTests</name>
-                </property>
-            </activation>
+            <id>itest</id>
             <build>
                 <plugins>
                     <plugin>

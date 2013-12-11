@@ -30,7 +30,6 @@
 
     <description>
         Spring MVC Module for AppFuse: includes Spring MVC, Display Tag and Spring Modules for validation.
-        Include this module in your dependencies if you want to use Spring MVC as your web framework.
     </description>
 
     <scm>
@@ -118,6 +117,14 @@
                             <targetPath>WEB-INF/classes</targetPath>
                         </resource>
                     </webResources>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
@@ -203,11 +210,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
-                    <artifactId>spring</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-support</artifactId>
+                    <artifactId>*</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>xml-apis</groupId>
@@ -215,16 +218,28 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- Add Bootstrap via WebJars -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-datepicker</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <!-- Downgrade jQuery so it works with HtmlUnit -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>1.8.3</version>
+        </dependency>
     </dependencies>
 
     <profiles>
         <profile>
-            <id>integration-test</id>
-            <activation>
-                <property>
-                    <name>!skipTests</name>
-                </property>
-            </activation>
+            <id>itest</id>
             <build>
                 <plugins>
                     <plugin>

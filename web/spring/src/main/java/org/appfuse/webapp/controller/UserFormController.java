@@ -45,7 +45,7 @@ public class UserFormController extends BaseFormController {
     }
 
     public UserFormController() {
-        setCancelView("redirect:/mainMenu");
+        setCancelView("redirect:/home");
         setSuccessView("redirect:/admin/users");
     }
 

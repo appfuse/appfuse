@@ -134,12 +134,6 @@
         </dependency>
         <dependency>
             <groupId>junit</groupId>
-            <artifactId>junit-dep</artifactId>
-            <version>4.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
@@ -233,6 +227,7 @@
                 <jdbc.url><![CDATA[jdbc:derby://localhost/${db.name};create=true]]></jdbc.url>
                 <jdbc.username>any</jdbc.username>
                 <jdbc.password>value</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -247,6 +242,7 @@
                 <jdbc.url><![CDATA[jdbc:h2:/tmp/${db.name};MVCC=TRUE]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password></jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -261,6 +257,7 @@
                 <jdbc.url><![CDATA[jdbc:hsqldb:/tmp/${db.name};shutdown=true]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password></jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -276,6 +273,7 @@
                 <jdbc.url><![CDATA[jdbc:oracle:thin:@localhost:1521:XE]]></jdbc.url>
                 <jdbc.username>system</jdbc.username>
                 <jdbc.password>system</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1 from DUAL]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -289,6 +287,7 @@
                 <jdbc.url><![CDATA[jdbc:postgresql://localhost/${db.name}]]></jdbc.url>
                 <jdbc.username>postgres</jdbc.username>
                 <jdbc.password>postgres</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -306,6 +305,7 @@
                 <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:3683/${db.name}]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password>appfuse</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
 
@@ -331,7 +331,7 @@
     <properties>
         <!-- Application settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <copyright.year>2013</copyright.year>
+        <copyright.year>2014</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>jsf</web.framework>
         <amp.genericCore>true</amp.genericCore>
@@ -341,20 +341,22 @@
         <!-- Framework dependency versions -->
         <acegijsf.version>1.1.3</acegijsf.version>
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
+        <bootstrap.version>2.3.2</bootstrap.version>
         <commons.io.version>2.4</commons.io.version>
-        <commons.fileupload.version>1.2.2</commons.fileupload.version>
-        <el.version>1.2</el.version>
-        <jsf.version>2.1.2</jsf.version>
-        <primefaces.version>3.5</primefaces.version>
-        <servlet.version>3.0.1</servlet.version>
-        <spring.version>3.2.3.RELEASE</spring.version>
+        <commons.fileupload.version>1.3</commons.fileupload.version>
+        <el.version>2.2</el.version>
+        <jsf.version>2.2.4</jsf.version>
+        <omnifaces.version>1.6.3</omnifaces.version>
+        <prettyfaces.version>3.3.3</prettyfaces.version>
+        <primefaces.version>4.0</primefaces.version>
+        <servlet.version>3.1.0</servlet.version>
+        <spring.version>3.2.5.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>
         <mockito.version>1.9.5</mockito.version>
         <jsp.version>2.1</jsp.version>
-        <junit.version>4.10</junit.version>
-        <servlet.version>3.0.1</servlet.version>
+        <junit.version>4.11</junit.version>
         <shale.version>1.0.5</shale.version>
         <wiser.version>1.2</wiser.version>
 
@@ -363,7 +365,7 @@
 
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
-        <cargo.container.url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.42/bin/apache-tomcat-7.0.42.zip</cargo.container.url>
+        <cargo.container.url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.47/bin/apache-tomcat-7.0.47.zip</cargo.container.url>
         <cargo.host>localhost</cargo.host>
         <cargo.port>8081</cargo.port>
         <cargo.wait>false</cargo.wait>
@@ -379,10 +381,11 @@
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>5.1.22</jdbc.version>
+        <jdbc.version>5.1.27</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url><![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password/>
+        <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
     </properties>
 </project>

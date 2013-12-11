@@ -248,9 +248,12 @@ public class AppFuseExporter extends GenericExporter {
                 String packageLocation = getPackageNameForFile(element).replace(".", "/");
 
                 String pojoName = System.getProperty("entity");
+                if (pojoName == null) {
+                    pojoName = System.getProperty("appfuse.entity");
+                }
 
                 // A dot in the entity name means the person is specifying the package.
-                if (System.getProperty("entity").contains(".")) {
+                if (pojoName.contains(".")) {
                     packageLocation = pojoName.substring(0, pojoName.indexOf(".model"));
                     packageLocation = packageLocation.replace(".", "/");
                 }

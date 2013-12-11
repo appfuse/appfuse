@@ -5,7 +5,7 @@ import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
 
 /**
- * A behavior that add a required attribute support for input components.
+ * A behavior that adds a required attribute support for an input components.
  */
 public class RequiredBehavior extends Behavior {
 

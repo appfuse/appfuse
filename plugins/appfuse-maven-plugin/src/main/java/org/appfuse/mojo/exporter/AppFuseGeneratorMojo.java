@@ -2,7 +2,6 @@ package org.appfuse.mojo.exporter;
 
 
 import org.apache.commons.io.FileUtils;
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.appfuse.mojo.HibernateExporterMojo;
@@ -18,12 +17,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
+import java.io.*;
 import java.util.Collection;
 
 /**
@@ -139,7 +133,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
         // A dot in the entity name means the person is specifying the package.
         if (pojoName.contains(".")) {
-            if (pojoName.indexOf("model") == -1) {
+            if (!pojoName.contains("model")) {
                 throw new MojoExecutionException("You must specify 'model' as the last package in your entity name.");
             }
             fullPath = pojoName.substring(0, pojoName.indexOf(".model"));
@@ -154,7 +148,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
         // If dao.framework is jpa, change to jpaconfiguration and persistence.xml should be found in classpath.
         // No other configuration is needed.
-        if (daoFramework.indexOf("jpa") > -1) {
+        if (daoFramework.contains("jpa")) {
             getComponentProperties().put("implementation", "jpaconfiguration");
             checkEntityExists();
         }
@@ -288,17 +282,17 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
         exporter.getProperties().setProperty("hasSecurity", String.valueOf(hasSecurity));
 
-        // determine if using Home or MainMenu for Tapestry
+        // determine if using Home or Home for Tapestry
         if (webFramework.equals("tapestry")) {
-            boolean useMainMenu = true;
+            boolean useHome = true;
             Collection<File> sourceFiles = FileUtils.listFiles(getProject().getBasedir(),new String[]{"java"}, true);
             for (File file : sourceFiles) {
                 if (file.getPath().contains("Home.java")) {
-                    useMainMenu = false;
+                    useHome = false;
                     break;
                 }
             }
-            exporter.getProperties().setProperty("useMainMenu", String.valueOf(useMainMenu));
+            exporter.getProperties().setProperty("useHome", String.valueOf(useHome));
         }
 
         return exporter;

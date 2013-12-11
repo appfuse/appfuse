@@ -9,6 +9,7 @@
         <locale-config>
             <default-locale>en</default-locale>
             <supported-locale>de</supported-locale>
+            <supported-locale>el</supported-locale>
             <supported-locale>en</supported-locale>
             <supported-locale>es</supported-locale>
             <supported-locale>fr</supported-locale>
@@ -24,10 +25,14 @@
             <supported-locale>zh_TW</supported-locale>
         </locale-config>
         <message-bundle>ApplicationResources</message-bundle>
+        <resource-bundle>
+            <base-name>ApplicationResources</base-name>
+            <var>text</var>
+        </resource-bundle>
     </application>
 
     <navigation-rule>
-        <from-view-id>/mainMenu.xhtml</from-view-id>
+        <from-view-id>/home.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>selectFile</from-outcome>
             <to-view-id>/selectFile.xhtml</to-view-id>
@@ -37,8 +42,8 @@
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
-            <from-outcome>mainMenu</from-outcome>
-            <to-view-id>/mainMenu.xhtml</to-view-id>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/home.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -89,7 +94,7 @@
         <from-view-id>/admin/reload.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/mainMenu.xhtml</to-view-id>
+            <to-view-id>/home.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

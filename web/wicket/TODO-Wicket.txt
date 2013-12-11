@@ -1,0 +1,128 @@
+Main TODO in AppFuse-Wicket:
+ - getting data of current user (UserEdit) - DONE
+ - sorting efficiency (UserList)
+ - add using i18n resources from standard AppFuse directory - a workaround in pom.xml - a custom ResourceLoader
+using app*.properties should be written - DONE - hack with custom class crated using Javassist
+ - reusable component for editing user data - with subclassing for Sing up and others? - DONE
+ - roles support during editing user (UserEdit) - DONE
+ - full support for save and delete in different modes - DONE
+ - activeUsers? - DONE
+ - add integration with j_security_check - action in a wicket form cannot be used - Wicket overrides it -
+workaround with redirect?
+ - RememberMe feature from Spring security - does it work?
+ - removing rememberMe cookie during Logout - DONE
+ - file upload - looks strange to upload files to application directory - LATER - 3.0?
+ - change mouse cursor over link in a table (UserList)
+ - RequiredLabel enhancements (label with text component?) - OBSOLETE
+ - mainMenu -> home - LATER - requires changes in web-common - OBSOLETE
+ - the same buttons twice (UserEdit) - DONE
+ - some tests - DONE
+ - add "Are you sure?" question on delete user (JS alert?) - DONE
+ - Clickstream - LATER
+ - move pages to resources directory (currently together with Java classes),
+   try: https://cwiki.apache.org/WICKET/control-where-html-files-are-loaded-from.html#ControlwhereHTMLfilesareloadedfrom-InWicket1.4 - NEEDED?
+ - on "mvn clean package" fooWicketApplication.properties isn't copied to target which causes:
+   'Unable to find property: 'user.password' for component: userEditForm:userEditPanel' in tests. When run from IDE
+   file is copied and tests from Maven works fine - DONE (added resources from /src/main/java/ in pom.xml) - OBSOLETE
+ - broken acceptance tests (part 1): web/wicket/src/test/resources/login.xmlf:1: HTTP error 400: 400 Bad Request for http://localhost:9876/scripts/login.js - DONE
+ - broken acceptance tests (part 2): 400 Bad Request for http://localhost:9876/appfuse-wicket-2.1.0-SNAPSHOT/../../login
+   on password hint (web-tests.xml:52) - see comment PasswordHint class - OBSOLETE - url looks ok in 6.12.0
+ - broken acceptance tests (part 3) - Sign up page has wrong title - AbstractUserEdit.html markup title should be change depending on
+   a concrete page (Sign up, Edit user, ...) and other broken tests
+ - decide if there should be page url passwordHint or passwordhint
+ - assign roles doesn't work when editing an user from a list - #14 - DONE
+ - Java scripts on a Login page doesn't work. JS error: "ReferenceError: $ is not defined" in global.js could be a reason - DONE -
+   Tapestry had its own prototype.js import and it was removed also in Wicket default.jsp
+ - find some better way to create parametrized string messages than StringResourceModel
+ - "checkbox column" in a table - PhoneBook sample application has that one
+
+Migration to 1.5
+ - password hint url is not properly generated - http://localhost:8080/login? - possible problem with injecting JavaScript - DONE
+ - check if absolute url is properly created (3 places) - DONE
+
+Migration to 6
+ - DataTable style has changed and the header takes two lines instead of one - LATER (when with Bootstrap) - DONE
+ - JavaScript on a login page doesn't work - a lot of error messages - probably Prototype conflicts with JQuery - DONE
+
+Files copied from web-common to make some Wicket specific changes (should be unified):
+ - default.jsp
+ - style.css (changes in common)
+ - login.js
+
+Integration with Bootstrap and AppFuse 2.2
+ - remove (probably) not needed references to prototype.js and friends - DONE
+ - add Required and Placeholder behavior - http://tom.hombergs.de/2011/12/wicket-html5-required-and-placeholder.html - DONE
+ - move all required common JS/CSS imports from default.jsp to base WebPage - DONE
+ - why #login p from style doesn't work on a login page? - DONE
+ - make 'decorator:getProperty property="body.class"' works - DONE
+ - maybe it is worth to get rid of default.jsp and use some template mechanism from Wicket?
+ - fix problem with remaining red div after dismiss an error message
+ - adjust style.css to Wicket styles for table header - DONE
+ - take a look on some nice looking classes available in wicket-bootstrap library
+ - why empty wicket:message from <title> is rendered inside body (and by the way breaks layout on "Current User" page) - OBSOLETE
+ - sync localized messages with upstream - DONE
+ - icons on button - <a><i class="icon-plus icon-white"></i> Add</a> - DONE
+ - collapsible address section - DONE
+ - input inside label for "Account Settings" - a new component? - 3.0?
+ - add placeholder and required behavior to TextField on UserEditPanel (a new component?) - DONE
+ (just added required behavior, placeholder is not used there)
+ - Cancel button doesn't work with HTML5 required attribute (remove it and use back button in a browser?) - DONE - Link used instead of Button
+ - setRequired(true) is not compatible with NotificationPanel - DONE (fixed upstream)
+ - fix acceptance tests: 404 Not Found for http://localhost:8888/AppFuse - login.xmlf:1 - DONE (old config.xmlf)
+ - fix acceptance test: setselectfield - country - DONE - workaround with optionIndex
+ - change button name on Signup page: Save -> Signup
+ - change page title on Signup page: User Settings -> Signup - DONE
+ - fix acceptance test: signup - doesn't move to a login page and others - currently disabled in Maven
+ - resolve problem with sending password hash to an user on edit - APF-1370
+ - arrows in a table should be next to a header label (not at the end of a column on the right side)
+
+ - rename AppFuseWicketApplication to AppFuseWicketApplication - DONE
+ - Archetype: missing scripts/login.js - DONE - moved it to webapp/scripts/
+ - Archetype: html files are pages directory in addition to webapp/pages - DONE - an ugly hack required due to APF-1378
+ - Archetype: remove bootstrap and jquery related files (webapp/styles/lib/*) - DONE
+ - are common/*.jsp, appfuse.tld, EscapeXml*.java, taglib/* really needed
+ - UserCounterListener could be used instead of Spring Security to count and display active users
+ - Archetype: remove src/test/resources/target and remove src/test/java-tapestry - DONE
+ - Archetype: src/main/webapp/scripts cannot be deleted - it removes includes *\/*.html and *\/*.tld for src/main/webapp in maven-archetype-metadata.xml
+ - Idea: why exploded archetype isn't updated before deploy (build on make shouldn't be necessary) - DONE -only with ajc - with javac works fine
+ - Autumn update: failing tests - changed markup? changed default error messages? - DONE
+ - Autumn update: LockObtainFailedException: Lock obtain timed out: SimpleFSLock@target/index/org.appfuse.model.User/write.lock - DONE - target is create
+in $CATALINA_HOME/bin/
+ - Autumn update: exclude jquery and bootstrap from web/pom.xml - a hack with provided or move it to dependencyManagement
+ - Autumn update: integrate jquery.cookie.js moved to webjar - DONE
+
+ - generated list of countries - should be sorted by country name, not code
+ - generated list of countries - should use data from http://cldr.unicode.org/
+ - generated list of countries - cacheable with @Cacheable from Spring?
+ - /dwr and /services don't have css and scripts (and looks quite raw) - there were moved from default.jsp to Wicket itself
+ - search query component placeholder needs a page refresh to apply new locale
+ - user edit form could be parametrized using configurable interface passed into a form
+ - give code someone to review
+
+Before 3.0:
+ - generated list of countries - DONE - with some limitations
+ - content is always in English - DONE - added support for ?locale=pl request parameter
+ - ensure "mvn appfuse:full-source" works fine with the Wicket archetype - DONE
+ - fix acceptance test: signup - doesn't move to a login page and others - DONE - problem with understanding Bootstrap buttons
+ - resources from /appfuse/wicket/resource/... are not accessible before login - DONE
+ - address should not be collapsed on a Signup form - DONE
+ - password hint without given an username causes: MarkupNotFoundException: Can not determine Markup. Component is not yet connected to a parent. - DONE
+
+Best before 3.0:
+ - decide if there should be page url passwordHint or passwordhint - DONE - passwordHint
+ - Files copied from web-common to make some Wicket specific changes (should be unified) - *.jsp - DONE - 2 files left
+ - fix problem with remaining red div after dismiss an error message - OBSOLETE
+ - input inside label for "Account Settings" - a new component? - 3.0?
+ - change button name on Signup page: Save -> Signup
+ - enable passwordHint acceptance tests - DONE
+
+ - file upload - looks strange to upload files to application directory - LATER - 3.0?
+ - change mouse cursor over link in a table (UserList)
+ - maybe it is worth to get rid of default.jsp and use some template mechanism from Wicket?
+ - resolve problem with sending password hash to an user on edit - APF-1370
+ - arrows in a table should be next to a header label (not at the end of a column on the right side)
+ - integration with new password recovery mechanism
+
+ - add integration with j_security_check - action in a wicket form cannot be used - Wicket overrides it -
+workaround with redirect? - HOW TO DO IT?
+ - RememberMe feature from Spring security - does it work?

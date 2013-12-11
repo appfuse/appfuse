@@ -76,7 +76,7 @@ public class SignupForm extends BasePage implements Serializable {
             return null;
         }
 
-        return "mainMenu";
+        return "home";
     }
 
     public String getCountry() {

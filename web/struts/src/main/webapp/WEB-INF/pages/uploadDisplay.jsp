@@ -35,7 +35,7 @@
         </tr>
     </table>
     <div id="actions" class="form-actions">
-        <a class="btn btn-primary" href="mainMenu" >
+        <a class="btn btn-primary" href="home" >
             <i class="icon-ok icon-white"></i>
             <fmt:message key="button.done"/>
         </a>

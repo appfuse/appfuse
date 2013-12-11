@@ -81,10 +81,12 @@ public class Login {
 
     void afterRender() {
         JSONObject spec = new JSONObject();
+
         String requiredUsernameError = messages.format("errors.required",
                 messages.get("label.username"));
         String requiredPasswordError = messages.format("errors.required",
                 messages.get("label.password"));
+
         spec.put("url", createLink(this.getClass()))
                 .put("passwordHintLink", createLink(PasswordHint.class))
                 .put("requiredUsername", requiredUsernameError)

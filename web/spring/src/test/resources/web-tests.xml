@@ -34,7 +34,7 @@
     </target>
     
     <!-- Login to the application -->
-    <target name="Login" description="Runs login test and verifies Main Menu's Title">
+    <target name="Login" description="Runs login test and verifies Home's Title">
         <webtest name="login">
             &config;
             <steps>
@@ -124,8 +124,8 @@
                 <setinputfield description="set address" name="address.address" value="2255 Lane Avenue"/>
                 <setinputfield description="set zipcode" name="address.postalCode" value="59826"/>
                 <clickbutton label="${button.save}" description="Click Save"/>
-                <verifytitle description="display Main Menu if save OK"
-                     text=".*${mainMenu.title}.*" regex="true"/>
+                <verifytitle description="display Home if save OK"
+                     text=".*${home.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -192,7 +192,7 @@
                 <setinputfield description="set passwordHint" name="passwordHint" value="test"/>
                 <clickbutton label="${button.register}" description="Click button 'Signup'"/>
 
-                <verifytitle description="view main menu" text=".*${mainMenu.title}.*" regex="true"/>
+                <verifytitle description="view main menu" text=".*${home.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${user.registered}"/>
             </steps>
         </webtest>

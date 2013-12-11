@@ -9,7 +9,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.util.Map;
 
 
 /**
@@ -53,5 +52,7 @@ public class StartupListenerTest extends TestCase {
         assertTrue(sc.getAttribute(WebApplicationContext
                 .ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null);
         assertTrue(sc.getAttribute(Constants.AVAILABLE_ROLES) != null);
+
+        assertNotNull(sc.getAttribute(Constants.ASSETS_VERSION));
     }
 }

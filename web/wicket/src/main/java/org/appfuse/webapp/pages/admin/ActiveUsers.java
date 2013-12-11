@@ -1,8 +1,8 @@
 package org.appfuse.webapp.pages.admin;
 
-import de.agilecoders.wicket.markup.html.bootstrap.button.ButtonType;
-import de.agilecoders.wicket.markup.html.bootstrap.button.TypedBookmarkablePageLink;
-import de.agilecoders.wicket.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
@@ -10,13 +10,17 @@ import org.apache.wicket.model.ResourceModel;
 import org.appfuse.model.User;
 import org.appfuse.webapp.AbstractWebPage;
 import org.appfuse.webapp.SSAuthenticatedWebSession;
-import org.appfuse.webapp.pages.MainMenu;
+import org.appfuse.webapp.pages.Home;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO: MZA: Partial duplication with UserList. Can be removed?
+/**
+ * Page displaying a list of users that have logged in and their sessions have not expired.
+ *
+ * TODO: MZA: Partial duplication with UserList. Can be removed?
+ */
 @MountPath("admin/activeUsers")
 public class ActiveUsers extends AbstractWebPage {
 
@@ -34,8 +38,8 @@ public class ActiveUsers extends AbstractWebPage {
         add(createActiveUsersTable());
     }
 
-    private TypedBookmarkablePageLink<String> createDoneButton() {
-        return new TypedBookmarkablePageLink<String>("doneButton", MainMenu.class, ButtonType.Primary)
+    private BootstrapBookmarkablePageLink<String> createDoneButton() {
+        return new BootstrapBookmarkablePageLink<String>("doneButton", Home.class, Buttons.Type.Primary)
                 .setLabel(new ResourceModel("button.done"))
                 .setIconType(IconType.ok)
                 .setInverted(true);

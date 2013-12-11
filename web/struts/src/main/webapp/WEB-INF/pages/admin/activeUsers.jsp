@@ -12,7 +12,7 @@
     <p><fmt:message key="activeUsers.message"/></p>
 
     <div id="actions" class="form-actions">
-        <a class="btn btn-primary" href="${ctx}/mainMenu" >
+        <a class="btn btn-primary" href="${ctx}/home" >
             <i class="icon-ok icon-white"></i> <fmt:message key="button.done"/>
         </a>
     </div>

@@ -84,7 +84,7 @@
             <delete dir="${test.dir}/@{archetype}"/>
             <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}"/>
             <!-- verify: runs webtest and verifies result. locale=en as otherwise there are webtests that fail -->
-            <mvn dir="${test.dir}/@{archetype}" command="verify -Duser.language=en -Ddao.framework=@{dao.framework}"/>
+            <mvn dir="${test.dir}/@{archetype}" command="verify -Duser.language=en -Ddao.framework=@{dao.framework} -Pitest"/>
         </sequential>
     </macrodef>
 
@@ -95,7 +95,7 @@
         <attribute name="version" default=""/>
         <attribute name="command"
                 default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
-            -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -DpackageName=com.mycompany
+            -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -Dpackage=com.mycompany.mypackage
             -DarchetypeCatalog=local"/>
 
         <sequential>
@@ -155,13 +155,27 @@
             <if>
                 <equals arg1="@{module}" arg2="jsf"/>
                 <then>
-                    <delete dir="@{dir}" includes="**/displaytag*.properties"/>
+                    <delete dir="@{dir}">
+                        <include name="**/displaytag*.properties"/>
+                        <include name="**/decorators.xml"/>
+                        <include name="**/sitemesh.xml"/>
+                        <include name="**/login.jsp"/>
+                    </delete>
+                    <delete dir="@{dir}/src/main/webapp/decorators"/>
+                    <delete dir="@{dir}/src/main/webapp/WEB-INF/tags"/>
                 </then>
             </if>
             <if>
                 <equals arg1="@{module}" arg2="tapestry"/>
                 <then>
-                    <delete dir="@{dir}" includes="**/displaytag*.properties"/>
+                    <delete dir="@{dir}">
+                        <include name="**/displaytag*.properties"/>
+                        <include name="**/decorators.xml"/>
+                        <include name="**/sitemesh.xml"/>
+                        <include name="**/login.jsp"/>
+                    </delete>
+                    <delete dir="@{dir}/src/main/webapp/decorators"/>
+                    <delete dir="@{dir}/src/main/webapp/WEB-INF/tags"/>
                 </then>
             </if>
             <if>
@@ -224,6 +238,8 @@
                     <delete dir="@{dir}/src/main/webapp/styles/lib"/>
                     <delete dir="@{dir}/src/main/webapp/styles/img"/>
                     <delete dir="@{dir}/src/main/webapp/styles/img"/>
+                    <delete file="@{dir}/TODO-Wicket.txt"/>
+                    <delete file="@{dir}/web/TODO-Wicket.txt"/>
 
                     <!-- TODO: MZA: Why deleting scripts directory removes includes for */*.html and */*.tld for
                          src/main/webapp in maven-archetype-metadata.xml ? -->
@@ -296,6 +312,26 @@
                 <replacetoken>import org.appfuse.webapp.util.RequestUtil</replacetoken>
                 <replacevalue>import ${package}.webapp.util.RequestUtil</replacevalue>
             </replace>
+
+            <if>
+                <equals arg1="@{module}" arg2="wicket"/>
+                <then>
+                    <!-- TODO: MZA: Can it be done automatically for all static imports? -->
+                    <replace dir="@{dir}/target/generated-sources/archetype/src">
+                        <replacetoken>import static ${package}.util.NumberRangeUtil</replacetoken>
+                        <replacevalue>import static ${package}.webapp.util.NumberRangeUtil</replacevalue>
+                    </replace>
+                    <replace dir="@{dir}/target/generated-sources/archetype/src">
+                        <replacetoken>import static ${package}.StaticAuthenticatedWebSession</replacetoken>
+                        <replacevalue>import static ${package}.webapp.StaticAuthenticatedWebSession</replacevalue>
+                    </replace>
+
+                    <replace dir="@{dir}/target/generated-sources/archetype/src">
+                        <replacetoken>${package}.pages</replacetoken>
+                        <replacevalue>${package}.webapp.pages</replacevalue>
+                    </replace>
+                </then>
+            </if>
 
             <replace dir="@{dir}/target/generated-sources/archetype/src">
                 <replacetoken>import org.appfuse.util.MessageUtil</replacetoken>
@@ -558,15 +594,15 @@
                 <replacevalue>webapp</replacevalue>
             </replace>
 
-            <!-- Replace org.appfuse with ${groupId} in applicationContext.xml -->
+            <!-- Replace org.appfuse with ${package} in applicationContext.xml -->
             <!-- Happens in basic archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
                 <replacetoken>base-package="org.appfuse"</replacetoken>
-                <replacevalue>base-package="${groupId}"</replacevalue>
+                <replacevalue>base-package="${package}"</replacevalue>
             </replace>
 
-            <!-- Replace ${groupId}.webapp with ${groupId} in applicationContext.xml -->
+            <!-- Replace ${package}.webapp with ${package} in applicationContext.xml -->
             <!-- Happens in modular archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
@@ -575,7 +611,7 @@
             </replace>
 
             <!-- Leave Compass as indexing org.appfuse by default -->
-            <!-- Replace ${groupId}.webapp with org.appfuse in applicationContext.xml -->
+            <!-- Replace ${package}.webapp with org.appfuse in applicationContext.xml -->
             <!-- Happens in basic archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
@@ -583,7 +619,7 @@
                 <replacevalue>value="org.appfuse"</replacevalue>
             </replace>
 
-            <!-- Replace ${groupId} with org.appfuse in applicationContext.xml -->
+            <!-- Replace ${package} with org.appfuse in applicationContext.xml -->
             <!-- Happens in modular archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
@@ -628,7 +664,7 @@
                         <include name="**/*.xml"/>
                         <include name="**/*.properties"/>
                         <replacetoken>${package}</replacetoken>
-                        <replacevalue>${groupId}.webapp</replacevalue>
+                        <replacevalue>${package}.webapp</replacevalue>
                     </replace>
                     <replace dir="@{dir}/target/generated-sources/archetype">
                         <include name="**/BasePageTestCase.java"/>

@@ -88,24 +88,34 @@ public class UpdatePasswordController extends BaseFormController {
             throws Exception
     {
         log.debug("PasswordRecoveryController onSubmit for username: " + username);
-        final Locale locale = request.getLocale();
-        
-        if(!username.equals(request.getRemoteUser())) {
-            throw new AccessDeniedException("You do not have permission to modify other users password.");
-        }
 
+        final Locale locale = request.getLocale();
         if (StringUtils.isEmpty(password)) {
             saveError(request, getText("errors.required", getText("updatePassword.newPassword.label", locale), locale));
             return showForm(username, null, request);
         }
 
-        final User user = getUserManager().updatePassword(username, currentPassword, token, password,
-                RequestUtil.getAppURL(request));
+        User user = null;
+        final boolean usingToken = StringUtils.isNotBlank(token);
+        if (usingToken) {
+            log.debug("Updating Password for username " + username + ", using reset token");
+            user = getUserManager().updatePassword(username, null, token, password,
+                    RequestUtil.getAppURL(request));
+
+        } else {
+            log.debug("Updating Password for username " + username + ", using current password");
+            if (!username.equals(request.getRemoteUser())) {
+                throw new AccessDeniedException("You do not have permission to modify other users password.");
+            }
+            user = getUserManager().updatePassword(username, currentPassword, null, password,
+                    RequestUtil.getAppURL(request));
+        }
+
         if (user != null) {
             saveMessage(request, getText("updatePassword.success", new Object[] { username }, locale));
         }
         else {
-            if (StringUtils.isNotBlank(token)) {
+            if (usingToken) {
                 saveError(request, getText("updatePassword.invalidToken", locale));
             }
             else {

@@ -25,7 +25,7 @@
             <div class="nav-collapse collapse">
             <t:menu class="nav" active="${menu}">
                 <t:if test="prop:loggedIn">
-                    <t:menuitem name="MainMenu" title="mainMenu.title" page="home" roles="ROLE_ADMIN,ROLE_USER"/>
+                    <t:menuitem name="Home" title="home.title" page="home" roles="ROLE_ADMIN,ROLE_USER"/>
                     <t:menuitem name="UserMenu" title="menu.user" page="home.editprofile"
                                 roles="ROLE_ADMIN,ROLE_USER"/>
                     <!-- Add new menu items here -->
@@ -73,7 +73,7 @@
 
 <t:block id="adminItemsBlock">
     <t:menuitem name="ViewUsers" title="menu.admin.users" page="admin/userlist"/>
-    <t:menuitem name="ActiveUsers" title="mainMenu.activeUsers" page="admin/activeusers"/>
+    <t:menuitem name="ActiveUsers" title="home.activeUsers" page="admin/activeusers"/>
     <t:menuitem name="ReloadContext" title="menu.admin.reload" page="admin/reload"/>
     <t:menuitem name="FileUpload" title="menu.selectFile" page="fileupload"/>
 </t:block>

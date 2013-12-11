@@ -1,5 +1,6 @@
 package org.appfuse.webapp.pages;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.model.IModel;
@@ -9,7 +10,7 @@ import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 
 /**
- * Page for editing current user from list and administrative addition of a new user.
+ * Page for editing a current user from list and an administrative addition of a new user.
  *
  * @author Marcin Zajączkowski, 2011-03-12
  */
@@ -49,12 +50,12 @@ public class FromListUserEdit extends AbstractUserEdit {
         try {
             getUserManager().saveUser(user);
             getSession().info(createDefaultInfoNotificationMessage(
-                    new StringResourceModel("user.added", this, null, new Object[]{user.getUsername()})));
+                    new StringResourceModel("user.added", this, null, new Object[]{user.getFullName()})));
             resolveAndSetResponsePage();
         } catch (UserExistsException e) {
             log.warn("User already exists", e);
-            error(new StringResourceModel("errors.existing.user", this, null, new Object[] {
-                    user.getUsername(), user.getEmail()}).getString());
+            error(new NotificationMessage(new StringResourceModel("errors.existing.user", this, null, new Object[] {
+                    user.getUsername(), user.getEmail()})));
         }
     }
 

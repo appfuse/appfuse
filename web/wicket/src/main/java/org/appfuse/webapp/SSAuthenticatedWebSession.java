@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * org.appfuse.webapp.SSAuthenticatedWebSession
+ * AuthenticatedWebSession implementation using Spring Security.
  *
- * Based on: https://cwiki.apache.org/WICKET/spring-security-and-wicket-auth-roles.html
+ * Based on: https://cwiki.apache.org/confluence/display/WICKET/Spring+Security+and+Wicket-auth-roles
  *
  * @author Marcin Zajączkowski, 2011-02-05
  */
@@ -41,7 +41,7 @@ public class SSAuthenticatedWebSession extends AuthenticatedWebSession {
 
         Injector.get().inject(this);
         if (authenticationManager == null) {
-            throw new IllegalStateException("AdminSession requires an authenticationManager.");
+            throw new IllegalStateException("Injection of AuthenticationManager failed.");
         }
         
     }

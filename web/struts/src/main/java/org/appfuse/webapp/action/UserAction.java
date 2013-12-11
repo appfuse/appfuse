@@ -143,13 +143,13 @@ public class UserAction extends BaseAction implements Preparable {
     }
 
     /**
-     * Sends users to "mainMenu" when !from.equals("list"). Sends everyone else to "cancel"
+     * Sends users to "home" when !from.equals("list"). Sends everyone else to "cancel"
      *
-     * @return "mainMenu" or "cancel"
+     * @return "home" or "cancel"
      */
     public String cancel() {
         if (!"list".equals(from)) {
-            return "mainMenu";
+            return "home";
         }
         return "cancel";
     }
@@ -195,7 +195,7 @@ public class UserAction extends BaseAction implements Preparable {
         if (!"list".equals(from)) {
             // add success messages
             saveMessage(getText("user.saved"));
-            return "mainMenu";
+            return "home";
         } else {
             // add success messages
             List<Object> args = new ArrayList<Object>();

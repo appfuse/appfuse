@@ -4,17 +4,19 @@ import org.apache.tapestry5.*;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.internal.services.StringValueEncoder;
-import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.Messages;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.webapp.AppFuseEventConstants;
+import org.appfuse.webapp.pages.PasswordUpdate;
 import org.appfuse.webapp.services.CountryService;
 import org.appfuse.webapp.services.impl.RoleEncoder;
 import org.slf4j.Logger;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +71,9 @@ public class UserForm implements ClientElement, FormValidationControl {
 
     @Inject
     private JavaScriptSupport jsSupport;
+
+    @Inject
+    HttpServletRequest request;
 
     @Inject
     private RoleManager roleManager;
@@ -173,4 +178,10 @@ public class UserForm implements ClientElement, FormValidationControl {
     public String getConfirmDeletion() {
         return messages.format("delete.confirm", "user: " + user.getUsername());
     }
+
+
+    public boolean isSelf() {
+        return isUserPersisted() && user.getUsername().equals(request.getRemoteUser());
+    }
+
 }

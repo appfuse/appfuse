@@ -17,6 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.ldap.userdetails.LdapUserDetails;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -30,6 +31,7 @@ import java.util.Set;
  * @author mraible
  */
 public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
+
     /**
      * Default "Access Denied" error message (not i18n-ized).
      */
@@ -41,7 +43,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
      * users are allowed to modify themselves.
      *
      * @param method the name of the method executed
-     * @param args the arguments to the method
+     * @param args   the arguments to the method
      * @param target the target class
      * @throws Throwable thrown when args[0] is null or not a User object
      */
@@ -66,7 +68,8 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             boolean signupUser = resolver.isAnonymous(auth);
 
             if (!signupUser) {
-                User currentUser = getCurrentUser(auth);
+                UserManager userManager = (UserManager) target;
+                User currentUser = getCurrentUser(auth, userManager);
 
                 if (user.getId() != null && !user.getId().equals(currentUser.getId()) && !administrator) {
                     log.warn("Access Denied: '" + currentUser.getUsername() + "' tried to modify '" + user.getUsername() + "'!");
@@ -104,14 +107,15 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
 
     /**
      * After returning, grab the user, check if they've been modified and reset the SecurityContext if they have.
+     *
      * @param returnValue the user object
-     * @param method the name of the method executed
-     * @param args the arguments to the method
-     * @param target the target class
+     * @param method      the name of the method executed
+     * @param args        the arguments to the method
+     * @param target      the target class
      * @throws Throwable thrown when args[0] is null or not a User object
      */
     public void afterReturning(Object returnValue, Method method, Object[] args, Object target)
-    throws Throwable {
+            throws Throwable {
         User user = (User) args[0];
 
         if (user.getVersion() != null) {
@@ -121,7 +125,8 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             // allow new users to signup - this is OK b/c Signup doesn't allow setting of roles
             boolean signupUser = resolver.isAnonymous(auth);
             if (auth != null && !signupUser) {
-                User currentUser = getCurrentUser(auth);
+                UserManager userManager = (UserManager) target;
+                User currentUser = getCurrentUser(auth, userManager);
                 if (currentUser.getId().equals(user.getId())) {
                     auth = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(auth);
@@ -130,9 +135,13 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
         }
     }
 
-    private User getCurrentUser(Authentication auth) {
+    private User getCurrentUser(Authentication auth, UserManager userManager) {
         User currentUser;
-        if (auth.getPrincipal() instanceof UserDetails) {
+        if (auth.getPrincipal() instanceof LdapUserDetails) {
+            LdapUserDetails ldapDetails = (LdapUserDetails) auth.getPrincipal();
+            String username = ldapDetails.getUsername();
+            currentUser = userManager.getUserByUsername(username);
+        } else if (auth.getPrincipal() instanceof UserDetails) {
             currentUser = (User) auth.getPrincipal();
         } else if (auth.getDetails() instanceof UserDetails) {
             currentUser = (User) auth.getDetails();

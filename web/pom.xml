@@ -199,5 +199,15 @@
             <artifactId>urlrewritefilter</artifactId>
             <version>${urlrewrite.version}</version>
         </dependency>
+        <dependency>
+            <groupId>ro.isdc.wro4j</groupId>
+            <artifactId>wro4j-core</artifactId>
+            <version>${wro4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery-cookie</artifactId>
+            <version>1.3.1</version>
+        </dependency>
     </dependencies>
 </project>

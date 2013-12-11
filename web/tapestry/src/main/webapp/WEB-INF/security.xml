@@ -14,6 +14,8 @@
         <intercept-url pattern="/login*/**" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>
         <intercept-url pattern="/passwordhint*/**" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/passwordrecoverytoken*/**" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/passwordupdate*/**" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/signup*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/**" access="ROLE_ADMIN,ROLE_USER"/>
 
@@ -29,16 +31,13 @@
     <authentication-manager>
         <authentication-provider user-service-ref="userDao">
             <password-encoder ref="passwordEncoder">
-                <salt-source ref="saltSource"/>
             </password-encoder>
         </authentication-provider>
     </authentication-manager>
 
-    <beans:bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource"
-        p:userPropertyToUse="username"/>
 
-    <!-- Override the default password-encoder (SHA) by uncommenting the following and changing the class -->
-    <!-- <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/> -->
+    <!-- Override the default password-encoder (BCrypt) by uncommenting the following and changing the class -->
+    <!-- <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> -->
 
     <global-method-security>
         <protect-pointcut expression="execution(* *..service.UserManager.getUsers(..))" access="ROLE_ADMIN"/>

@@ -5,7 +5,7 @@ import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
 
 /**
- * A behavior that add a autofocus attribute support for input components.
+ * A behavior that adds a autofocus attribute support for an input components.
  */
 public class AutofocusBehavior extends Behavior {
 

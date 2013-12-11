@@ -21,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
@@ -30,6 +31,9 @@ public class UserSecurityAdviceTest {
 
     @Mock
     private UserDao userDao;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     ApplicationContext ctx = null;
     SecurityContext initialSecurityContext = null;
@@ -92,6 +96,7 @@ public class UserSecurityAdviceTest {
         adminUser.setId(2L);
 
         given(userDao.saveUser(adminUser)).willReturn(adminUser);
+        given(passwordEncoder.encode(adminUser.getPassword())).willReturn(adminUser.getPassword());
 
         userManager.saveUser(adminUser);
     }
@@ -104,6 +109,7 @@ public class UserSecurityAdviceTest {
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
         given(userDao.saveUser(user)).willReturn(user);
+        given(passwordEncoder.encode(user.getPassword())).willReturn(user.getPassword());
 
         userManager.saveUser(user);
     }
@@ -164,6 +170,7 @@ public class UserSecurityAdviceTest {
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
         given(userDao.saveUser(user)).willReturn(user);
+        given(passwordEncoder.encode(user.getPassword())).willReturn(user.getPassword());
 
         userManager.saveUser(user);
     }
@@ -177,6 +184,7 @@ public class UserSecurityAdviceTest {
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
         given(userDao.saveUser(user)).willReturn(user);
+        given(passwordEncoder.encode(user.getPassword())).willReturn(user.getPassword());
 
         userManager.saveUser(user);
     }
@@ -186,6 +194,7 @@ public class UserSecurityAdviceTest {
 
         UserManager userManager = (UserManager) ctx.getBean("target");
         userManager.setUserDao(userDao);
+        userManager.setPasswordEncoder(passwordEncoder);
         return userManager;
     }
 }

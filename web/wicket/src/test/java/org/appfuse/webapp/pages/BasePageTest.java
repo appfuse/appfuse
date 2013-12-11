@@ -12,7 +12,7 @@ import org.springframework.web.context.support.StaticWebApplicationContext;
 import java.util.Locale;
 
 /**
- * Base class for Wicket unit tests.
+ * Base class for Wicket integration tests with WicketTester..
  *
  * @author Marcin Zajączkowski, 2011-06-19
  */
@@ -46,7 +46,7 @@ public abstract class BasePageTest {
     }
 
     protected String getRequiredErrorMessageByField(String field) {
-        return "Field '" + field + "' is required.";
+        return "'" + field + "' is required.";
     }
 
     protected void assertRenderedLoginPageWithErrorMessages(Class<? extends Page> pageClass, String... errorMessage) {

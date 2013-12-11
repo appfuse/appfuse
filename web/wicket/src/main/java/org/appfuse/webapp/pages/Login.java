@@ -1,5 +1,6 @@
 package org.appfuse.webapp.pages;
 
+import de.agilecoders.wicket.webjars.request.resource.WebjarsJavaScriptResourceReference;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -21,7 +22,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 import java.util.Map;
 
 /**
- * Page for login to the system.
+ * A login page.
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */
@@ -73,7 +74,7 @@ public class Login extends AbstractWebPage {
         };
     }
 
-    //TODO: MZA: Move to is needed somewhere else
+    //TODO: MZA: Move to if needed somewhere else
     @SuppressWarnings("unchecked")
     private Object getValueForKeyFromConfigOrReturnNullIfNoConfig(String configProperty) {
         Map<String, Object> config = (Map<String, Object>)getServletContext().getAttribute(Constants.CONFIG);
@@ -93,6 +94,8 @@ public class Login extends AbstractWebPage {
     }
 
     private void addLoginJavaScriptToResponse(IHeaderResponse response) {
+        response.render(JavaScriptHeaderItem.forReference(
+                new WebjarsJavaScriptResourceReference("jquery-cookie/current/jquery.cookie.js")));
         response.render(JavaScriptHeaderItem.forUrl("scripts/login.js"));
     }
 

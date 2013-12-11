@@ -16,7 +16,7 @@
     <!-- Add rules here for anything that shouldn't be served up by JSF. -->
     <rule>
         <from>/</from>
-        <to type="redirect" last="true">mainMenu</to>
+        <to type="redirect" last="true">home</to>
     </rule>
     <rule>
         <from>/j_security_check</from>
@@ -29,6 +29,10 @@
     <rule>
         <from>/services/**</from>
         <to>/services/$1</to>
+    </rule>
+    <rule>
+        <from>/assets/**</from>
+        <to>/assets/$1</to>
     </rule>
     <rule>
         <from>/images/**</from>
@@ -51,13 +55,13 @@
         <to>/favicon.ico</to>
     </rule>
     <!-- Solve an issue when redirecting from passwordHint -->
-    <rule match-type="regex">
+ <!--   <rule match-type="regex">
         <from>^/login.xhtml$</from>
         <to type="redirect">%{context-path}/login</to>
-    </rule>
+    </rule>-->
     <rule>
         <from>/login*</from>
-        <to>/login.jsp</to>
+        <to>/login.xhtml</to>
     </rule>
     <rule>
         <from>/logout*</from>

@@ -1,18 +1,17 @@
 package org.appfuse.webapp.pages.components;
 
 import com.google.common.collect.Lists;
-import de.agilecoders.wicket.markup.html.bootstrap.button.ButtonType;
-import de.agilecoders.wicket.markup.html.bootstrap.button.TypedButton;
-import de.agilecoders.wicket.markup.html.bootstrap.button.TypedLink;
-import de.agilecoders.wicket.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.markup.html.bootstrap.tabs.Collapsible;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.tabs.Collapsible;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.*;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Fragment;
@@ -22,15 +21,17 @@ import org.apache.wicket.model.*;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
+import org.appfuse.webapp.pages.components.country.SimpleCountryDropDownChoice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import static java.lang.String.format;
+
 /**
- * Resusable form for editing users.
+ * Reusable form for editing users.
  *
  * Available abstract methods can be used to define specific behavior for different pages.
  *
@@ -42,12 +43,9 @@ public abstract class UserEditPanel extends Panel {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
-    //TODO: MZA: User @Cacheable to cache countries
-    private static final List<String> countryList = Arrays.asList("USA", "Poland", "Japan");
-
     private final List<Role> allAvailableRoles;
 
-    //TODO: wrap allAvailableRoles into detacheable model
+    //TODO: wrap allAvailableRoles into detachable model
     public UserEditPanel(String id, IModel<User> userModel, List<Role> allAvailableRoles) {
         super(id, userModel);
         this.allAvailableRoles = allAvailableRoles;
@@ -86,7 +84,6 @@ public abstract class UserEditPanel extends Panel {
         add(createAccountSettingsGroup(rolesModel));
         add(createDisplayRolesGroup(rolesModel));
         add(createGroupWithTopButtons());
-
     }
 
     private WebMarkupContainer createPasswordGroup() {
@@ -108,9 +105,11 @@ public abstract class UserEditPanel extends Panel {
                 return new AddressFragment(panelId, "address", new CompoundPropertyModel<Address>(addressModel));
             }
         };
-        //TODO: MZA: Could be moved to Collapsible, but model is mutable and a reference shouldn't leak out to re reusable
-        Model<Integer> allTabClosed = Model.of(-1);
-        return new Collapsible("collapsibleAddress", Lists.<ITab>newArrayList(addressTab), allTabClosed);
+        return new Collapsible("collapsibleAddress", Lists.<ITab>newArrayList(addressTab), shouldAddressTabBeCollapsed());
+    }
+
+    private Model<Integer> shouldAddressTabBeCollapsed() {
+        return isCollapsedAddressTab() ? Model.of(-1) : Model.of(0);
     }
 
     private WebMarkupContainer createAccountSettingsGroup(IModel<Set<Role>> rolesModel) {
@@ -165,22 +164,27 @@ public abstract class UserEditPanel extends Panel {
         buttonsGroup.add(new SaveButton("saveButton"));
         //TODO: MZA: Find a better way to control visibility on the page
         //TODO: MZA: DeleteButton visible only when from list and not new user
-        buttonsGroup.add(new DeleteButton("deleteButton"));
+        buttonsGroup.add(new DeleteButton("deleteButton", generateDeleteConfirmMessage()));
         buttonsGroup.add(createCancelButton("cancelButton"));
         return buttonsGroup;
     }
 
-    private Link createCancelButton(String buttonId) {
-        return new TypedLink<String>(buttonId, new ResourceModel("button.cancel"), ButtonType.Default) {
+    private WebMarkupContainer createButtonsGroup(String groupId) {
+        return new WebMarkupContainer(groupId);
+    }
+
+    private String generateDeleteConfirmMessage() {
+        return new StringResourceModel(
+                    "delete.confirm", this, null, new Object[]{getString("userList.user")}).getString();
+    }
+
+    private BootstrapLink<Panel> createCancelButton(String buttonId) {
+        return new BootstrapLink<Panel>(buttonId, Model.<Panel>of(this), Buttons.Type.Default) {
             @Override
             public void onClick() {
                 onCancelButtonSubmit();
             }
-        }.setIconType(IconType.remove).setInverted(false);
-    }
-
-    private WebMarkupContainer createButtonsGroup(String groupId) {
-        return new WebMarkupContainer(groupId);
+        }.setIconType(IconType.remove).setInverted(false).setLabel(new ResourceModel("button.cancel"));
     }
 
     public class AddressFragment extends Fragment {
@@ -198,16 +202,16 @@ public abstract class UserEditPanel extends Panel {
             add(new RequiredTextField("city").add(new RequiredBehavior()));
             add(new RequiredTextField("province").add(new RequiredBehavior()));
             add(new RequiredTextField("postalCode").add(new RequiredBehavior()));
-            //TODO: MZA: How to play with IDs? Is it needed? - IChoiceRenderer
-            DropDownChoice<String> country = new DropDownChoice<String>("country", countryList);
-            add(country.setRequired(true).add(new RequiredBehavior()));
+            SimpleCountryDropDownChoice countries = new SimpleCountryDropDownChoice("country",
+                    new PropertyModel<String>(getDefaultModel(), "country"));
+            add(countries.setRequired(true).add(new RequiredBehavior()));
         }
     }
 
-    private final /*static*/ class SaveButton extends TypedButton {
+    private final /*static*/ class SaveButton extends BootstrapButton {
 
         private SaveButton(String buttonId) {
-            super(buttonId, new ResourceModel("button.save"), ButtonType.Primary);
+            super(buttonId, new ResourceModel("button.save"), Buttons.Type.Primary);
             setIconType(IconType.ok);
         }
 
@@ -217,13 +221,14 @@ public abstract class UserEditPanel extends Panel {
         }
     }
 
-    private class DeleteButton extends TypedButton {
-        public DeleteButton(String buttonId) {
-            super(buttonId, new ResourceModel("button.delete"), ButtonType.Danger);
+    private class DeleteButton extends BootstrapButton {
+        public DeleteButton(String buttonId, String confirmMessage) {
+            super(buttonId, new ResourceModel("button.delete"), Buttons.Type.Danger);
             setIconType(IconType.trash);
             setDefaultFormProcessing(false);
             setVisible(getDeleteButtonVisibility());
-            add(new AttributeAppender("onclick", "return confirmDelete('User')"));
+
+            add(new AttributeAppender("onclick", format("return confirmMessage('%s')", confirmMessage)));
         }
 
         @Override
@@ -243,4 +248,6 @@ public abstract class UserEditPanel extends Panel {
     protected abstract boolean getDisplayRolesGroupVisibility();
 
     protected abstract boolean getDeleteButtonVisibility();
+
+    protected abstract boolean isCollapsedAddressTab();
 }

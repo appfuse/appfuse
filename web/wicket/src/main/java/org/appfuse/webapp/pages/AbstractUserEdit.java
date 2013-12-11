@@ -92,6 +92,11 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
             protected boolean getDeleteButtonVisibility() {
                 return AbstractUserEdit.this.getDeleteButtonVisibility();
             }
+
+            @Override
+            protected boolean isCollapsedAddressTab() {
+                return AbstractUserEdit.this.isCollapsedAddressTab();
+            }
         };
 
         userEditForm.add(userEditPanel);
@@ -144,4 +149,8 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
     protected abstract boolean getAccountSettingsGroupVisibility();
 
     protected abstract boolean getDeleteButtonVisibility();
+
+    protected boolean isCollapsedAddressTab() {
+        return true;
+    }
 }

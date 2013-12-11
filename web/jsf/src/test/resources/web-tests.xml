@@ -23,7 +23,7 @@
     </target>
     
     <!-- Login to the application -->
-    <target name="Login" description="Runs login test and verifies Main Menu's Title">
+    <target name="Login" description="Runs login test and verifies Home's Title">
         <webtest name="login">
             &config;
             <steps>
@@ -114,8 +114,8 @@
                 <setinputfield description="set address" name="userForm:address" value="2255 Lane Avenue"/>
                 <setinputfield description="set zipcode" name="userForm:postalCode" value="59826"/>
                 <clickbutton label="${button.save}" description="Click Save"/>
-                <verifytitle description="display Main Menu if save OK"
-                     text=".*${mainMenu.title}.*" regex="true"/>
+                <verifytitle description="display Home if save OK"
+                     text=".*${home.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -184,7 +184,7 @@
                 <setinputfield description="set passwordHint" name="signupForm:passwordHint" value="test"/>
                 
                 <clickbutton label="${button.register}" description="Click button 'Signup'"/>
-                <verifytitle description="view main menu" text=".*${mainMenu.title}.*" regex="true"/>
+                <verifytitle description="view main menu" text=".*${home.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${user.registered}"/>
             </steps>
         </webtest>
@@ -211,11 +211,11 @@
                 &login;
                 <invoke description="click Upload a File link" url="/selectFile"/>
                 <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
-                <!--<setinputfield description="set name" name="uploadForm:name" value="Canoo Test File"/>
+                <setinputfield description="set name" name="uploadForm:name" value="Canoo Test File"/>
                 <setFileField description="set file" name="uploadForm:file" fileName="web-tests.xml"/>
                 <clickbutton label="${button.upload}" description="Click Upload"/>
                 <verifytitle description="show file data if upload OK" text=".*${display.title}.*" regex="true"/>
-                <verifytext description="verify original filename displayed on page" text="web-tests.xml"/>-->
+                <verifytext description="verify original filename displayed on page" text="web-tests.xml"/>
             </steps>
         </webtest>
     </target>

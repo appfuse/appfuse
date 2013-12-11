@@ -29,7 +29,7 @@ import java.io.OutputStream;
 public class FileUploadController extends BaseFormController {
 
     public FileUploadController() {
-        setCancelView("redirect:/mainMenu");
+        setCancelView("redirect:/home");
         setSuccessView("uploadDisplay");
     }
 

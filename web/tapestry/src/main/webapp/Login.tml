@@ -39,5 +39,10 @@
     <p>
         <t:outputraw value="${message:login.passwordHint}"/>
     </p>
+
+    <p>
+        <t:outputraw value="${message:updatePassword.requestRecoveryTokenLink}"/>
+    </p>
+
 </body>
 </html>
