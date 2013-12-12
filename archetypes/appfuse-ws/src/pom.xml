@@ -214,11 +214,6 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <id>repository.spring.milestone</id>
-            <name>Spring Milestone Repository</name>
-            <url>http://repo.spring.io/milestone</url>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -514,7 +509,7 @@
         <commons.dbcp.version>1.3</commons.dbcp.version>
         <cxf.version>2.7.1</cxf.version>
         <enunciate.version>1.27</enunciate.version>
-        <spring.version>4.0.0.RC2</spring.version>
+        <spring.version>4.0.0.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
         <mockito.version>1.9.5</mockito.version>

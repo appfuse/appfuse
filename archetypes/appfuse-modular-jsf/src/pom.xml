@@ -94,11 +94,6 @@
             <name>Prime Repo</name>
             <url>http://repository.primefaces.org</url>
         </repository>
-        <repository>
-            <id>repository.spring.milestone</id>
-            <name>Spring Milestone Repository</name>
-            <url>http://repo.spring.io/milestone</url>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -361,7 +356,7 @@
         <prettyfaces.version>3.3.3</prettyfaces.version>
         <primefaces.version>4.0</primefaces.version>
         <servlet.version>3.1.0</servlet.version>
-        <spring.version>4.0.0.RC2</spring.version>
+        <spring.version>4.0.0.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>

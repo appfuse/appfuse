@@ -278,11 +278,6 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <id>repository.spring.milestone</id>
-            <name>Spring Milestone Repository</name>
-            <url>http://repo.spring.io/milestone</url>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -755,7 +750,7 @@
         <!-- Framework dependency versions -->
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
         <bootstrap.version>2.3.2</bootstrap.version>
-        <spring.version>4.0.0.RC2</spring.version>
+        <spring.version>4.0.0.RELEASE</spring.version>
         <wicket.version>6.12.0</wicket.version>
         <wicketstuff.version>6.12.0</wicketstuff.version>
         <wicket.bootstrap.version>0.8.4</wicket.bootstrap.version>

@@ -89,11 +89,6 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <id>repository.spring.milestone</id>
-            <name>Spring Milestone Repository</name>
-            <url>http://repo.spring.io/milestone</url>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -342,7 +337,7 @@
         <commons.fileupload.version>1.3</commons.fileupload.version>
         <commons.io.version>2.4</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
-        <spring.version>4.0.0.RC2</spring.version>
+        <spring.version>4.0.0.RELEASE</spring.version>
         <struts.version>2.3.14.1</struts.version>
 
         <!-- Testing dependency versions -->
