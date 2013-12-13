@@ -84,7 +84,7 @@
             <delete dir="${test.dir}/@{archetype}"/>
             <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}"/>
             <!-- verify: runs webtest and verifies result. locale=en as otherwise there are webtests that fail -->
-            <mvn dir="${test.dir}/@{archetype}" command="verify -Duser.language=en -Ddao.framework=@{dao.framework} -Pitest"/>
+            <mvn dir="${test.dir}/@{archetype}" command="verify -Duser.language=en -Ddao.framework=@{dao.framework} -Pitest,gwtDebug"/>
         </sequential>
     </macrodef>
 

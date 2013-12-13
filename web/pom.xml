@@ -40,11 +40,11 @@
 
     <modules>
         <module>common</module>
-        <module>jsf</module>
-        <module>spring</module>
-        <module>struts</module>
-        <module>tapestry</module>
-        <module>wicket</module>
+<!--         <module>jsf</module> -->
+<!--         <module>spring</module> -->
+<!--         <module>struts</module> -->
+<!--         <module>tapestry</module> -->
+<!--         <module>wicket</module> -->
 		<module>gwt</module>
     </modules>
 
