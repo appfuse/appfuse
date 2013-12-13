@@ -10,7 +10,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
@@ -165,6 +167,10 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      */
     @Override
     public User saveUser(final User user) throws Exception {
+        if (user.getVersion() == null && user.getPassword() == null) {
+            final int length = RandomUtils.nextInt(8) + 8;
+            user.setPassword(RandomStringUtils.randomAlphanumeric(length));
+        }
         return userManager.saveUser(user);
     }
 
