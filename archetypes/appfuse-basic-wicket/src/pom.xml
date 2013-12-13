@@ -293,6 +293,24 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.appfuse</groupId>
@@ -416,7 +434,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -733,7 +750,7 @@
         <!-- Framework dependency versions -->
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
         <bootstrap.version>2.3.2</bootstrap.version>
-        <spring.version>3.2.5.RELEASE</spring.version>
+        <spring.version>4.0.0.RELEASE</spring.version>
         <wicket.version>6.12.0</wicket.version>
         <wicketstuff.version>6.12.0</wicketstuff.version>
         <wicket.bootstrap.version>0.8.4</wicket.bootstrap.version>
