@@ -33,12 +33,12 @@
             </td>
         </tr>
     </table>
-    <div id="actions" class="form-actions">
+    <div id="actions" class="form-group">
         <a class="btn btn-primary" href="home" >
             <i class="icon-ok icon-white"></i>
             <fmt:message key="button.done"/>
         </a>
-        <a class="btn" href="fileupload" >
+        <a class="btn btn-default" href="fileupload" >
             <i class="icon-upload"></i>
             Upload Another
         </a>

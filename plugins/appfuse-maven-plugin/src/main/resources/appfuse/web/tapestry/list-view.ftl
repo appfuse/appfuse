@@ -16,13 +16,13 @@
     <form t:type="form" method="get" t:id="searchForm" autofocus="false" class="form-search">
     <div id="search" class="input-append">
         <t:textfield size="20" name="q" t:id="q" placeholder="${'$'}{message:search.enterTerms}" class="input-medium search-query"/>
-        <button type="submit" class="btn"><i class="icon-search"></i> ${'$'}{message:button.search}</button>
+        <button type="submit" class="btn btn-default"><i class="icon-search"></i> ${'$'}{message:button.search}</button>
     </div>
     </form>
 
-    <div id="actions" class="form-actions">
+    <div id="actions" class="form-group">
         <a t:type="eventlink" event="add" id="add" class="btn btn-primary"><i class="icon-plus icon-white"></i> ${'$'}{message:button.add}</a>
-        <a t:type="eventlink" event="done" id="done" class="btn"><i class="icon-ok"></i> ${'$'}{message:button.done}</a>
+        <a t:type="eventlink" event="done" id="done" class="btn btn-default"><i class="icon-ok"></i> ${'$'}{message:button.done}</a>
     </div>
 
     <t:grid source="${util.getPluralForWord(pojoNameLower)}" row="${pojoNameLower}" id="${pojoNameLower}List" class="table table-condensed table-striped table-hover">

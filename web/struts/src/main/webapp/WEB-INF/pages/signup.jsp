@@ -6,13 +6,13 @@
 
 <body class="signup"/>
 
-<div class="span2">
+<div class="col-sm-2">
     <h2><fmt:message key="signup.heading"/></h2>
     <fmt:message key="signup.message"/>
 </div>
-<div class="span7">
+<div class="col-sm-7">
     <s:form name="signupForm" action="saveSignup" method="post" validate="true"
-            autocomplete="off" cssClass="well form-horizontal">
+            autocomplete="off" cssClass="well">
 
         <s:textfield key="user.username" required="true"/>
         <s:password key="user.password" showPassword="true" required="true"/>
@@ -34,18 +34,16 @@
             <s:textfield key="user.address.province"/>
             <s:textfield key="user.address.postalCode"/>
             <s:set name="country" value="user.address.country" scope="page"/>
-            <fieldset class="control-group">
+            <fieldset class="form-group">
                 <label class="control-label" for="user.address.country">
                     <fmt:message key="user.address.country"/>
                 </label>
 
-                <div class="controls">
-                    <appfuse:country name="user.address.country" prompt="" default="${country}"/>
-                </div>
+                <appfuse:country name="user.address.country" prompt="" default="${country}"/>
             </fieldset>
         </div>
     </fieldset>
-    <div id="actions" class="form-actions">
+    <div id="actions" class="form-group">
         <s:submit type="button" cssClass="btn btn-primary" key="button.register" theme="simple">
             <i class="icon-ok icon-white"></i>
             <fmt:message key="button.register"/>

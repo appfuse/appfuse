@@ -6,11 +6,11 @@
 
 <body class="signup"/>
 
-<div class="span2">
+<div class="col-sm-2">
     <h2><fmt:message key="signup.heading"/></h2>
     <p><fmt:message key="signup.message"/></p>
 </div>
-<div class="span7">
+<div class="col-sm-7">
     <spring:bind path="user.*">
         <c:if test="${not empty status.errorMessages}">
             <div class="alert alert-error fade in">
@@ -23,118 +23,100 @@
     </spring:bind>
 
     <form:form commandName="user" method="post" action="signup" id="signupForm" autocomplete="off"
-               cssClass="well form-horizontal" onsubmit="return validateSignup(this)">
+               cssClass="well" onsubmit="return validateSignup(this)">
         <spring:bind path="user.username">
-        <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
+        <div class="form-group${(not empty status.errorMessage) ? ' error' : ''}">
         </spring:bind>
             <appfuse:label styleClass="control-label" key="user.username"/>
-            <div class="controls">
-                <form:input path="username" id="username"/>
-                <form:errors path="username" cssClass="help-inline"/>
-            </div>
-        </fieldset>
-        <spring:bind path="user.password">
-        <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
-        </spring:bind>
-            <appfuse:label styleClass="control-label" key="user.password"/>
-            <div class="controls">
-                <form:password path="password" id="password" showPassword="true"/>
+            <form:input cssClass="form-control" path="username" id="username"/>
+            <form:errors path="username" cssClass="help-inline"/>
+        </div>
+        <div class="row">
+            <spring:bind path="user.password">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' error' : ''}">
+            </spring:bind>
+                <appfuse:label styleClass="control-label" key="user.password"/>
+                <form:password cssClass="form-control" path="password" id="password" showPassword="true"/>
                 <form:errors path="password" cssClass="help-inline"/>
             </div>
-        </fieldset>
-        <spring:bind path="user.passwordHint">
-        <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
-        </spring:bind>
-            <appfuse:label styleClass="control-label" key="user.passwordHint"/>
-            <div class="controls">
-                <form:input path="passwordHint" id="passwordHint"/>
+            <spring:bind path="user.passwordHint">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' error' : ''}">
+            </spring:bind>
+                <appfuse:label styleClass="control-label" key="user.passwordHint"/>
+                <form:input cssClass="form-control" path="passwordHint" id="passwordHint"/>
                 <form:errors path="passwordHint" cssClass="help-inline"/>
             </div>
-        </fieldset>
-        <spring:bind path="user.firstName">
-        <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
-        </spring:bind>
-            <appfuse:label styleClass="control-label" key="user.firstName"/>
-            <div class="controls">
-                <form:input path="firstName" id="firstName" maxlength="50"/>
+        </div>
+        <div class="row">
+            <spring:bind path="user.firstName">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' error' : ''}">
+            </spring:bind>
+                <appfuse:label styleClass="control-label" key="user.firstName"/>
+                <form:input cssClass="form-control" path="firstName" id="firstName" maxlength="50"/>
                 <form:errors path="firstName" cssClass="help-inline"/>
             </div>
-        </fieldset>
-        <spring:bind path="user.lastName">
-        <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
-        </spring:bind>
-            <appfuse:label styleClass="control-label" key="user.lastName"/>
-            <div class="controls">
-                <form:input path="lastName" id="lastName" maxlength="50"/>
+            <spring:bind path="user.lastName">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' error' : ''}">
+            </spring:bind>
+                <appfuse:label styleClass="control-label" key="user.lastName"/>
+                <form:input cssClass="form-control" path="lastName" id="lastName" maxlength="50"/>
                 <form:errors path="lastName" cssClass="help-inline"/>
             </div>
-        </fieldset>
-        <spring:bind path="user.email">
-        <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
-        </spring:bind>
-            <appfuse:label styleClass="control-label" key="user.email"/>
-            <div class="controls">
-                <form:input path="email" id="email"/>
+        </div>
+        <div class="row">
+            <spring:bind path="user.email">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' error' : ''}">
+            </spring:bind>
+                <appfuse:label styleClass="control-label" key="user.email"/>
+                <form:input cssClass="form-control" path="email" id="email"/>
                 <form:errors path="email" cssClass="help-inline"/>
             </div>
-        </fieldset>
-        <fieldset class="control-group">
-            <appfuse:label styleClass="control-label" key="user.phoneNumber"/>
-            <div class="controls">
-                <form:input path="phoneNumber" id="phoneNumber"/>
+            <div class="col-sm-6 form-group">
+                <appfuse:label styleClass="control-label" key="user.phoneNumber"/>
+                <form:input cssClass="form-control" path="phoneNumber" id="phoneNumber"/>
             </div>
-        </fieldset>
-        <fieldset class="control-group">
+        </div>
+        <div class="form-group">
             <appfuse:label styleClass="control-label" key="user.website"/>
-            <div class="controls">
-                <form:input path="website" id="website"/>
-            </div>
-        </fieldset>
-        <fieldset>
+            <form:input cssClass="form-control" path="website" id="website"/>
+        </div>
+        <div>
             <legend class="accordion-heading">
                 <a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.address.address"/></a>
             </legend>
             <div id="collapse-address" class="accordion-body collapse">
-                <fieldset class="control-group">
+                <div class="form-group">
                     <appfuse:label styleClass="control-label" key="user.address.address"/>
-                    <div class="controls">
-                        <form:input path="address.address" id="address.address"/>
+                    <form:input cssClass="form-control" path="address.address" id="address.address"/>
+                </div>
+                <div class="row">
+                    <div class="col-sm-7 form-group">
+                        <appfuse:label styleClass="control-label" key="user.address.city"/>
+                        <form:input cssClass="form-control" path="address.city" id="address.city"/>
                     </div>
-                </fieldset>
-                <fieldset class="control-group">
-                    <appfuse:label styleClass="control-label" key="user.address.city"/>
-                    <div class="controls">
-                        <form:input path="address.city" id="address.city"/>
+                    <div class="col-sm-2 form-group">
+                        <appfuse:label styleClass="control-label" key="user.address.province"/>
+                        <form:input cssClass="form-control" path="address.province" id="address.province"/>
                     </div>
-                </fieldset>
-                <fieldset class="control-group">
-                    <appfuse:label styleClass="control-label" key="user.address.province"/>
-                    <div class="controls">
-                        <form:input path="address.province" id="address.province"/>
+                    <div class="col-sm-3 form-group">
+                        <appfuse:label styleClass="control-label" key="user.address.postalCode"/>
+                        <form:input cssClass="form-control" path="address.postalCode" id="address.postalCode"/>
                     </div>
-                </fieldset>
-                <fieldset class="control-group">
-                    <appfuse:label styleClass="control-label" key="user.address.postalCode"/>
-                    <div class="controls">
-                        <form:input path="address.postalCode" id="address.postalCode"/>
-                    </div>
-                </fieldset>
-                <fieldset class="control-group">
+                </div>
+                <div class="form-group">
                     <appfuse:label styleClass="control-label" key="user.address.country"/>
-                    <div class="controls">
-                        <appfuse:country name="address.country" prompt="" default="${user.address.country}"/>
-                    </div>
-                </fieldset>
+                    <appfuse:country name="address.country" prompt="" default="${user.address.country}"/>
+                </div>
             </div>
-        </fieldset>
-        <fieldset class="form-actions">
+        </div>
+        <div class="form-group">
             <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
                 <i class="icon-ok icon-white"></i> <fmt:message key="button.register"/>
             </button>
-            <button type="submit" class="btn" name="cancel" onclick="bCancel=true">
+            <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
                 <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
             </button>
-        </fieldset>
+        </div>
     </form:form>
 </div>
 

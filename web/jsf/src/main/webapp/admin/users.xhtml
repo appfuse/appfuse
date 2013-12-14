@@ -12,19 +12,19 @@
             <h:form id="searchForm" styleClass="form-search">
                 <div id="search" class="input-append">
                     <h:inputText id="q" size="20" value="#{userList.query}" styleClass="input-medium search-query"/>
-                    <h:commandButton styleClass="btn" action="#{userList.search}" value="#{text['button.search']}"/>
+                    <h:commandButton styleClass="btn btn-default" action="#{userList.search}" value="#{text['button.search']}"/>
                 </div>
             </h:form>
 
             <h:form id="editUser">
 
-                <div id="actions" class="form-actions">
+                <div id="actions" class="form-group">
                     <h:commandButton action="#{userForm.add}" value="#{text['button.add']}" id="add"
                                      styleClass="btn btn-primary">
                         <f:param name="from" value="list"/>
                     </h:commandButton>
                     <h:commandButton value="#{text['button.done']}" action="home" id="cancel"
-                                     immediate="true" styleClass="btn">
+                                     immediate="true" styleClass="btn btn-default">
                     </h:commandButton>
                 </div>
 

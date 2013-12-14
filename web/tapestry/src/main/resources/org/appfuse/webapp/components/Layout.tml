@@ -63,7 +63,7 @@
 </div>
 
 <t:block id="adminMenuBlock">
-    <div class="span2">
+    <div class="col-sm-2">
         <t:menu class="nav nav-list" active="${menu}">
             <li class="nav-header">Administration</li>
             <t:delegate to="block:adminItemsBlock"/>

@@ -33,12 +33,12 @@
 
     </table>
 
-    <div class="form-actions">
+    <div class="form-group">
 
         <a t:type="eventlink" event="done" class="btn btn-primary">
              <i class="icon-ok icon-white"></i> ${message:button.done}
         </a>
-        <a t:type="eventlink" event="anotherUpload" class="btn">
+        <a t:type="eventlink" event="anotherUpload" class="btn btn-default">
             <i class="icon-upload"></i> Upload Another
         </a>
 

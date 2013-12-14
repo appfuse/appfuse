@@ -6,103 +6,75 @@
     <ui:define name="title">#{text['signup.title']}</ui:define>
     <body id="signup">
         <ui:define name="body">
-            <div class="span2">
+            <div class="col-sm-2">
                 <h2>#{text['signup.heading']}</h2>
                 #{text['signup.message']}
             </div>
-            <div class="span7">
-                <h:form id="signupForm" styleClass="well form-horizontal" autocomplete="off">
+            <div class="col-sm-7">
+                <h:form id="signupForm" styleClass="well" autocomplete="off">
 
-                    <div class="control-group">
+                    <div class="form-group">
                         <h:outputLabel styleClass="control-label" for="username" value="#{text['user.username']}"/>
-
-                        <div class="controls">
-                            <h:inputText value="#{signupForm.user.username}" id="username" required="true"/>
-                            <p:message for="username"/>
-                        </div>
+                        <h:inputText styleClass="form-control" value="#{signupForm.user.username}" id="username" required="true"/>
+                        <p:message for="username"/>
                     </div>
 
-                    <div class="control-group">
+                    <div class="form-group">
                         <h:outputLabel styleClass="control-label" for="password" value="#{text['user.password']}"/>
-
-                        <div class="controls">
-                            <h:inputSecret value="#{signupForm.user.password}" id="password"
-                                           redisplay="true" required="true"/>
-                            <p:message for="password"/>
-                        </div>
+                        <h:inputSecret value="#{signupForm.user.password}" id="password"
+                                       redisplay="true" required="true"/>
+                        <p:message for="password"/>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         <h:outputLabel styleClass="control-label" for="confirmPassword"
                                        value="#{text['user.confirmPassword']}"/>
-
-                        <div class="controls">
-                            <h:inputSecret value="#{signupForm.user.confirmPassword}" id="confirmPassword"
-                                           redisplay="true" required="true">
-                                <!--p:validateEqual for="password"/-->
-                            </h:inputSecret>
-                            <p:message for="confirmPassword"/>
-                        </div>
+                        <h:inputSecret value="#{signupForm.user.confirmPassword}" id="confirmPassword"
+                                       redisplay="true" required="true">
+                        <!--p:validateEqual for="password"/-->
+                        </h:inputSecret>
+                        <p:message for="confirmPassword"/>
                     </div>
 
-                    <div class="control-group">
-                        <h:outputLabel styleClass="control-label" for="passwordHint"
-                                       value="#{text['user.passwordHint']}"/>
-
-                        <div class="controls">
-                            <h:inputText value="#{signupForm.user.passwordHint}" id="passwordHint" required="true"/>
-                            <p:message for="passwordHint"/>
-                        </div>
+                    <div class="form-group">
+                        <h:outputLabel styleClass="control-label" for="passwordHint" value="#{text['user.passwordHint']}"/>
+                        <h:inputText styleClass="form-control" value="#{signupForm.user.passwordHint}" id="passwordHint" required="true"/>
+                        <p:message for="passwordHint"/>
                     </div>
 
-                    <div class="control-group">
+                    <div class="form-group">
                         <h:outputLabel styleClass="control-label" for="firstName" value="#{text['user.firstName']}"/>
-
-                        <div class="controls">
-                            <h:inputText id="firstName" value="#{signupForm.user.firstName}" maxlength="50"
-                                         required="true"/>
-                            <p:message for="firstName"/>
-                        </div>
+                        <h:inputText styleClass="form-control" id="firstName" value="#{signupForm.user.firstName}" maxlength="50"
+                                     required="true"/>
+                        <p:message for="firstName"/>
                     </div>
 
-                    <div class="control-group">
+                    <div class="form-group">
                         <h:outputLabel styleClass="control-label" for="lastName" value="#{text['user.lastName']}"/>
-
-                        <div class="controls">
-                            <h:inputText value="#{signupForm.user.lastName}" id="lastName" maxlength="50"
-                                         required="true"/>
-                            <p:message for="lastName"/>
-                        </div>
+                        <h:inputText styleClass="form-control" value="#{signupForm.user.lastName}" id="lastName" maxlength="50"
+                                     required="true"/>
+                        <p:message for="lastName"/>
                     </div>
 
-                    <div class="control-group">
+                    <div class="form-group">
                         <h:outputLabel styleClass="control-label" for="email" value="#{text['user.email']}"/>
-
-                        <div class="controls">
-                            <h:inputText value="#{signupForm.user.email}" id="email" required="true"/>
-                            <p:message for="email"/>
-                        </div>
+                        <h:inputText styleClass="form-control" value="#{signupForm.user.email}" id="email" required="true"/>
+                        <p:message for="email"/>
                     </div>
 
-                    <div class="control-group">
+                    <div class="form-group">
                         <h:outputLabel styleClass="control-label" for="phoneNumber"
                                        value="#{text['user.phoneNumber']}"/>
-
-                        <div class="controls">
-                            <h:inputText value="#{signupForm.user.phoneNumber}" id="phoneNumber"
-                                         styleClass="text medium">
-                                <f:validateRegex pattern="^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$"/>
-                            </h:inputText>
-                            <p:message for="phoneNumber"/>
-                        </div>
+                        <h:inputText styleClass="form-control" value="#{signupForm.user.phoneNumber}" id="phoneNumber"
+                                     styleClass="text medium">
+                            <f:validateRegex pattern="^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$"/>
+                        </h:inputText>
+                        <p:message for="phoneNumber"/>
                     </div>
 
-                    <div class="control-group">
+                    <div class="form-group">
                         <h:outputLabel styleClass="control-label" for="website" value="#{text['user.website']}"/>
-
-                        <div class="controls">
-                            <h:inputText value="#{signupForm.user.website}" id="website" required="true"/>
-                            <p:message for="website"/>
-                        </div>
+                        <h:inputText styleClass="form-control" value="#{signupForm.user.website}" id="website" required="true"/>
+                        <p:message for="website"/>
                     </div>
 
                     <fieldset>
@@ -111,64 +83,48 @@
                                     value="#{text['user.address.address']}"/></a>
                         </legend>
                         <div id="collapse-address" class="accordion-body collapse">
-                            <div class="control-group">
+                            <div class="form-group">
                                 <h:outputLabel styleClass="control-label" for="address"
                                                value="#{text['user.address.address']}"/>
-
-                                <div class="controls">
-                                    <h:inputText value="#{signupForm.user.address.address}" id="address"/>
-                                    <p:message for="address"/>
-                                </div>
+                                <h:inputText styleClass="form-control" value="#{signupForm.user.address.address}" id="address"/>
+                                <p:message for="address"/>
                             </div>
-                            <div class="control-group">
+                            <div class="form-group">
                                 <h:outputLabel styleClass="control-label" for="city"
                                                value="#{text['user.address.city']}"/>
-
-                                <div class="controls">
-                                    <h:inputText value="#{signupForm.user.address.city}" id="city"/>
-                                    <p:message for="city"/>
-                                </div>
+                                <h:inputText styleClass="form-control" value="#{signupForm.user.address.city}" id="city"/>
+                                <p:message for="city"/>
                             </div>
-                            <div class="control-group">
+                            <div class="form-group">
                                 <h:outputLabel styleClass="control-label" for="province"
                                                value="#{text['user.address.province']}"/>
-
-                                <div class="controls">
-                                    <h:inputText value="#{signupForm.user.address.province}" id="province"/>
-                                    <p:message for="province"/>
-                                </div>
+                                <h:inputText styleClass="form-control" value="#{signupForm.user.address.province}" id="province"/>
+                                <p:message for="province"/>
                             </div>
-                            <div class="control-group">
+                            <div class="form-group">
                                 <h:outputLabel styleClass="control-label" for="postalCode"
                                                value="#{text['user.address.postalCode']}"/>
-
-                                <div class="controls">
-                                    <h:inputText value="#{signupForm.user.address.postalCode}" id="postalCode">
-                                        <f:validateRegex pattern="^\d{5}\d*$"/>
-                                    </h:inputText>
-                                    <p:message for="postalCode"/>
-                                </div>
-
+                                <h:inputText styleClass="form-control" value="#{signupForm.user.address.postalCode}" id="postalCode">
+                                    <f:validateRegex pattern="^\d{5}\d*$"/>
+                                </h:inputText>
+                                <p:message for="postalCode"/>
                             </div>
-                            <div class="control-group">
+                            <div class="form-group">
                                 <h:outputLabel styleClass="control-label" for="country"
                                                value="#{text['user.address.country']}"/>
-
-                                <div class="controls">
-                                    <h:selectOneMenu value="#{signupForm.country}" id="country">
-                                        <f:selectItems value="#{signupForm.countries}"/>
-                                    </h:selectOneMenu>
-                                    <p:message for="country"/>
-                                </div>
+                                <h:selectOneMenu value="#{signupForm.country}" id="country" styleClass="form-control">
+                                    <f:selectItems value="#{signupForm.countries}"/>
+                                </h:selectOneMenu>
+                                <p:message for="country"/>
                             </div>
                         </div>
                     </fieldset>
 
-                    <div class="form-actions">
+                    <div class="form-group">
                         <h:commandButton value="#{text['button.register']}" action="#{signupForm.save}" id="save"
                                          styleClass="btn btn-primary"/>
                         <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true" id="cancel"
-                                         styleClass="btn"/>
+                                         styleClass="btn btn-default"/>
                     </div>
                 </h:form>
             </div>

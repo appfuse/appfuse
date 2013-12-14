@@ -12,13 +12,13 @@
    "<fmt:message key="delete.confirm"><fmt:param value=${'"'}${r"${delObject}"}${'"'}/></fmt:message>";
 </script>
 
-<div class="span2">
+<div class="col-sm-2">
     <h2><fmt:message key="${pojoNameLower}Detail.heading"/></h2>
     <fmt:message key="${pojoNameLower}Detail.message"/>
 </div>
 
-<div class="span7">
-    <s:form id="${pojoNameLower}Form" action="save${pojo.shortName}" method="post" validate="true" cssClass="well form-horizontal">
+<div class="col-sm-7">
+    <s:form id="${pojoNameLower}Form" action="save${pojo.shortName}" method="post" validate="true" cssClass="well">
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>
 <#if field.equals(pojo.identifierProperty)>
@@ -47,7 +47,7 @@
 </#if>
 </#foreach>
 
-        <div id="actions" class="form-actions">
+        <div id="actions" class="form-group">
             <s:submit type="button" cssClass="btn btn-primary" method="save" key="button.save" theme="simple">
                 <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
             </s:submit>

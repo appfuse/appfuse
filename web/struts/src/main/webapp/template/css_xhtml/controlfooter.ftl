@@ -32,5 +32,4 @@ ${parameters.after?if_exists}<#t/>
 </#list>
 </span><#t/>
 </#if>
-</div>
 </fieldset>

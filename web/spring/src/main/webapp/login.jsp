@@ -16,18 +16,18 @@
         <fmt:message key="errors.password.mismatch"/>
     </div>
 </c:if>
-    <input type="text" name="j_username" id="j_username" class="input-block-level"
+    <input type="text" name="j_username" id="j_username" class="form-control"
            placeholder="<fmt:message key="label.username"/>" required tabindex="1">
-    <input type="password" class="input-block-level" name="j_password" id="j_password" tabindex="2"
+    <input type="password" class="form-control" name="j_password" id="j_password" tabindex="2"
            placeholder="<fmt:message key="label.password"/>" required>
 
 <c:if test="${appConfig['rememberMeEnabled']}">
-    <label class="checkbox" for="rememberMe">
-        <input type="checkbox" class="checkbox" name="_spring_security_remember_me" id="rememberMe" tabindex="3"/>
-        <fmt:message key="login.rememberMe"/></label>
+    <label for="rememberMe" class="checkbox">
+        <input type="checkbox" name="_spring_security_remember_me" id="rememberMe" tabindex="3"/>
+    <fmt:message key="login.rememberMe"/></label>
 </c:if>
 
-    <button type="submit" class="btn btn-large btn-primary" name="login" tabindex="4">
+    <button type="submit" class="btn btn-lg btn-primary btn-block" name="login" tabindex="4">
         <fmt:message key='button.login'/>
     </button>
 </form>

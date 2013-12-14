@@ -25,13 +25,12 @@ public class BootstrapJavaScriptStack implements JavaScriptStack {
         this.jsStack = CollectionFactory.newList();
         jsStack.add(0, assetSource.getContextAsset("scripts/jquery.noconflict.js", null));
         jsStack.add(0, assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/jquery/1.8.3/jquery.min.js"));
-        jsStack.add(assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/bootstrap/2.3.2/js/bootstrap.min.js"));
+        jsStack.add(assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/bootstrap/3.0.2/js/bootstrap.min.js"));
         jsStack.add(assetSource.getContextAsset("scripts/lib/plugins/jquery.cookie.js", null));
         jsStack.add(assetSource.getContextAsset("scripts/script.js", null));
 
         this.cssStack = CollectionFactory.newList();
-        cssStack.add(new StylesheetLink(assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/bootstrap/2.3.2/css/bootstrap.min.css")));
-        cssStack.add(new StylesheetLink(assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/bootstrap/2.3.2/css/bootstrap-responsive.min.css")));
+        cssStack.add(new StylesheetLink(assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/bootswatch/3.0.0/spacelab/bootstrap.min.css")));
         cssStack.add(new StylesheetLink(assetSource.getContextAsset("styles/style.css", null)));
         cssStack.add(new StylesheetLink(assetSource.getContextAsset("styles/t5-override.css", null)));
     }

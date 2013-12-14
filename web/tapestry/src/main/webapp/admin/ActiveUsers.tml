@@ -7,7 +7,7 @@
 
     <p>${message:activeUsers.message}</p>
 
-    <div id="actions" class="form-actions">
+    <div id="actions" class="form-group">
         <a t:type="pagelink" page="home" class="btn btn-primary"><i
                 class="icon-ok icon-white"></i> ${message:button.done}</a>
     </div>

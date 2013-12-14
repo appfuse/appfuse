@@ -26,18 +26,16 @@ that for checkboxes we do not want the label field to show up as checkboxes hand
 lables
 -->
 <#assign hasFieldErrors = fieldErrors?? && fieldErrors[parameters.name]??/>
-<fieldset class="control-group<#if hasFieldErrors> error</#if>">
-    <div class="controls">
-        <label class="checkbox">
-            <#include "/${parameters.templateDir}/simple/checkbox.ftl" />
-            ${parameters.label?html}
-        </label>
-        <#if hasFieldErrors>
-        <span class="help-inline">
-        <#list fieldErrors[parameters.name] as error>
-            ${error?html}<br/>
-        </#list>
-        </span><#t/>
-        </#if>
-    </div>
+<fieldset class="form-group<#if hasFieldErrors> error</#if>">
+    <label class="checkbox">
+        <#include "/${parameters.templateDir}/simple/checkbox.ftl" />
+        ${parameters.label?html}
+    </label>
+    <#if hasFieldErrors>
+    <span class="help-inline">
+    <#list fieldErrors[parameters.name] as error>
+        ${error?html}<br/>
+    </#list>
+    </span><#t/>
+    </#if>
 </fieldset>

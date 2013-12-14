@@ -10,7 +10,7 @@
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
 
-<div class="span2">
+<div class="col-sm-2">
     <h2><fmt:message key="userProfile.heading"/></h2>
     <c:choose>
         <c:when test="${param.from == 'list'}">
@@ -21,8 +21,8 @@
         </c:otherwise>
     </c:choose>
 </div>
-<div class="span7">
-    <s:form name="userForm" action="saveUser" method="post" validate="true" cssClass="well form-horizontal" autocomplete="off">
+<div class="col-sm-7">
+    <s:form name="userForm" action="saveUser" method="post" validate="true" cssClass="well" autocomplete="off">
         <s:hidden key="user.id"/>
         <s:hidden key="user.version"/>
         <input type="hidden" name="from" value="${param.from}"/>
@@ -62,54 +62,48 @@
                 <s:textfield key="user.address.province"/>
                 <s:textfield key="user.address.postalCode"/>
                 <s:set name="country" value="user.address.country" scope="page"/>
-                <fieldset class="control-group">
+                <fieldset class="form-group">
                     <label for="user.address.country">
                         <fmt:message key="user.address.country"/>
                     </label>
 
-                    <div class="controls">
-                        <appfuse:country name="user.address.country" prompt="" default="${country}"/>
-                    </div>
+                    <appfuse:country name="user.address.country" prompt="" default="${country}"/>
                 </fieldset>
             </div>
         </fieldset>
 <c:choose>
     <c:when test="${param.from == 'list'}">
-        <fieldset class="control-group">
+        <fieldset class="form-group">
             <label class="control-label"><fmt:message key="userProfile.accountSettings"/></label>
-            <div class="controls">
-                <label class="checkbox inline">
-                    <s:checkbox key="user.enabled" id="user.enabled" theme="simple" fieldValue="true"/>
-                    <fmt:message key="user.enabled"/>
-                </label>
-                <label class="checkbox inline">
-                    <s:checkbox key="user.accountExpired" id="user.accountExpired" theme="simple" fieldValue="true"/>
-                    <fmt:message key="user.accountExpired"/>
-                </label>
-                <label class="checkbox inline">
-                    <s:checkbox key="user.accountLocked" id="user.accountLocked" theme="simple" fieldValue="true"/>
-                    <fmt:message key="user.accountLocked"/>
-                </label>
-                <br/>
-                <label class="checkbox inline">
-                    <s:checkbox key="user.credentialsExpired" id="user.credentialsExpired" theme="simple" fieldValue="true"/>
-                    <fmt:message key="user.credentialsExpired"/>
-                </label>
-            </div>
+            <label class="checkbox inline">
+                <s:checkbox key="user.enabled" id="user.enabled" theme="simple" fieldValue="true"/>
+                <fmt:message key="user.enabled"/>
+            </label>
+            <label class="checkbox inline">
+                <s:checkbox key="user.accountExpired" id="user.accountExpired" theme="simple" fieldValue="true"/>
+                <fmt:message key="user.accountExpired"/>
+            </label>
+            <label class="checkbox inline">
+                <s:checkbox key="user.accountLocked" id="user.accountLocked" theme="simple" fieldValue="true"/>
+                <fmt:message key="user.accountLocked"/>
+            </label>
+            <br/>
+            <label class="checkbox inline">
+                <s:checkbox key="user.credentialsExpired" id="user.credentialsExpired" theme="simple" fieldValue="true"/>
+                <fmt:message key="user.credentialsExpired"/>
+            </label>
         </fieldset>
-        <fieldset class="control-group">
+        <fieldset class="form-group">
             <label for="userRoles" class="control-label"><fmt:message key="userProfile.assignRoles"/></label>
-            <div class="controls">
-                <select id="userRoles" name="userRoles" multiple="true">
-                    <c:forEach items="${availableRoles}" var="role">
-                    <option value="${role.value}" ${fn:contains(user.roles, role.label) ? 'selected' : ''}>${role.label}</option>
-                    </c:forEach>
-                </select>
-            </div>
+            <select id="userRoles" name="userRoles" multiple="true" class="form-control">
+                <c:forEach items="${availableRoles}" var="role">
+                <option value="${role.value}" ${fn:contains(user.roles, role.label) ? 'selected' : ''}>${role.label}</option>
+                </c:forEach>
+            </select>
         </fieldset>
     </c:when>
     <c:otherwise>
-        <fieldset class="control-group">
+        <fieldset class="form-group">
             <label class="control-label"><fmt:message key="user.roles"/>:</label>
             <div class="controls readonly">
                 <s:iterator value="user.roleList" status="status">
@@ -124,7 +118,7 @@
         </fieldset>
     </c:otherwise>
 </c:choose>
-        <div id="actions" class="form-actions">
+        <div id="actions" class="form-group">
             <s:submit type="button" cssClass="btn btn-primary" method="save" key="button.save" theme="simple">
                 <i class="icon-ok icon-white"></i>
                 <fmt:message key="button.save"/>

@@ -15,7 +15,7 @@
             <h:form id="searchForm" styleClass="form-search">
             <div id="search" class="input-append">
                 <h:inputText id="q" name="q" size="20" value="${'#'}{${pojoNameLower}List.query}" styleClass="input-medium search-query"/>
-                <h:commandButton value="${'#'}{text['button.search']}" styleClass="btn" action="${'#'}{${pojoNameLower}List.search}"/>
+                <h:commandButton value="${'#'}{text['button.search']}" styleClass="btn btn-default" action="${'#'}{${pojoNameLower}List.search}"/>
             </div>
             </h:form>
 
@@ -23,9 +23,9 @@
 
             <h:form id="edit${pojo.shortName}">
 
-            <div id="actions" class="form-actions">
+            <div id="actions" class="form-group">
                 <h:commandButton value="${'#'}{text['button.add']}" action="add" id="add" immediate="true" styleClass="btn btn-primary"/>
-                <h:commandButton value="${'#'}{text['button.done']}" action="home" id="cancel" immediate="true" styleClass="btn"/>
+                <h:commandButton value="${'#'}{text['button.done']}" action="home" id="cancel" immediate="true" styleClass="btn btn-default"/>
             </div>
 
             <p:dataTable id="${util.getPluralForWord(pojoNameLower)}" var="${pojoNameLower}" value="${'#'}{${pojoNameLower}List.${util.getPluralForWord(pojoNameLower)}}"

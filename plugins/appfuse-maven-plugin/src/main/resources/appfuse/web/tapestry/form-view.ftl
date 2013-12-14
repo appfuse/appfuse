@@ -3,13 +3,13 @@
           heading="message:${pojoNameLower}Detail.heading" menu="${pojo.shortName}Menu"
           xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-<div class="span2">
+<div class="col-sm-2">
     <h2>${'$'}{message:${pojoNameLower}Detail.heading}</h2>
     ${'$'}{message:${pojoNameLower}Detail.message}
 </div>
 
-<div class="span7">
-    <form t:id="${pojoNameLower}Form" class="well form-horizontal" clientValidation="true" >
+<div class="col-sm-7">
+    <form t:id="${pojoNameLower}Form" class="well" clientValidation="true" >
 
         <div class="t-beaneditor">
             <t:beaneditor t:id="${pojoNameLower}" object="${pojoNameLower}" exclude="${pojo.identifierProperty.name}"/>
@@ -21,7 +21,7 @@
                     <i class="icon-trash"></i> ${'$'}{message:button.delete}
                 </button>
                 </t:if>
-                <button t:type="eventlink" t:id="cancel" id="cancel" class="btn"><i class="icon-remove"></i> ${'$'}{message:button.cancel}</button>
+                <button t:type="eventlink" t:id="cancel" id="cancel" class="btn btn-default"><i class="icon-remove"></i> ${'$'}{message:button.cancel}</button>
             </div>
         </div>
     </form>

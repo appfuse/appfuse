@@ -104,7 +104,7 @@ public class CountryTag extends TagSupport {
             }
         } else {
             StringBuffer sb = new StringBuffer();
-            sb.append("<select name=\"" + name + "\" id=\"" + name + "\" class=\"select\">\n");
+            sb.append("<select name=\"" + name + "\" id=\"" + name + "\" class=\"form-control\">\n");
 
             if (prompt != null) {
                 sb.append("    <option value=\"\" selected=\"selected\">");

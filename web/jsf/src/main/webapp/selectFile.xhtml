@@ -7,38 +7,28 @@
     <ui:define name="menu">AdminMenu</ui:define>
 
     <ui:define name="body">
-        <div class="span3">
+        <div class="col-sm-3">
             <h2><h:outputText value="#{text['upload.heading']}"/></h2>
-
             <p><h:outputText value="#{text['upload.message']}"/></p>
         </div>
-        <div class="span7">
-            <h:form id="uploadForm" enctype="multipart/form-data" styleClass="well form-horizontal">
-
-                <div class="control-group">
+        <div class="col-sm-7">
+            <h:form id="uploadForm" enctype="multipart/form-data" styleClass="well">
+                <div class="form-group">
                     <h:outputLabel styleClass="control-label" for="name" value="#{text['uploadForm.name']}"/>
-
-                    <div class="controls">
-                        <h:inputText value="#{fileUpload.name}" id="name" required="true"/>
-                        <p:message for="name"/>
-                    </div>
+                    <h:inputText value="#{fileUpload.name}" id="name" required="true"/>
+                    <p:message for="name"/>
                 </div>
-
-                <div class="control-group">
+                <div class="form-group">
                     <h:outputLabel styleClass="control-label" for="file" value="#{text['uploadForm.file']}"/>
-
-                    <div class="controls">
-                        <p:fileUpload id="file" value="#{fileUpload.file}" mode="simple" required="true"
-                                      fileUploadListener="#{fileUpload.upload}"/>
-                        <p:message for="file"/>
-                    </div>
+                    <p:fileUpload id="file" value="#{fileUpload.file}" mode="simple" required="true"
+                                  fileUploadListener="#{fileUpload.upload}"/>
+                    <p:message for="file"/>
                 </div>
-
-                <div class="form-actions">
+                <div class="form-group">
                     <h:commandButton value="#{text['button.upload']}" action="#{fileUpload.upload}"
                                      id="upload" styleClass="btn btn-primary" ajax="false"/>
                     <h:commandButton value="#{text['button.cancel']}" action="home" immediate="true"
-                                     id="cancel" styleClass="btn" onclick="bCancel=true"/>
+                                     id="cancel" styleClass="btn btn-default" onclick="bCancel=true"/>
                 </div>
             </h:form>
         </div>
