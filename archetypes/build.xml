@@ -344,6 +344,18 @@
                 <replacevalue><![CDATA[<jdbc.username>root</jdbc.username>
         <jdbc.password></jdbc.password>]]></replacevalue>
             </replace>
+            <if>
+            	<!-- gwt uses ${package} in pom.xml to find root classes for various gwt plugins, so jdbc.password is stripped there also...  -->
+                <equals arg1="@{module}" arg2="gwt"/>
+                <then>
+                	<echo>Replacing @{dir}/target/generated-sources/archetype/target/classes/archetype-resources/pom.xml for GWT...</echo>
+                    <replace file="@{dir}/target/generated-sources/archetype/target/classes/archetype-resources/pom.xml">
+                        <replacetoken><![CDATA[<jdbc.username>root</jdbc.username>]]></replacetoken>
+                        <replacevalue><![CDATA[<jdbc.username>root</jdbc.username>
+        <jdbc.password></jdbc.password>]]></replacevalue>
+                    </replace>
+            	</then>
+           	</if>
 
             <!-- Add snapshots=true since archetype plugin strips it out -->
             <replace file="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/pom.xml">
