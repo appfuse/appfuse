@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.NotTransactional;
 import org.springframework.test.annotation.ExpectedException;
 
 import java.util.List;

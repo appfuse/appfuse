@@ -4,13 +4,13 @@ import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.ExpectedException;
-import org.springframework.test.annotation.NotTransactional;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
