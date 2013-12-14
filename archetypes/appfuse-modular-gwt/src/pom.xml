@@ -335,7 +335,7 @@
         <amp.genericCore>true</amp.genericCore>
         <amp.fullSource>false</amp.fullSource>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
-        <gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>        
+        <gwtModuleName>${package}.MainModule</gwtModuleName>        
 
         <!-- Framework dependency versions -->
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
@@ -385,5 +385,6 @@
         <jdbc.url><![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password></jdbc.password>
+        <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
     </properties>
 </project>
