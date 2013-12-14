@@ -261,6 +261,13 @@
                 <artifactId>bootstrap</artifactId>
                 <version>${bootstrap.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -624,14 +631,14 @@
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>
         <slf4j.version>1.7.5</slf4j.version>
-        <spring.version>3.2.5.RELEASE</spring.version>
+        <spring.version>4.0.0.RELEASE</spring.version>
         <spring.security.version>3.1.4.RELEASE</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.3.14.3</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
         <tapestry.version>5.3.7</tapestry.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>
-        <velocity.version>1.4</velocity.version>
+        <velocity.version>1.7</velocity.version>
         <webtest.version>3.0</webtest.version>
         <wiser.version>1.2</wiser.version>
         <bootstrap.version>3.0.2</bootstrap.version>

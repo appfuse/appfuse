@@ -258,7 +258,7 @@
             <id>prime-repo</id>
             <name>Prime Repo</name>
             <url>http://repository.primefaces.org</url>
-        </repository>        
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -273,6 +273,24 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -388,7 +406,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -727,7 +744,7 @@
         <prettyfaces.version>3.3.3</prettyfaces.version>
         <primefaces.version>4.0</primefaces.version>
         <servlet.version>3.1.0</servlet.version>
-        <spring.version>3.2.5.RELEASE</spring.version>
+        <spring.version>4.0.0.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>
