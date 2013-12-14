@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.annotation.ExpectedException;
 
 import static org.junit.Assert.*;
 
@@ -28,8 +27,7 @@ public class UserDaoTest extends BaseDaoTestCase {
     @Autowired
     private CompassGps compassGps;
 
-    @Test
-    @ExpectedException(DataAccessException.class)
+    @Test(expected=DataAccessException.class)
     public void testGetUserInvalid() throws Exception {
         dao.get(1000L);
     }
@@ -50,8 +48,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertNotNull(password);
     }
 
-    @Test
-    @ExpectedException(DataIntegrityViolationException.class)
+    @Test(expected=DataIntegrityViolationException.class)
     public void testUpdateUser() throws Exception {
         User user = dao.get(-1L);
 
@@ -94,8 +91,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertEquals(1, user.getRoles().size());
     }
 
-    @Test
-    @ExpectedException(DataAccessException.class)
+    @Test(expected=DataAccessException.class)
     public void testAddAndRemoveUser() throws Exception {
         User user = new User("testuser");
         user.setPassword("testpass");
