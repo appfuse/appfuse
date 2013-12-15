@@ -10,9 +10,9 @@ import javax.validation.ConstraintViolation;
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
 import org.appfuse.webapp.client.proxies.UserProxy;
+import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.users.updatePassword.UpdatePasswordView.UserCredentials;
-import org.springframework.security.access.AccessDeniedException;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.editor.client.EditorDriver;
@@ -72,7 +72,7 @@ public class UpdatePasswordActivity extends AbstractBaseActivity implements Upda
                     public void onSuccess(final UserProxy response) {
                         if (response == null) {
                             if (isUsingToken) {
-                                placeController.goTo(new MainMenuPlace());
+                                placeController.goTo(new LoginPlace());
                                 shell.addMessage(i18n.updatePassword_invalidToken(), AlertType.ERROR);
                             } else {
                                 shell.addMessage(i18n.updatePassword_invalidPassword(), AlertType.ERROR);

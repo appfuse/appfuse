@@ -8,8 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -26,7 +25,7 @@ public class PasswordResetITCase extends SeleniumBaseTestCase {
         getDriver().get(getBaseUrl());
         assertTrue(waitForTitle(getDriver(), "^Login[\\s\\S]*$"));
 
-        getDriver().findElement(By.cssSelector("input.gwt-TextBox")).sendKeys("admin");
+        getDriver().findElement(By.cssSelector("input.gwt-TextBox")).sendKeys("user");
         getDriver().findElement(By.id("requestRecoveryTokenLink")).click();
         assertTrue(waitForElement(By.cssSelector("div.alert-success")));
 
