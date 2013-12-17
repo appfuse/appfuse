@@ -64,8 +64,7 @@
                     <div class="form-group">
                         <h:outputLabel styleClass="control-label" for="phoneNumber"
                                        value="#{text['user.phoneNumber']}"/>
-                        <h:inputText styleClass="form-control" value="#{signupForm.user.phoneNumber}" id="phoneNumber"
-                                     styleClass="text medium">
+                        <h:inputText styleClass="form-control" value="#{signupForm.user.phoneNumber}" id="phoneNumber">
                             <f:validateRegex pattern="^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$"/>
                         </h:inputText>
                         <p:message for="phoneNumber"/>
