@@ -1,4 +1,4 @@
-#macro( displayCssMenu $menu )
+#macro( displayStackedMenu $menu )
   #if ($displayer.isAllowed($menu))
       ## set menu title
       #set ($title = $displayer.getMessage($menu.title))
@@ -15,4 +15,4 @@
   #end
 #end
 
-#displayCssMenu($menu)
+#displayStackedMenu($menu)

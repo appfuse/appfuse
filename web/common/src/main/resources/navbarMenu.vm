@@ -1,4 +1,4 @@
-#macro( displayCssMenu $menu )
+#macro( displayNavbarMenu $menu $count)
   #if ($displayer.isAllowed($menu))
     #set ($count = $count + 1)
     ## set menu title
@@ -35,7 +35,7 @@
 
         #set ($count = 0)
         #foreach ($menuIt in $menu.components)
-            #displayCssMenu($menuIt)
+            #displayNavbarMenu($menuIt, $count)
         #end
 
         #if ($hasViewableChildren && ($count == $renderedChildren))
@@ -48,11 +48,11 @@
         #end
     #else
       </li>
-      #if ($count == $menu.parent.components.size())
+      #if ($menu.parent && $count == $menu.parent.components.size())
       </ul>
       #end
     #end
   #end
 #end
 
-#displayCssMenu($menu)
+#displayNavbarMenu($menu, 0)
