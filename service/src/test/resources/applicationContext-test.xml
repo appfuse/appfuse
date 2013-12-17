@@ -28,8 +28,8 @@
         <property name="proxyInterfaces" value="org.appfuse.service.UserManager"/>
         <property name="interceptorNames">
             <list>
-                <idref local="userSecurityInterceptor"/>
-                <idref local="userManager"/>
+                <idref bean="userSecurityInterceptor"/>
+                <idref bean="userManager"/>
             </list>
         </property>
     </bean>
