@@ -722,7 +722,7 @@
         <commons.io.version>2.4</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
         <spring.version>4.0.0.RELEASE</spring.version>
-        <struts.version>2.3.14.3</struts.version>
+        <struts.version>2.3.16</struts.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>
