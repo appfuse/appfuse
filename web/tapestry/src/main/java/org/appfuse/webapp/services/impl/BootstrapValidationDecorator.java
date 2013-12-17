@@ -35,8 +35,7 @@ public class BootstrapValidationDecorator implements ValidationDecorator {
     public void insideLabel(Field field, Element labelElement) {
         if (inError(field)) {
             Element parent = labelElement.getContainer();
-            parent.addClassName("error");
-            labelElement.addClassName("error");
+            parent.addClassName("has-error");
         }
 
 /*
@@ -60,7 +59,7 @@ https://issues.apache.org/jira/browse/TAP5-414  still present
         if (inError(field)) {
             markupWriter.element("span",
                     "id", field.getClientId(),
-                    "class", "help-inline");
+                    "class", "help-block");
 
             String error = getError(field);
             if (error == null) {

@@ -14,7 +14,7 @@
     </h:head>
 
     <body id="#{bodyId}">
-    <c:set var="currentMenu" scope="request"><ui:insert title="menu"/></c:set>
+    <c:set var="currentMenu"><ui:insert name="menu"/></c:set>
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="navbar-header">
@@ -24,35 +24,33 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#{request.contextPath}">#{text['webapp.name']}</a>
-            <o:resourceInclude path="/common/menu.jsp"/>
-            <c:if test="${facesContext.externalContext.requestLocale ne 'en'}">
-                <div id="switchLocale"><a href="#{request.contextPath}/?locale=en">
-                    #{text['webapp.name']} in English</a>
-                </div>
-            </c:if>
         </div>
+
+        <o:resourceInclude path="/common/menu.jsp"/>
+        <c:if test="${facesContext.externalContext.requestLocale ne 'en'}">
+            <div id="switchLocale"><a href="#{request.contextPath}/?locale=en">
+                #{text['webapp.name']} in English</a>
+            </div>
+        </c:if>
     </div>
 
-    <div class="container-fluid">
+    <div class="container" id="content">
         <o:resourceInclude path="/common/messages.jsp"/>
-        <div class="row-fluid">
+        <div class="row">
             <ui:insert name="body"/>
-
-            <c:if test="${currentMenu == 'AdminMenu'}">
-                <div class="col-sm-2">
-                    <o:resourceInclude path="/common/menu-admin.jsp"/>
-                </div>
-            </c:if>
+            <h:panelGroup layout="block" styleClass="col-sm-2" rendered="#{menu == 'AdminMenu'}">
+                <o:resourceInclude path="/common/menu-admin.jsp"/>
+            </h:panelGroup>
         </div>
     </div>
 
-    <div id="footer">
-        <span class="left">#{text['webapp.version']}
+    <div id="footer" class="container navbar-fixed-bottom">
+        <span class="col-sm-6 text-left">#{text['webapp.version']}
             <c:if test="${pageContext.request.remoteUser != null}">
                 | #{text['user.status']} ${pageContext.request.remoteUser}
             </c:if>
         </span>
-        <span class="right">
+        <span class="col-sm-6 text-right">
             <c:set var="companyLink">#{text['company.url']}</c:set>
             &#169; #{text['copyright.year']} <a href="${companyLink}">#{text['company.name']}</a>
         </span>

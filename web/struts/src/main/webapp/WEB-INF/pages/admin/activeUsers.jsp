@@ -6,7 +6,7 @@
 </head>
 <body id="activeUsers">
 
-<div class="span10">
+<div class="col-sm-10">
     <h2><fmt:message key="activeUsers.heading"/></h2>
 
     <p><fmt:message key="activeUsers.message"/></p>

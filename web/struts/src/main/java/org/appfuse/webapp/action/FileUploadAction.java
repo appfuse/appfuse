@@ -31,8 +31,13 @@ public class FileUploadAction extends BaseAction {
         }
 
         // the directory to upload to
-        String uploadDir = ServletActionContext.getServletContext().getRealPath("/resources")
-                + "/" + getRequest().getRemoteUser() + "/";
+        String uploadDir = ServletActionContext.getServletContext().getRealPath("/resources");
+
+        // The following seems to happen when running jetty:run
+        if (uploadDir == null) {
+            uploadDir = new File("src/main/webapp/resources").getAbsolutePath();
+        }
+        uploadDir += "/" + getRequest().getRemoteUser() + "/";
 
         // write the file to the file specified
         File dirPath = new File(uploadDir);
@@ -69,12 +74,12 @@ public class FileUploadAction extends BaseAction {
     }
 
     /**
-     * Default method - returns "input"
+     * Default method - returns "success"
      *
-     * @return "input"
+     * @return "success"
      */
     public String execute() {
-        return INPUT;
+        return SUCCESS;
     }
 
     public void setFile(File file) {

@@ -3,10 +3,10 @@
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/layouts/default.xhtml">
     <ui:define name="title">#{text['activeUsers.title']}</ui:define>
-    <ui:define name="menu">AdminMenu</ui:define>
+    <ui:param name="menu" value="AdminMenu"/>
 
     <ui:define name="body">
-        <div class="span10">
+        <div class="col-sm-10">
             <h2>#{text['activeUsers.heading']}</h2>
 
             <p>#{text['activeUsers.message']}</p>

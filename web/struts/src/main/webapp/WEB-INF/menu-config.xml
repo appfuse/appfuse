@@ -10,7 +10,7 @@
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
             <Item name="ActiveUsers" title="home.activeUsers" page="/admin/activeUsers"/>
             <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload"/>
-            <Item name="FileUpload" title="menu.selectFile" page="/uploadFile"/>
+            <Item name="FileUpload" title="menu.selectFile" page="/selectFile"/>
         </Menu>
         <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER"/>
     </Menus>

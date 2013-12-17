@@ -2,7 +2,7 @@
       heading="message:activeUsers.heading" menu="AdminMenu" bodyId="activeUsers"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 
-<div class="span10">
+<div class="col-sm-10">
     <h2>${message:activeUsers.heading}</h2>
 
     <p>${message:activeUsers.message}</p>

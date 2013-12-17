@@ -26,7 +26,7 @@
         <intercept-url pattern="/**" access="ROLE_ADMIN,ROLE_USER"/>
 
         <form-login login-page="/login" 
-                    default-target-url="/mainmenu" 
+                    default-target-url="/home"
                     always-use-default-target="true"
                     authentication-failure-url="/login/error"
                     login-processing-url="/j_security_check"/>

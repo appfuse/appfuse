@@ -5,7 +5,7 @@
     <meta name="menu" content="AdminMenu"/>
 </head>
 
-<div class="span10">
+<div class="col-sm-10">
     <h2><fmt:message key="display.heading"/></h2>
     <p>Below is a list of attributes that were gathered in FileUploadController.java.</p>
 

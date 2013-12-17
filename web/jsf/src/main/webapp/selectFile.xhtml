@@ -4,7 +4,7 @@
 
 <ui:composition template="/layouts/default.xhtml">
     <ui:define name="title">#{text['upload.title']}</ui:define>
-    <ui:define name="menu">AdminMenu</ui:define>
+    <ui:param name="menu" value="AdminMenu"/>
 
     <ui:define name="body">
         <div class="col-sm-3">
@@ -15,7 +15,7 @@
             <h:form id="uploadForm" enctype="multipart/form-data" styleClass="well">
                 <div class="form-group">
                     <h:outputLabel styleClass="control-label" for="name" value="#{text['uploadForm.name']}"/>
-                    <h:inputText value="#{fileUpload.name}" id="name" required="true"/>
+                    <h:inputText value="#{fileUpload.name}" id="name" required="true" styleClass="form-control"/>
                     <p:message for="name"/>
                 </div>
                 <div class="form-group">
@@ -24,11 +24,10 @@
                                   fileUploadListener="#{fileUpload.upload}"/>
                     <p:message for="file"/>
                 </div>
-                <div class="form-group">
+                <div class="form-group form-actions">
                     <h:commandButton value="#{text['button.upload']}" action="#{fileUpload.upload}"
                                      id="upload" styleClass="btn btn-primary" ajax="false"/>
-                    <h:commandButton value="#{text['button.cancel']}" action="home" immediate="true"
-                                     id="cancel" styleClass="btn btn-default" onclick="bCancel=true"/>
+                    <a href="home" id="cancel" class="btn btn-default">#{text['button.cancel']}</a>
                 </div>
             </h:form>
         </div>

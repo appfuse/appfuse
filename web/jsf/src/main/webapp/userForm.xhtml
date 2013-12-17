@@ -4,7 +4,7 @@
 
 <ui:composition template="/layouts/default.xhtml">
     <ui:define name="title">#{text['userProfile.title']}</ui:define>
-    <ui:define name="menu">UserMenu</ui:define>
+    <ui:param name="menu" value="UserMenu"/>
 
     <ui:define name="body">
         <c:set var="delObject" value="#{text['userList.user']}"/>
@@ -48,17 +48,19 @@
                 </div>
 
             <c:if test="${!userForm.rememberMe}">
-                <div class="form-group">
-                    <h:outputLabel styleClass="control-label" for="password" value="#{text['user.password']}"/>
-                    <h:inputSecret value="#{userForm.user.password}" id="password" redisplay="true" required="true"/>
-                    <p:message for="password"/>
-                </div>
-                <div class="form-group">
-                    <h:outputLabel styleClass="control-label" for="confirmPassword" value="#{text['user.confirmPassword']}"/>
-                    <h:inputSecret value="#{userForm.user.confirmPassword}" id="confirmPassword" redisplay="true" required="true">
-                        <!--p:validateEqual for="password"/-->
-                    </h:inputSecret>
-                    <p:message for="confirmPassword"/>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <h:outputLabel styleClass="control-label" for="password" value="#{text['user.password']}"/>
+                        <h:inputSecret styleClass="form-control" value="#{userForm.user.password}" id="password" redisplay="true" required="true"/>
+                        <p:message for="password"/>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <h:outputLabel styleClass="control-label" for="confirmPassword" value="#{text['user.confirmPassword']}"/>
+                        <h:inputSecret styleClass="form-control" value="#{userForm.user.confirmPassword}" id="confirmPassword" redisplay="true" required="true">
+                            <!--p:validateEqual for="password"/-->
+                        </h:inputSecret>
+                        <p:message for="confirmPassword"/>
+                    </div>
                 </div>
             </c:if>
 
@@ -68,34 +70,36 @@
                     <p:message for="passwordHint"/>
                 </div>
 
-                <div class="form-group">
-                    <h:outputLabel styleClass="control-label" for="firstName" value="#{text['user.firstName']}"/>
-                    <h:inputText styleClass="form-control" id="firstName" value="#{userForm.user.firstName}" maxlength="50" required="true"/>
-                    <p:message for="firstName"/>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <h:outputLabel styleClass="control-label" for="firstName" value="#{text['user.firstName']}"/>
+                        <h:inputText styleClass="form-control" id="firstName" value="#{userForm.user.firstName}" maxlength="50" required="true"/>
+                        <p:message for="firstName"/>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <h:outputLabel styleClass="control-label" for="lastName" value="#{text['user.lastName']}"/>
+                        <h:inputText styleClass="form-control" value="#{userForm.user.lastName}" id="lastName" maxlength="50" required="true"/>
+                        <p:message for="lastName"/>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <h:outputLabel styleClass="control-label" for="lastName" value="#{text['user.lastName']}"/>
-                    <h:inputText styleClass="form-control" value="#{userForm.user.lastName}" id="lastName" maxlength="50" required="true"/>
-                    <p:message for="lastName"/>
-                </div>
-
-                <div class="form-group">
-                    <h:outputLabel styleClass="control-label" for="email" value="#{text['user.email']}"/>
-                    <h:inputText styleClass="form-control" value="#{userForm.user.email}" id="email" required="true">
-                        <!-- Ref.: http://stackoverflow.com/questions/7875108/email-validation-using-regular-expression-in-jsf-2-primefaces -->
-                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                        <!--f:validator validatorId="org.apache.myfaces.validator.Email"/-->
-                    </h:inputText>
-                    <p:message for="email"/>
-                </div>
-
-                <div class="form-group">
-                    <h:outputLabel styleClass="control-label" for="phoneNumber" value="#{text['user.phoneNumber']}"/>
-                    <h:inputText styleClass="form-control" value="#{userForm.user.phoneNumber}" id="phoneNumber">
-                        <f:validateRegex pattern="^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$"/>
-                    </h:inputText>
-                    <p:message for="phoneNumber"/>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <h:outputLabel styleClass="control-label" for="email" value="#{text['user.email']}"/>
+                        <h:inputText styleClass="form-control" value="#{userForm.user.email}" id="email" required="true">
+                            <!-- Ref.: http://stackoverflow.com/questions/7875108/email-validation-using-regular-expression-in-jsf-2-primefaces -->
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                            <!--f:validator validatorId="org.apache.myfaces.validator.Email"/-->
+                        </h:inputText>
+                        <p:message for="email"/>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <h:outputLabel styleClass="control-label" for="phoneNumber" value="#{text['user.phoneNumber']}"/>
+                        <h:inputText styleClass="form-control" value="#{userForm.user.phoneNumber}" id="phoneNumber">
+                            <f:validateRegex pattern="^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$"/>
+                        </h:inputText>
+                        <p:message for="phoneNumber"/>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -114,26 +118,28 @@
                             <h:inputText styleClass="form-control" value="#{userForm.user.address.address}" id="address"/>
                             <p:message for="address"/>
                         </div>
-                        <div class="form-group">
-                            <h:outputLabel styleClass="control-label" for="city" value="#{text['user.address.city']}"/>
-                            <h:inputText styleClass="form-control" value="#{userForm.user.address.city}" id="city"/>
-                            <p:message for="city"/>
-                        </div>
-                        <div class="form-group">
-                            <h:outputLabel styleClass="control-label" for="province" value="#{text['user.address.province']}"/>
-                            <h:inputText styleClass="form-control" value="#{userForm.user.address.province}" id="province"/>
-                            <p:message for="province"/>
-                        </div>
-                        <div class="form-group">
-                            <h:outputLabel styleClass="control-label" for="postalCode" value="#{text['user.address.postalCode']}"/>
-                            <h:inputText styleClass="form-control" value="#{userForm.user.address.postalCode}" id="postalCode">
-                                <f:validateRegex pattern="^\d{5}\d*$"/>
-                            </h:inputText>
-                            <p:message for="postalCode"/>
+                        <div class="row">
+                            <div class="col-sm-7 form-group">
+                                <h:outputLabel styleClass="control-label" for="city" value="#{text['user.address.city']}"/>
+                                <h:inputText styleClass="form-control" value="#{userForm.user.address.city}" id="city"/>
+                                <p:message for="city"/>
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <h:outputLabel styleClass="control-label" for="province" value="#{text['user.address.province']}"/>
+                                <h:inputText styleClass="form-control" value="#{userForm.user.address.province}" id="province"/>
+                                <p:message for="province"/>
+                            </div>
+                            <div class="col-sm-3 form-group">
+                                <h:outputLabel styleClass="control-label" for="postalCode" value="#{text['user.address.postalCode']}"/>
+                                <h:inputText styleClass="form-control" value="#{userForm.user.address.postalCode}" id="postalCode">
+                                    <f:validateRegex pattern="^\d{5}\d*$"/>
+                                </h:inputText>
+                                <p:message for="postalCode"/>
+                            </div>
                         </div>
                         <div class="form-group">
                             <h:outputLabel styleClass="control-label" for="country" value="#{text['user.address.country']}"/>
-                            <h:selectOneMenu value="#{userForm.country}" id="country" styleClass="form-control">
+                            <h:selectOneMenu value="#{userForm.country}" id="country" styleClass="form-control" style="height: 38px">
                                 <f:selectItems value="#{userForm.countries}"/>
                             </h:selectOneMenu>
                             <p:message for="country"/>
@@ -143,7 +149,7 @@
 
             <c:choose>
                 <c:when test="${param.from == 'list' or param['editUser:add'] == addText}">
-                    <h:panelGroup>
+                    <h:panelGroup styleClass="form-group" layout="block">
                         <fieldset>
                             <legend><h:outputText value="#{text['userProfile.accountSettings']}"/></legend>
                             <h:outputLabel styleClass="checkbox" for="enabled" value="#{text['user.enabled']}">
@@ -163,17 +169,17 @@
                             </h:outputLabel>
                         </fieldset>
                     </h:panelGroup>
-                    <h:panelGroup>
+                    <h:panelGroup styleClass="form-group" layout="block">
                         <fieldset>
                             <legend>#{text['userProfile.assignRoles']}</legend>
-                            <h:selectManyCheckbox value="#{userForm.userRoles}" id="userRoles">
+                            <h:selectManyCheckbox value="#{userForm.userRoles}" id="userRoles" layout="pageDirection">
                                 <f:selectItems value="#{userForm.availableRoles}"/>
                             </h:selectManyCheckbox>
                         </fieldset>
                     </h:panelGroup>
                 </c:when>
                 <c:otherwise>
-                    <h:panelGroup>
+                    <h:panelGroup styleClass="form-group" layout="block">
                         <strong>#{text['user.roles']}:</strong>
                         <c:if test="${not empty param['userForm:userRoles']}">
                             ${param['userForm:userRoles']}
@@ -190,7 +196,7 @@
                     </h:panelGroup>
                 </c:otherwise>
             </c:choose>
-                <div class="form-group">
+                <div class="form-group form-actions">
                     <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="btn btn-primary"/>
 
                     <!-- Todo: hide this button when the user's id is not assigned. Wrapping it with <c:if test="${not empty userForm.user.id}"> or

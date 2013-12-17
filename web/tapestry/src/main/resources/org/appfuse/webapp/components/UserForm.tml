@@ -26,7 +26,7 @@
 <div class="form-group">
     <label t:type="label" class="control-label" for="username">${message:user.username}</label>
 
-    <input t:type="textfield" t:id="username" value="user.username" validate="required" class="form-control"/>
+    <input t:type="textfield" t:id="username" value="user.username" validate="required" class="form-control" autofocus="true"/>
     <t:if test="self">
         <span class="help-block">
               <a href="#" t:type="eventlink" t:id="updatePassword" id="updatePassword" event="updatePassword">
@@ -35,16 +35,17 @@
     </t:if>
 </div>
 
-<t:if test="! userPersisted">
-    <div class="form-group">
-        <label t:type="label" class="control-label" for="password">${message:user.password}</label>
-        <input t:type="hashedpasswordfield" t:id="password" value="user.password" validate="required" class="form-control"/>
-    </div>
-
-    <div class="form-group">
-        <label t:type="label" class="control-label" for="confirmPassword">${message:user.confirmPassword}</label>
-        <input t:type="hashedpasswordfield" t:id="confirmPassword" value="user.confirmPassword" class="form-control"
-               validate="required"/>
+<t:if test="!userPersisted">
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label t:type="label" class="control-label" for="password">${message:user.password}</label>
+            <input t:type="hashedpasswordfield" t:id="password" value="user.password" validate="required" class="form-control"/>
+        </div>
+        <div class="form-group col-sm-6">
+            <label t:type="label" class="control-label" for="confirmPassword">${message:user.confirmPassword}</label>
+            <input t:type="hashedpasswordfield" t:id="confirmPassword" value="user.confirmPassword" class="form-control"
+                   validate="required"/>
+        </div>
     </div>
     <div class="form-group">
         <label t:type="label" class="control-label" for="passwordHint">${message:user.passwordHint}</label>
@@ -57,27 +58,29 @@
     </p:else>
 </t:if>
 
-<div class="form-group">
-    <label t:type="label" class="control-label" for="firstName">${message:user.firstName}</label>
-    <input t:type="textfield" t:id="firstName" value="user.firstName" validate="required" class="form-control"/>
-</div>
+<div class="row">
+    <div class="col-sm-6 form-group">
+        <label t:type="label" class="control-label" for="firstName">${message:user.firstName}</label>
+        <input t:type="textfield" t:id="firstName" value="user.firstName" validate="required" class="form-control"/>
+    </div>
 
-<div class="form-group">
-    <label t:type="label" class="control-label" for="lastName">${message:user.lastName}</label>
-    <input class="form-control" t:type="textfield" t:id="lastName" value="user.lastName" validate="required"/>
+    <div class="col-sm-6 form-group">
+        <label t:type="label" class="control-label" for="lastName">${message:user.lastName}</label>
+        <input class="form-control" t:type="textfield" t:id="lastName" value="user.lastName" validate="required"/>
+    </div>
 </div>
+<div class="row">
+    <div class="col-sm-6 form-group">
+        <label t:type="label" class="control-label" for="email">${message:user.email}</label>
+        <input t:type="textfield" t:id="email" value="user.email" validate="required,email" class="form-control"/>
+    </div>
 
-<div class="form-group">
-    <label t:type="label" class="control-label" for="email">${message:user.email}</label>
-    <input t:type="textfield" t:id="email" value="user.email" validate="required,email" class="form-control"/>
+    <div class="col-sm-6 form-group">
+        <label t:type="label" class="control-label" for="phoneNumber">${message:user.phoneNumber}</label>
+        <input class="form-control" t:type="textfield" t:id="phoneNumber" value="user.phoneNumber"
+               validate="minlength=11"/>
+    </div>
 </div>
-
-<div class="form-group">
-    <label t:type="label" class="control-label" for="phoneNumber">${message:user.phoneNumber}</label>
-    <input class="form-control" t:type="textfield" t:id="phoneNumber" value="user.phoneNumber"
-           validate="minlength=11"/>
-</div>
-
 <div class="form-group">
     <label t:type="label" class="control-label" for="website">${message:user.website}</label>
     <input t:type="textfield" t:id="website" value="user.website" class="form-control"/>
@@ -95,25 +98,26 @@
             <input t:type="textfield" t:id="address" value="user.address?.address" class="form-control"/>
         </div>
 
-        <div class="form-group">
-            <label class="control-label" t:type="label" for="city">${message:user.address.city}</label>
-            <input t:type="textfield" t:id="city" value="user.address?.city" class="form-control"/>
-        </div>
+        <div class="row">
+            <div class="col-sm-7 form-group">
+                <label class="control-label" t:type="label" for="city">${message:user.address.city}</label>
+                <input t:type="textfield" t:id="city" value="user.address?.city" class="form-control"/>
+            </div>
 
-        <div class="form-group">
-            <label class="control-label" t:type="label" for="state">${message:user.address.province}</label>
-            <input t:type="textfield" t:id="state" value="user.address?.province" class="form-control"/>
-        </div>
+            <div class="col-sm-2 form-group">
+                <label class="control-label" t:type="label" for="state">${message:user.address.province}</label>
+                <input t:type="textfield" t:id="state" value="user.address?.province" class="form-control"/>
+            </div>
 
-        <div class="form-group">
-            <label class="control-label" t:type="label" for="postalCode">${message:user.address.postalCode}</label>
-            <input t:type="textfield" t:id="postalCode" value="user.address?.postalCode" class="form-control"/>
+            <div class="col-sm-3 form-group">
+                <label class="control-label" t:type="label" for="postalCode">${message:user.address.postalCode}</label>
+                <input t:type="textfield" t:id="postalCode" value="user.address?.postalCode" class="form-control"/>
+            </div>
         </div>
-
         <div class="form-group">
             <label t:type="label" for="country" class="control-label">${message:user.address.country}</label>
             <select t:type="select" t:id="country" model="countryModel" value="user.address?.country"
-                    encoder="countryEncoder" blankOption="always" size="1" class="form-control"/>
+                    encoder="countryEncoder" blankOption="always" class="form-control"/>
         </div>
     </div>
 </div>
@@ -161,7 +165,7 @@
 
 </t:unless>
 
-<div class="form-group">
+<div class="form-group form-actions">
     <button type="submit" id="save" name="save" class="btn btn-primary">
         <i class="icon-ok icon-white"></i> ${submitLabel}</button>
     <t:unless test="${signup}">

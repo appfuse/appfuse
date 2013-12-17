@@ -16,9 +16,9 @@
             </div>
         </t:if>
 
-        <input type="text" class="input-block-level" name="j_username" id="j_username"
+        <input type="text" class="form-control" name="j_username" id="j_username"
                placeholder="${message:label.username}" required="true" tabindex="1"/>
-        <input type="password" class="input-block-level" name="j_password" id="j_password" tabindex="2"
+        <input type="password" class="form-control" name="j_password" id="j_password" tabindex="2"
                placeholder="${message:label.password}" required="true"/>
 
         <t:if test="rememberMeEnabled">
@@ -28,7 +28,7 @@
             </label>
         </t:if>
 
-        <input type="submit" class="btn btn-large btn-primary" name="login" value="${message:button.login}" tabindex="4"/>
+        <input type="submit" class="btn btn-lg btn-primary btn-block" name="login" value="${message:button.login}" tabindex="4"/>
 
     </form>
 

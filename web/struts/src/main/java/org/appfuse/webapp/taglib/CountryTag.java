@@ -77,8 +77,8 @@ public class CountryTag extends TagSupport {
                 throw new JspException("Attribute 'scope' must be: page, request, session or application");
             }
         } else {
-            StringBuffer sb = new StringBuffer();
-            sb.append("<select name=\"").append(name).append("\" id=\"").append(name).append("\" class=\"select\">\n");
+            StringBuilder sb = new StringBuilder();
+            sb.append("<select name=\"").append(name).append("\" id=\"").append(name).append("\" class=\"form-control\">\n");
 
             if (prompt != null) {
                 sb.append("    <option value=\"\" selected=\"selected\">");

@@ -2,7 +2,7 @@
       heading="message:display.heading" menu="AdminMenu"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-<div class="span10">
+<div class="col-sm-10">
     <h2>${message:display.heading}</h2>
 
     <p>Below is a list of attributes that were gathered in FileUpload.java.</p>
@@ -33,7 +33,7 @@
 
     </table>
 
-    <div class="form-group">
+    <div class="form-group form-actions">
 
         <a t:type="eventlink" event="done" class="btn btn-primary">
              <i class="icon-ok icon-white"></i> ${message:button.done}

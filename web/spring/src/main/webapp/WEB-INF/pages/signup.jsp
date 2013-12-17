@@ -25,51 +25,51 @@
     <form:form commandName="user" method="post" action="signup" id="signupForm" autocomplete="off"
                cssClass="well" onsubmit="return validateSignup(this)">
         <spring:bind path="user.username">
-        <div class="form-group${(not empty status.errorMessage) ? ' error' : ''}">
+        <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
         </spring:bind>
             <appfuse:label styleClass="control-label" key="user.username"/>
-            <form:input cssClass="form-control" path="username" id="username"/>
-            <form:errors path="username" cssClass="help-inline"/>
+            <form:input cssClass="form-control" path="username" id="username" autofocus="true"/>
+            <form:errors path="username" cssClass="help-block"/>
         </div>
         <div class="row">
             <spring:bind path="user.password">
-            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' error' : ''}">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
             </spring:bind>
                 <appfuse:label styleClass="control-label" key="user.password"/>
                 <form:password cssClass="form-control" path="password" id="password" showPassword="true"/>
-                <form:errors path="password" cssClass="help-inline"/>
+                <form:errors path="password" cssClass="help-block"/>
             </div>
             <spring:bind path="user.passwordHint">
-            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' error' : ''}">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
             </spring:bind>
                 <appfuse:label styleClass="control-label" key="user.passwordHint"/>
                 <form:input cssClass="form-control" path="passwordHint" id="passwordHint"/>
-                <form:errors path="passwordHint" cssClass="help-inline"/>
+                <form:errors path="passwordHint" cssClass="help-block"/>
             </div>
         </div>
         <div class="row">
             <spring:bind path="user.firstName">
-            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' error' : ''}">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
             </spring:bind>
                 <appfuse:label styleClass="control-label" key="user.firstName"/>
                 <form:input cssClass="form-control" path="firstName" id="firstName" maxlength="50"/>
-                <form:errors path="firstName" cssClass="help-inline"/>
+                <form:errors path="firstName" cssClass="help-block"/>
             </div>
             <spring:bind path="user.lastName">
-            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' error' : ''}">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
             </spring:bind>
                 <appfuse:label styleClass="control-label" key="user.lastName"/>
                 <form:input cssClass="form-control" path="lastName" id="lastName" maxlength="50"/>
-                <form:errors path="lastName" cssClass="help-inline"/>
+                <form:errors path="lastName" cssClass="help-block"/>
             </div>
         </div>
         <div class="row">
             <spring:bind path="user.email">
-            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' error' : ''}">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
             </spring:bind>
                 <appfuse:label styleClass="control-label" key="user.email"/>
                 <form:input cssClass="form-control" path="email" id="email"/>
-                <form:errors path="email" cssClass="help-inline"/>
+                <form:errors path="email" cssClass="help-block"/>
             </div>
             <div class="col-sm-6 form-group">
                 <appfuse:label styleClass="control-label" key="user.phoneNumber"/>
@@ -123,9 +123,4 @@
 <c:set var="scripts" scope="request">
 <v:javascript formName="signup" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("input[type='text']:visible:enabled:first", document.forms['signupForm']).focus();
-    });
-</script>
 </c:set>

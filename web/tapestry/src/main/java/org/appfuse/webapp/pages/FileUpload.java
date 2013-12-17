@@ -111,13 +111,14 @@ public class FileUpload {
 
     private File buildUploadPath() {
 
-        // write the file to the filesystem the directory to upload to
-        String uploadDir = String.format("%s%s%s%s",
-                request.getSession().getServletContext().getRealPath("/resources"),
-                Constants.FILE_SEP,
-                securityContext.getUsername(),
-                Constants.FILE_SEP);
+        // the directory to upload to
+        String uploadDir = request.getServletContext().getRealPath("/resources");
 
+        // The following seems to happen when running jetty:run
+        if (uploadDir == null) {
+            uploadDir = new File("src/main/webapp/resources").getAbsolutePath();
+        }
+        uploadDir += Constants.FILE_SEP + securityContext.getUsername() + Constants.FILE_SEP;
 
         // Create the directory if it doesn't exist
         File dirPath = new File(uploadDir);

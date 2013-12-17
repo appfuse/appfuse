@@ -5,7 +5,7 @@
 
 <ui:composition template="/layouts/default.xhtml">
     <ui:define name="title">${'#'}{text['${pojoNameLower}Detail.title']}</ui:define>
-    <ui:define name="menu">{pojo.shortName}Menu</ui:define>
+    <ui:param name="menu" value="${pojo.shortName}Menu"/>
 
     <ui:define name="body">
         <c:set var="delObject" value="${'#'}{text['${pojoNameLower}List.${pojoNameLower}']}"/>
@@ -27,7 +27,7 @@
             <#if field.value.identifierGeneratorStrategy == "assigned">
             <h:outputLabel styleClass="control-label" for="${field.name}" value="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
             <h:inputText id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" styleClass="form-control" required="${(!column.nullable)?string}"/>
-            <t:message for="${field.name}" styleClass="help-inline"/>
+            <t:message for="${field.name}" styleClass="help-block"/>
             <#else>
                 <#lt/>    <h:inputHidden value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}"/>
             </#if>

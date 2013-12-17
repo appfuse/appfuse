@@ -3,22 +3,25 @@
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/layouts/default.xhtml">
     <ui:define name="title">#{text['userList.title']}</ui:define>
-    <ui:define name="menu">AdminMenu</ui:define>
+    <ui:param name="menu" value="AdminMenu"/>
 
     <ui:define name="body">
-        <div class="span10">
+        <div class="col-sm-10">
             <h2>#{text['userList.heading']}</h2>
 
-            <h:form id="searchForm" styleClass="form-search">
-                <div id="search" class="input-append">
-                    <h:inputText id="q" size="20" value="#{userList.query}" styleClass="input-medium search-query"/>
-                    <h:commandButton styleClass="btn btn-default" action="#{userList.search}" value="#{text['button.search']}"/>
+            <h:form id="searchForm" styleClass="form-inline">
+                <div id="search" class="text-right">
+                    <span class="col-sm-9">
+                        <h:inputText id="q" size="20" value="#{userList.query}" styleClass="form-control input-sm"/>
+                    </span>
+                    <h:commandButton styleClass="btn btn-default btn-sm" action="#{userList.search}" value="#{text['button.search']}"/>
                 </div>
             </h:form>
 
             <h:form id="editUser">
 
-                <div id="actions" class="form-group">
+                <div id="actions" class="btn-group">
+                    <!-- <script> shows up here and causes square corners on the Add button below -->
                     <h:commandButton action="#{userForm.add}" value="#{text['button.add']}" id="add"
                                      styleClass="btn btn-primary">
                         <f:param name="from" value="list"/>

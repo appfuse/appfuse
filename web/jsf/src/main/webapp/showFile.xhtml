@@ -2,10 +2,10 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition template="/layouts/default.xhtml">
     <ui:define name="title">#{text['display.title']}</ui:define>
-    <ui:define name="menu">AdminMenu</ui:define>
+    <ui:param name="menu" value="AdminMenu"/>
 
     <ui:define name="body">
-        <div class="span10">
+        <div class="col-sm-10">
             <h2>#{text['display.heading']}</h2>
 
             <p>Below is a list of attributes that were gathered in FileUpload.java.</p>

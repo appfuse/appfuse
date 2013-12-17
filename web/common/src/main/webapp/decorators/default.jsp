@@ -12,7 +12,6 @@
     <decorator:head/>
 </head>
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/><decorator:getProperty property="body.class" writeEntireProperty="true"/>>
-<div id="wrap">
     <c:set var="currentMenu" scope="request"><decorator:getProperty property="meta.menu"/></c:set>
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -33,7 +32,7 @@
         </c:if>
     </div>
 
-    <div class="container">
+    <div class="container" id="content">
         <%@ include file="/common/messages.jsp" %>
         <div class="row">
             <decorator:body/>
@@ -48,7 +47,7 @@
         </div>
     </div>
 
-    <div id="footer" class="container">
+    <div id="footer" class="container navbar-fixed-bottom">
         <span class="col-sm-6 text-left"><fmt:message key="webapp.version"/>
             <c:if test="${pageContext.request.remoteUser != null}">
             | <fmt:message key="user.status"/> ${pageContext.request.remoteUser}
@@ -59,6 +58,5 @@
         </span>
     </div>
 <%= (request.getAttribute("scripts") != null) ?  request.getAttribute("scripts") : "" %>
-</div>
 </body>
 </html>

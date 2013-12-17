@@ -24,18 +24,18 @@
     <form:form commandName="fileUpload" method="post" action="fileupload" enctype="multipart/form-data"
         onsubmit="return validateFileUpload(this)" id="uploadForm" cssClass="well">
         <spring:bind path="fileUpload.name">
-        <div class="form-group${(not empty status.errorMessage) ? ' error' : ''}">
+        <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
         </spring:bind>
             <appfuse:label key="uploadForm.name" styleClass="control-label"/>
             <form:input cssClass="form-control" path="name" id="name"/>
-            <form:errors path="name" cssClass="help-inline"/>
+            <form:errors path="name" cssClass="help-block"/>
         </div>
         <spring:bind path="fileUpload.file">
-        <div class="form-group${(not empty status.errorMessage) ? ' error' : ''}">
+        <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
         </spring:bind>
             <appfuse:label key="uploadForm.file" styleClass="control-label"/>
             <input type="file" name="file" id="file"/>
-            <form:errors path="file" cssClass="help-inline"/>
+            <form:errors path="file" cssClass="help-block"/>
         </div>
         <div class="form-group">
             <button type="submit" name="upload" class="btn btn-primary" onclick="bCancel=false">

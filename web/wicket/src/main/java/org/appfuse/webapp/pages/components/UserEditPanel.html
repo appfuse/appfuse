@@ -10,12 +10,12 @@
         <label wicket:id="usernameLabel" class="control-label">[Username]</label>
         <input wicket:id="username" type="text" class="form-control"/>
     </div>
-    <div wicket:id="passwordGroup">
-        <div class="form-group">
+    <div wicket:id="passwordGroup" class="row">
+        <div class="col-sm-6 form-group">
             <label wicket:id="passwordLabel" class="control-label">[Password]</label>
             <input wicket:id="password" type="password" class="form-control"/>
         </div>
-        <div class="form-group">
+        <div class="col-sm-6 form-group">
             <label wicket:id="confirmPasswordLabel" class="control-label">[Confirm password]</label>
             <input wicket:id="confirmPassword" type="password" class="form-control"/>
         </div>
@@ -24,31 +24,29 @@
         <label wicket:id="passwordHintLabel" class="control-label">[Password Hint]</label>
         <input wicket:id="passwordHint" type="text" class="form-control"/><br/>
     </div>
-    <div>
-        <div class="form-group">
+    <div class="row">
+        <div class="col-sm-6 form-group">
             <label wicket:id="firstNameLabel" class="control-label">[First Name]</label>
             <input wicket:id="firstName" type="text" class="form-control"/>
         </div>
-        <div class="form-group">
+        <div class="col-sm-6 form-group">
             <label wicket:id="lastNameLabel" class="control-label">[Last Name]</label>
             <input wicket:id="lastName" type="text" class="form-control"/>
         </div>
     </div>
-    <div>
-        <div class="form-group">
+    <div class="row">
+        <div class="col-sm-6 form-group">
             <label wicket:id="emailLabel" class="control-label">[Email]</label>
             <input wicket:id="email" type="text" class="form-control"/>
         </div>
-        <div class="form-group">
+        <div class="col-sm-6 form-group">
             <label wicket:id="phoneNumberLabel" class="control-label">[Phone Number]</label>
             <input wicket:id="phoneNumber" type="text" class="form-control"/>
         </div>
     </div>
-    <div>
-        <div class="form-group">
-            <label wicket:id="websiteLabel" class="control-label">[Website]</label>
-            <input wicket:id="website" type="text" class="form-control"/>
-        </div>
+    <div class="form-group">
+        <label wicket:id="websiteLabel" class="control-label">[Website]</label>
+        <input wicket:id="website" type="text" class="form-control"/>
     </div>
     <div wicket:id="collapsibleAddress"></div>
 
@@ -93,7 +91,7 @@
         </div>
     </div>
 
-    <div wicket:id="buttonsGroup" class="form-group">
+    <div wicket:id="buttonsGroup" class="form-group form-actions">
         <button type="submit" wicket:id="saveButton" class="btn btn-primary">[Save]</button>
         <button type="submit" wicket:id="deleteButton" class="btn btn-default">[Delete]</button>
         <button wicket:id="cancelButton" class="btn btn-default">[Cancel]</button>

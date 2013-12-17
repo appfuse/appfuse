@@ -160,6 +160,10 @@
                     <groupId>velocity</groupId>
                     <artifactId>*</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>velocity-tools</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
             </exclusions>
             <scope>runtime</scope>
         </dependency>

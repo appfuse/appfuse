@@ -406,5 +406,9 @@
             </build>
         </profile>
     </profiles>
+
+    <properties>
+        <bootstrap.version>3.0.0</bootstrap.version>
+    </properties>
 </project>
 

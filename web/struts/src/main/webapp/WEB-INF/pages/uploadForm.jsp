@@ -10,9 +10,8 @@
     <p><fmt:message key="upload.message"/></p>
 </div>
 <div class="col-sm-7">
-    <s:form action="uploadFile!upload" enctype="multipart/form-data" method="post" validate="true" id="uploadForm"
-            cssClass="well">
-        <s:textfield name="name" label="%{getText('uploadForm.name')}" required="true"/>
+    <s:form action="uploadFile" enctype="multipart/form-data" method="post" validate="true" id="uploadForm" cssClass="well">
+        <s:textfield name="name" label="%{getText('uploadForm.name')}" required="true" autofocus="true" cssClass="form-control"/>
         <s:file name="file" label="%{getText('uploadForm.file')}" required="true"/>
         <div id="actions" class="form-group">
             <s:submit type="button" key="button.upload" name="upload" cssClass="btn btn-primary" theme="simple">
@@ -27,8 +26,3 @@
         </div>
     </s:form>
 </div>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("input[type='text']:visible:enabled:first", document.forms['uploadForm']).focus();
-    });
-</script>

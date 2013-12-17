@@ -24,7 +24,7 @@
 <c:if test="${appConfig['rememberMeEnabled']}">
     <label for="rememberMe" class="checkbox">
         <input type="checkbox" name="_spring_security_remember_me" id="rememberMe" tabindex="3"/>
-    <fmt:message key="login.rememberMe"/></label>
+        <fmt:message key="login.rememberMe"/></label>
 </c:if>
 
     <button type="submit" class="btn btn-lg btn-primary btn-block" name="login" tabindex="4">
