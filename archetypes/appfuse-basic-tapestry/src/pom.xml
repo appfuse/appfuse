@@ -329,6 +329,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>bootstrap</artifactId>
+                <version>${bootstrap.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -449,7 +454,6 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>${bootstrap.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -746,7 +750,7 @@
 
         <!-- Framework dependency versions -->
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
-        <bootstrap.version>2.3.2</bootstrap.version>
+        <bootstrap.version>3.0.2</bootstrap.version>
         <spring.version>4.0.0.RELEASE</spring.version>
         <tapestry.version>5.3.7</tapestry.version>
 
