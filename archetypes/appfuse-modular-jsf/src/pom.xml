@@ -351,7 +351,7 @@
 
         <!-- Framework dependency versions -->
         <acegijsf.version>1.1.3</acegijsf.version>
-        <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
+        <appfuse.version>3.0.0</appfuse.version>
         <bootstrap.version>3.0.2</bootstrap.version>
         <commons.io.version>2.4</commons.io.version>
         <commons.fileupload.version>1.3</commons.fileupload.version>
