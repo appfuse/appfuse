@@ -11,7 +11,7 @@
         </h2>
 
         <t:if test="${errorMessage}">
-            <div class="alert alert-error fade in">
+            <div class="alert alert-danger alert-dismissable">
                 ${message:errors.password.mismatch}
             </div>
         </t:if>

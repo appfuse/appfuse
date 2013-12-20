@@ -6,7 +6,7 @@
 </head>
 
 <c:if test="${not empty searchError}">
-    <div class="alert alert-error fade in">
+    <div class="alert alert-danger alert-dismissable">
         <a href="#" data-dismiss="alert" class="close">&times;</a>
         <c:out value="${searchError}"/>
     </div>

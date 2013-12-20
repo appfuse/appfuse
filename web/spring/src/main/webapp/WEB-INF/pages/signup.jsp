@@ -13,7 +13,7 @@
 <div class="col-sm-7">
     <spring:bind path="user.*">
         <c:if test="${not empty status.errorMessages}">
-            <div class="alert alert-error fade in">
+            <div class="alert alert-danger alert-dismissable">
                 <a href="#" data-dismiss="alert" class="close">&times;</a>
                 <c:forEach var="error" items="${status.errorMessages}">
                     <c:out value="${error}" escapeXml="false"/><br/>

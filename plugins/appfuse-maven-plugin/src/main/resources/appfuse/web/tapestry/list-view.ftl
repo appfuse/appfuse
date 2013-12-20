@@ -4,7 +4,7 @@
           xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 
 <t:if test="errorMessage">
-    <div class="alert alert-error fade in">
+    <div class="alert alert-danger alert-dismissable">
         <a href="#" data-dismiss="alert" class="close">&times;</a>
         ${'$'}{errorMessage}
     </div>

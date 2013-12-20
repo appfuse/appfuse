@@ -18,7 +18,7 @@
 </div>
 
 <div class="col-sm-7">
-<form:errors path="*" cssClass="alert alert-error fade in" element="div"/>
+<form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
 <form:form commandName="${pojoNameLower}" method="post" action="${pojoNameLower}form" cssClass="well"
            id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}(this)">
 <#rt/>
