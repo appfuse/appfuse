@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse</artifactId>
-        <version>2.2.2-SNAPSHOT</version>
+        <version>3.0.0</version>
     </parent>
 
     <groupId>org.appfuse.plugins</groupId>
@@ -25,7 +25,8 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/plugins</url>
-    </scm>
+      <tag>APPFUSE_3.0.0</tag>
+  </scm>
 
     <modules>
         <module>maven-warpath-plugin</module>

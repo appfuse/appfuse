@@ -20,13 +20,13 @@
     <parent>
         <groupId>org.appfuse.archetypes</groupId>
         <artifactId>appfuse-archetypes</artifactId>
-        <version>2.2.2-SNAPSHOT</version>
+        <version>3.0.0</version>
     </parent>
 
     <artifactId>appfuse-modular-struts</artifactId>
     <name>AppFuse Modular Archetype - Struts</name>
     <packaging>pom</packaging>
-    <version>2.2.2-SNAPSHOT</version>
+    <version>3.0.0</version>
 
     <description>
         Maven 2 archetype that creates a modular web application with AppFuse. This archetype creates two modules:
@@ -38,7 +38,8 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/archetypes/appfuse-modular-struts</url>
-    </scm>
+      <tag>APPFUSE_3.0.0</tag>
+  </scm>
 
     <build>
         <plugins>
