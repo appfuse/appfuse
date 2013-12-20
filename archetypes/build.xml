@@ -95,7 +95,7 @@
         <attribute name="version" default=""/>
         <attribute name="command"
                 default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
-            -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -Dpackage=com.mycompany.mypackage
+            -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -DpackageName=com.mycompany
             -DarchetypeCatalog=local"/>
 
         <sequential>
@@ -536,15 +536,15 @@
                 <replacevalue>webapp</replacevalue>
             </replace>
 
-            <!-- Replace org.appfuse with ${package} in applicationContext.xml -->
+            <!-- Replace org.appfuse with ${groupId} in applicationContext.xml -->
             <!-- Happens in basic archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
                 <replacetoken>base-package="org.appfuse"</replacetoken>
-                <replacevalue>base-package="${package}"</replacevalue>
+                <replacevalue>base-package="${groupId}"</replacevalue>
             </replace>
 
-            <!-- Replace ${package}.webapp with ${package} in applicationContext.xml -->
+            <!-- Replace ${groupId}.webapp with ${groupId} in applicationContext.xml -->
             <!-- Happens in modular archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
@@ -553,7 +553,7 @@
             </replace>
 
             <!-- Leave Compass as indexing org.appfuse by default -->
-            <!-- Replace ${package}.webapp with org.appfuse in applicationContext.xml -->
+            <!-- Replace ${groupId}.webapp with org.appfuse in applicationContext.xml -->
             <!-- Happens in basic archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
@@ -561,7 +561,7 @@
                 <replacevalue>value="org.appfuse"</replacevalue>
             </replace>
 
-            <!-- Replace ${package} with org.appfuse in applicationContext.xml -->
+            <!-- Replace ${groupId} with org.appfuse in applicationContext.xml -->
             <!-- Happens in modular archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
@@ -584,21 +584,6 @@
                 <replacevalue>org.appfuse</replacevalue>
             </replace>
 
-            <!-- Fix CompassPostProcessor -->
-            <!-- Basic archetypes -->
-            <replace dir="@{dir}/target/generated-sources/archetype">
-                <include name="**/CompassConfigurationPostProcessor.java"/>
-                <replacetoken>!rootPackage.equals("${package}.webapp")</replacetoken>
-                <replacevalue>!rootPackage.equals("org.appfuse")</replacevalue>
-            </replace>
-
-            <!-- Modular archetypes -->
-            <replace dir="@{dir}/target/generated-sources/archetype">
-                <include name="**/CompassConfigurationPostProcessor.java"/>
-                <replacetoken>!rootPackage.equals("${package}")</replacetoken>
-                <replacevalue>!rootPackage.equals("org.appfuse")</replacevalue>
-            </replace>
-
             <if>
                 <equals arg1="@{dest}" arg2="web"/>
                 <then>
@@ -606,7 +591,7 @@
                         <include name="**/*.xml"/>
                         <include name="**/*.properties"/>
                         <replacetoken>${package}</replacetoken>
-                        <replacevalue>${package}.webapp</replacevalue>
+                        <replacevalue>${groupId}.webapp</replacevalue>
                     </replace>
                     <replace dir="@{dir}/target/generated-sources/archetype">
                         <include name="**/BasePageTestCase.java"/>
