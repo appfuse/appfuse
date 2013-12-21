@@ -241,7 +241,7 @@
                     <modules>
                         <module>${gwtModuleName}</module>
                     </modules>
-                   	<i18nMessagesBundle>${package}.webapp.client.application.ApplicationResources</i18nMessagesBundle>
+                   	<i18nMessagesBundle>${project.groupId}.webapp.client.application.ApplicationResources</i18nMessagesBundle>
                    	<generateDirectory>${basedir}/src/main/java</generateDirectory>
                 </configuration>
                 <executions>
@@ -284,7 +284,7 @@
                                 <classpath/>
                                 <argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
                                 <argument>${project.build.outputDirectory}</argument>
-                                <argument>${package}.webapp.client.requests.ApplicationRequestFactory</argument>
+                                <argument>${project.groupId}.webapp.client.requests.ApplicationRequestFactory</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -740,7 +740,7 @@
         	<id>gwtDebug</id>
         	<properties>
 				<gwt.draftCompile>true</gwt.draftCompile>
-				<gwtModuleName>${package}.webapp.MainModuleDebug</gwtModuleName>        
+				<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>        
         	</properties>
         </profile>           
     </profiles>
@@ -754,7 +754,7 @@
         <amp.genericCore>true</amp.genericCore>
         <amp.fullSource>false</amp.fullSource>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
-		<gwtModuleName>${package}.webapp.MainModule</gwtModuleName>        
+		<gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>        
 
         <!-- Framework dependency versions -->
         <appfuse.version>3.0.0</appfuse.version>
