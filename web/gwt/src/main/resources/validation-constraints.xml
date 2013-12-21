@@ -1,0 +1,69 @@
+<constraint-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://jboss.org/xml/ns/javax/validation/mapping validation-mapping-1.0.xsd"
+                     xmlns="http://jboss.org/xml/ns/javax/validation/mapping">
+    <default-package>org.appfuse.model</default-package>
+
+    <bean class="User" ignore-annotations="true">
+        <field name="username">
+            <constraint annotation="javax.validation.constraints.NotNull"/>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">150</element>
+            </constraint>           
+        </field>
+<!--         <field name="password"> -->
+<!--             <constraint annotation="javax.validation.constraints.NotNull" /> -->
+<!--             <constraint annotation="javax.validation.constraints.Size"> -->
+<!--                 <element name="max">150</element> -->
+<!--             </constraint>            -->
+<!--         </field> -->
+        <field name="firstName">
+            <constraint annotation="javax.validation.constraints.NotNull"/>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">150</element>
+            </constraint>           
+        </field>
+        <field name="lastName">
+            <constraint annotation="javax.validation.constraints.NotNull"/>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">150</element>
+            </constraint>           
+        </field>
+        <field name="email">
+            <constraint annotation="javax.validation.constraints.NotNull"/>
+            <constraint annotation="org.hibernate.validator.constraints.Email" />
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">150</element>
+            </constraint>           
+        </field>
+        <field name="address">
+            <valid/>
+        </field>
+    </bean>
+    <bean class="Address" ignore-annotations="true">
+        <field name="address">
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">150</element>
+            </constraint>
+        </field>
+        <field name="city">
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">50</element>
+            </constraint>
+        </field>
+        <field name="province">
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">100</element>
+            </constraint>
+        </field>
+        <field name="country">
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">100</element>
+            </constraint>
+        </field>
+        <field name="postalCode">
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">15</element>
+            </constraint>
+        </field>
+    </bean>
+</constraint-mappings>

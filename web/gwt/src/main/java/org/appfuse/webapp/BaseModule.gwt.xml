@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="script">
+	<inherits name="com.google.gwt.activity.Activity"/>
+	<inherits name="com.google.gwt.place.Place"/>
+	<inherits name="com.google.gwt.user.User"/>
+    <inherits name="com.google.gwt.user.theme.clean.Clean" />
+	<inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
+	<inherits name="com.google.gwt.user.cellview.CellView"/>
+	<inherits name="com.google.gwt.logging.Logging"/>
+	<inherits name="com.google.gwt.inject.Inject"/>
+	<inherits name="com.google.gwt.text.Text"/>
+	<inherits name="com.github.gwtbootstrap.Bootstrap" />
+    <inherits name="com.github.gwtbootstrap.datepicker.Datepicker" />
+	<inherits name="org.hibernate.validator.HibernateValidator" />
+
+
+	<!--UiBinder Configuration -->
+	<set-configuration-property name="UiBinder.useSafeHtmlTemplates" value="true"/>
+	
+	<!-- gwt-bootstrap set responsive design -->
+	<set-property name="bootstrap.responsiveDesign" value="true"/>
+
+	<define-property name="mobile.user.agent" values="mobilesafari, none"/>
+
+	<property-provider name="mobile.user.agent">
+
+		<![CDATA[
+  		var ua = navigator.userAgent.toLowerCase();
+
+        if (ua.indexOf("webkit") != -1 && ua.indexOf("mobile") != -1) {
+        return "mobilesafari";
+        }
+
+        var isMobile;
+
+        // Look for the m as a url argument
+        if (isMobile == null) {
+        var args = location.search;
+        var startMobile = args.indexOf("m");
+        if (startMobile >= 0) {
+          var mobile = args.substring(startMobile);
+          var begin = mobile.indexOf("=") + 1;
+          var end = mobile.indexOf("&");
+          if (end == -1) {
+            end = mobile.length;
+          }
+          isMobile = mobile.substring(begin, end);
+        }
+        }
+
+        if (isMobile){
+        return "mobilesafari";
+        }
+
+        return "none";
+  ]]>
+
+	</property-provider>
+	
+	
+	
+	<!-- Application (deferred binding)-->
+	<replace-with class="org.appfuse.webapp.client.application.MobileApplication">
+		<when-type-is class="org.appfuse.webapp.client.application.DesktopApplication"/>
+		<when-property-is name="mobile.user.agent" value="mobilesafari"/>
+	</replace-with>
+
+	<!-- Client Side Validation Factory -->
+	<replace-with class="org.appfuse.webapp.client.application.ApplicationValidatorFactory">
+	  <when-type-is class="javax.validation.ValidatorFactory" />
+	</replace-with>	
+
+	<!-- Shell (deferred binding) -->
+	<replace-with class="org.appfuse.webapp.client.ui.DesktopShell">
+		<when-type-is class="org.appfuse.webapp.client.ui.Shell"/>
+	</replace-with>	
+
+	<replace-with class="org.appfuse.webapp.client.ui.MobileShell">
+		<when-type-is class="org.appfuse.webapp.client.ui.Shell"/>
+		<when-property-is name="mobile.user.agent" value="mobilesafari"/>
+	</replace-with>
+
+	<entry-point class="org.appfuse.webapp.client.MainEntryPoint"/>
+
+</module>

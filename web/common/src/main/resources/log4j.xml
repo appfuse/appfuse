@@ -53,9 +53,9 @@
         <level value="WARN"/>
     </logger>
   
-    <!--logger name="org.hibernate.SQL">
+    <logger name="org.hibernate.SQL">
         <level value="DEBUG"/>
-    </logger-->
+    </logger>
 
     <logger name="org.springframework">
         <level value="WARN"/>
