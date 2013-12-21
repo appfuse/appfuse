@@ -147,7 +147,7 @@
                     <modules>
                         <module>${gwtModuleName}</module>
                     </modules>
-                   	<i18nMessagesBundle>${project.groupId}.client.application.ApplicationResources</i18nMessagesBundle>
+                   	<i18nMessagesBundle>${project.groupId}.webapp.client.application.ApplicationResources</i18nMessagesBundle>
                    	<generateDirectory>${basedir}/src/main/java</generateDirectory>
                 </configuration>
                 <executions>
@@ -190,7 +190,7 @@
                                 <classpath/>
                                 <argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
                                 <argument>${project.build.outputDirectory}</argument>
-                                <argument>${project.groupId}.client.requests.ApplicationRequestFactory</argument>
+                                <argument>${project.groupId}.webapp.client.requests.ApplicationRequestFactory</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -407,7 +407,7 @@
         	<id>gwtDebug</id>
         	<properties>
 				<gwt.draftCompile>true</gwt.draftCompile>
-            	<gwtModuleName>${project.groupId}.MainModuleDebug</gwtModuleName>  				
+            	<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>  				
         	</properties>
         </profile>           
     </profiles>

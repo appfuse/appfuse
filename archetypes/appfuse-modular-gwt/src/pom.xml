@@ -335,7 +335,7 @@
         <amp.genericCore>true</amp.genericCore>
         <amp.fullSource>false</amp.fullSource>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
-        <gwtModuleName>${project.groupId}.MainModule</gwtModuleName>        
+        <gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>        
 
         <!-- Framework dependency versions -->
         <appfuse.version>3.0.0</appfuse.version>
