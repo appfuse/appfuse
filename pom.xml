@@ -220,7 +220,7 @@
         <module>service</module>
         <module>web</module>
         <module>archetypes</module>
-<!--         <module>plugins</module> -->
+        <module>plugins</module>
     </modules>
 
     <repositories>
