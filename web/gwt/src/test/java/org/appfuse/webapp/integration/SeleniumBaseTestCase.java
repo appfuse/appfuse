@@ -77,6 +77,7 @@ public abstract class SeleniumBaseTestCase {
     public void setUp() throws Exception {
         log.debug("");
 
+        log.debug("Starting wiser on port " + smtpPort);
         wiser = new Wiser();
         wiser.setPort(smtpPort);
         wiser.start();
