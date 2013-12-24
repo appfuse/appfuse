@@ -437,7 +437,7 @@
                 <jdbc.url><![CDATA[jdbc:derby://localhost/appfuse;create=true]]></jdbc.url>
                 <jdbc.username>any</jdbc.username>
                 <jdbc.password>value</jdbc.password>
-                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
+                <jdbc.validationQuery><![CDATA[values 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
