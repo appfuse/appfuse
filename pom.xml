@@ -648,7 +648,14 @@
         <wicket.bootstrap.version>0.8.4</wicket.bootstrap.version>
         <wicket.webjars.version>0.3.2</wicket.webjars.version>
         <wro4j.version>1.7.2</wro4j.version>
-
+        <gwt.version>2.5.0</gwt.version>
+        <json.version>20090211</json.version>
+        <gin.version>2.0.0</gin.version>
+        <gwtbootstrap.version>2.2.1.0</gwtbootstrap.version>
+        <javax.validation.version>1.0.0.GA</javax.validation.version>
+        <hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
+        <selenium.version>2.37.1</selenium.version>
+        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <copyright.year>2003-2014</copyright.year>
     </properties>

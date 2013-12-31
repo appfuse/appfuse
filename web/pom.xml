@@ -46,6 +46,7 @@
         <module>struts</module>
         <module>tapestry</module>
         <module>wicket</module>
+        <module>gwt</module>
     </modules>
 
     <build>

@@ -1,0 +1,7 @@
+<config host="${host}" port="${port}" protocol="http"
+    basepath="${basepath}" resultpath="${resultpath}" saveresponse="true"
+    resultfile="web-tests-result.xml" haltonfailure="${haltonfailure}"
+    haltonerror="${haltonerror}" summary="true">
+    <header name="Accept-Language" value="${user.language}"/>
+    <option name="ThrowExceptionOnScriptError" value="true"/>
+</config>
