@@ -11,7 +11,7 @@ function checkStatus {
     fi
 }
 
-VERSION=3.0.0
+VERSION=3.0.1-SNAPSHOT
 rm -rf /tmp/appfuse-gwt
 mkdir /tmp/appfuse-gwt
 
@@ -23,7 +23,9 @@ cd /tmp/appfuse-gwt
 log "Replacing deploy repository urls..."
 mkdir -p /home/opt/workspaces/AppFuse/repo-${VERSION}
 sed -i -e "s:http\://oss.sonatype.org/service/local/staging/deploy/maven2:file\:/home/opt/workspaces/AppFuse/repo-${VERSION}:g" /tmp/appfuse-gwt/archetypes/build.xml
+sed -i -e "s:http\://oss.sonatype.org/content/repositories/appfuse-snapshots:file\:/home/opt/workspaces/AppFuse/repo-${VERSION}:g" /tmp/appfuse-gwt/archetypes/build.xml
 find /tmp/appfuse-gwt -name pom.xml -exec sed -i -e "s:http\://oss.sonatype.org/service/local/staging/deploy/maven2:file\:/home/opt/workspaces/AppFuse/repo-${VERSION}:g" {} \;
+find /tmp/appfuse-gwt -name pom.xml -exec sed -i -e "s:http\://oss.sonatype.org/content/repositories/appfuse-snapshots:file\:/home/opt/workspaces/AppFuse/repo-${VERSION}:g" {} \;
 
 log "Disabling non gwt modules..."
 sed -i -e "s:^\s*<module>plugins</module>:<\!-- & -->:g" pom.xml
