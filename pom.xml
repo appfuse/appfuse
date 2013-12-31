@@ -6,7 +6,7 @@
     <artifactId>appfuse</artifactId>
     <packaging>pom</packaging>
     <name>AppFuse</name>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
     <inceptionYear>2003</inceptionYear>
     <url>http://static.appfuse.org</url>
 
@@ -22,7 +22,7 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse</url>
-      <tag>APPFUSE_3.0.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <issueManagement>

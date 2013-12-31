@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-service</artifactId>
@@ -40,7 +40,7 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/service</url>
-      <tag>APPFUSE_3.0.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <build>
