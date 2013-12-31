@@ -26,12 +26,12 @@
       <tag>HEAD</tag>
   </scm>
 
-	<modules>
-		<module>appfuse-core</module>
-		<module>appfuse-basic-jsf</module>
-		<module>appfuse-basic-spring</module>
-		<module>appfuse-basic-struts</module>
-		<module>appfuse-basic-tapestry</module>
+    <modules>
+        <module>appfuse-core</module>
+        <module>appfuse-basic-jsf</module>
+        <module>appfuse-basic-spring</module>
+        <module>appfuse-basic-struts</module>
+        <module>appfuse-basic-tapestry</module>
         <module>appfuse-basic-wicket</module>
         <module>appfuse-basic-gwt</module>
         <module>appfuse-modular-jsf</module>
@@ -41,7 +41,7 @@
         <module>appfuse-modular-wicket</module>
         <module>appfuse-modular-gwt</module>
         <module>appfuse-ws</module>
-	</modules>
+    </modules>
 
     <!-- Default properties used when testing archetypes -->
     <properties>

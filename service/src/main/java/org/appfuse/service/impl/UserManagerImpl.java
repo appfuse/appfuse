@@ -139,8 +139,6 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
             // If password was changed (or new user), encrypt it
             if (passwordChanged) {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
-                //copy to confirmPassword so JSR-303 BeanValidators can compare these two fields
-                user.setConfirmPassword(user.getPassword()); 
             }
         } else {
             log.warn("PasswordEncoder not set, skipping password encryption...");
