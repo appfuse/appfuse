@@ -505,7 +505,7 @@
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
         <!-- Framework dependency versions -->
-        <appfuse.version>3.0.0</appfuse.version>
+        <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
         <commons.dbcp.version>1.3</commons.dbcp.version>
         <cxf.version>2.7.1</cxf.version>
         <enunciate.version>1.27</enunciate.version>
