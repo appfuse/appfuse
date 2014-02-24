@@ -249,11 +249,6 @@
           <version>${wicket.webjars.version}</version>
         </dependency>
         <dependency>
-          <groupId>de.agilecoders.wicket.webjars</groupId>
-          <artifactId>vfs-support</artifactId>
-          <version>${wicket.webjars.version}</version>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
