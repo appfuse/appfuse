@@ -151,7 +151,7 @@
             <!-- Fix bug that happens in Bamboo -->
             <delete dir="@{dir}" includes="main/**"/>
 
-            <!-- Remove displaytag for JSF and Tapestry -->
+            <!-- Remove displaytag for JSF, Tapestry and GWT-->
             <if>
                 <equals arg1="@{module}" arg2="jsf"/>
                 <then>
@@ -178,6 +178,12 @@
                     <delete dir="@{dir}/src/main/webapp/WEB-INF/tags"/>
                 </then>
             </if>
+            <if>
+                <equals arg1="@{module}" arg2="gwt"/>
+                <then>
+                    <delete dir="@{dir}" includes="**/displaytag*.properties"/>
+                </then>
+            </if>
 
             <!-- Remove hibernate.cfg.xml from web projects when creating modular archetypes -->
             <if>
@@ -197,6 +203,32 @@
                     <move file="@{dir}/@{dest}/src/main/resources/org/appfuse/webapp"
                             tofile="@{dir}/@{dest}/src/main/resources/webapp"/>
                     <delete dir="@{dir}/@{dest}/src/main/resources/org"/>
+                </then>
+            </if>
+        	
+        	<!-- Remove unused files in GWT -->
+            <if>
+                <equals arg1="@{module}" arg2="gwt"/>
+                <then>
+                	<delete dir="@{dir}/@{dest}/src/main/java/org/appfuse/webapp/jsp" />
+                	<delete dir="@{dir}/@{dest}/src/main/java/org/appfuse/webapp/taglib" />
+                	<delete dir="@{dir}/@{dest}/src/test/resources/" includes="config.xmlf,login.xmlf,web-tests.xml"/>
+                    <delete dir="@{dir}" includes="**/app*.properties,**/menu-config.xml,**/navbarMenu.vm,**/navlistMenu.vm" />
+                    <delete dir="@{dir}" includes="**/*.jsp" excludes="**/index.jsp" />
+                    <delete dir="@{dir}/@{dest}/src/main/webapp/common/" />
+                    <delete dir="@{dir}/@{dest}/src/main/webapp/decorators/" />
+                    <delete dir="@{dir}/@{dest}/src/main/webapp/scripts/" />
+                    <move todir="@{dir}/@{dest}/src/main/resources/webapp/client/application">
+                    	<fileset dir="@{dir}/@{dest}/src/main/resources/" includes="ApplicationResources**.properties" />
+                    </move>
+					<!-- escape unmatched single quotes -->
+                    <replaceregexp byline="true" flags="gim">
+                        <regexp pattern="'"/><!-- FIXME provide a regexp just for an unmatched single quote -->
+                        <substitution expression="''"/>
+                        <fileset dir="@{dir}/@{dest}/src/main/resources/webapp/client/application">
+                            <include name="ApplicationResources**.properties"/>
+                        </fileset>
+                    </replaceregexp>
                 </then>
             </if>
 
@@ -474,6 +506,32 @@
                         </fileset>
                     </replaceregexp>
                 </else>
+            </if>
+
+            <if>
+                <equals arg1="@{module}" arg2="gwt"/>
+                <then>
+                	<!-- scripts to generate regexp and substitution from xml: -->
+                	<!-- sed -e ':a;N;$!ba;s/\n//g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/"/\&quot;/g' -e 's/  \+/(\\s+)/g' -e 's/\*/\\*/g' -->
+                	<!-- sed -e ':a;N;$!ba;s/\n/${line.separator}/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/"/\&quot;/g' -->
+                	
+				    <!-- Set packaged="true" for ApplicationResources.properties in gwt -->
+                    <replaceregexp byline="false" flags="gm">
+                        <regexp pattern="&lt;fileSet filtered=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;(\s+)&lt;directory&gt;src/main/resources&lt;/directory&gt;(\s+)&lt;includes&gt;(\s+)&lt;include&gt;\*\*/\*.vm&lt;/include&gt;(\s+)&lt;include&gt;\*\*/\*.xml&lt;/include&gt;(\s+)&lt;include&gt;\*\*/\*.properties&lt;/include&gt;(\s+)&lt;/includes&gt;(\s+)&lt;/fileSet&gt;"/>
+                        <substitution expression="&lt;fileSet filtered=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/*.vm&lt;/include&gt;${line.separator}        &lt;include&gt;**/*.xml&lt;/include&gt;${line.separator}        &lt;include&gt;**/*.properties&lt;/include&gt;${line.separator}      &lt;/includes&gt;${line.separator}      &lt;excludes&gt;${line.separator}           &lt;exclude&gt;**/ApplicationResources*.properties&lt;/exclude&gt;${line.separator}      &lt;/excludes&gt;${line.separator}    &lt;/fileSet&gt;${line.separator}    &lt;fileSet filtered=&quot;true&quot; packaged=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/ApplicationResources*.properties&lt;/include&gt;${line.separator}      &lt;/includes&gt;${line.separator}    &lt;/fileSet&gt;"/>
+                        <fileset dir="@{dir}/target/generated-sources/archetype">
+                            <include name="**/archetype-metadata.xml"/>
+                        </fileset>
+                    </replaceregexp>
+                	<!-- replace <include>**/*.xml</include> by <include>webapp/**/*.xml</include> in src/main/java -->
+                    <replaceregexp byline="false" flags="gm">
+                        <regexp pattern="&lt;include&gt;webapp/\*\*/\*.java&lt;/include&gt;(\s+)&lt;include&gt;\*\*/\*.xml&lt;/include&gt;"/>
+                        <substitution expression="&lt;include&gt;webapp/**/*.java&lt;/include&gt;${line.separator}        &lt;include&gt;webapp/**/*.xml&lt;/include&gt;"/>
+                        <fileset dir="@{dir}/target/generated-sources/archetype">
+                            <include name="**/archetype-metadata.xml"/>
+                        </fileset>
+                    </replaceregexp>                	
+                </then>
             </if>
 
             <if>

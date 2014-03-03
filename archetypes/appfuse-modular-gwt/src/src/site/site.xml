@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="${artifactId}">
+    <bannerLeft>
+        <name>${artifactId}</name>
+        <src>http://appfuse.org/download/attachments/2/APF</src>
+        <href>http://appfuse.org</href>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy"/>
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.3.0</version>
+    </skin>
+    <body>
+        <menu ref="modules"/>
+        ${reports}
+    </body>
+</project>
+

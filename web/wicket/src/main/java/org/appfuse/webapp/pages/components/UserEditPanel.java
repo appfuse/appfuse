@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.GlyphIconType;
 import de.agilecoders.wicket.core.markup.html.bootstrap.tabs.Collapsible;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
@@ -184,7 +184,7 @@ public abstract class UserEditPanel extends Panel {
             public void onClick() {
                 onCancelButtonSubmit();
             }
-        }.setIconType(IconType.remove).setInverted(false).setLabel(new ResourceModel("button.cancel"));
+        }.setIconType(GlyphIconType.remove).setLabel(new ResourceModel("button.cancel"));
     }
 
     public class AddressFragment extends Fragment {
@@ -212,7 +212,7 @@ public abstract class UserEditPanel extends Panel {
 
         private SaveButton(String buttonId) {
             super(buttonId, new ResourceModel("button.save"), Buttons.Type.Primary);
-            setIconType(IconType.ok);
+            setIconType(GlyphIconType.ok);
         }
 
         @Override
@@ -224,7 +224,7 @@ public abstract class UserEditPanel extends Panel {
     private class DeleteButton extends BootstrapButton {
         public DeleteButton(String buttonId, String confirmMessage) {
             super(buttonId, new ResourceModel("button.delete"), Buttons.Type.Danger);
-            setIconType(IconType.trash);
+            setIconType(GlyphIconType.trash);
             setDefaultFormProcessing(false);
             setVisible(getDeleteButtonVisibility());
 

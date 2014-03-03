@@ -1,9 +1,12 @@
 package org.appfuse.webapp;
 
+import com.google.common.collect.Sets;
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
+import de.agilecoders.wicket.webjars.collectors.AssetPathCollector;
 import de.agilecoders.wicket.webjars.collectors.VfsJarAssetPathCollector;
-import de.agilecoders.wicket.webjars.util.WicketWebjars;
+import de.agilecoders.wicket.webjars.WicketWebjars;
+import de.agilecoders.wicket.webjars.settings.WebjarsSettings;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -21,6 +24,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
+
+import java.util.Set;
 
 /**
  * AppFuse Wicket Frontend Application class.
@@ -46,9 +51,16 @@ public class AppFuseWicketApplication extends AuthenticatedWebApplication {
     }
 
     private void initWebjars() {
-        WicketWebjars.install(this);
-        //register vfs collector to use webjars on jboss - should be enabled by default?
-        WicketWebjars.registerCollector(new VfsJarAssetPathCollector());
+        // install 2 default collector instances (FileAssetPathCollector(WEBJARS_PATH_PREFIX), JarAssetPathCollector)
+        // and a webjars resource finder.
+        WebjarsSettings settings = new WebjarsSettings();
+
+        // register vfs collector to use webjars on jboss (you don't need to add maven dependency)
+        Set<AssetPathCollector> collectors = Sets.newHashSet(settings.assetPathCollectors());
+        collectors.add(new VfsJarAssetPathCollector());
+        settings.assetPathCollectors(collectors.toArray(new AssetPathCollector[collectors.size()]));
+
+        WicketWebjars.install(this, settings);
     }
 
     private void registerSpringComponentInjector() {

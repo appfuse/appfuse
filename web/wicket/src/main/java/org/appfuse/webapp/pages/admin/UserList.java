@@ -1,7 +1,7 @@
 package org.appfuse.webapp.pages.admin;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.*;
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.GlyphIconType;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
@@ -78,7 +78,7 @@ public class UserList extends AbstractWebPage {
             public void onClick() {
                 setResponsePage(Home.class);
             }
-        }.setIconType(IconType.ok).setInverted(false).setLabel(new ResourceModel("button.done"));
+        }.setIconType(GlyphIconType.ok).setLabel(new ResourceModel("button.done"));
     }
 
     private BootstrapLink<Page> createAddButton() {
@@ -91,7 +91,7 @@ public class UserList extends AbstractWebPage {
                 //TODO: MZA: Is it the best way to create this model here?
                 setResponsePage(new FromListUserEdit(getPage(), new Model<User>(user)));
             }
-        }.setIconType(IconType.plus).setLabel(new ResourceModel("button.add"));
+        }.setIconType(GlyphIconType.plus).setLabel(new ResourceModel("button.add"));
     }
 
     private AjaxFallbackDefaultDataTable<User, String> createUserListTable() {
