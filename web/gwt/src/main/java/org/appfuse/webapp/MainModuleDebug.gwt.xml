@@ -20,7 +20,7 @@
 	<set-configuration-property name="compiler.emulatedStack.recordFileNames" value="true" />
 		
 
-	<set-property name="user.agent" value="gecko1_8,safari,ie6,ie8" />
+	<set-property name="user.agent" value="gecko1_8,safari,ie8" />
 	
 	<collapse-all-properties />
 	

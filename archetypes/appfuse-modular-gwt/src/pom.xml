@@ -344,7 +344,7 @@
         <commons.io.version>2.4</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
         <spring.version>4.0.2.RELEASE</spring.version>
-        <gwt.version>2.5.0</gwt.version>
+        <gwt.version>2.6.0</gwt.version>
         <json.version>20090211</json.version>
         <gin.version>2.0.0</gin.version>
         <gwtbootstrap.version>2.2.1.0</gwtbootstrap.version>
