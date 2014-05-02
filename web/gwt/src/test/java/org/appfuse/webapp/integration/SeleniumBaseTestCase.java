@@ -18,7 +18,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -82,7 +82,7 @@ public abstract class SeleniumBaseTestCase {
         wiser.setPort(smtpPort);
         wiser.start();
 
-        setDriver(new FirefoxDriver());
+        setDriver(new ChromeDriver());
         getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         getDriver().manage().window().setSize(new Dimension(1024, 900));
     }

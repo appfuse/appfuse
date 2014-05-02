@@ -374,7 +374,7 @@
         <!-- Selenium web tests -->
 	    <dependency>
 	        <groupId>org.seleniumhq.selenium</groupId>
-	        <artifactId>selenium-firefox-driver</artifactId>
+	        <artifactId>selenium-chrome-driver</artifactId>
 	        <version>${selenium.version}</version>
 	        <scope>test</scope>
 	    </dependency>
@@ -447,6 +447,7 @@
                            <systemPropertyVariables>
                                 <baseUrl>http://${cargo.host}:${cargo.port}/${project.build.finalName}/</baseUrl>
                                 <mail.port>25250</mail.port>
+                                <webdriver.chrome.driver>/usr/bin/chromium-browser</webdriver.chrome.driver>
                            </systemPropertyVariables>
                         </configuration>
 					</plugin>
