@@ -50,7 +50,7 @@ public class MobileShell extends Shell {
 	 *
 	 * @param visible true to show the button, false to hide
 	 */
-	public void setBackButtonVisible(boolean visible) {
+	public void setBackButtonVisible(final boolean visible) {
 		setVisible(backButtonWrapper, visible);
 	}
 
@@ -59,7 +59,7 @@ public class MobileShell extends Shell {
 	 *
 	 * @param visible true to show the button, false to hide
 	 */
-	public void setEditButtonVisible(boolean visible) {
+	public void setEditButtonVisible(final boolean visible) {
 		editButton.setVisible(visible);
 	}
 
@@ -68,25 +68,25 @@ public class MobileShell extends Shell {
 	 *
 	 * @param text the title to display at the top of the app
 	 */
-	public void setTitleText(String text) {
+	public void setTitleText(final String text) {
 		title.setInnerText(text);
 	}
 
 
 	@Override
-	public void addMessage(AlertBase alert) {
+	public void addMessage(final AlertBase alert) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onLoginEvent(LoginEvent loginEvent) {
+	public void onLoginEvent(final LoginEvent loginEvent) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onLogoutEvent(LogoutEvent logoutEvent) {
+	public void onLogoutEvent(final LogoutEvent logoutEvent) {
 		// TODO Auto-generated method stub
 		
 	}

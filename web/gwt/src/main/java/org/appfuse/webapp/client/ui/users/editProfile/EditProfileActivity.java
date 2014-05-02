@@ -8,7 +8,7 @@ import org.appfuse.webapp.client.application.base.activity.AbstractProxyEditActi
 import org.appfuse.webapp.client.proxies.RoleProxy;
 import org.appfuse.webapp.client.proxies.UserProxy;
 import org.appfuse.webapp.client.requests.UserRequest;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.home.HomePlace;
 import org.appfuse.webapp.client.ui.users.editUser.EditUserView;
 import org.appfuse.webapp.client.ui.users.updatePassword.UpdatePasswordPlace;
 
@@ -93,7 +93,7 @@ public class EditProfileActivity extends AbstractProxyEditActivity<UserProxy> im
 
     @Override
     protected Place previousPlace() {
-        return new MainMenuPlace();
+        return new HomePlace();
     }
 
     @Override

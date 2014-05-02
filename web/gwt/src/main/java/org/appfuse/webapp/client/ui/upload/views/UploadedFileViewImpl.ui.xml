@@ -6,11 +6,11 @@
 <ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
 
 <g:HTMLPanel>
-	<b:Column size="7">
+	<div class="col-sm-9">
 		<b:Heading size="2" text="{i18n.upload_heading}" />
 		<b:Paragraph>Below is a list of attributes that were gathered in FileUploadController.java.</b:Paragraph>
-	</b:Column>
-	<b:Column size="7">
+	</div>
+	<div class="col-sm-9">
 		<g:HTMLPanel>
 		    <table class="table-striped" cellpadding="5">
 		        <tr>
@@ -42,6 +42,6 @@
 			<b:Button ui:field="doneButton" text="{i18n.button_done}" />
 			<b:Button ui:field="uploadAnotherFileButton" text="Upload Another" />
 		</b:FormActions>		
-	</b:Column>
+	</div>
 </g:HTMLPanel>
 </ui:UiBinder>

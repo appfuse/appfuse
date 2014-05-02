@@ -20,6 +20,7 @@ import com.google.gwt.dom.client.MetaElement;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 
@@ -34,6 +35,7 @@ public abstract class Application {
     protected final EventBus eventBus;
     protected final ApplicationMenu menu;
     protected final PlaceController placeController;
+    protected final PlaceHistoryMapper placeHistoryMapper;
     protected final PlaceHistoryHandler placeHistoryHandler;
     protected final ApplicationRequestFactory requestFactory;
     protected final ValidatorFactory validatorFactory;
@@ -52,6 +54,7 @@ public abstract class Application {
             final ApplicationRequestFactory requestFactory,
             final EventBus eventBus,
             final PlaceController placeController,
+            final PlaceHistoryMapper placeHistoryMapper,
             final PlaceHistoryHandler placeHistoryHandler,
             final ActivityManager activityManager,
             final ApplicationProxyFactory proxyFactory,
@@ -62,6 +65,7 @@ public abstract class Application {
         this.requestFactory = requestFactory;
         this.eventBus = eventBus;
         this.placeController = placeController;
+        this.placeHistoryMapper = placeHistoryMapper;
         this.placeHistoryHandler = placeHistoryHandler;
         this.proxyFactory = proxyFactory;
         this.validatorFactory = Validation.buildDefaultValidatorFactory();
@@ -101,6 +105,10 @@ public abstract class Application {
 
     public ApplicationRequestFactory getRequestFactory() {
         return requestFactory;
+    }
+
+    public PlaceHistoryMapper getPlaceHistoryMapper() {
+        return placeHistoryMapper;
     }
 
     public PlaceHistoryHandler getPlaceHistoryHandler() {

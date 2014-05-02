@@ -6,16 +6,18 @@
 
 <ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
 
-<b:Column size="10">
-	<b:Heading size="2"  ui:field="heading" text="{i18n.activeUsers_heading}" />
-	<b:Paragraph><ui:text from="{i18n.activeUsers_message}" /></b:Paragraph>
+<g:HTMLPanel>
+	<div class="col-sm-10">
+		<h2 ui:field="heading"><ui:text from="{i18n.activeUsers_heading}" /></h2>
+		<p><ui:text from="{i18n.activeUsers_message}" /></p>
+		
+		<b:FormActions>
+	      <b:Button ui:field="doneButton" text="{i18n.button_done}" styleName="primary" />
+		</b:FormActions>     
 	
-	<b:FormActions>
-      <b:Button ui:field="doneButton" text="{i18n.button_done}" styleName="primary" />
-	</b:FormActions>     
-
-	<c:SimplePager display="{table}" location="LEFT" />
-    <c:CellTable ui:field="table" width="100%"/>
-	<c:SimplePager display="{table}" location="LEFT" />
-</b:Column>
+		<c:SimplePager display="{table}" location="LEFT" />
+	    <c:CellTable ui:field="table" width="100%"/>
+		<c:SimplePager display="{table}" location="LEFT" />
+	</div>
+</g:HTMLPanel>
 </ui:UiBinder>

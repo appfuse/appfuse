@@ -7,12 +7,12 @@ import org.appfuse.webapp.client.application.base.activity.AsyncActivityProxy;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
 import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.proxies.UserProxy;
+import org.appfuse.webapp.client.ui.home.HomeActivity;
+import org.appfuse.webapp.client.ui.home.HomePlace;
 import org.appfuse.webapp.client.ui.login.LoginActivity;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.logout.LogoutActivity;
 import org.appfuse.webapp.client.ui.logout.LogoutPlace;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuActivity;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.reloadOptions.ReloadOptionsActivity;
 import org.appfuse.webapp.client.ui.reloadOptions.ReloadOptionsPlace;
 import org.appfuse.webapp.client.ui.upload.FileUploadActivity;
@@ -42,7 +42,7 @@ import com.google.inject.Provider;
 public class ApplicationActivityMapper implements ActivityMapper {
 
     @Inject
-    private Provider<MainMenuActivity> mainMenuActivityProvider;
+    private Provider<HomeActivity> homeActivityProvider;
     @Inject
     private Provider<LoginActivity> loginActivityProvider;
     @Inject
@@ -73,8 +73,8 @@ public class ApplicationActivityMapper implements ActivityMapper {
         if(place instanceof LoginPlace) {
             activity = this.loginActivityProvider.get();
         }
-        else if (place instanceof MainMenuPlace) {
-            activity = this.mainMenuActivityProvider.get();
+        else if (place instanceof HomePlace) {
+            activity = this.homeActivityProvider.get();
         }
         else if (place instanceof UpdatePasswordPlace) {
             activity = this.updatePasswordActivityProvider.get();

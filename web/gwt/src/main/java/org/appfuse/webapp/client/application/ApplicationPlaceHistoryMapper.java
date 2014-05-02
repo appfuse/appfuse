@@ -1,8 +1,8 @@
 package org.appfuse.webapp.client.application;
 
+import org.appfuse.webapp.client.ui.home.HomePlace;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.logout.LogoutPlace;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.reloadOptions.ReloadOptionsPlace;
 import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
 import org.appfuse.webapp.client.ui.users.active.ActiveUsersPlace;
@@ -14,7 +14,7 @@ import com.google.gwt.place.shared.PlaceHistoryMapperWithFactory;
 import com.google.gwt.place.shared.WithTokenizers;
 
 @WithTokenizers({
-	MainMenuPlace.Tokenizer.class,
+	HomePlace.Tokenizer.class,
 	LoginPlace.Tokenizer.class,
 	UpdatePasswordPlace.Tokenizer.class,
 	LogoutPlace.Tokenizer.class,

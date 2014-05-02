@@ -17,7 +17,7 @@ public class EditProfileViewImpl extends EditUserViewImpl implements EditProfile
      */
     public EditProfileViewImpl() {
         super();
-        subheading.setText(i18n.userProfile_message());
+        subheading.setInnerText(i18n.userProfile_message());
         passwordControlGroup.removeFromParent();
         updatePasswordControl.setVisible(true);
         accountSettings.removeFromParent();

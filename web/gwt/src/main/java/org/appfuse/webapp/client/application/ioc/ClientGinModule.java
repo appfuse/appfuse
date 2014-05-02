@@ -9,13 +9,13 @@ import org.appfuse.webapp.client.application.ApplicationProxyFactory;
 import org.appfuse.webapp.client.application.DesktopApplication;
 import org.appfuse.webapp.client.application.base.request.EventSourceRequestTransport;
 import org.appfuse.webapp.client.requests.ApplicationRequestFactory;
+import org.appfuse.webapp.client.ui.home.HomeActivity;
+import org.appfuse.webapp.client.ui.home.HomeView;
+import org.appfuse.webapp.client.ui.home.HomeViewDesktop;
 import org.appfuse.webapp.client.ui.login.LoginActivity;
 import org.appfuse.webapp.client.ui.login.LoginView;
 import org.appfuse.webapp.client.ui.login.LoginViewImpl;
 import org.appfuse.webapp.client.ui.logout.LogoutActivity;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuActivity;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuView;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuViewDesktop;
 import org.appfuse.webapp.client.ui.reloadOptions.ReloadOptionsActivity;
 import org.appfuse.webapp.client.ui.upload.FileUploadActivity;
 import org.appfuse.webapp.client.ui.upload.views.FileUploadView;
@@ -61,7 +61,7 @@ public class ClientGinModule extends AbstractGinModule {
         bind(Application.class).to(DesktopApplication.class).in(Singleton.class);
         bind(ActivityMapper.class).to(ApplicationActivityMapper.class).in(Singleton.class);
 
-        bind(MainMenuActivity.class);
+        bind(HomeActivity.class);
         bind(LoginActivity.class);
         bind(LogoutActivity.class);
         bind(ReloadOptionsActivity.class);
@@ -72,7 +72,7 @@ public class ClientGinModule extends AbstractGinModule {
         bind(EditUserActivity.class);
         bind(UsersSearchActivity.class);
 
-        bind(MainMenuView.class).to(MainMenuViewDesktop.class).in(Singleton.class);
+        bind(HomeView.class).to(HomeViewDesktop.class).in(Singleton.class);
         bind(LoginView.class).to(LoginViewImpl.class).in(Singleton.class);
         bind(UpdatePasswordView.class).to(UpdatePasswordViewImpl.class).in(Singleton.class);
         bind(SignUpView.class).to(SignUpViewImpl.class).in(Singleton.class);

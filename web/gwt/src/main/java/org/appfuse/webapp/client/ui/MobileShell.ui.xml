@@ -8,8 +8,7 @@
 
 	<g:HTMLPanel>
 		<g:NotificationMole animationDuration="0" message="loading..." ui:field="mole"></g:NotificationMole>
-   		
-   		<nav:DesktopNavigationBar />
+   		<nav:NavigationBar />
 		
 		
 		<div class="container-fluid">
@@ -18,11 +17,11 @@
 			<g:SimplePanel styleName="row-fluid" ui:field="contentsPanel" />
 		</div>
 	
-	    <div id="footer">
-	        <span class="left"><ui:text from="{i18n.webapp_version}"/> <span id="currentUserInfo">| USER XXX</span></span>
-	        <span class="right">
-	            <ui:text from="{i18n.copyright_year}"/> <a href="{i18n.company_url}"><ui:text from="{i18n.company_name}"/></a>
+	    <div id="footer" class="container navbar-fixed-bottom">
+	        <span class="col-sm-6 text-left"><ui:text from="{i18n.webapp_version}"/> <span ui:field="currentUserInfo"></span></span>
+	        <span class="col-sm-6 text-right">
+	            &copy; <ui:text from="{i18n.copyright_year}"/> <a href="{i18n.company_url}"><ui:text from="{i18n.company_name}"/></a>
 	        </span>
-	    </div>	
+	    </div>
 	</g:HTMLPanel>
 </ui:UiBinder>

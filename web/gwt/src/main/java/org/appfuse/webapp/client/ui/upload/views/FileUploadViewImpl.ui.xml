@@ -6,17 +6,17 @@
 <ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
 
 <g:HTMLPanel>
-	<b:Column size="3">
+	<div class="col-sm-3">
 		<b:Heading size="2" text="{i18n.upload_heading}" />
 		<b:Paragraph><ui:text from="{i18n.upload_message}" /></b:Paragraph>
-	</b:Column>
-	<b:Column size="7">
+	</div>
+	<div class="col-sm-7">
 		<g:FlowPanel ui:field="errorsPanel" />
 		<b:WellForm ui:field="form" type="HORIZONTAL" action="app/fileupload" method="POST" encoding="multipart/form-data">
 			<b:ControlGroup ui:field="nameControlGroup">
 				<b:ControlLabel><span class="required">*</span> <ui:text from="{i18n.uploadForm_name}" />:</b:ControlLabel>
 				<b:Controls>
-					<b:TextBox ui:field="name" name="name" controlGroup="{nameControlGroup}" errorLabel="{nameErrors}" />
+					<b:TextBox styleName="form-control" ui:field="name" name="name" controlGroup="{nameControlGroup}" errorLabel="{nameErrors}" />
 					<b:HelpInline ui:field="nameErrors" />
 				</b:Controls>			
 			</b:ControlGroup>
@@ -37,6 +37,6 @@
 				</g:Button>
 			</b:FormActions>
 		</b:WellForm>
-	</b:Column>
+	</div>
 </g:HTMLPanel>
 </ui:UiBinder>

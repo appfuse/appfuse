@@ -16,7 +16,7 @@ public class SignUpViewImpl extends EditUserViewImpl implements SignUpView {
      */
     public SignUpViewImpl() {
         super();
-        subheading.setText(i18n.signup_message());
+        subheading.setInnerText(i18n.signup_message());
         passwordControlGroup.setVisible(true);
         updatePasswordControl.removeFromParent();
         accountSettings.removeFromParent();

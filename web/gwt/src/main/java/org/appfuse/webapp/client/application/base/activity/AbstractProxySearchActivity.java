@@ -10,7 +10,7 @@ import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
 import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.view.ProxySearchView;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.home.HomePlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
@@ -213,7 +213,7 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S> exte
 
     @Override
     public void cancelClicked() {
-        placeController.goTo(new MainMenuPlace());
+        placeController.goTo(new HomePlace());
     }
 
 

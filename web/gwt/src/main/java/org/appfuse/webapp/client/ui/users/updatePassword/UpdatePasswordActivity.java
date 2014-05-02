@@ -10,8 +10,8 @@ import javax.validation.ConstraintViolation;
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
 import org.appfuse.webapp.client.proxies.UserProxy;
+import org.appfuse.webapp.client.ui.home.HomePlace;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.users.updatePassword.UpdatePasswordView.UserCredentials;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
@@ -78,7 +78,7 @@ public class UpdatePasswordActivity extends AbstractBaseActivity implements Upda
                                 shell.addMessage(i18n.updatePassword_invalidPassword(), AlertType.ERROR);
                             }
                         } else {
-                            placeController.goTo(new MainMenuPlace());
+                            placeController.goTo(new HomePlace());
                             shell.addMessage(i18n.updatePassword_success(), AlertType.SUCCESS);
                         }
                     }

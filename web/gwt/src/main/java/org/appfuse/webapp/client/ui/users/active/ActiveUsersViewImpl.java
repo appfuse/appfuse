@@ -42,7 +42,7 @@ public class ActiveUsersViewImpl extends Composite implements ActiveUsersView{
     }
 
     @Override
-    public void setDelegate(Delegate delegate) {
+    public void setDelegate(final Delegate delegate) {
     	this.delegate = delegate;
     }
     
@@ -58,7 +58,7 @@ public class ActiveUsersViewImpl extends Composite implements ActiveUsersView{
 
 
     @UiHandler("doneButton")
-    public void doneClicked(ClickEvent event) {
+    public void doneClicked(final ClickEvent event) {
     	delegate.cancelClicked();
     }
 
@@ -69,7 +69,7 @@ public class ActiveUsersViewImpl extends Composite implements ActiveUsersView{
         paths.add("username");
         table.addColumn(new CustomColumn<UserProxy, String>("username", true) {
 			@Override
-			public String getValue(UserProxy user) {
+			public String getValue(final UserProxy user) {
 				return user.getUsername();
 			}
 		}, i18n.user_username());
@@ -81,12 +81,12 @@ public class ActiveUsersViewImpl extends Composite implements ActiveUsersView{
         table.addColumn(new CustomColumn<UserProxy, String>("firstName", true) {
 
 			@Override
-			public String getValue(UserProxy user) {
+			public String getValue(final UserProxy user) {
 				return user.getFirstName() + " " + user.getLastName();
 			}
 			@Override
-			public void render(Context context, UserProxy object, SafeHtmlBuilder sb) {
-				String template = 
+			public void render(final Context context, final UserProxy object, final SafeHtmlBuilder sb) {
+				final String template = 
 						SafeHtmlUtils.htmlEscape(getValue(object)) + " " +
 						"<a href=\"mailto:" + SafeHtmlUtils.htmlEscape(object.getEmail()) + "\">\n" + 
 						"	<img class=\"icon\" alt=\"E-Mail\" src=\"images/iconEmail.gif\">\n" + 

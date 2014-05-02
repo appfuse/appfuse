@@ -8,8 +8,8 @@ import org.appfuse.webapp.client.application.base.activity.AbstractProxyEditActi
 import org.appfuse.webapp.client.application.base.security.LoginEvent;
 import org.appfuse.webapp.client.proxies.UserProxy;
 import org.appfuse.webapp.client.requests.UserRequest;
+import org.appfuse.webapp.client.ui.home.HomePlace;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.users.editUser.EditUserView;
 
 import com.google.gwt.event.shared.EventBus;
@@ -97,7 +97,7 @@ public class SignUpActivity extends AbstractProxyEditActivity<UserProxy> impleme
     @Override
     protected Place nextPlace(final boolean saved) {
 	this.eventBus.fireEvent(new LoginEvent());
-	return new MainMenuPlace();
+	return new HomePlace();
     }
 
 }
