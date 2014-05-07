@@ -8,7 +8,7 @@ import java.util.List;
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
 import org.appfuse.webapp.client.proxies.UserProxy;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.home.HomePlace;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.cellview.client.CellTable;
@@ -55,7 +55,7 @@ public class ActiveUsersActivity extends AbstractBaseActivity implements ActiveU
 
     @Override
     public void cancelClicked() {
-        placeController.goTo(new MainMenuPlace());
+        placeController.goTo(new HomePlace());
     }
 
 }

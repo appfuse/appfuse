@@ -10,7 +10,7 @@ import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
 import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.view.ProxyEditView;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.home.HomePlace;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.activity.shared.Activity;
@@ -314,7 +314,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
         if(saved) {
             return new EntitySearchPlace(getProxyClass());
         } else { // deleted
-            return new MainMenuPlace();
+            return new HomePlace();
         }
     }
 

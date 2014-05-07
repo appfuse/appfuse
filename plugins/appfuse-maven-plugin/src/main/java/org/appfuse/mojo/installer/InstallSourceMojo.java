@@ -701,13 +701,17 @@ public class InstallSourceMojo extends AbstractMojo {
 
         try {
             // replace github.com with raw.github.com and trunk with master
-            trunk = trunk.replace("https://github.com", "https://raw.github.com");
+            trunk = trunk.replace("https://github.com", "https://raw.githubusercontent.com");
             tag = tag.replace("trunk", "master");
             // replace tags with nothing for fetching from tag
             if (tag.contains("tags/")) {
                 tag = tag.replace("tags/", "");
             }
-            pomLocation = new URL(trunk + tag + moduleLocation + "/pom.xml");
+            // add separator if moduleLocation is populated
+            if (!"".equals(moduleLocation)) {
+                moduleLocation += "/";
+            }
+            pomLocation = new URL(trunk + tag + moduleLocation + "pom.xml");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.appfuse.webapp.client.ui.mainMenu;
+package org.appfuse.webapp.client.ui.home;
 
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
@@ -14,16 +14,16 @@ import com.google.inject.Inject;
  * @author ivangsa
  *
  */
-public class MainMenuActivity extends AbstractBaseActivity {
+public class HomeActivity extends AbstractBaseActivity {
 
 
-    private final MainMenuView view;
+    private final HomeView view;
 
     @Inject
-    public MainMenuActivity(final Application application, final MainMenuView view) {
+    public HomeActivity(final Application application, final HomeView view) {
         super(application);
         this.view = view;
-        setTitle(i18n.mainMenu_title());
+        setTitle(i18n.home_title());
         setBodyId("home");
         setBodyClassname("home");
     }

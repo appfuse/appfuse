@@ -6,7 +6,7 @@ package org.appfuse.webapp.client.ui.reloadOptions;
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
 import org.appfuse.webapp.client.proxies.LookupConstantsProxy;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.home.HomePlace;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.event.shared.EventBus;
@@ -36,7 +36,7 @@ public class ReloadOptionsActivity extends AbstractBaseActivity {
             @Override
             public void onSuccess(final LookupConstantsProxy response) {
                 application.setLookupConstants(response);
-                placeController.goTo(new MainMenuPlace());
+                placeController.goTo(new HomePlace());
                 shell.addMessage(i18n.reload_succeeded(), AlertType.SUCCESS);
             }
             @Override

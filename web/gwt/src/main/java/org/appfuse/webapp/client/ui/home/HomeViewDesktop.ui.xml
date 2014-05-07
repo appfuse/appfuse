@@ -6,8 +6,8 @@
 <ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
 
 <g:HTMLPanel>
-	<h2><ui:text from="{i18n.mainMenu_heading}"/></h2>
-	<p><ui:text from="{i18n.mainMenu_message}"/></p>
+	<h2><ui:text from="{i18n.home_heading}"/></h2>
+	<p><ui:text from="{i18n.home_message}"/></p>
 	
 	<ul class="glassList">
 	    <li>

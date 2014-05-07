@@ -8,24 +8,25 @@
 <ui:with type="java.lang.Integer" field="pageSize" />
 
 
-<b:Column size="10">
-	<b:Heading size="2" ui:field="heading"><ui:text from="{i18n.userList_heading}" /></b:Heading>
+<g:HTMLPanel>
+<div class="col-sm-10">
+	<h2 ui:field="heading"><ui:text from="{i18n.userList_heading}" /></h2>
 	
-	<g:HTMLPanel>
-		<form class="form-search" id="searchForm" >
-		    <div class="input-append" id="search">
-		        <b:TextBox ui:field="searchTerm" styleName="input-medium search-query" searchQuery="true" placeholder="{i18n.search_enterTerms}" />
-		        <g:Button ui:field="searchButton" styleName="btn" >
-		            <i class="icon-search"></i> <ui:text from="{i18n.button_search}" />
-		        </g:Button>
-		    </div>
-	    </form>	
-	</g:HTMLPanel>
+	<form class="form-inline" id="searchForm" >
+	    <div id="search" class="text-right">
+			<span class="col-sm-9">
+		        <b:TextBox ui:field="searchTerm" styleName="form-control input-sm" visibleLength="20" searchQuery="true" placeholder="{i18n.search_enterTerms}" />
+		    </span>
+	        <g:Button ui:field="searchButton" styleName="btn btn-default btn-sm" >
+	            <i class="icon-search"></i> <ui:text from="{i18n.button_search}" />
+	        </g:Button>
+	    </div>
+    </form>	
 	
-	<b:FormActions>
+	<div id="actions" class="btn-group">
       <b:Button ui:field="addButton" text="{i18n.button_add}" type="PRIMARY" icon="PLUS" customIconStyle="icon-white" />
-      <b:Button ui:field="doneButton" text="{i18n.button_done}" icon="OK"/>
-	</b:FormActions>     
+      <b:Button ui:field="doneButton" text="{i18n.button_done}" type="DEFAULT" icon="OK" styleName="btn btn-default"/>
+	</div>     
 
 	<c:SimplePager display="{table}" location="LEFT" />
     <c:CellTable pageSize="{pageSize}" ui:field="table" width="100%"/>
@@ -38,5 +39,6 @@
 		<a href="javascript:;"><span class="export xml">XML </span></a>|
 		<a href="javascript:;"><span class="export pdf">PDF </span></a>		
 	</b:Well>
-</b:Column>
+</div>
+</g:HTMLPanel>
 </ui:UiBinder>

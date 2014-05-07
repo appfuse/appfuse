@@ -9,7 +9,7 @@ import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.proxies.AddressProxy;
 import org.appfuse.webapp.client.proxies.UserProxy;
 import org.appfuse.webapp.client.requests.UserRequest;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.home.HomePlace;
 import org.appfuse.webapp.client.ui.users.updatePassword.UpdatePasswordPlace;
 
 import com.google.gwt.event.shared.EventBus;
@@ -106,7 +106,7 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 	if(saved) {
 	    return new EntitySearchPlace(UserProxy.class);
 	} else { // deleted
-	    return new MainMenuPlace();
+	    return new HomePlace();
 	}
     }
 

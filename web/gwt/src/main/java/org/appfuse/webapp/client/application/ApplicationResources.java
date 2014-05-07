@@ -25,11 +25,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String _03_title();
 
   /**
-   * Translated "The page you requested was not found.  You might try returning to the <a href=\"{0}\">Main Menu</a>. While you&#39;re here, how about a pretty picture to cheer you up?".
+   * Translated "The page you requested was not found.  You might try returning to the <a href=\"{0}\">Home</a>. While you&#39;re here, how about a pretty picture to cheer you up?".
    * 
-   * @return translated "The page you requested was not found.  You might try returning to the <a href=\"{0}\">Main Menu</a>. While you&#39;re here, how about a pretty picture to cheer you up?"
+   * @return translated "The page you requested was not found.  You might try returning to the <a href=\"{0}\">Home</a>. While you&#39;re here, how about a pretty picture to cheer you up?"
    */
-  @DefaultMessage("The page you requested was not found.  You might try returning to the <a href=\"{0}\">Main Menu</a>. While you&#39;re here, how about a pretty picture to cheer you up?")
+  @DefaultMessage("The page you requested was not found.  You might try returning to the <a href=\"{0}\">Home</a>. While you&#39;re here, how about a pretty picture to cheer you up?")
   @Key("404.message")
   String _04_message(String arg0);
 
@@ -241,11 +241,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String company_url();
 
   /**
-   * Translated "2003-2013".
+   * Translated "2003-2014".
    * 
-   * @return translated "2003-2013"
+   * @return translated "2003-2014"
    */
-  @DefaultMessage("2003-2013")
+  @DefaultMessage("2003-2014")
   @Key("copyright.year")
   String copyright_year();
 
@@ -520,6 +520,15 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String errors_required(String arg0);
 
   /**
+   * Translated "An error has occurred while sending an email".
+   * 
+   * @return translated "An error has occurred while sending an email"
+   */
+  @DefaultMessage("An error has occurred while sending an email")
+  @Key("errors.sending.email")
+  String errors_sending_email();
+
+  /**
    * Translated "{0} must be an short.".
    * 
    * @return translated "{0} must be an short."
@@ -547,15 +556,6 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String errors_twofields(String arg0,  String arg1);
 
   /**
-   * Translated "The {user.password} field has to have the same value as the {user.confirmPassword} field.".
-   * 
-   * @return translated "The {user.password} field has to have the same value as the {user.confirmPassword} field."
-   */
-  @DefaultMessage("The {user.password} field has to have the same value as the {user.confirmPassword} field.")
-  @Key("errors.user.confirmPasswordMismatch")
-  String errors_user_confirmPasswordMismatch();
-
-  /**
    * Translated "{0} is an invalid zip code.".
    * 
    * @return translated "{0} is an invalid zip code."
@@ -563,6 +563,42 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   @DefaultMessage("{0} is an invalid zip code.")
   @Key("errors.zip")
   String errors_zip(String arg0);
+
+  /**
+   * Translated "Current Users".
+   * 
+   * @return translated "Current Users"
+   */
+  @DefaultMessage("Current Users")
+  @Key("home.activeUsers")
+  String home_activeUsers();
+
+  /**
+   * Translated "Welcome!".
+   * 
+   * @return translated "Welcome!"
+   */
+  @DefaultMessage("Welcome!")
+  @Key("home.heading")
+  String home_heading();
+
+  /**
+   * Translated "Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:".
+   * 
+   * @return translated "Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:"
+   */
+  @DefaultMessage("Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:")
+  @Key("home.message")
+  String home_message();
+
+  /**
+   * Translated "Home".
+   * 
+   * @return translated "Home"
+   */
+  @DefaultMessage("Home")
+  @Key("home.title")
+  String home_title();
 
   /**
    * Translated "E-Mail".
@@ -698,42 +734,6 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   @DefaultMessage("Login")
   @Key("login.title")
   String login_title();
-
-  /**
-   * Translated "Current Users".
-   * 
-   * @return translated "Current Users"
-   */
-  @DefaultMessage("Current Users")
-  @Key("mainMenu.activeUsers")
-  String mainMenu_activeUsers();
-
-  /**
-   * Translated "Welcome!".
-   * 
-   * @return translated "Welcome!"
-   */
-  @DefaultMessage("Welcome!")
-  @Key("mainMenu.heading")
-  String mainMenu_heading();
-
-  /**
-   * Translated "Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:".
-   * 
-   * @return translated "Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:"
-   */
-  @DefaultMessage("Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:")
-  @Key("mainMenu.message")
-  String mainMenu_message();
-
-  /**
-   * Translated "Main Menu".
-   * 
-   * @return translated "Main Menu"
-   */
-  @DefaultMessage("Main Menu")
-  @Key("mainMenu.title")
-  String mainMenu_title();
 
   /**
    * Translated "The file you are trying to upload is too big.  The maximum allowed size is 2 MB.".
@@ -1447,11 +1447,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String webapp_tagline();
 
   /**
-   * Translated "Version 2.2.2-SNAPSHOT".
+   * Translated "Version 3.0.1-SNAPSHOT".
    * 
-   * @return translated "Version 2.2.2-SNAPSHOT"
+   * @return translated "Version 3.0.1-SNAPSHOT"
    */
-  @DefaultMessage("Version 2.2.2-SNAPSHOT")
+  @DefaultMessage("Version 3.0.1-SNAPSHOT")
   @Key("webapp.version")
   String webapp_version();
 }

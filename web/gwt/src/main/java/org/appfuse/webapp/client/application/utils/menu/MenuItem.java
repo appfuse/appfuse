@@ -7,75 +7,75 @@ import java.util.List;
 
 import org.appfuse.webapp.client.proxies.RoleProxy;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.Widget;
 
 public class MenuItem implements Iterable<MenuItem>{
 
-	private final String title;
-	private final Place place;
-	private final List<String> roles = new ArrayList<String>();
-	private MenuItem parent;
-	private final List<MenuItem> children = new ArrayList<MenuItem>();
-	private Widget widget;
-	
-	/**
-	 * @param title
-	 * @param children
-	 */
-	public MenuItem(String title, String... roles) {
-		this(title, null, roles);
-	}
-	
-	public MenuItem(String title, Place place, String... roles) {
-		super();
-		this.title = title;
-		this.place = place;
-		this.roles.addAll(Arrays.asList(roles));
-		if(this.roles.isEmpty()) {
-			this.roles.add(RoleProxy.ANONYMOUS);
-		}
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-	
-	public Place getPlace() {
-		return place;
-	}
-	
-	public List<String> getRoles() {
-		return roles;
-	}
+    private final String title;
+    private final Place place;
+    private final List<String> roles = new ArrayList<String>();
+    private MenuItem parent;
+    private final List<MenuItem> children = new ArrayList<MenuItem>();
+    private Element element;
 
-	public MenuItem getParent() {
-		return parent;
-	}
-	
-	public List<MenuItem> getChildren() {
-		return children;
-	}
-	
-	public Widget getWidget() {
-		return widget;
-	}
-	
-	public void setWidget(Widget widget) {
-		this.widget = widget;
-	}
+    /**
+     * @param title
+     * @param children
+     */
+    public MenuItem(final String title, final String... roles) {
+        this(title, null, roles);
+    }
 
-	public void add(MenuItem item) {
-		item.parent = this;
-		children.add(item);
-	}
-	
-	@Override
-	public Iterator<MenuItem> iterator() {
-		return children.iterator();
-	}
-	
-	public boolean isLeafMenuItem() {
-		return children.isEmpty();
-	}
+    public MenuItem(final String title, final Place place, final String... roles) {
+        super();
+        this.title = title;
+        this.place = place;
+        this.roles.addAll(Arrays.asList(roles));
+        if(this.roles.isEmpty()) {
+            this.roles.add(RoleProxy.ANONYMOUS);
+        }
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public MenuItem getParent() {
+        return parent;
+    }
+
+    public List<MenuItem> getChildren() {
+        return children;
+    }
+
+    public Element getElement() {
+        return element;
+    }
+
+    public void setElement(final Element widget) {
+        this.element = widget;
+    }
+
+    public void add(final MenuItem item) {
+        item.parent = this;
+        children.add(item);
+    }
+
+    @Override
+    public Iterator<MenuItem> iterator() {
+        return children.iterator();
+    }
+
+    public boolean isLeafMenuItem() {
+        return children.isEmpty();
+    }
 }

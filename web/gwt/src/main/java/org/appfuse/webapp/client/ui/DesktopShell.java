@@ -1,13 +1,10 @@
 package org.appfuse.webapp.client.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.security.LoginEvent;
 import org.appfuse.webapp.client.application.base.security.LogoutEvent;
-import org.appfuse.webapp.client.ui.navigation.DesktopNavigationBar;
-import org.appfuse.webapp.client.ui.navigation.DesktopSideNavigationBar;
+import org.appfuse.webapp.client.ui.navigation.NavigationBar;
+import org.appfuse.webapp.client.ui.navigation.SideNavigationBar;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.base.AlertBase;
@@ -27,100 +24,101 @@ import com.google.gwt.user.client.ui.Widget;
  * The outermost UI of the application.
  */
 public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEvent.Handler, PlaceChangeEvent.Handler {
-	
-	interface Binder extends UiBinder<Widget, DesktopShell> {	}
-	private static final Binder uiBinder = GWT.create(Binder.class);
 
-	@UiField DesktopNavigationBar navigationBar;
-	@UiField DesktopSideNavigationBar sideNavigationBar;
+    interface Binder extends UiBinder<Widget, DesktopShell> {	}
+    private static final Binder uiBinder = GWT.create(Binder.class);
 
-	@UiField FlowPanel messages;
-	@UiField NotificationMole mole;
-	
-	@UiField Element currentUserInfo;
+    @UiField NavigationBar navigationBar;
+    @UiField SideNavigationBar sideNavigationBar;
 
-	public DesktopShell() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
-	
-	@Override
-	public void setApplication(Application application) {
-		super.setApplication(application);
-		navigationBar.setApplication(application);
-		sideNavigationBar.setApplication(application);
-	}
+    @UiField FlowPanel messages;
+    @UiField NotificationMole mole;
 
-	/**
-	 * @return the notification mole for loading feedback
-	 */
-	public NotificationMole getMole() {
-		return mole;
-	}
+    @UiField Element currentUserInfo;
 
-	@Override
-	public void clearMessages() {
-		messages.clear();
-	}
+    public DesktopShell() {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 
-	/**
-	 * Add an user message to the shell.
-	 * 
-	 * Messages live on screen until next {@link PlaceChangeEvent}.
-	 *  
-	 * @param alert
-	 */
-	@Override
-	public void addMessage(AlertBase alert) {
-		messages.add(alert);
-		Window.scrollTo(0 ,0);
-	}
-	
-	/**
-	 * 
-	 * @param html
-	 * @param alertType
-	 */
-	@Override
-	public void addMessage(String html, AlertType alertType) {
-		Alert alert = new Alert(html);
-		alert.setType(alertType);
-		addMessage(alert);
-	}
-	
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		navigationBar.load();
-	}
+    @Override
+    public void setApplication(final Application application) {
+        super.setApplication(application);
+        navigationBar.setApplication(application);
+        sideNavigationBar.setApplication(application);
+    }
 
-	@Override
-	public void onLoginEvent(LoginEvent loginEvent) {
-		navigationBar.load();
-		SafeHtmlBuilder sb = new SafeHtmlBuilder();
-		sb.appendEscaped(" | ");
-		sb.appendEscaped(application.getI18n().user_status());
-		sb.append(' ');
-		sb.appendEscaped(application.getCurrentUsername());
-		currentUserInfo.setInnerSafeHtml(sb.toSafeHtml());
-	}
+    /**
+     * @return the notification mole for loading feedback
+     */
+    @Override
+    public NotificationMole getMole() {
+        return mole;
+    }
+
+    @Override
+    public void clearMessages() {
+        messages.clear();
+    }
+
+    /**
+     * Add an user message to the shell.
+     * 
+     * Messages live on screen until next {@link PlaceChangeEvent}.
+     * 
+     * @param alert
+     */
+    @Override
+    public void addMessage(final AlertBase alert) {
+        messages.add(alert);
+        Window.scrollTo(0 ,0);
+    }
+
+    /**
+     * 
+     * @param html
+     * @param alertType
+     */
+    @Override
+    public void addMessage(final String html, final AlertType alertType) {
+        final Alert alert = new Alert(html);
+        alert.setType(alertType);
+        addMessage(alert);
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+        navigationBar.load();
+    }
+
+    @Override
+    public void onLoginEvent(final LoginEvent loginEvent) {
+        navigationBar.load();
+        final SafeHtmlBuilder sb = new SafeHtmlBuilder();
+        sb.appendEscaped(" | ");
+        sb.appendEscaped(application.getI18n().user_status());
+        sb.append(' ');
+        sb.appendEscaped(application.getCurrentUsername());
+        currentUserInfo.setInnerSafeHtml(sb.toSafeHtml());
+    }
 
 
-	@Override
-	public void onLogoutEvent(LogoutEvent logoutEvent) {
-		navigationBar.load();
-		currentUserInfo.setInnerHTML("");
-	}
+    @Override
+    public void onLogoutEvent(final LogoutEvent logoutEvent) {
+        navigationBar.load();
+        currentUserInfo.setInnerHTML("");
+    }
 
-	@Override
-	public void onPlaceChange(PlaceChangeEvent event) {
-		Window.scrollTo(0 ,0);
-		for (Widget widget : messages) {
-			try {
-				widget.removeFromParent();
-			} catch (Throwable e) {
-				//already removed
-				//XXX null in native method Node.removeChild:L291
-			}
-		}
-	}
+    @Override
+    public void onPlaceChange(final PlaceChangeEvent event) {
+        Window.scrollTo(0 ,0);
+        for (final Widget widget : messages) {
+            try {
+                widget.removeFromParent();
+            } catch (final Throwable e) {
+                //already removed
+                //XXX null in native method Node.removeChild:L291
+            }
+        }
+    }
 }

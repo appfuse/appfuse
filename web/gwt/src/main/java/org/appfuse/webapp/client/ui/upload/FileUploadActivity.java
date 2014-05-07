@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.home.HomePlace;
 import org.appfuse.webapp.client.ui.upload.views.FileUploadView;
 import org.appfuse.webapp.client.ui.upload.views.UploadedFileView;
 
@@ -91,12 +91,12 @@ public class FileUploadActivity extends AbstractBaseActivity implements FileUplo
 
     @Override
     public void onDoneClick() {
-        placeController.goTo(new MainMenuPlace());
+        placeController.goTo(new HomePlace());
     }
 
     @Override
     public void onCancelClick() {
-        placeController.goTo(new MainMenuPlace());
+        placeController.goTo(new HomePlace());
     }
 
     @Override

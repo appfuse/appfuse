@@ -15,10 +15,10 @@ import com.github.gwtbootstrap.client.ui.CheckBox;
 import com.github.gwtbootstrap.client.ui.IntegerBox;
 import com.github.gwtbootstrap.client.ui.ListBox;
 import com.github.gwtbootstrap.client.ui.LongBox;
-import com.github.gwtbootstrap.client.ui.Paragraph;
 import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -49,7 +49,7 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     private EditUserView.Delegate delegate;
 
     @UiField
-    protected Paragraph subheading;
+    protected Element subheading;
 
     @UiField LongBox id;
     @UiField IntegerBox version;

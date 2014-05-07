@@ -14,8 +14,8 @@ import org.appfuse.webapp.client.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.client.proxies.UserProxy;
 import org.appfuse.webapp.client.requests.ApplicationRequestFactory;
 import org.appfuse.webapp.client.ui.Shell;
+import org.appfuse.webapp.client.ui.home.HomePlace;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
-import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.activity.shared.ActivityManager;
@@ -27,6 +27,7 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceChangeEvent;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
@@ -51,23 +52,25 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
             final ApplicationRequestFactory requestFactory,
             final EventBus eventBus,
             final PlaceController placeController,
+            final PlaceHistoryMapper placeHistoryMapper,
             final PlaceHistoryHandler placeHistoryHandler,
             final ActivityManager activityManager,
             final ApplicationProxyFactory proxyFactory,
             final ApplicationValidatorFactory validatorFactory) {
-        super(shell, menu, requestFactory, eventBus, placeController, placeHistoryHandler, activityManager, proxyFactory, validatorFactory);
+        super(shell, menu, requestFactory, eventBus, placeController, placeHistoryMapper, placeHistoryHandler, activityManager, proxyFactory,
+                validatorFactory);
     }
 
 
 
     @Override
     public void run() {
-        setProgress(30);
+        setProgress(50);
 
         /* Add handlers */
         initHandlers();
 
-        setProgress(50);
+        setProgress(60);
         /* load application constants */
         requestFactory.lookupRequest().getApplicationConstants().fire(new Receiver<LookupConstantsProxy>() {
             @Override
@@ -80,15 +83,16 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 
                     @Override
                     public void onSuccess(final UserProxy currentUser) {
+                        setProgress(85);
 
                         if(currentUser != null) {
                             setCurrentUser(currentUser);
 
-                            setProgress(80);
+                            setProgress(100);
                             showShell();
 
                             /* Register home place and parse url for current place token */
-                            final Place defaultPlace = new MainMenuPlace();
+                            final Place defaultPlace = new HomePlace();
                             placeHistoryHandler.register(placeController, eventBus, defaultPlace);
                             placeHistoryHandler.handleCurrentHistory();
                             shell.onLoginEvent(new LoginEvent());
@@ -115,26 +119,23 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 
         /* And show the user the shell */
         RootLayoutPanel.get().add(shell);
+        RootLayoutPanel.get().getElement().setId("rootPanel");
 
-        //remove gwt positioning and overflow from extra divs, and hope for the best about xbrowser compatibility..
+        // remove gwt extra divs and place shell nodes directly into the document body,
+        // (and hope for the best about xbrowser compatibility..)
         shell.getElement().setId("shell");
-        __fixPositioningAndOverflow(Document.get().getElementById("shell"));
-    }
+        final Element shellElement = Document.get().getElementById("shell");
+        shellElement.removeFromParent();
+        Document.get().getElementById("rootPanel").removeFromParent();
 
-    /**
-     * remove gwt positioning and overflow from extra divs, and hope for the best about xbrowser compatibility..
-     */
-    private Element __fixPositioningAndOverflow(final Element element) {
-        if("body".equalsIgnoreCase(element.getTagName())){
-            return element;
-        } else {
-            element.setAttribute("style", "");
-            element.removeAttribute("style");// does not work on chrome
-            element.setId("extradiv_" + index++);
-            return __fixPositioningAndOverflow(element.getParentElement());
+        Element shellChildElement = shellElement.getFirstChildElement();
+        while (shellChildElement != null) {
+            shellChildElement.removeFromParent();
+            Document.get().getBody().appendChild(shellChildElement);
+            shellChildElement = shellElement.getFirstChildElement();
         }
+
     }
-    private int index = 0;
 
     protected void initHandlers() {
 
@@ -218,7 +219,7 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
                                 if(loginPlace.getHistoryToken() != null && !"".equals(loginPlace.getHistoryToken())) {
                                     History.newItem(loginPlace.getHistoryToken());
                                 } else {
-                                    placeController.goTo(new MainMenuPlace());
+                                    placeController.goTo(new HomePlace());
                                 }
                             }else {
                                 //this was an intercepted login so we leave user on current page
