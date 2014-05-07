@@ -628,15 +628,15 @@
         <log4j.version>1.2.17</log4j.version>
         <omnifaces.version>1.6.3</omnifaces.version>
         <prettyfaces.version>3.3.3</prettyfaces.version>
-        <primefaces.version>4.0</primefaces.version>
+        <primefaces.version>5.0</primefaces.version>
         <servlet.version>3.1.0</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>
         <slf4j.version>1.7.5</slf4j.version>
-        <spring.version>4.0.2.RELEASE</spring.version>
-        <spring.security.version>3.2.0.RELEASE</spring.security.version>
+        <spring.version>4.0.4.RELEASE</spring.version>
+        <spring.security.version>3.2.3.RELEASE</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
-        <struts.version>2.3.16</struts.version>
+        <struts.version>2.3.16.3</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
         <tapestry.version>5.3.7</tapestry.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>

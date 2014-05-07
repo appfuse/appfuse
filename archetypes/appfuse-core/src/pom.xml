@@ -447,7 +447,7 @@
         <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
         <bootstrap.version>3.0.2</bootstrap.version>
         <commons.dbcp.version>1.3</commons.dbcp.version>
-        <spring.version>4.0.2.RELEASE</spring.version>
+        <spring.version>4.0.4.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
         <mockito.version>1.9.5</mockito.version>

@@ -509,7 +509,7 @@
         <commons.dbcp.version>1.3</commons.dbcp.version>
         <cxf.version>2.7.1</cxf.version>
         <enunciate.version>1.27</enunciate.version>
-        <spring.version>4.0.2.RELEASE</spring.version>
+        <spring.version>4.0.4.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
         <mockito.version>1.9.5</mockito.version>
