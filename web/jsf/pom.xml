@@ -162,7 +162,7 @@
         </testResources>
     </build>
 
-	<!-- Needed for PrimeFaces Bootstrap theme -->
+    <!-- Needed for PrimeFaces Bootstrap theme -->
     <repositories>
         <repository>
             <id>prime-repo</id>
