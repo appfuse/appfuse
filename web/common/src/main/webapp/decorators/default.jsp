@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="<c:url value="/images/favicon.ico"/>"/>
     <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
-    <t:assets/>
+    <t:assets type="css"/>
     <decorator:head/>
 </head>
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/><decorator:getProperty property="body.class" writeEntireProperty="true"/>>
@@ -57,6 +57,7 @@
             &copy; <fmt:message key="copyright.year"/> <a href="<fmt:message key="company.url"/>"><fmt:message key="company.name"/></a>
         </span>
     </div>
+<t:assets type="js"/>    
 <%= (request.getAttribute("scripts") != null) ?  request.getAttribute("scripts") : "" %>
 </body>
 </html>
