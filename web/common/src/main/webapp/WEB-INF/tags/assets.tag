@@ -13,7 +13,7 @@
 </c:if>
 
 <c:set var="xml">
-	<jsp:include page="/WEB-INF/wro.xml" />
+  <jsp:include page="/WEB-INF/wro.xml" />
 </c:set>
 
 <%-- xslt template to extract web resources by group and type(css|js) and print its link/script --%>
@@ -72,8 +72,8 @@
     <c:when test="${sessionScope.debugAssets}">
       <%-- web resources by type (css|js) --%>
       <x:transform 
-          doc="<%= ((String)jspContext.getAttribute("xml")).replace(WRO_NAMESPACE, "") %>"
-          xslt="<%= jspContext.getAttribute("xslt") %>">
+          doc='<%= ((String)jspContext.getAttribute("xml")).replace(WRO_NAMESPACE, "") %>'
+          xslt='<%= jspContext.getAttribute("xslt") %>'>
         <x:param name="group"  value="${group}" />
         <x:param name="type"  value="${type}" />
       </x:transform>
