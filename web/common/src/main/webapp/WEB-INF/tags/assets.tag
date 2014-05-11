@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+<%! private static final String WRO_NAMESPACE = " xmlns=\"http://www.isdc.ro/wro\""; %> 
 <c:set var="base" value="${pageContext.request.contextPath}"/>
 <c:if test="${empty group}"><c:set var="group" value="main"/></c:if>
 <c:if test="${empty type}"><c:set var="type" value="js"/></c:if>
@@ -71,7 +72,7 @@
     <c:when test="${sessionScope.debugAssets}">
       <%-- web resources by type (css|js) --%>
       <x:transform 
-          doc="<%= ((String)jspContext.getAttribute("xml")).replace(" xmlns=\\"http://www.isdc.ro/wro\\"", "") %>"
+          doc="<%= ((String)jspContext.getAttribute("xml")).replace(WRO_NAMESPACE, "") %>"
           xslt="<%= jspContext.getAttribute("xslt") %>">
         <x:param name="group"  value="${group}" />
         <x:param name="type"  value="${type}" />
