@@ -759,7 +759,7 @@
         <!-- Framework dependency versions -->
         <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
         <bootstrap.version>3.0.2</bootstrap.version>
-        <spring.version>4.0.2.RELEASE</spring.version>
+        <spring.version>4.0.4.RELEASE</spring.version>
         <tapestry.version>5.3.7</tapestry.version>
 
         <!-- Testing dependency versions -->
