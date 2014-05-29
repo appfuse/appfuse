@@ -619,14 +619,14 @@
         <hibernate.search.version>4.1.1.Final</hibernate.search.version>
         <javamail.version>1.4.1</javamail.version>
         <jetty.version>8.1.14.v20131031</jetty.version>
-        <jsf.version>2.2.4</jsf.version>
+        <jsf.version>2.2.6</jsf.version>
         <mockito.version>1.9.5</mockito.version>
         <jpa.version>2.0-cr-1</jpa.version>
         <jsp.version>2.1</jsp.version>
         <jstl.version>1.2</jstl.version>
         <junit.version>4.11</junit.version>
         <log4j.version>1.2.17</log4j.version>
-        <omnifaces.version>1.6.3</omnifaces.version>
+        <omnifaces.version>1.7</omnifaces.version>
         <prettyfaces.version>3.3.3</prettyfaces.version>
         <primefaces.version>5.0</primefaces.version>
         <servlet.version>3.1.0</servlet.version>
@@ -648,7 +648,7 @@
         <wicketstuff.version>6.13.0</wicketstuff.version>
         <wicket.bootstrap.version>0.9.2</wicket.bootstrap.version>
         <wicket.webjars.version>0.4.1</wicket.webjars.version>
-        <wro4j.version>1.7.2</wro4j.version>
+        <wro4j.version>1.7.5</wro4j.version>
         <gwt.version>2.6.0</gwt.version>
         <json.version>20140107</json.version>
         <gin.version>2.1.2</gin.version>
