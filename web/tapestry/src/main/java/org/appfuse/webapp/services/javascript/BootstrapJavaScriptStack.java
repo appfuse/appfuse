@@ -24,7 +24,7 @@ public class BootstrapJavaScriptStack implements JavaScriptStack {
     public BootstrapJavaScriptStack(final AssetSource assetSource, final SymbolSource symbolSource) {
         this.jsStack = CollectionFactory.newList();
         jsStack.add(0, assetSource.getContextAsset("scripts/jquery.noconflict.js", null));
-        jsStack.add(0, assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/jquery/1.8.3/jquery.min.js"));
+        jsStack.add(0, assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/jquery/1.9.0/jquery.min.js"));
         jsStack.add(assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/bootstrap/3.0.2/js/bootstrap.min.js"));
         jsStack.add(assetSource.getContextAsset("scripts/lib/plugins/jquery.cookie.js", null));
         jsStack.add(assetSource.getContextAsset("scripts/script.js", null));
