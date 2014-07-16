@@ -485,7 +485,13 @@
 	        <artifactId>selenium-firefox-driver</artifactId>
 	        <version>${selenium.version}</version>
 	        <scope>test</scope>
-	    </dependency>        
+	    </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>     
     </dependencies>
 
     <reporting>
