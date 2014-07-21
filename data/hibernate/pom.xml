@@ -128,12 +128,6 @@
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
-        <!-- Use Javassist as Hibernate's bytecode provider -->
-        <dependency>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.12.1.GA</version>
-        </dependency>
         <!-- Enable EhCache support -->
         <dependency>
             <groupId>org.hibernate</groupId>

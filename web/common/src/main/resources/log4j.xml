@@ -1,77 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+        </Console>
+    </Appenders>
 
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <Loggers>
+        <Logger name="net.sf.ehcache" level="error"/>
+        <!-- Suppress success logging from InteractiveAuthenticationSuccessEvent -->
+        <Logger name="org.springframework.security" level="error"/>
+        <Logger name="org.apache" level="error"/>
+        <Logger name="org.apache.velocity" level="fatal"/>
+        <!-- Suppress invalid warning messages from JSF -->
+        <Logger name="org.apache.myfaces" level="error"/>
+        <!-- Suppress warnings from Struts -->
+        <Logger name="org.apache.struts2.util.TextProviderHelper" level="error"/>
+        <Logger name="com.opensymphony.xwork2.util.OgnlUtil" level="error"/>
+        <Logger name="com.opensymphony.xwork2.ognl.OgnlValueStack" level="error"/>
+        <Logger name="org.dbunit" level="warn"/>
+        <Logger name="org.hibernate" level="warn"/>
+        <!-- Uncomment if you want to see Hibernate's SQL -->
+        <!--<Logger name="org.hibernate.SQL" level="debug"/>-->
+        <Logger name="org.springframework" level="warn"/>
+        <Logger name="org.appfuse" level="debug"/>
+        <Logger name="org.appfuse.tool" level="info"/>
 
-    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern"
-                value="%p [%t] %c{1}.%M(%L) | %m%n"/>
-        </layout>
-    </appender>
-    
-    <logger name="net.sf.ehcache">
-        <level value="ERROR"/>
-    </logger>
-
-    <!-- Suppress success logging from InteractiveAuthenticationSuccessEvent -->
-    <logger name="org.springframework.security">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="org.apache">
-        <level value="WARN"/>
-    </logger>
-
-    <logger name="org.apache.velocity">
-        <level value="FATAL"/>
-    </logger>
-
-    <!-- Suppress invalid warning messages from JSF -->
-    <logger name="org.apache.myfaces">
-        <level value="ERROR"/>
-    </logger>
-
-    <!-- Suppress warnings from Struts -->
-    <logger name="org.apache.struts2.util.TextProviderHelper">
-      <level value="ERROR"/>
-    </logger>
-
-    <logger name="com.opensymphony.xwork2.util.OgnlUtil">
-       <level value="ERROR"/>
-    </logger>
-
-    <logger name="com.opensymphony.xwork2.ognl.OgnlValueStack">
-       <level value="ERROR"/>
-    </logger>
-
-    <logger name="org.dbunit">
-        <level value="WARN"/>
-    </logger>
-
-    <logger name="org.hibernate">
-        <level value="WARN"/>
-    </logger>
-  
-    <!--logger name="org.hibernate.SQL">
-        <level value="DEBUG"/>
-    </logger-->
-
-    <logger name="org.springframework">
-        <level value="WARN"/>
-    </logger>
-
-    <logger name="org.appfuse">
-        <level value="DEBUG"/>
-    </logger>
-
-    <logger name="org.appfuse.tool">
-        <level value="INFO"/>
-    </logger>
-
-    <root>
-        <level value="WARN"/>
-        <appender-ref ref="CONSOLE"/>
-    </root>
-
-</log4j:configuration>
+        <Root level="warn">
+            <AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+</Configuration>
