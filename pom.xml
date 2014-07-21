@@ -338,6 +338,12 @@
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+        <!-- To make JBoss projects aware of Log4j2 -->
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>3.2.0.Beta1</version>
+        </dependency>
         <dependency>
             <groupId>${jdbc.groupId}</groupId>
             <artifactId>${jdbc.artifactId}</artifactId>
@@ -605,8 +611,8 @@
         <hibernate.entitymanager.version>4.3.6.Final</hibernate.entitymanager.version>
         <hibernate.search.version>4.5.1.Final</hibernate.search.version>
         <javamail.version>1.4.1</javamail.version>
-        <jetty.version>8.1.14.v20131031</jetty.version>
-        <jsf.version>2.2.6</jsf.version>
+        <jetty.version>9.2.1.v20140609</jetty.version>
+        <jsf.version>2.2.7</jsf.version>
         <mockito.version>1.9.5</mockito.version>
         <jpa.version>2.1</jpa.version>
         <jsp.version>2.1</jsp.version>

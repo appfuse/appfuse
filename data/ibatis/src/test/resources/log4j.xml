@@ -1,34 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+        </Console>
+    </Appenders>
 
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <Loggers>
+        <Logger name="org.apache" level="warn"/>
+        <Logger name="org.compass" level="warn"/>
+        <Logger name="org.springframework" level="warn"/>
+        <Logger name="org.appfuse" level="debug"/>
 
-    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern"
-                value="%p - %C{1}.%M(%L) | %m%n"/>
-        </layout>
-    </appender>
-
-    <logger name="org.apache">
-        <level value="WARN"/>
-    </logger>
-
-    <logger name="org.compass">
-        <level value="WARN"/>
-    </logger>
-
-    <logger name="org.springframework">
-        <level value="WARN"/>
-    </logger>
-   
-    <logger name="org.appfuse">
-        <level value="DEBUG"/>
-    </logger>
-
-    <root>
-        <level value="WARN"/>
-        <appender-ref ref="CONSOLE"/>
-    </root>
-
-</log4j:configuration>
+        <Root level="warn">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

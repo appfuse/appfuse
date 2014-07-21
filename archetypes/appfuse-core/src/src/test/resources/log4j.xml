@@ -1,63 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[${artifactId}] %p [%t] %c{1}.%M(%L) | %m%n"/>
+        </Console>
+    </Appenders>
 
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <Loggers>
+        <Logger name="net.sf.ehcache" level="error"/>
+        <!-- Suppress success logging from InteractiveAuthenticationSuccessEvent -->
+        <Logger name="org.springframework.security" level="error"/>
+        <Logger name="org.apache" level="warn"/>
+        <Logger name="org.apache.velocity" level="fatal"/>
+        <Logger name="org.hibernate" level="warn"/>
+        <!-- Uncomment if you want to see Hibernate's SQL -->
+        <!--<Logger name="org.hibernate.SQL" level="debug"/>-->
+        <Logger name="org.springframework" level="warn"/>
+        <Logger name="org.appfuse" level="info"/>
 
-    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern"
-                value="[${artifactId}] %p [%t] %c{1}.%M(%L) | %m%n"/>
-        </layout>
-    </appender>
-
-    <logger name="net.sf.ehcache">
-        <level value="ERROR"/>
-    </logger>
-
-    <!-- Suppress success logging from InteractiveAuthenticationSuccessEvent -->
-    <logger name="org.springframework.security">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="org.apache">
-        <level value="WARN"/>
-    </logger>
-
-    <logger name="org.apache.velocity">
-        <level value="FATAL"/>
-    </logger>
-
-    <logger name="org.hibernate">
-        <level value="WARN"/>
-    </logger>
-  
-    <!--logger name="org.hibernate.SQL">
-        <level value="DEBUG"/>
-    </logger-->
-
-    <logger name="org.springframework">
-        <level value="WARN"/>
-    </logger>
-   
-    <logger name="org.appfuse">
-        <level value="INFO"/>
-    </logger>
-
-    <logger name="org.appfuse.util">
-        <level value="WARN"/>
-    </logger>
-    
-    <logger name="org.appfuse.webapp.filter">
-        <level value="ERROR"/>
-    </logger>
-    
-    <logger name="org.appfuse.webapp.listener.UserCounterListener">
-        <level value="WARN"/>
-    </logger>
-
-    <root>
-        <level value="WARN"/>
-        <appender-ref ref="CONSOLE"/>
-    </root>
-
-</log4j:configuration>
+        <Root level="warn">
+            <AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+</Configuration>

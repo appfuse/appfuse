@@ -153,7 +153,7 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
+                <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.14.v20131031</version>
                 <configuration>
@@ -419,7 +419,7 @@
                     <artifactId>testng</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.mortbay.jetty</groupId>
+                    <groupId>org.eclipse.jetty</groupId>
                     <artifactId>servlet-api-2.5</artifactId>
                 </exclusion>
                 <exclusion>
@@ -455,6 +455,10 @@
                 <exclusion>
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
