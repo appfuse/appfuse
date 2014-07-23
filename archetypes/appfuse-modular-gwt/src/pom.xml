@@ -343,7 +343,7 @@
         <commons.fileupload.version>1.3</commons.fileupload.version>
         <commons.io.version>2.4</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
-        <spring.version>4.0.4.RELEASE</spring.version>
+        <spring.version>4.0.6.RELEASE</spring.version>
         <gwt.version>2.6.0</gwt.version>
         <json.version>20140107</json.version>
         <gin.version>2.1.2</gin.version>

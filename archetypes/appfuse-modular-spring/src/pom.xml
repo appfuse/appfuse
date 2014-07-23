@@ -342,7 +342,7 @@
         <commons.fileupload.version>1.3</commons.fileupload.version>
         <commons.io.version>2.4</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
-        <spring.version>4.0.4.RELEASE</spring.version>
+        <spring.version>4.0.6.RELEASE</spring.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
 
         <!-- Testing dependency versions -->
