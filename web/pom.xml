@@ -223,6 +223,13 @@
             <groupId>org.webjars</groupId>
             <artifactId>jquery-cookie</artifactId>
             <version>1.3.1</version>
+            <!-- Exclude jQuery so version from Boostrap is used instead. -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.webjars</groupId>
+                    <artifactId>jquery</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
