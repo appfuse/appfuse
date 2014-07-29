@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -8,7 +9,6 @@
         <version>3.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.appfuse.plugins</groupId>
     <artifactId>appfuse-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AppFuse Maven Plugin</name>
@@ -21,8 +21,8 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/plugins/appfuse-maven-plugin</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <build>
         <plugins>
@@ -71,6 +71,12 @@
             <groupId>org.codehaus.mojo.hibernate3</groupId>
             <artifactId>maven-hibernate3-api</artifactId>
             <version>${hibernate3.plugin.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.codehaus.mojo.hibernate3</groupId>
@@ -87,10 +93,12 @@
             <artifactId>cglib</artifactId>
             <version>2.2</version>
         </dependency>
+        <!-- Necessary for Log4j2 to work at runtime with FreeMarker -->
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
             <version>${log4j.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <!-- This is to support the ant calls within the mojos -->
         <dependency>
