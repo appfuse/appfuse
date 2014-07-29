@@ -37,7 +37,7 @@ pageContext.setAttribute("ctxPath", contextPath);
 
 	<c:choose>
 	    <c:when test="${param.debug}">
-	        <script type="text/javascript" src="${base}/webjars/jquery/1.8.3/jquery.min.js"></script>
+	        <script type="text/javascript" src="${base}/webjars/jquery/1.9.0/jquery.min.js"></script>
 	        <script type="text/javascript" src="${base}/webjars/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 	        <script type="text/javascript" src="${base}/webjars/jquery-cookie/1.3.1/jquery.cookie.js"></script>
 	    </c:when>
