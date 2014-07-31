@@ -117,7 +117,7 @@
             //console.log('version: ' + parseFloat(version.substring(0,3)));
             if (version.match(/.*SNAPSHOT/) || parseFloat(version.substring(0,3)) >= 2.1) archetypeArtifactId += "-archetype";
             var cmd = 'mvn archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=' + archetypeArtifactId + ' -DarchetypeVersion=' + version + ' -DgroupId=' + groupId + ' -DartifactId=' + artifactId;
-            cmd += ' -DarchetypeRepository=http://oss.sonatype.org/content/repositories/appfuse';
+            cmd += ' -DarchetypeRepository=https://oss.sonatype.org/content/repositories/appfuse';
             document.getElementById("cmdLine").value = cmd;
         }
         

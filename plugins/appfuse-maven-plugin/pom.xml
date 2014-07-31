@@ -214,7 +214,7 @@
                                         <argument>-DartifactId=myproject</argument>
                                         <!-- probably not needed as the archetype has been installed previously by the build -->
                                         <argument>
-                                            -DarchetypeRepository=http://oss.sonatype.org/content/repositories/appfuse
+                                            -DarchetypeRepository=https://oss.sonatype.org/content/repositories/appfuse
                                         </argument>
                                     </arguments>
                                     <workingDirectory>${project.build.directory}/it/myproject</workingDirectory>

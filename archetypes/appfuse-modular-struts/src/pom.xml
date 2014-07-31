@@ -81,7 +81,7 @@
     <repositories>
         <repository>
             <id>appfuse-snapshots</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -94,7 +94,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>appfuse-snapshots</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>

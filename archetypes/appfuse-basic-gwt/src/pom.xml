@@ -315,7 +315,7 @@
     <repositories>
         <repository>
             <id>appfuse-snapshots</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -326,14 +326,14 @@
 
 		<repository>
 			<id>sonatype</id><!-- for gwt-bootstrap -->
-			<url>http://oss.sonatype.org/content/repositories/releases</url>
+			<url>https://oss.sonatype.org/content/repositories/releases</url>
 		</repository>
 	</repositories>
 
     <pluginRepositories>
         <pluginRepository>
             <id>appfuse-snapshots</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
