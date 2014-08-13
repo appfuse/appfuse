@@ -52,7 +52,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
+                <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.version}</version>
                 <configuration>
@@ -113,6 +113,10 @@
                 <exclusion>
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -204,7 +208,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- Needed to load xfire-servlet.xml for all web frameworks -->
+        <!-- Needed to load CXF for all web frameworks -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -235,6 +239,20 @@
             <groupId>org.webjars</groupId>
             <artifactId>bootswatch</artifactId>
             <version>3.0.0</version>
+        </dependency>
+        <!-- Necessary for Log4j2 to work at runtime with Velocity -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
+            <version>${log4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- Necessary for Log4j2 to work in a web container -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-web</artifactId>
+            <version>${log4j.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 </project>

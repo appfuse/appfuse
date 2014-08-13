@@ -59,7 +59,7 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
+                <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.14.v20131031</version>
                 <configuration>
