@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!-- For mail settings and future properties files -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -17,14 +15,10 @@
                 <value>classpath:hibernate.properties</value>
             </list>
         </property>
-        <!-- XXX it may break backwards compatibility... -->
         <property name="systemPropertiesMode">
-        	<util:constant static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+            <util:constant static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
         </property>
     </bean>
-
-    <!-- JNDI DataSource for J2EE environments -->
-    <!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/appfuse"/>-->
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
