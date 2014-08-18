@@ -62,7 +62,7 @@ public class GenericDaoJpa<T, PK extends Serializable> implements GenericDao<T, 
      */
     public GenericDaoJpa(final Class<T> persistentClass) {
         this.persistentClass = persistentClass;
-        defaultAnalyzer = new StandardAnalyzer(Version.LUCENE_35);
+        defaultAnalyzer = new StandardAnalyzer(Version.LUCENE_36);
     }
 
     /**
@@ -74,7 +74,7 @@ public class GenericDaoJpa<T, PK extends Serializable> implements GenericDao<T, 
     public GenericDaoJpa(final Class<T> persistentClass, EntityManager entityManager) {
         this.persistentClass = persistentClass;
         this.entityManager = entityManager;
-        defaultAnalyzer = new StandardAnalyzer(Version.LUCENE_35);
+        defaultAnalyzer = new StandardAnalyzer(Version.LUCENE_36);
     }
 
     public EntityManager getEntityManager() {
