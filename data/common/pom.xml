@@ -46,11 +46,9 @@
             <artifactId>commons-lang</artifactId>
             <version>${commons.lang.version}</version>
         </dependency>
-        <!-- Only publicly available version of JPA 2.0 in Maven -->
-        <!-- http://paulszulc.wordpress.com/2010/01/09/jpa-2-0-and-spring-3-0-with-maven/ -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-${jpa.version}-api</artifactId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
             <version>1.0.0.Final</version>
         </dependency>
         <dependency>
@@ -76,7 +74,7 @@
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
-        <!-- Additional Analyzers: -->
+        <!-- Additional Analyzers -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-search-analyzers</artifactId>
