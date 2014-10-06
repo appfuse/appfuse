@@ -781,7 +781,7 @@
         <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
         <bootstrap.version>3.0.2</bootstrap.version>
         <spring.version>4.0.6.RELEASE</spring.version>
-        <tapestry.version>5.4-alpha-25</tapestry.version>
+        <tapestry.version>5.4-beta-22</tapestry.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>
