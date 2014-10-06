@@ -1,0 +1,152 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+			 xmlns:g="urn:import:com.google.gwt.user.client.ui"
+			 xmlns:c="urn:import:com.google.gwt.user.cellview.client"
+			 xmlns:e="urn:import:com.google.gwt.editor.ui.client"
+			 xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+
+<ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
+
+
+<g:HTMLPanel>
+	<div class="col-sm-2">
+		<h2 ui:field="heading"><ui:text from="{i18n.userProfile_heading}" /></h2>
+		<p ui:field="subheading"><ui:text from="{i18n.userProfile_admin_message}"/></p>
+	</div>
+     
+	<div class="col-sm-7">
+		<b:Form type="HORIZONTAL" styleName="well form-horizontal">
+		
+		    <b:LongBox ui:field="id" visible="false" />
+		    <b:IntegerBox ui:field="version" visible="false" />
+		
+			<b:ControlGroup ui:field="usernameControlGroup">
+		        <b:ControlLabel for="username"><ui:text from="{i18n.user_username}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls>
+		       		<b:TextBox styleName="form-control" ui:field="username" name="username" controlGroup="{usernameControlGroup}" errorLabel="{usernameErrors}" />
+		       		<b:HelpInline ui:field="usernameErrors" />
+		       		<b:HelpBlock ui:field="updatePasswordControl" >
+		       			<g:Anchor ui:field="updatePasswordButton"><ui:text from="{i18n.updatePassword_changePasswordLink}" /></g:Anchor>
+		       		</b:HelpBlock>
+		       	</b:Controls>
+		    </b:ControlGroup>
+			<b:ControlGroup ui:field="passwordControlGroup">
+		        <b:ControlLabel for="password"><ui:text from="{i18n.user_password}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls>
+		       		<b:PasswordTextBox ui:field="password" name="password" controlGroup="{passwordControlGroup}" errorLabel="{passwordErrors}" />
+		       		<b:HelpInline ui:field="passwordErrors" />
+		       	</b:Controls>
+		    </b:ControlGroup>
+			<b:ControlGroup ui:field="passwordHintControlGroup">
+		        <b:ControlLabel for="passwordHint"><ui:text from="{i18n.user_passwordHint}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls><b:TextBox styleName="form-control" ui:field="passwordHint" name="passwordHint" /></b:Controls>
+		    </b:ControlGroup>
+		    <g:FlowPanel stylePrimaryName="row">
+				<b:ControlGroup ui:field="firstNameControlGroup" styleName="col-sm-6">
+			        <b:ControlLabel for="firstName"><ui:text from="{i18n.user_firstName}" /> <span class="required">*</span></b:ControlLabel>
+			       	<b:Controls>
+			       		<b:TextBox styleName="form-control" ui:field="firstName" name="firstName" controlGroup="{firstNameControlGroup}" errorLabel="{firstNameErrors}" />
+			       		<b:HelpInline ui:field="firstNameErrors" />
+			       	</b:Controls>
+			    </b:ControlGroup>
+				<b:ControlGroup ui:field="lastNameControlGroup" styleName="col-sm-6">
+			        <b:ControlLabel for="lastName"><ui:text from="{i18n.user_lastName}" /> <span class="required">*</span></b:ControlLabel>
+			       	<b:Controls>
+			       		<b:TextBox styleName="form-control" ui:field="lastName" name="lastName" controlGroup="{lastNameControlGroup}" errorLabel="{lastNameErrors}" />
+			       		<b:HelpInline ui:field="lastNameErrors" />
+			       	</b:Controls>
+			    </b:ControlGroup>
+		    </g:FlowPanel>
+		    <g:FlowPanel stylePrimaryName="row">
+				<b:ControlGroup ui:field="emailControlGroup" styleName="col-sm-6">
+			        <b:ControlLabel for="email"><ui:text from="{i18n.user_email}" /> <span class="required">*</span></b:ControlLabel>
+			       	<b:Controls>
+			       		<b:TextBox styleName="form-control" ui:field="email" name="email" controlGroup="{emailControlGroup}" errorLabel="{emailErrors}" />
+			       		<b:HelpInline ui:field="emailErrors" />
+			       	</b:Controls>
+			    </b:ControlGroup>
+				<b:ControlGroup ui:field="phoneNumberControlGroup" styleName="col-sm-6">
+			        <b:ControlLabel for="phoneNumber"><ui:text from="{i18n.user_phoneNumber}" /> <span class="required">*</span></b:ControlLabel>
+			       	<b:Controls>
+			       		<b:TextBox styleName="form-control" ui:field="phoneNumber" name="phoneNumber" controlGroup="{phoneNumberControlGroup}" errorLabel="{phoneNumberErrors}" />
+			       		<b:HelpInline ui:field="phoneNumberErrors" />
+			       	</b:Controls>
+			    </b:ControlGroup>
+		    </g:FlowPanel>
+			<b:ControlGroup ui:field="websiteControlGroup">
+		        <b:ControlLabel for="website"><ui:text from="{i18n.user_website}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls>
+		       		<b:TextBox styleName="form-control" ui:field="website" name="website" controlGroup="{websiteControlGroup}" errorLabel="{websiteErrors}" />
+		       		<b:HelpInline ui:field="websiteErrors" />
+		       	</b:Controls>
+		    </b:ControlGroup>
+		
+			<b:ControlGroup ui:field="addressFieldset">
+				<legend class="accordion-heading">
+				    <a href="#collapse-address" data-toggle="collapse"><ui:text from="{i18n.user_address_address}" /></a>
+				</legend>
+				<div class="accordion-body collapse" id="collapse-address">
+				    <b:ControlGroup ui:field="addressControlGroup">
+				        <b:ControlLabel for="address"><ui:text from="{i18n.user_address_address}" /></b:ControlLabel>
+				       	<b:Controls>
+				       		<b:TextBox styleName="form-control" ui:field="address" name="address" controlGroup="{addressControlGroup}" errorLabel="{addressErrors}" />
+				       		<b:HelpInline ui:field="addressErrors" />
+				       	</b:Controls>
+				    </b:ControlGroup>
+				    <g:FlowPanel stylePrimaryName="row">
+					    <b:ControlGroup ui:field="cityControlGroup" styleName="col-sm-7">
+					        <b:ControlLabel for="city"><ui:text from="{i18n.user_address_city}" /></b:ControlLabel>
+					       	<b:Controls>
+					       		<b:TextBox styleName="form-control" ui:field="city" name="city" controlGroup="{cityControlGroup}" errorLabel="{cityErrors}" />
+					       		<b:HelpInline ui:field="cityErrors" />
+					       	</b:Controls>
+					    </b:ControlGroup>
+					    <b:ControlGroup ui:field="provinceControlGroup" styleName="col-sm-2">
+					        <b:ControlLabel for="province"><ui:text from="{i18n.user_address_province}" /></b:ControlLabel>
+					       	<b:Controls>
+					       		<b:TextBox styleName="form-control" ui:field="province" name="province" controlGroup="{provinceControlGroup}" errorLabel="{provinceErrors}" />
+					       		<b:HelpInline ui:field="provinceErrors" />
+					       	</b:Controls>
+					    </b:ControlGroup>
+					    <b:ControlGroup ui:field="postalCodeControlGroup" styleName="col-sm-3">
+					        <b:ControlLabel for="postalCode"><ui:text from="{i18n.user_address_postalCode}" /></b:ControlLabel>
+					       	<b:Controls>
+					       		<b:TextBox styleName="form-control" ui:field="postalCode" name="postalCode" controlGroup="{postalCodeControlGroup}" errorLabel="{postalCodeErrors}" />
+					       		<b:HelpInline ui:field="postalCodeErrors" />
+					       	</b:Controls>
+					    </b:ControlGroup>
+				    </g:FlowPanel>
+				    <b:ControlGroup ui:field="countryControlGroup">
+				        <b:ControlLabel for="country"><ui:text from="{i18n.user_address_country}" /></b:ControlLabel>
+			            <b:Controls><b:ListBox  ui:field="country" stylePrimaryName="form-control" /></b:Controls>
+				    </b:ControlGroup>
+				</div>
+			</b:ControlGroup>
+		
+			<b:ControlGroup ui:field="accountSettings">
+			    <b:ControlLabel><ui:text from="{i18n.userProfile_accountSettings}" /></b:ControlLabel>
+			    <b:Controls>
+					<b:CheckBox ui:field="enabled" name="enabled" stylePrimaryName="checkbox-inline" text="{i18n.user_enabled}" />
+					<b:CheckBox ui:field="accountExpired" name="accountExpired" stylePrimaryName="checkbox-inline" text="{i18n.user_accountExpired}" />
+					<b:CheckBox ui:field="accountLocked" name="accountLocked" stylePrimaryName="checkbox-inline" text="{i18n.user_accountLocked}" />
+					<b:CheckBox ui:field="credentialsExpired" name="credentialsExpired" stylePrimaryName="checkbox-inline" text="{i18n.user_credentialsExpired}" />
+				</b:Controls>
+			</b:ControlGroup>
+			
+			<b:ControlGroup ui:field="userRoles">
+			    <b:ControlLabel for="roles"><ui:text from="{i18n.userProfile_assignRoles}" /></b:ControlLabel>
+			    <b:Controls>
+			    	<c:CellList ui:field="roles"/>
+			    </b:Controls>
+			</b:ControlGroup>	
+		
+			<b:FormActions>
+				<b:Button ui:field="saveButton" styleName="btn btn-primary" customIconStyle="icon-ok icon-white" text="{i18n.button_save}" />
+				<b:Button ui:field="deleteButton" styleName="btn btn-default" customIconStyle="icon-trash" text="{i18n.button_delete}" />
+				<b:Button ui:field="cancelButton" styleName="btn btn-default" customIconStyle="icon-remove" text="{i18n.button_cancel}" />
+			</b:FormActions>
+		
+		</b:Form>
+	</div>
+</g:HTMLPanel>
+</ui:UiBinder>

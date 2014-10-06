@@ -13,15 +13,14 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-web</artifactId>
-        <version>2.2.2-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-wicket</artifactId>
@@ -36,7 +35,8 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/web/wicket</url>
-    </scm>
+      <tag>HEAD</tag>
+  </scm>
 
     <build>
         <plugins>
@@ -149,10 +149,10 @@
                         <phase>process-resources</phase>
                         <configuration>
                             <tasks>
-                                <echo message="Copying CSS and JavaScript resources..."/>
+                                <echo message="Copying CSS and JavaScript resources..." />
                                 <copy todir="src/main/webapp" overwrite="true">
                                     <fileset dir="../common/src/main/webapp">
-                                        <include name="styles/style.css"/>
+                                        <include name="styles/style.css" />
                                     </fileset>
                                 </copy>
                             </tasks>
@@ -282,11 +282,6 @@
             <version>${wicket.webjars.version}</version>
         </dependency>
         <dependency>
-            <groupId>de.agilecoders.wicket.webjars</groupId>
-            <artifactId>vfs-support</artifactId>
-            <version>${wicket.webjars.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>3.17.1-GA</version>
@@ -356,7 +351,7 @@
                         <artifactId>webtest-maven-plugin</artifactId>
                         <version>1.0.0</version>
                         <dependencies>
-                            <!-- Older version hangs on Wicket application, other dependency are required -->
+                            <!-- Upgrade HtmlUnit to support jQuery 1.9 -->
                             <dependency>
                                 <groupId>net.sourceforge.htmlunit</groupId>
                                 <artifactId>htmlunit</artifactId>
@@ -388,6 +383,13 @@
                                     <goal>verify-result</goal>
                                 </goals>
                             </execution>
+                            <execution>
+                                <id>webtest-report-html</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
                         </executions>
                         <configuration>
                             <host>${cargo.host}</host>
@@ -406,5 +408,9 @@
             </build>
         </profile>
     </profiles>
+
+    <properties>
+        <bootstrap.version>3.0.0</bootstrap.version>
+    </properties>
 </project>
 

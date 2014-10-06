@@ -20,17 +20,16 @@
  * under the License.
  */
 -->
-<#if datepicker?default(false) == true>
+<#if datepicker!false == true>
 <span class="add-on btn"><i class="icon-th"></i></span>
 </div>
 </#if>
 ${parameters.after?if_exists}<#t/>
 <#if hasFieldErrors>
-<span class="help-inline">
+<span class="help-block">
 <#list fieldErrors[parameters.name] as error>
     ${error?html}<br/>
 </#list>
 </span><#t/>
 </#if>
 </div>
-</fieldset>

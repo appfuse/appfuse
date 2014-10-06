@@ -55,6 +55,10 @@
         <to>/styles/$1</to>
     </rule>
     <rule>
+        <from>/webjars/**</from>
+        <to>/webjars/$1</to>
+    </rule>
+    <rule>
         <from>/crossdomain.xml</from>
         <to>/crossdomain.xml</to>
     </rule>

@@ -3,7 +3,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <f:view>
-    <h:head><ui:define name="menu">AdminMenu</ui:define></h:head>
+    <h:head><ui:param name="menu" value="AdminMenu"/></h:head>
 
     <h:form id="reloadForm">
         <h:commandLink action="#{reload.execute}" id="execute">

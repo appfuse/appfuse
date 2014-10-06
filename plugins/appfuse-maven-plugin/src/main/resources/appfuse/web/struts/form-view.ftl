@@ -12,19 +12,19 @@
    "<fmt:message key="delete.confirm"><fmt:param value=${'"'}${r"${delObject}"}${'"'}/></fmt:message>";
 </script>
 
-<div class="span2">
+<div class="col-sm-2">
     <h2><fmt:message key="${pojoNameLower}Detail.heading"/></h2>
     <fmt:message key="${pojoNameLower}Detail.message"/>
 </div>
 
-<div class="span7">
-    <s:form id="${pojoNameLower}Form" action="save${pojo.shortName}" method="post" validate="true" cssClass="well form-horizontal">
+<div class="col-sm-7">
+    <s:form id="${pojoNameLower}Form" action="save${pojo.shortName}" method="post" validate="true" cssClass="well">
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>
 <#if field.equals(pojo.identifierProperty)>
     <#assign idFieldName = field.name>
     <#if field.value.identifierGeneratorStrategy == "assigned">
-        <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="true"/>
+        <#lt/>        <s:textfield cssClass="form-control" key="${pojoNameLower}.${field.name}" required="true" autofocus="true"/>
     <#else>
             <s:hidden key="${pojoNameLower}.${field.name}"/>
     </#if>
@@ -32,22 +32,22 @@
     <#foreach column in field.getColumnIterator()>
         <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
             <#assign dateExists = true>
-            <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>size="11" title="date" datepicker="true"/>
+            <#lt/>        <s:textfield cssClass="form-control" key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>size="11" title="date" datepicker="true"/>
         <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
             <#lt/>        <s:checkbox key="${pojoNameLower}.${field.name}" theme="css_xhtml"/>
         <#else>
-            <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>/>
+            <#lt/>        <s:textfield cssClass="form-control" key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>/>
         </#if>
     </#foreach>
 <#elseif c2h.isManyToOne(field)>
     <#foreach column in field.getColumnIterator()>
             <#lt/>        <!-- todo: change this to read the identifier field from the other pojo -->
-            <#lt/>        <s:select name="${pojoNameLower}.${field.name}.id" list="${field.name}List" listKey="id" listValue="id"></s:select>
+            <#lt/>        <s:select name="${pojoNameLower}.${field.name}.id" list="${field.name}List" listKey="id" listValue="id" cssClass="form-control"></s:select>
     </#foreach>
 </#if>
 </#foreach>
 
-        <div id="actions" class="form-actions">
+        <div id="actions" class="form-group">
             <s:submit type="button" cssClass="btn btn-primary" method="save" key="button.save" theme="simple">
                 <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
             </s:submit>
@@ -57,7 +57,7 @@
                     <i class="icon-trash icon-white"></i> <fmt:message key="button.delete"/>
                 </s:submit>
             </c:if>
-            <s:submit type="button" cssClass="btn" method="cancel" key="button.cancel" theme="simple">
+            <s:submit type="button" cssClass="btn btn-default" method="cancel" key="button.cancel" theme="simple">
                 <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
             </s:submit>
         </div>
@@ -73,9 +73,8 @@
 </#if><#rt/>
 <script type="text/javascript">
     $(document).ready(function() {
-        $("input[type='text']:visible:enabled:first", document.forms['${pojoNameLower}Form']).focus();
 <#if dateExists>
-        ${'$'}('.input-append.date').datepicker({format: "<fmt:message key='calendar.format'/>", weekStart: "<fmt:message key='calendar.weekstart'/>", language: '${r"${pageContext.request.locale.language}"}'});
+        ${'$'}('.text-right.date').datepicker({format: "<fmt:message key='calendar.format'/>", weekStart: "<fmt:message key='calendar.weekstart'/>", language: '${r"${pageContext.request.locale.language}"}'});
 </#if>
     });
 </script>

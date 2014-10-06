@@ -1,0 +1,41 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+			 xmlns:g="urn:import:com.google.gwt.user.client.ui"
+			 xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
+			 xmlns:l="urn:import:org.appfuse.webapp.client.ui.login">
+
+<ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
+
+<g:HTMLPanel>
+
+	<form autocomplete="off" class="form-signin" id="loginForm" action="j_security_check" method="post">
+
+	    <h2 ui:field="heading" class="form-signin-heading">
+	        <ui:text from="{i18n.login_heading}"/>
+	    </h2>
+	    
+	    <g:SimplePanel ui:field="messages" />
+	
+       	<b:Controls ui:field="usernameGroup">
+       		<b:TextBox styleName="form-control" ui:field="username" name="j_username" placeholder="{i18n.user_username}" controlGroup="{usernameGroup}" errorLabel="{usernameErrors}" />
+       		<b:HelpInline ui:field="usernameErrors"></b:HelpInline>
+       	</b:Controls>
+       	<b:Controls  ui:field="passwordGroup">
+       		<b:PasswordTextBox styleName="form-control" ui:field="password" name="j_password" placeholder="{i18n.user_password}" controlGroup="{passwordGroup}" errorLabel="{passwordErrors}" />
+       		<b:HelpInline ui:field="passwordErrors"></b:HelpInline>
+       	</b:Controls>
+	
+	    <b:ControlLabel ui:field="rememberMeControl" styleName="checkbox" for="spring_security_remember_me" >
+	    	<b:CheckBox ui:field="rememberMe" inline="true"/>
+	        <ui:text from="{i18n.login_rememberMe}"/>
+	   </b:ControlLabel>
+	
+		<b:Button ui:field="loginButton" styleName="btn btn-lg btn-primary btn-block" text="{i18n.button_login}" />
+	</form>
+
+
+	<p ui:field="signupParaElement"></p>
+	<p ui:field="passwordHintParaElement"></p>
+	<p ui:field="requestRecoveryTokenElement"></p>
+</g:HTMLPanel>
+</ui:UiBinder>

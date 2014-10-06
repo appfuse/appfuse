@@ -210,7 +210,24 @@ public class LabelTag extends TagSupport {
         colon = false;
         styleClass = null;
         errorClass = null;
+        requestContext = null;
     }
+
+/**
+ * Do End Tag to clear objects from memory
+ */
+public final int doEndTag()
+{
+     super.release();
+        key = null;
+        colon = false;
+        styleClass = null;
+        errorClass = null;
+        requestContext = null;
+        return 1;
+    
+}
+
 
     /**
      * Get the validator resources from a ValidatorFactory defined in the

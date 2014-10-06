@@ -7,6 +7,13 @@
     <display-name>appfuse</display-name>
     <distributable/>
 
+    <!-- http://stackoverflow.com/questions/22768258/strange-start-error-updating-to-mojarra-2-2-6 -->
+    <env-entry>
+        <env-entry-name>jsf/ClientSideSecretKey</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>am9kZXRlcHV0b2hhY2tlcg==</env-entry-value>
+    </env-entry>
+
     <!-- Define the basename for a resource bundle for I18N -->
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
@@ -186,9 +193,9 @@
     </filter-mapping>
 
     <!-- http://stackoverflow.com/questions/7886035/could-not-find-factory-javax-faces-context-facescontextfactory/7889899 -->
-    <listener>
+    <!--<listener>
         <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
-    </listener>
+    </listener>-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

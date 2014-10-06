@@ -5,17 +5,19 @@
 
 <ui:composition template="/layouts/default.xhtml">
     <ui:define name="title">${'#'}{text['${pojoNameLower}List.title']}</ui:define>
-    <ui:define name="menu">{pojo.shortName}Menu</ui:define>
+    <ui:param name="menu" value="${pojo.shortName}Menu"/>
     <ui:define name="bodyId">${pojoNameLower}List</ui:define>
 
     <ui:define name="body">
-        <div class="span10">
+        <div class="col-sm-10">
             <h2>${'#'}{text['${pojoNameLower}List.heading']}</h2>
 
-            <h:form id="searchForm" styleClass="form-search">
-            <div id="search" class="input-append">
-                <h:inputText id="q" name="q" size="20" value="${'#'}{${pojoNameLower}List.query}" styleClass="input-medium search-query"/>
-                <h:commandButton value="${'#'}{text['button.search']}" styleClass="btn" action="${'#'}{${pojoNameLower}List.search}"/>
+            <h:form id="searchForm" styleClass="form-inline">
+            <div id="search" class="text-right">
+                <span class="col-sm-9">
+                    <h:inputText id="q" name="q" size="20" value="${'#'}{${pojoNameLower}List.query}" styleClass="form-control input-sm"/>
+                </span>
+                <h:commandButton value="${'#'}{text['button.search']}" styleClass="btn btn-default btn-sm" action="${'#'}{${pojoNameLower}List.search}"/>
             </div>
             </h:form>
 
@@ -23,9 +25,9 @@
 
             <h:form id="edit${pojo.shortName}">
 
-            <div id="actions" class="form-actions">
+            <div id="actions" class="btn-group">
                 <h:commandButton value="${'#'}{text['button.add']}" action="add" id="add" immediate="true" styleClass="btn btn-primary"/>
-                <h:commandButton value="${'#'}{text['button.done']}" action="home" id="cancel" immediate="true" styleClass="btn"/>
+                <h:commandButton value="${'#'}{text['button.done']}" action="home" id="cancel" immediate="true" styleClass="btn btn-default"/>
             </div>
 
             <p:dataTable id="${util.getPluralForWord(pojoNameLower)}" var="${pojoNameLower}" value="${'#'}{${pojoNameLower}List.${util.getPluralForWord(pojoNameLower)}}"

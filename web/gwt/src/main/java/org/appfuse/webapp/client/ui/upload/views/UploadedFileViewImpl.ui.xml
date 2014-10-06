@@ -1,0 +1,47 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+			 xmlns:g='urn:import:com.google.gwt.user.client.ui'
+			 xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+
+<ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
+
+<g:HTMLPanel>
+	<div class="col-sm-9">
+		<b:Heading size="2" text="{i18n.upload_heading}" />
+		<b:Paragraph>Below is a list of attributes that were gathered in FileUploadController.java.</b:Paragraph>
+	</div>
+	<div class="col-sm-9">
+		<g:HTMLPanel>
+		    <table class="table-striped" cellpadding="5">
+		        <tr>
+		            <th>Friendly Name:</th>
+		            <td><g:Label ui:field="name" /></td>
+		        </tr>
+		        <tr>
+		            <th>Filename:</th>
+		            <td><g:Label ui:field="fileName" /></td>
+		        </tr>
+		        <tr>
+		            <th>File content type:</th>
+		            <td><g:Label ui:field="contentType" /></td>
+		        </tr>
+		        <tr>
+		            <th>File size:</th>
+		            <td><g:Label ui:field="size" /></td>
+		        </tr>
+		        <tr>
+		            <th class="tallCell">File Location:</th>
+		            <td>The file has been written to: <br />
+		                <a ui:field="location" href=""></a>
+		            </td>
+		        </tr>
+		    </table>		
+		</g:HTMLPanel>
+		
+		<b:FormActions>
+			<b:Button ui:field="doneButton" text="{i18n.button_done}" />
+			<b:Button ui:field="uploadAnotherFileButton" text="Upload Another" />
+		</b:FormActions>		
+	</div>
+</g:HTMLPanel>
+</ui:UiBinder>

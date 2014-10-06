@@ -6,12 +6,12 @@
 </head>
 <body id="activeUsers">
 
-<div class="span10">
+<div class="col-sm-10">
     <h2><fmt:message key="activeUsers.heading"/></h2>
 
     <p><fmt:message key="activeUsers.message"/></p>
 
-    <div id="actions" class="form-actions">
+    <div id="actions" class="form-group">
         <a href="${ctx}/home" class="btn btn-primary">
             <i class="icon-ok icon-white"></i> <fmt:message key="button.done"/></a>
     </div>

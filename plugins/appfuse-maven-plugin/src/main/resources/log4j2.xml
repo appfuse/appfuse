@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ABSOLUTE} %5p %c - %m%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="org.hibernate" level="warn"/>
+        <Logger name="org.hibernate.cfg.reveng" level="warn"/>
+        <Logger name="org.hibernate.cfg.JDBCMetaDataConfiguration" level="warn"/>
+        <Logger name="org.appfuse" level="warn"/>
+        <Logger name="org.codehaus.mojo" level="warn"/>
+        <Logger name="org.freemarker" level="warn"/>
+        <Logger name="org.apache.velocity" level="error"/>
+
+        <Root level="warn">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

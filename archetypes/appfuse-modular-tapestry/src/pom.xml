@@ -81,7 +81,7 @@
     <repositories>
         <repository>
             <id>appfuse-snapshots</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -89,17 +89,12 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-        <!-- Temp Repository for Tapestry Staging -->
-        <repository>
-            <id>tapestry-staging</id>
-            <url>https://repository.apache.org/content/repositories/staging/</url>
-        </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
             <id>appfuse-snapshots</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -116,6 +111,18 @@
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>bootstrap</artifactId>
+                <version>${bootstrap.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -141,7 +148,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -153,6 +159,10 @@
                 <exclusion>
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -331,9 +341,9 @@
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
         <!-- Framework dependency versions -->
-        <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
-        <bootstrap.version>2.3.2</bootstrap.version>
-        <spring.version>3.2.5.RELEASE</spring.version>
+        <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
+        <bootstrap.version>3.0.2</bootstrap.version>
+        <spring.version>4.0.6.RELEASE</spring.version>
         <tapestry.version>5.4-alpha-25</tapestry.version>
 
         <!-- Testing dependency versions -->

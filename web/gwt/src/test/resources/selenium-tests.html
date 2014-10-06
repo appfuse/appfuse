@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>GWT_appfuse</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">GWT_appfuse</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<!--signup-->
+<tr>
+	<td>waitForTitle</td>
+	<td>Login*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>link=Signup</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Signup</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>css=form div.error</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=Save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=form div.error</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.gwt-TextBox</td>
+	<td>signupuser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.gwt-PasswordTextBox</td>
+	<td>signupuser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[4]</td>
+	<td>signupuser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[5]</td>
+	<td>signupuser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[6]</td>
+	<td>signupuser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[7]</td>
+	<td>signup@test.org</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Main Menu*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Main Menu*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Edit Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>User Settings*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=Save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.alert-success</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<!--signup end-->
+<!--password hint-->
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=password hint e-mailed to you</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=password hint e-mailed to you</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.gwt-TextBox</td>
+	<td>nouser</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=password hint e-mailed to you</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.alert-error</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.gwt-TextBox</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=password hint e-mailed to you</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.alert-success</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=div.alert-success</td>
+	<td></td>
+</tr>
+<!--password hint end-->
+<!--login start-->
+<tr>
+	<td>waitForTitle</td>
+	<td>Login*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>link=Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.gwt-TextBox</td>
+	<td>baduser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.gwt-PasswordTextBox</td>
+	<td>badpassword</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//a[contains(text(),'Login')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.alert-error</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.gwt-TextBox</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.gwt-PasswordTextBox</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//a[contains(text(),'Login')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Main Menu*</td>
+	<td></td>
+</tr>
+<!--login end-->
+<!--edit profile start-->
+<tr>
+	<td>click</td>
+	<td>link=Edit Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>User Settings*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=form.well</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[8]</td>
+	<td>555 555 555</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.alert-success</td>
+	<td></td>
+</tr>
+<!--edit profile end-->
+<!--view users start-->
+<tr>
+	<td>click</td>
+	<td>link=Administration</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>User List*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div#search input</td>
+	<td>matt</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div#search input</td>
+	<td>matt</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=admin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.input-medium.search-query</td>
+	<td>nonuser</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>link=admin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Done</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Main Menu*</td>
+	<td></td>
+</tr>
+<!--view users end-->
+<!--edir user-->
+<tr>
+	<td>click</td>
+	<td>link=Administration</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=admin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=admin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=(//input[@type='text'])[8]</td>
+	<td>555 555 777</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[8]</td>
+	<td>555 555 777</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.alert-success</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Done</td>
+	<td></td>
+</tr>
+<!--edit user end-->
+<!--add new user-->
+<tr>
+	<td>click</td>
+	<td>link=Administration</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=Add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.gwt-TextBox</td>
+	<td>newuser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.gwt-PasswordTextBox</td>
+	<td>newuser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[4]</td>
+	<td>newuser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[5]</td>
+	<td>New</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[6]</td>
+	<td>User</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[7]</td>
+	<td>email@test.org</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=td &gt; input[type=&quot;checkbox&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.alert-success</td>
+	<td></td>
+</tr>
+<!--add new user end-->
+<!--delete user start-->
+<tr>
+	<td>click</td>
+	<td>link=Administration</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=newuser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=newuser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForConfirmationPresent</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.alert-success</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=div.alert-success</td>
+	<td></td>
+</tr>
+<!--delete user end-->
+<!--delete user start-->
+<tr>
+	<td>click</td>
+	<td>link=Administration</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=signupuser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=signupuser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForConfirmationPresent</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.alert-success</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=div.alert-success</td>
+	<td></td>
+</tr>
+<!--delete user end-->
+<!--active users start-->
+<tr>
+	<td>click</td>
+	<td>link=Administration</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Current Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Active Users*</td>
+	<td>Active Users*</td>
+</tr>
+<!--active users end-->
+<!--reload options-->
+<tr>
+	<td>click</td>
+	<td>link=Administration</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Reload Options</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.alert-success</td>
+	<td></td>
+</tr>
+<!--reload options end-->
+<!--upload file start-->
+<tr>
+	<td>click</td>
+	<td>link=Administration</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Upload A File</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>File Upload*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=name</td>
+	<td>File</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=file</td>
+	<td>/home/ivangsa/Desktop/Untitled Document</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.alert-success</td>
+	<td></td>
+</tr>
+<!--file upload end-->
+<!--logout-->
+<tr>
+	<td>click</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Login*</td>
+	<td></td>
+</tr>
+<!--logout end-->
+</tbody></table>
+</body>
+</html>

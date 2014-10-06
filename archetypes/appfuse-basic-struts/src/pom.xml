@@ -153,7 +153,7 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
+                <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.14.v20131031</version>
                 <configuration>
@@ -235,6 +235,7 @@
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
+                    <include>**/*.java</include>
                     <include>**/*.xml</include>
                 </includes>
             </resource>
@@ -257,7 +258,7 @@
     <repositories>
         <repository>
             <id>appfuse-snapshots</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -270,7 +271,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>appfuse-snapshots</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -279,6 +280,29 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>bootstrap</artifactId>
+                <version>${bootstrap.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -381,7 +405,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -394,24 +417,21 @@
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <!-- Add Bootstrap via WebJars -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>${bootstrap.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
             <version>1.2.0</version>
-        </dependency>
-        <!-- Downgrade jQuery so it works with HtmlUnit -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>1.8.3</version>
         </dependency>
     </dependencies>
 
@@ -521,6 +541,24 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
                         <version>1.0.0</version>
+                        <dependencies>
+                            <!-- Upgrade HtmlUnit to support jQuery 1.9 -->
+                            <dependency>
+                                <groupId>net.sourceforge.htmlunit</groupId>
+                                <artifactId>htmlunit</artifactId>
+                                <version>2.12</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>xml-apis</groupId>
+                                <artifactId>xml-apis</artifactId>
+                                <version>1.4.01</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>commons-lang</groupId>
+                                <artifactId>commons-lang</artifactId>
+                                <version>2.6</version>
+                            </dependency>
+                        </dependencies>
                         <executions>
                             <execution>
                                 <id>webtest-test</id>
@@ -695,13 +733,13 @@
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
         <!-- Framework dependency versions -->
-        <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
-        <bootstrap.version>2.3.2</bootstrap.version>
+        <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
+        <bootstrap.version>3.0.2</bootstrap.version>
         <commons.fileupload.version>1.3</commons.fileupload.version>
         <commons.io.version>2.4</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
-        <spring.version>3.2.5.RELEASE</spring.version>
-        <struts.version>2.3.14.3</struts.version>
+        <spring.version>4.0.6.RELEASE</spring.version>
+        <struts.version>2.3.16.3</struts.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>

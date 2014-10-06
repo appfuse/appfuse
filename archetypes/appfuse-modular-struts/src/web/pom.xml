@@ -59,7 +59,7 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
+                <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.14.v20131031</version>
                 <configuration>
@@ -217,6 +217,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-dojo-plugin</artifactId>
+            <version>${struts.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
             <artifactId>struts2-spring-plugin</artifactId>
             <version>${struts.version}</version>
             <exclusions>
@@ -231,7 +236,7 @@
             <artifactId>commons-fileupload</artifactId>
             <version>${commons.fileupload.version}</version>
         </dependency>
-        <!-- Upgrade the version of commons-io used by fileupload -->
+        <!-- Upgrade version of commons-io used -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -241,18 +246,11 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>${bootstrap.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
             <version>1.2.0</version>
-        </dependency>
-        <!-- Downgrade jQuery so it works with HtmlUnit -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>1.8.3</version>
         </dependency>
     </dependencies>
 
@@ -306,6 +304,24 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
                         <version>1.0.0</version>
+                        <dependencies>
+                            <!-- Upgrade HtmlUnit to support jQuery 1.9 -->
+                            <dependency>
+                                <groupId>net.sourceforge.htmlunit</groupId>
+                                <artifactId>htmlunit</artifactId>
+                                <version>2.12</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>xml-apis</groupId>
+                                <artifactId>xml-apis</artifactId>
+                                <version>1.4.01</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>commons-lang</groupId>
+                                <artifactId>commons-lang</artifactId>
+                                <version>2.6</version>
+                            </dependency>
+                        </dependencies>
                         <executions>
                             <execution>
                                 <id>webtest-test</id>

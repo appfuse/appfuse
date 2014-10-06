@@ -10,8 +10,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.NotTransactional;
-import org.springframework.test.annotation.ExpectedException;
 
 import java.util.List;
 
@@ -19,8 +17,7 @@ public class ${pojo.shortName}DaoTest extends BaseDaoTestCase {
     @Autowired
     private ${pojo.shortName}Dao ${pojoNameLower}Dao;
 
-    @Test
-    @ExpectedException(DataAccessException.class)
+    @Test(expected=DataAccessException.class)
     public void testAddAndRemove${pojo.shortName}() {
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
 

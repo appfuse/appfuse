@@ -56,7 +56,7 @@ public class MailEngine {
         try {
             result =
                 VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
-                                                            templateName, model);
+                                                            templateName, "UTF-8", model);
         } catch (VelocityException e) {
             e.printStackTrace();
             log.error(e.getMessage());

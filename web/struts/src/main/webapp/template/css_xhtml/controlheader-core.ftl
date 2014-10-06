@@ -30,7 +30,7 @@
         for="${parameters.id?html}" <#t/>
 </#if>
     ><#t/>
-<#if parameters.required?default(false)>
+<#if parameters.required!false>
         <span class="required">*</span><#t/>
 </#if>
         ${parameters.label?html}${parameters.labelseparator!":"?html}

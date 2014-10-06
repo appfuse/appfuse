@@ -5,25 +5,27 @@
     <meta name="menu" content="AdminMenu"/>
 </head>
 
-<div class="span10">
+<div class="col-sm-10">
     <h2><fmt:message key="userList.heading"/></h2>
 
-    <form method="get" action="${ctx}/admin/users" id="searchForm" class="form-search">
-    <div id="search" class="input-append">
-        <input type="text" size="20" name="q" id="query" value="${param.q}"
-               placeholder="<fmt:message key="search.enterTerms"/>" class="input-medium search-query"/>
-        <button id="button.search" class="btn" type="submit">
+    <form method="get" action="${ctx}/admin/users" id="searchForm" class="form-inline">
+    <div id="search" class="text-right">
+        <span class="col-sm-9">
+            <input type="text" size="20" name="q" id="query" value="${param.q}"
+                   placeholder="<fmt:message key="search.enterTerms"/>" class="form-control input-sm"/>
+        </span>
+        <button id="button.search" class="btn btn-default btn-sm" type="submit">
             <i class="icon-search"></i>
             <fmt:message key="button.search"/>
         </button>
     </div>
     </form>
 
-    <div id="actions" class="form-actions">
+    <div id="actions" class="btn-group">
         <a class="btn btn-primary" href="<c:url value='/editUser?method=Add&from=list'/>" >
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/>
         </a>
-        <a class="btn" href="<c:url value="/home"/>">
+        <a class="btn btn-default" href="<c:url value="/home"/>">
             <i class="icon-ok"></i> <fmt:message key="button.done"/>
         </a>
     </div>

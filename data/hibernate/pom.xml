@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-data</artifactId>
-        <version>2.2.2-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-hibernate</artifactId>
@@ -36,7 +36,8 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/data/hibernate</url>
-    </scm>
+      <tag>HEAD</tag>
+  </scm>
 
     <build>
         <plugins>
@@ -126,12 +127,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
-        </dependency>
-        <!-- Use Javassist as Hibernate's bytecode provider -->
-        <dependency>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.12.1.GA</version>
         </dependency>
         <!-- Enable EhCache support -->
         <dependency>

@@ -4,7 +4,7 @@
 
 <ui:composition template="/layouts/default.xhtml">
     <ui:define name="title">#{text['home.title']}</ui:define>
-    <ui:define name="menu">Home</ui:define>
+    <ui:param name="menu" value="Home"/>
 
     <ui:define name="body">
         <h2>#{text['home.heading']}</h2>

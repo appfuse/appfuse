@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="archetypes" basedir=".">
 
-    <property name="version" value="2.2.2-SNAPSHOT"/>
+    <property name="version" value="3.0.1-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
     <property name="dbunit.sample-data.xml" 
@@ -45,12 +45,12 @@
         <repository>
             <id>appfuse-releases</id>
             <name>AppFuse Release Repository</name>
-            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
         <snapshotRepository>
             <id>appfuse-snapshots</id>
             <name>AppFuse Snapshot Repository</name>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
         </snapshotRepository>
         <site>
             <id>appfuse-site</id>
@@ -95,7 +95,7 @@
         <attribute name="version" default=""/>
         <attribute name="command"
                 default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
-            -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -Dpackage=com.mycompany.mypackage
+            -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -DpackageName=com.mycompany
             -DarchetypeCatalog=local"/>
 
         <sequential>
@@ -151,7 +151,7 @@
             <!-- Fix bug that happens in Bamboo -->
             <delete dir="@{dir}" includes="main/**"/>
 
-            <!-- Remove displaytag for JSF and Tapestry -->
+            <!-- Remove displaytag for JSF, Tapestry and GWT-->
             <if>
                 <equals arg1="@{module}" arg2="jsf"/>
                 <then>
@@ -178,6 +178,12 @@
                     <delete dir="@{dir}/src/main/webapp/WEB-INF/tags"/>
                 </then>
             </if>
+            <if>
+                <equals arg1="@{module}" arg2="gwt"/>
+                <then>
+                    <delete dir="@{dir}" includes="**/displaytag*.properties"/>
+                </then>
+            </if>
 
             <!-- Remove hibernate.cfg.xml from web projects when creating modular archetypes -->
             <if>
@@ -197,6 +203,32 @@
                     <move file="@{dir}/@{dest}/src/main/resources/org/appfuse/webapp"
                             tofile="@{dir}/@{dest}/src/main/resources/webapp"/>
                     <delete dir="@{dir}/@{dest}/src/main/resources/org"/>
+                </then>
+            </if>
+        	
+        	<!-- Remove unused files in GWT -->
+            <if>
+                <equals arg1="@{module}" arg2="gwt"/>
+                <then>
+                	<delete dir="@{dir}/@{dest}/src/main/java/org/appfuse/webapp/jsp" />
+                	<delete dir="@{dir}/@{dest}/src/main/java/org/appfuse/webapp/taglib" />
+                	<delete dir="@{dir}/@{dest}/src/test/resources/" includes="config.xmlf,login.xmlf,web-tests.xml"/>
+                    <delete dir="@{dir}" includes="**/app*.properties,**/menu-config.xml,**/navbarMenu.vm,**/navlistMenu.vm" />
+                    <delete dir="@{dir}" includes="**/*.jsp" excludes="**/index.jsp" />
+                    <delete dir="@{dir}/@{dest}/src/main/webapp/common/" />
+                    <delete dir="@{dir}/@{dest}/src/main/webapp/decorators/" />
+                    <delete dir="@{dir}/@{dest}/src/main/webapp/scripts/" />
+                    <move todir="@{dir}/@{dest}/src/main/resources/webapp/client/application">
+                    	<fileset dir="@{dir}/@{dest}/src/main/resources/" includes="ApplicationResources**.properties" />
+                    </move>
+					<!-- escape unmatched single quotes -->
+                    <replaceregexp byline="true" flags="gim">
+                        <regexp pattern="'"/><!-- FIXME provide a regexp just for an unmatched single quote -->
+                        <substitution expression="''"/>
+                        <fileset dir="@{dir}/@{dest}/src/main/resources/webapp/client/application">
+                            <include name="ApplicationResources**.properties"/>
+                        </fileset>
+                    </replaceregexp>
                 </then>
             </if>
 
@@ -235,12 +267,12 @@
     <repository>
       <id>appfuse-releases</id>
       <name>AppFuse Release Repository</name>
-      <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
     </repository>
     <snapshotRepository>
       <id>appfuse-snapshots</id>
       <name>AppFuse Snapshot Repository</name>
-      <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+      <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
     </snapshotRepository>
     <site>
       <id>appfuse-site</id>
@@ -477,6 +509,32 @@
             </if>
 
             <if>
+                <equals arg1="@{module}" arg2="gwt"/>
+                <then>
+                	<!-- scripts to generate regexp and substitution from xml: -->
+                	<!-- sed -e ':a;N;$!ba;s/\n//g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/"/\&quot;/g' -e 's/  \+/(\\s+)/g' -e 's/\*/\\*/g' -->
+                	<!-- sed -e ':a;N;$!ba;s/\n/${line.separator}/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/"/\&quot;/g' -->
+                	
+				    <!-- Set packaged="true" for ApplicationResources.properties in gwt -->
+                    <replaceregexp byline="false" flags="gm">
+                        <regexp pattern="&lt;fileSet filtered=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;(\s+)&lt;directory&gt;src/main/resources&lt;/directory&gt;(\s+)&lt;includes&gt;(\s+)&lt;include&gt;\*\*/\*.vm&lt;/include&gt;(\s+)&lt;include&gt;\*\*/\*.xml&lt;/include&gt;(\s+)&lt;include&gt;\*\*/\*.properties&lt;/include&gt;(\s+)&lt;/includes&gt;(\s+)&lt;/fileSet&gt;"/>
+                        <substitution expression="&lt;fileSet filtered=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/*.vm&lt;/include&gt;${line.separator}        &lt;include&gt;**/*.xml&lt;/include&gt;${line.separator}        &lt;include&gt;**/*.properties&lt;/include&gt;${line.separator}      &lt;/includes&gt;${line.separator}      &lt;excludes&gt;${line.separator}           &lt;exclude&gt;**/ApplicationResources*.properties&lt;/exclude&gt;${line.separator}      &lt;/excludes&gt;${line.separator}    &lt;/fileSet&gt;${line.separator}    &lt;fileSet filtered=&quot;true&quot; packaged=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/ApplicationResources*.properties&lt;/include&gt;${line.separator}      &lt;/includes&gt;${line.separator}    &lt;/fileSet&gt;"/>
+                        <fileset dir="@{dir}/target/generated-sources/archetype">
+                            <include name="**/archetype-metadata.xml"/>
+                        </fileset>
+                    </replaceregexp>
+                	<!-- replace <include>**/*.xml</include> by <include>webapp/**/*.xml</include> in src/main/java -->
+                    <replaceregexp byline="false" flags="gm">
+                        <regexp pattern="&lt;include&gt;webapp/\*\*/\*.java&lt;/include&gt;(\s+)&lt;include&gt;\*\*/\*.xml&lt;/include&gt;"/>
+                        <substitution expression="&lt;include&gt;webapp/**/*.java&lt;/include&gt;${line.separator}        &lt;include&gt;webapp/**/*.xml&lt;/include&gt;"/>
+                        <fileset dir="@{dir}/target/generated-sources/archetype">
+                            <include name="**/archetype-metadata.xml"/>
+                        </fileset>
+                    </replaceregexp>                	
+                </then>
+            </if>
+
+            <if>
                 <equals arg1="@{dest}" arg2=""/>
                 <then>
                     <!-- Make sure web.xml has proper value for Tapestry -->
@@ -536,15 +594,15 @@
                 <replacevalue>webapp</replacevalue>
             </replace>
 
-            <!-- Replace org.appfuse with ${package} in applicationContext.xml -->
+            <!-- Replace org.appfuse with ${groupId} in applicationContext.xml -->
             <!-- Happens in basic archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
                 <replacetoken>base-package="org.appfuse"</replacetoken>
-                <replacevalue>base-package="${package}"</replacevalue>
+                <replacevalue>base-package="${groupId}"</replacevalue>
             </replace>
 
-            <!-- Replace ${package}.webapp with ${package} in applicationContext.xml -->
+            <!-- Replace ${groupId}.webapp with ${groupId} in applicationContext.xml -->
             <!-- Happens in modular archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
@@ -553,7 +611,7 @@
             </replace>
 
             <!-- Leave Compass as indexing org.appfuse by default -->
-            <!-- Replace ${package}.webapp with org.appfuse in applicationContext.xml -->
+            <!-- Replace ${groupId}.webapp with org.appfuse in applicationContext.xml -->
             <!-- Happens in basic archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
@@ -561,7 +619,7 @@
                 <replacevalue>value="org.appfuse"</replacevalue>
             </replace>
 
-            <!-- Replace ${package} with org.appfuse in applicationContext.xml -->
+            <!-- Replace ${groupId} with org.appfuse in applicationContext.xml -->
             <!-- Happens in modular archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
@@ -584,21 +642,6 @@
                 <replacevalue>org.appfuse</replacevalue>
             </replace>
 
-            <!-- Fix CompassPostProcessor -->
-            <!-- Basic archetypes -->
-            <replace dir="@{dir}/target/generated-sources/archetype">
-                <include name="**/CompassConfigurationPostProcessor.java"/>
-                <replacetoken>!rootPackage.equals("${package}.webapp")</replacetoken>
-                <replacevalue>!rootPackage.equals("org.appfuse")</replacevalue>
-            </replace>
-
-            <!-- Modular archetypes -->
-            <replace dir="@{dir}/target/generated-sources/archetype">
-                <include name="**/CompassConfigurationPostProcessor.java"/>
-                <replacetoken>!rootPackage.equals("${package}")</replacetoken>
-                <replacevalue>!rootPackage.equals("org.appfuse")</replacevalue>
-            </replace>
-
             <if>
                 <equals arg1="@{dest}" arg2="web"/>
                 <then>
@@ -606,7 +649,7 @@
                         <include name="**/*.xml"/>
                         <include name="**/*.properties"/>
                         <replacetoken>${package}</replacetoken>
-                        <replacevalue>${package}.webapp</replacevalue>
+                        <replacevalue>${groupId}.webapp</replacevalue>
                     </replace>
                     <replace dir="@{dir}/target/generated-sources/archetype">
                         <include name="**/BasePageTestCase.java"/>

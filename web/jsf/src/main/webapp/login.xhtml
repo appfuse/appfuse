@@ -1,9 +1,9 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
-<ui:composition template="/layouts/default.xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" template="/layouts/default.xhtml">
     <ui:define name="title">#{text['login.title']}</ui:define>
-    <ui:define name="menu">Login</ui:define>
+    <ui:param name="menu" value="Login"/>
     <ui:param name="bodyId" value="login"/>
     <ui:define name="body">
         <form method="post" id="loginForm" action="#{request.contextPath}/j_security_check"
@@ -12,15 +12,14 @@
                 #{text['login.heading']}
             </h2>
             <c:if test="${param.error != null}">
-                <div class="alert alert-error fade in">
+                <div class="alert alert-danger alert-dismissable">
                     #{text['errors.password.mismatch']}
                 </div>
             </c:if>
-            <input type="text" name="j_username" id="j_username" class="input-block-level"
+            <input type="text" name="j_username" id="j_username" class="input-block-level form-control"
                    placeholder="#{text['label.username']}" required="true" tabindex="1"/>
-            <input type="password" class="input-block-level" name="j_password" id="j_password" tabindex="2"
+            <input type="password" class="input-block-level form-control" name="j_password" id="j_password" tabindex="2"
                    placeholder="#{text['label.password']}" required="true"/>
-
             <c:if test="${appConfig['rememberMeEnabled']}">
                 <label class="checkbox" for="rememberMe">
                     <input type="checkbox" class="checkbox" name="_spring_security_remember_me" id="rememberMe"
@@ -28,7 +27,7 @@
                     #{text['login.rememberMe']}</label>
             </c:if>
 
-            <button type="submit" class="btn btn-large btn-primary" name="login" tabindex="4">
+            <button type="submit" class="btn btn-lg btn-primary btn-block" name="login" tabindex="4">
                 #{text['button.login']}
             </button>
         </form>

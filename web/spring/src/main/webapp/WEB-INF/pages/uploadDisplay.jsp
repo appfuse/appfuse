@@ -5,7 +5,7 @@
     <meta name="menu" content="AdminMenu"/>
 </head>
 
-<div class="span10">
+<div class="col-sm-10">
     <h2><fmt:message key="display.heading"/></h2>
     <p>Below is a list of attributes that were gathered in FileUploadController.java.</p>
 
@@ -33,12 +33,12 @@
             </td>
         </tr>
     </table>
-    <div id="actions" class="form-actions">
+    <div id="actions" class="form-group">
         <a class="btn btn-primary" href="home" >
             <i class="icon-ok icon-white"></i>
             <fmt:message key="button.done"/>
         </a>
-        <a class="btn" href="fileupload" >
+        <a class="btn btn-default" href="fileupload" >
             <i class="icon-upload"></i>
             Upload Another
         </a>

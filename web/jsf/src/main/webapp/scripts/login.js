@@ -19,7 +19,7 @@
     function validateForm(form) {
         var valid = validateRequired(form);
         if (valid == false) {
-            $(".control-group").addClass('error');
+            $(".form-group").addClass('error');
         }
         return valid;
     }

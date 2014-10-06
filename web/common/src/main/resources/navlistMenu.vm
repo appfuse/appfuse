@@ -1,9 +1,9 @@
-#macro( displayCssMenu $menu )
+#macro( displayStackedMenu $menu )
   #if ($displayer.isAllowed($menu))
       ## set menu title
       #set ($title = $displayer.getMessage($menu.title))
 
-      <ul class="nav nav-list">
+      <ul class="nav nav-pills nav-stacked">
           #if (!$menu.parent) <li class="nav-header">$title</li>#end
       #foreach ($menuItem in $menu.components)
         #if ($displayer.isAllowed($menuItem))
@@ -15,4 +15,4 @@
   #end
 #end
 
-#displayCssMenu($menu)
+#displayStackedMenu($menu)

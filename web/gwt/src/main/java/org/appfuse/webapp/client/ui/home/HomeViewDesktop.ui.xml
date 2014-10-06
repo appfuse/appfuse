@@ -1,0 +1,22 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+			 xmlns:g='urn:import:com.google.gwt.user.client.ui'
+			 xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+
+<ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
+
+<g:HTMLPanel>
+	<h2><ui:text from="{i18n.home_heading}"/></h2>
+	<p><ui:text from="{i18n.home_message}"/></p>
+	
+	<ul class="glassList">
+	    <li>
+	        <a href="#editProfile:"><ui:text from="{i18n.menu_user}"/></a>
+	    </li>
+	    <li>
+	        <a href="#upload:"><ui:text from="{i18n.menu_selectFile}"/></a>
+	    </li>
+	</ul>
+
+</g:HTMLPanel>
+</ui:UiBinder>

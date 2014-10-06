@@ -9,24 +9,26 @@
     <title wicket:id="pageTitle"></title>
 </head>
 <body>
-    <div class="span10">
+    <div class="col-sm-10">
         <div wicket:id="feedback"></div>
         <h2 wicket:id="pageHeading"></h2>
 
-        <form wicket:id="searchForm" autofocus="false" class="form-search">
-            <div id="search" class="input-append">
-                <input wicket:id="searchQuery" type="text" size="20" class="input-medium search-query"/>
-                <input type="submit" class="btn" wicket:message="value:button.search"/>
+        <form wicket:id="searchForm" autofocus="false" class="form-inline">
+            <div id="search" class="text-right">
+                <span class="col-sm-9">
+                    <input wicket:id="searchQuery" type="text" size="20" class="form-control input-sm"/>
+                </span>
+                <input type="submit" class="btn btn-default btn-sm" wicket:message="value:button.search"/>
             </div>
         </form>
 
-        <div class="form-actions">
+        <div class="btn-group">
             <a wicket:id="addButton">[Add]</a>
-            <a wicket:id="doneButton">[Done]</a>
+            <a wicket:id="doneButton" class="btn btn-default">[Done]</a>
         </div>
 
         <!-- wicket:extend? -->
-        <!-- TODO: MZA: Row highlight with highlightTableRows()? -->
+        <!-- TODO: MZA: Row highlight with highlightTableRows()? MR: No-->
         <table wicket:id="userListTable" class="table table-striped table-hover"></table>
     </div>
 </body>
