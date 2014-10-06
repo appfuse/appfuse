@@ -762,7 +762,7 @@
         <jsf.version>2.2.7</jsf.version>
         <omnifaces.version>1.7</omnifaces.version>
         <prettyfaces.version>3.3.3</prettyfaces.version>
-        <primefaces.version>5.0</primefaces.version>
+        <primefaces.version>5.1</primefaces.version>
         <servlet.version>3.1.0</servlet.version>
         <spring.version>4.0.6.RELEASE</spring.version>
 
