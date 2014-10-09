@@ -184,11 +184,6 @@
             <version>${sitemesh.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- For some reason, spring-aop isn't picked up from appfuse-service -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
