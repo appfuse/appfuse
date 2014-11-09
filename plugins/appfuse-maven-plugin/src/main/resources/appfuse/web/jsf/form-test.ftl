@@ -19,6 +19,9 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import javax.transaction.Transactional;
+
+@Transactional
 public class ${pojo.shortName}FormTest extends BasePageTestCase {
     private ${pojo.shortName}Form bean;
 <#if genericcore>
