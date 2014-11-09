@@ -9,12 +9,12 @@
 </div>
 
 <div class="col-sm-7">
-    <form t:id="${pojoNameLower}Form" class="well" clientValidation="true" >
+    <form t:id="${pojoNameLower}Form" class="well" clientValidation="submit" >
 
         <div class="t-beaneditor">
             <t:beaneditor t:id="${pojoNameLower}" object="${pojoNameLower}" exclude="${pojo.identifierProperty.name}"/>
-            
-            <div class="t-beaneditor-row form-actions" style="text-align: center">
+
+            <div class="t-beaneditor-row form-group" style="text-align: center">
                 <button type="submit" id="save" class="btn btn-primary"><i class="icon-ok icon-white"></i> ${'$'}{message:button.save}</button>
                 <t:if test="person.id">
                 <button t:type="eventlink" t:id="delete" id="delete" class="btn btn-danger" onclick="return confirmDelete('${pojo.shortName}')">
