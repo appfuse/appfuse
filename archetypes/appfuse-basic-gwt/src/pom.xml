@@ -237,7 +237,7 @@
 					<compileSourcesArtifacts>
 						<artifact>javax.validation:validation-api</artifact>
 						<artifact>org.hibernate:hibernate-validator</artifact>
-					</compileSourcesArtifacts>                    
+					</compileSourcesArtifacts>
                     <modules>
                         <module>${gwtModuleName}</module>
                     </modules>
@@ -360,7 +360,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.appfuse</groupId>
@@ -409,7 +409,7 @@
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
-        
+
 		<!-- gwt dependencies -->
     	<dependency>
             <groupId>com.google.gwt</groupId>
@@ -426,7 +426,7 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>${json.version}</version>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>com.google.gwt.inject</groupId>
             <artifactId>gin</artifactId>
@@ -436,7 +436,7 @@
 			<groupId>com.github.gwtbootstrap</groupId>
 			<artifactId>gwt-bootstrap</artifactId>
 			<version>${gwtbootstrap.version}</version>
-		</dependency>        
+		</dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -482,7 +482,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
+
         <!-- Selenium web tests -->
 	    <dependency>
 	        <groupId>org.seleniumhq.selenium</groupId>
@@ -495,7 +495,7 @@
             <artifactId>selenium-chrome-driver</artifactId>
             <version>${selenium.version}</version>
             <scope>test</scope>
-        </dependency>     
+        </dependency>
     </dependencies>
 
     <reporting>
@@ -744,15 +744,15 @@
                 <cargo.container.home>${env.JBOSS_HOME}</cargo.container.home>
                 <cargo.container.url>http://easynews.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.5.GA.zip</cargo.container.url>
             </properties>
-        </profile>        
+        </profile>
         <!-- GWT Development/Debug Profile -->
         <profile>
         	<id>gwtDebug</id>
         	<properties>
 				<gwt.draftCompile>true</gwt.draftCompile>
-				<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>        
+				<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>
         	</properties>
-        </profile>           
+        </profile>
     </profiles>
 
     <properties>
@@ -764,7 +764,7 @@
         <amp.genericCore>true</amp.genericCore>
         <amp.fullSource>false</amp.fullSource>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
-		<gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>        
+		<gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>
 
         <!-- Framework dependency versions -->
         <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
@@ -772,7 +772,7 @@
         <commons.fileupload.version>1.3</commons.fileupload.version>
         <commons.io.version>2.4</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
-        <spring.version>4.0.6.RELEASE</spring.version>
+        <spring.version>4.0.7.RELEASE</spring.version>
         <gwt.version>2.6.0</gwt.version>
         <json.version>20140107</json.version>
         <gin.version>2.1.2</gin.version>
