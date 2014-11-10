@@ -10,26 +10,44 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 import ${pojo.packageName}.${pojo.shortName};
 
 import ${basepackage}.webapp.controller.BaseControllerTestCase;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class ${pojo.shortName}ControllerTest extends BaseControllerTestCase {
     @Autowired
+    private ApplicationContext applicationContext;
+    @Autowired
     private ${pojo.shortName}Controller controller;
+
+    private MockMvc mockMvc;
+
+    @Before
+    public void setup() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/WEB-INF/pages/");
+        viewResolver.setSuffix(".jsp");
+
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).setViewResolvers(viewResolver).build();
+    }
 
     @Test
     public void testHandleRequest() throws Exception {
-        Model model = controller.handleRequest(null);
-        Map m = model.asMap();
-        assertNotNull(m.get("${pojoNameLower}List"));
-        assertTrue(((List) m.get("${pojoNameLower}List")).size() > 0);
+        mockMvc.perform(get("/${util.getPluralForWord(pojoNameLower)}"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("${pojoNameLower}List"))
+            .andExpect(view().name("${util.getPluralForWord(pojoNameLower)}"));
     }
 
     @Test
@@ -42,9 +60,14 @@ public class ${pojo.shortName}ControllerTest extends BaseControllerTestCase {
 </#if>
         ${pojoNameLower}Manager.reindex();
 
-        Model model = controller.handleRequest("*");
-        Map m = model.asMap();
-        List results = (List) m.get("${pojoNameLower}List");
+        Map<String,Object> model = mockMvc.perform((get("/${util.getPluralForWord(pojoNameLower)}")).param("q", "*"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("${pojoNameLower}List"))
+            .andReturn()
+            .getModelAndView()
+            .getModel();
+
+        List results = (List) model.get("${pojoNameLower}List");
         assertNotNull(results);
         assertEquals(3, results.size());
     }
