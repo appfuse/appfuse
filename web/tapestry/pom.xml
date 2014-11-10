@@ -278,6 +278,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
+            <artifactId>tapestry-webresources</artifactId>
+            <version>${tapestry.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-test</artifactId>
             <version>${tapestry.version}</version>
             <scope>test</scope>
@@ -299,8 +304,8 @@
                     <artifactId>testng</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>servlet-api-2.5</artifactId>
+                    <groupId>org.eclipse.jetty.orbit</groupId>
+                    <artifactId>javax.servlet</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>javax.servlet</groupId>

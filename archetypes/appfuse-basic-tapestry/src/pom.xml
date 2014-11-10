@@ -385,6 +385,11 @@
             <version>${tapestry.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.tapestry</groupId>
+            <artifactId>tapestry-webresources</artifactId>
+            <version>${tapestry.version}</version>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
@@ -419,8 +424,8 @@
                     <artifactId>testng</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>servlet-api-2.5</artifactId>
+                    <groupId>org.eclipse.jetty.orbit</groupId>
+                    <artifactId>javax.servlet</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>javax.servlet</groupId>
@@ -776,7 +781,7 @@
         <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
         <bootstrap.version>3.0.2</bootstrap.version>
         <spring.version>4.0.7.RELEASE</spring.version>
-        <tapestry.version>5.3.7</tapestry.version>
+        <tapestry.version>5.4-beta-22</tapestry.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>

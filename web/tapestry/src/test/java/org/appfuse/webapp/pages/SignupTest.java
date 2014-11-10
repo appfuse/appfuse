@@ -46,7 +46,7 @@ public class SignupTest extends BasePageTestCase {
 
         fieldValues.put("city", "Denver");
         fieldValues.put("state", "CO");
-        fieldValues.put("country", "USA");
+        fieldValues.put("country", "US");
         fieldValues.put("postalCode", "80210");
 
         // start SMTP Server
@@ -57,7 +57,6 @@ public class SignupTest extends BasePageTestCase {
         TestableResponse response = tester.submitFormAndReturnResponse(form, fieldValues);
 
         assertFalse(response.getOutput().contains("exception"));
-
         // verify an account information e-mail was sent
         assertEquals(1, wiser.getMessages().size());
         wiser.stop();
@@ -84,7 +83,7 @@ public class SignupTest extends BasePageTestCase {
 
         fieldValues.put("city", "Denver");
         fieldValues.put("state", "CO");
-        fieldValues.put("country", "USA");
+        fieldValues.put("country", "US");
         fieldValues.put("postalCode", "80210");
 
         // start SMTP Server

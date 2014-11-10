@@ -71,7 +71,7 @@ public class PasswordHint {
             emailService.send(user, subject, msg.toString(), RequestUtil.getAppURL(request), true);
 
             alertManager.alert(Duration.TRANSIENT,
-                    Severity.INFO,
+                    Severity.SUCCESS,
                     messages.format("login.passwordHint.sent", username, user.getEmail()));
         } catch (UsernameNotFoundException e) {
             logger.warn(e.getMessage());

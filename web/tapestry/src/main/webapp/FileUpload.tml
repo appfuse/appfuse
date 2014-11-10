@@ -1,31 +1,29 @@
 <html t:type="layout" title="message:upload.title" heading="message:upload.heading"
       menu="AdminMenu" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-<div class="col-sm-3">
+<div class="col-md-3">
     <h2>${message:upload.heading}</h2>
     ${message:upload.message}
 </div>
 
-<div class="col-sm-7">
+<div class="col-md-7">
 
-    <form t:type="form" t:id="upload" clientValidation="none" class="well">
+    <form t:type="form" t:id="upload" class="well form-horizontal">
+
+        <input t:type="textfield" t:id="name" value="fileData.friendlyName" validate="required"
+               t:mixins="formgroup" t:label="${message:uploadForm.name}" />
+
+
+        <input t:type="upload" t:id="file" value="fileData.file" validate="required"
+               t:mixins="formgroup" t:label="${message:uploadForm.file}" />
+
+
         <div class="form-group">
-            <label t:type="label" class="control-label" for="name">${message:uploadForm.name}</label>
-            <input t:type="textfield" t:id="name" value="fileData.friendlyName" class="form-control"
-                   validate="required"/>
-        </div>
-
-        <div class="form-group">
-            <label t:type="label" class="control-label" for="file">${message:uploadForm.file} <span class="required">*</span></label>
-            <input t:type="upload" t:id="file" value="fileData.file" validate="required"/>
-        </div>
-
-        <div class="form-group form-actions">
             <button type="submit" class="btn btn-primary" id="save">
-                <i class="icon-upload icon-white"></i> ${message:button.upload}
+                ${message:button.upload}
             </button>
             <a t:type="eventlink" t:id="cancel" class="btn btn-default">
-		        <i class="icon-remove"></i> ${message:button.cancel}
+		       ${message:button.cancel}
             </a>
         </div>
     </form>

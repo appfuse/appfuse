@@ -30,7 +30,7 @@ public class Reload {
     Object onActivate() throws IOException {
         StartupListener.setupContext(globals.getServletContext());
         alertManager.alert(Duration.TRANSIENT,
-                Severity.INFO,
+                Severity.SUCCESS,
                 messages.get("reload.succeeded"));
         return Home.class;
     }

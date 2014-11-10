@@ -8,7 +8,7 @@
     <http pattern="/images/**" security="none"/>
     <http pattern="/styles*/**" security="none"/>
     <http pattern="/scripts*/**" security="none"/>
-    <http pattern="/assets*/**" security="none"/>
+    <http pattern="/asset*/**" security="none"/>
 
     <http auto-config="true" access-denied-page="/accessdenied">
         <intercept-url pattern="/login*/**" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>

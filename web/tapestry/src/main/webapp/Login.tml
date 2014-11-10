@@ -4,14 +4,14 @@
 
 <body id="login">
     <form method="post" id="loginForm" action="${springSecurityUrl}"
-          onsubmit="saveUsername(this)" class="form-signin" autocomplete="off">
+          class="form-signin" autocomplete="off">
 
         <h2 class="form-signin-heading">
             ${message:login.heading}
         </h2>
 
         <t:if test="${errorMessage}">
-            <div class="alert alert-danger alert-dismissable">
+            <div class="alert alert-danger fade in">
                 ${message:errors.password.mismatch}
             </div>
         </t:if>
@@ -28,7 +28,8 @@
             </label>
         </t:if>
 
-        <input type="submit" class="btn btn-lg btn-primary btn-block" name="login" value="${message:button.login}" tabindex="4"/>
+        <input type="submit" class="btn btn-large btn-primary btn-block"
+               name="login" value="${message:button.login}" tabindex="4"/>
 
     </form>
 
@@ -37,11 +38,11 @@
     </p>
 
     <p>
-        <t:outputraw value="${message:login.passwordHint}"/>
+        <t:outputraw value="${message:login.passwordHint.new}"/>
     </p>
 
     <p>
-        <t:outputraw value="${message:updatePassword.requestRecoveryTokenLink}"/>
+        <t:outputraw value="${message:updatePassword.requestRecoveryTokenLink.new}"/>
     </p>
 
 </body>

@@ -72,7 +72,7 @@ public class Menu implements ClientElement {
         resources.renderInformalParameters(writer);
 
         if (className != null) {
-            e.addClassName(className);
+            e.attribute("class", className);
         }
 
         environment.push(MenuContext.class, new MenuContext() {

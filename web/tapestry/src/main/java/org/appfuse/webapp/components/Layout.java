@@ -25,7 +25,10 @@ import org.appfuse.webapp.services.SecurityContext;
  * @version $Id: Layout.java 5 2008-08-30 09:59:21Z serge.eby $
  */
 
-@Import(stack = AppFuseSymbolConstants.BOOTSTRAP_STACK)
+@Import(stack = { "core" },
+        module = { "bootstrap/collapse", "bootstrap/dropdown", "bootstrap/modal" },
+        stylesheet = { "app/layout.css", "app/t5-override.css" }
+)
 public class Layout {
 
     @Property
@@ -106,12 +109,5 @@ public class Layout {
         return resources.getPageName().toLowerCase();
     }
 
-//    public String getSidebarClass() {
-//        resources.getPageName().equalsIgnoreCase(pageName);
-//    }
-
-    void afterRender() {
-        jsSupport.addScript("$j('.dropdown-menu li').click(function(){ $j(this).addClass('active');});");
-    }
 
 }

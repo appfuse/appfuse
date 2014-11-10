@@ -1,205 +1,207 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 
-<div class="col-sm-2">
+<div class="col-md-2">
     <h2>${heading}</h2>
     ${infoMessage}
 </div>
 
-<div class="col-sm-7">
-<!-- Add Error Block Here -->
+<div class="col-md-7">
+    <!-- Add Error Block Here -->
 
-<form t:type="form" t:id="form" class="well" autocomplete="off">
+    <form t:type="form" t:id="form" class="well form-horizontal" autocomplete="off" role="form">
 
-<fieldset>
-<t:if test="userPersisted">
-
-    <input name="from" type="hidden" value="${from}"/>
-    <input name="id" type="hidden" value="${user.id}"/>
-    <input name="version" type="hidden" value="${user.version}"/>
-    <input name="originalPassword" type="hidden" value="${user.password}"/>
-
-    <t:if test="userVersionNull">
-        <input type="hidden" name="encryptPass" value="true"/>
-    </t:if>
-</t:if>
-
-<div class="form-group">
-    <label t:type="label" class="control-label" for="username">${message:user.username}</label>
-
-    <input t:type="textfield" t:id="username" value="user.username" validate="required" class="form-control" autofocus="true"/>
-    <t:if test="self">
-        <span class="help-block">
-              <a href="#" t:type="eventlink" t:id="updatePassword" id="updatePassword" event="updatePassword">
-                  ${message:updatePassword.changePasswordLink}</a>
-         </span>
-    </t:if>
-</div>
-
-<t:if test="!userPersisted">
-    <div class="row">
-        <div class="form-group col-sm-6">
-            <label t:type="label" class="control-label" for="password">${message:user.password}</label>
-            <input t:type="hashedpasswordfield" t:id="password" value="user.password" validate="required" class="form-control"/>
-        </div>
-        <div class="form-group col-sm-6">
-            <label t:type="label" class="control-label" for="confirmPassword">${message:user.confirmPassword}</label>
-            <input t:type="hashedpasswordfield" t:id="confirmPassword" value="user.confirmPassword" class="form-control"
-                   validate="required"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label t:type="label" class="control-label" for="passwordHint">${message:user.passwordHint}</label>
-        <input t:type="textfield" t:id="passwordHint" value="user.passwordHint" validate="required" class="form-control"/>
-    </div>
-
-    <p:else>
-        <input type="hidden" name="password" value="${user.password}"/>
-        <input type="hidden" name="confirmPassword" value="${user.confirmPassword}"/>
-    </p:else>
-</t:if>
-
-<div class="row">
-    <div class="col-sm-6 form-group">
-        <label t:type="label" class="control-label" for="firstName">${message:user.firstName}</label>
-        <input t:type="textfield" t:id="firstName" value="user.firstName" validate="required" class="form-control"/>
-    </div>
-
-    <div class="col-sm-6 form-group">
-        <label t:type="label" class="control-label" for="lastName">${message:user.lastName}</label>
-        <input class="form-control" t:type="textfield" t:id="lastName" value="user.lastName" validate="required"/>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-6 form-group">
-        <label t:type="label" class="control-label" for="email">${message:user.email}</label>
-        <input t:type="textfield" t:id="email" value="user.email" validate="required,email" class="form-control"/>
-    </div>
-
-    <div class="col-sm-6 form-group">
-        <label t:type="label" class="control-label" for="phoneNumber">${message:user.phoneNumber}</label>
-        <input class="form-control" t:type="textfield" t:id="phoneNumber" value="user.phoneNumber"
-               validate="minlength=11"/>
-    </div>
-</div>
-<div class="form-group">
-    <label t:type="label" class="control-label" for="website">${message:user.website}</label>
-    <input t:type="textfield" t:id="website" value="user.website" class="form-control"/>
-</div>
-
-<div>
-    <legend class="accordion-heading">
-        <a data-toggle="collapse" href="#collapse-address">${message:user.address.address}</a>
-    </legend>
-
-    <div id="collapse-address" class="accordion-body collapse">
-
-        <div class="form-group">
-            <label class="control-label" t:type="label" for="address">${message:user.address.address}</label>
-            <input t:type="textfield" t:id="address" value="user.address?.address" class="form-control"/>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-7 form-group">
-                <label class="control-label" t:type="label" for="city">${message:user.address.city}</label>
-                <input t:type="textfield" t:id="city" value="user.address?.city" class="form-control"/>
-            </div>
-
-            <div class="col-sm-2 form-group">
-                <label class="control-label" t:type="label" for="state">${message:user.address.province}</label>
-                <input t:type="textfield" t:id="state" value="user.address?.province" class="form-control"/>
-            </div>
-
-            <div class="col-sm-3 form-group">
-                <label class="control-label" t:type="label" for="postalCode">${message:user.address.postalCode}</label>
-                <input t:type="textfield" t:id="postalCode" value="user.address?.postalCode" class="form-control"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label t:type="label" for="country" class="control-label">${message:user.address.country}</label>
-            <select t:type="select" t:id="country" model="countryModel" value="user.address?.country"
-                    encoder="countryEncoder" blankOption="always" class="form-control"/>
-        </div>
-    </div>
-</div>
-
-<t:unless test="${signup}">
-    <t:if test="fromList">
-        <div class="form-group">
-            <label class="control-label">${message:userProfile.accountSettings}</label>
-            <label t:type="label" for="enabled" class="checkbox inline">
-                <input t:type="checkbox" value="user.enabled" t:id="enabled"/>${message:user.enabled}
-            </label>
-            <label t:type="label" for="accountExpired" class="checkbox inline">
-                <input class="checkbox" t:type="checkbox" value="user.accountExpired"
-                       t:id="accountExpired"/>${message:user.accountExpired}
-            </label>
-            <label t:type="label" for="accountLocked" class="checkbox inline">
-                <input class="checkbox" t:type="checkbox" value="user.accountLocked"
-                       t:id="accountLocked"/>${message:user.accountLocked}
-            </label>
-            <label t:type="label" for="credentialsExpired" class="checkbox inline">
-                <input class="checkbox" t:type="checkbox" value="user.credentialsExpired"
-                       t:id="credentialsExpired"/>${message:user.credentialsExpired}
-            </label>
-        </div>
-
-        <div class="form-group">
-            <label for="selectedRoles" class="control-label">${message:userProfile.assignRoles}</label>
-            <t:checklist t:id="selectedRoles" model="roleModel" encoder="roleEncoder"
-                         selected="selectedRoles" class="checkbox"/>
-        </div>
-    </t:if>
-
-    <t:unless test="fromList">
-        <div class="form-group">
-            <label class="control-label">${message:user.roles}:</label>
-            <div class="readonly">
-                ${userRoles}
-            </div>
-            <input type="hidden" name="enabled" value="${user.enabled}"/>
-            <input type="hidden" name="accountExpired" value="${user.accountExpired}"/>
-            <input type="hidden" name="accountLocked" value="${prop:user.accountLocked}"/>
-            <input type="hidden" name="credentialsExpired" value="${prop:user.credentialsExpired}"/>
-        </div>
-    </t:unless>
-
-</t:unless>
-
-<div class="form-group form-actions">
-    <button type="submit" id="save" name="save" class="btn btn-primary">
-        <i class="icon-ok icon-white"></i> ${submitLabel}</button>
-    <t:unless test="${signup}">
-        <t:if test="fromList">
+        <fieldset>
             <t:if test="userPersisted">
-                <a data-toggle="modal" data-target="#confirmModal" class="btn btn-danger">
-                    <i class="icon-trash icon-white"></i> ${message:button.delete}
+                <input name="from" type="hidden" value="${from}"/>
+                <input name="id" type="hidden" value="${user.id}"/>
+                <input name="version" type="hidden" value="${user.version}"/>
+                <input name="originalPassword" type="hidden" value="${user.password}"/>
+
+                <t:if test="userVersionNull">
+                    <input type="hidden" name="encryptPass" value="true"/>
+                </t:if>
+            </t:if>
+
+            <div class="form-group">
+                <label t:type="label" class="control-label" for="username">${message:user.username}</label>
+
+                <div class="controls">
+                    <input t:type="textfield" t:id="username" value="user.username" validate="required"
+                           class="text large"/>
+                    <t:if test="self">
+                        <p class="help-block">
+                            <a href="#" t:type="eventlink" t:id="updatePassword" id="updatePassword"
+                               event="updatePassword">
+                                ${message:updatePassword.changePasswordLink}</a>
+                        </p>
+                    </t:if>
+                </div>
+            </div>
+
+
+            <t:if test="! userPersisted">
+                <input t:type="passwordfield" t:id="password" value="user.password" validate="required"
+                t:mixins="formgroup" t:label="${message:user.password}"/>
+
+                <input t:type="passwordfield" t:id="confirmPassword" value="user.confirmPassword" validate="required"
+                t:mixins="formgroup" t:label="${message:user.confirmPassword}"/>
+            </t:if>
+
+            <t:if test="! self">
+                <input t:type="textfield" t:id="passwordHint" value="user.passwordHint" validate="required"
+                       t:mixins="formgroup" t:label="${message:user.passwordHint}"/>
+
+                <p:else>
+                    <input type="hidden" name="password" value="${user.password}"/>
+                    <input type="hidden" name="confirmPassword" value="${user.confirmPassword}"/>
+                </p:else>
+            </t:if>
+
+
+            <input t:type="textfield" t:id="firstName" value="user.firstName" validate="required"
+                   t:mixins="formgroup" t:label="${message:user.firstName}"/>
+
+
+            <input class="text medium" t:type="textfield" t:id="lastName" value="user.lastName" validate="required"
+                   t:mixins="formgroup" t:label="${message:user.lastName}"/>
+
+
+            <input t:type="textfield" t:id="email" value="user.email" validate="required,email"
+                   t:mixins="formgroup" t:label="${message:user.email}"/>
+
+
+            <input class="text medium" t:type="textfield" t:id="phoneNumber" value="user.phoneNumber"
+                   validate="minlength=11" t:mixins="formgroup" t:label="${message:user.phoneNumber}"/>
+
+
+            <input t:type="textfield" t:id="website" value="user.website"
+                   t:mixins="formgroup" t:label="${message:user.website}"/>
+
+
+            <div>
+                <legend class="accordion-heading">
+
+                    <a data-toggle="collapse" href="#collapse-address">${message:user.address.address}</a>
+                </legend>
+
+                <div id="collapse-address" class="accordion-body collapse">
+
+                    <input t:type="textfield" t:id="address" value="user.address?.address"
+                           t:mixins="formgroup" t:label="${message:user.address.address}"/>
+
+
+                    <input t:type="textfield" t:id="city" value="user.address?.city"
+                           t:mixins="formgroup" t:label="${message:user.address.city}"/>
+
+
+                    <input t:type="textfield" t:id="state" value="user.address?.province"
+                           t:mixins="formgroup" t:label="${message:user.address.province}"/>
+
+
+                    <input t:type="textfield" t:id="postalCode" value="user.address?.postalCode"
+                           t:mixins="formgroup" t:label="${message:user.address.postalCode}"/>
+
+
+                    <select t:type="select" t:id="country" model="countryModel" value="user.address?.country"
+                            encoder="countryEncoder"
+                            blankOption="always"
+                            size="1" class="select"
+                            t:mixins="formgroup" t:label="${message:user.address.country}"/>
+
+                </div>
+            </div>
+
+
+            <t:unless test="signup">
+                <t:if test="fromList">
+                    <div class="form-group">
+                        <label class="control-label">${message:userProfile.accountSettings}</label>
+
+                        <div class="button-group">
+                            <label t:type="label" for="enabled" class="checkbox-inline">
+                                <input t:type="checkbox" value="user.enabled" t:id="enabled"/>${message:user.enabled}
+                            </label>
+                            <label t:type="label" for="accountExpired" class="checkbox-inline">
+                                <input class="checkbox" t:type="checkbox" value="user.accountExpired"
+                                       t:id="accountExpired"/>${message:user.accountExpired}
+                            </label>
+                            <label t:type="label" for="accountLocked" class="checkbox-inline">
+                                <input class="checkbox" t:type="checkbox" value="user.accountLocked"
+                                       t:id="accountLocked"/>${message:user.accountLocked}
+                            </label>
+                            <label t:type="label" for="credentialsExpired" class="checkbox-inline">
+                                <input class="checkbox" t:type="checkbox" value="user.credentialsExpired"
+                                       t:id="credentialsExpired"/>${message:user.credentialsExpired}
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <t:checklist t:id="selectedRoles" model="roleModel" encoder="roleEncoder"
+                                 selected="selectedRoles" class="checkbox"
+                                 t:mixins="formgroup" t:label="${message:userProfile.assignRoles}"/>
+
+                </t:if>
+
+                <t:unless test="fromList">
+                    <div class="form-group">
+                        <label class="control-label">${message:user.roles}:</label>
+
+                        <div class="controls readonly">
+                            ${userRoles}
+                        </div>
+                        <input type="hidden" name="enabled" value="${user.enabled}"/>
+                        <input type="hidden" name="accountExpired" value="${user.accountExpired}"/>
+                        <input type="hidden" name="accountLocked" value="${prop:user.accountLocked}"/>
+                        <input type="hidden" name="credentialsExpired" value="${prop:user.credentialsExpired}"/>
+                    </div>
+                </t:unless>
+
+            </t:unless>
+
+            <div class="form-group">
+                <button type="submit" id="save" name="save" class="btn btn-primary">${submitLabel}</button>
+                <t:unless test="signup">
+                    <t:if test="fromList">
+
+                        <t:if test="userPersisted">
+                            <a data-toggle="modal" data-target="#confirmModal" class="btn btn-danger">
+                                ${message:button.delete}
+                            </a>
+
+                            <div class="modal fade" id="confirmModal" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">×</button>
+                                            <h3>Confirmation</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>${confirmDeletion}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#" t:type="eventlink" t:id="delete" id="delete" event="delete"
+                                               class="btn btn-primary">
+                                                ${message:button.delete}</a>
+                                            <a href="#" class="btn btn-default" data-dismiss="modal">
+                                                ${message:button.cancel}</a>
+                                        </div>
+                                    </div> <!-- /.modal-content -->
+                                </div> <!-- /.modal-dialog -->
+                            </div> <!-- /.modal -->
+
+                        </t:if>
+                    </t:if>
+                </t:unless>
+
+                <a t:type="eventlink" id="cancel" event="canceled" class="btn btn-default">${message:button.cancel}
                 </a>
 
-                <div class="modal hide" id="confirmModal">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h3>Confirmation</h3>
-                    </div>
-                    <div class="modal-body">
-                        <p>${confirmDeletion}</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" t:type="eventlink" t:id="delete" id="delete" event="delete" class="btn btn-primary">
-                            <i class="icon-ok icon-white"></i> ${message:button.delete}</a>
-                        <a href="#" class="btn btn-default" data-dismiss="modal">
-                            <i class="icon-remove"></i> ${message:button.cancel}</a>
-                    </div>
-                </div>
+            </div>
 
-            </t:if>
-        </t:if>
-    </t:unless>
+        </fieldset>
 
-    <a t:type="eventlink" id="cancel" event="canceled" class="btn btn-default">
-        <i class="icon-remove"></i> ${message:button.cancel}</a>
-</div>
+    </form>
 
-</fieldset>
-</form>
 </div>
 </t:container>

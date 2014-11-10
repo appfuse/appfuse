@@ -72,7 +72,7 @@ public class PasswordRecoveryToken {
         }
 
         alertManager.alert(Duration.TRANSIENT,
-                Severity.INFO,
+                Severity.SUCCESS,
                 messages.get("updatePassword.recoveryToken.sent"));
 
 
