@@ -87,6 +87,7 @@ h1, h2 {
 
 .form-signin .checkbox {
     font-weight: normal;
+    margin-left: 20px;
 }
 
 .form-signin .form-control {
