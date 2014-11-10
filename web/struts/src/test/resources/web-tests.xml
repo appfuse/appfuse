@@ -12,16 +12,16 @@
     <property file="../../../../common/target/classes/displaytag.properties"/>
 
     <!-- runs all targets -->
-    <target name="run-all-tests" 
+    <target name="run-all-tests"
         depends="Login,Logout,PasswordHint,Signup,UserTests,StaticPages,WebServices,DWR,FileUpload"
         description="Call and executes all test cases (targets)"/>
-    
+
     <!-- runs user-related tests -->
     <target name="UserTests" depends="EditUser,SearchUser,SaveUser,AddUser,ActiveUsers"
         description="Call and executes all user test cases (targets)">
         <echo>Successfully ran all User UI tests!</echo>
     </target>
-    
+
     <!-- Login to the application -->
     <target name="Login" description="Runs login test and verifies Home's Title">
         <webtest name="login">
@@ -56,7 +56,7 @@
             </steps>
         </webtest>
     </target>
-    
+
     <target name="StaticPages" description="Ensures that StaticFilter is working">
         <webtest name="staticPages">
             &config;
@@ -81,7 +81,7 @@
             </steps>
         </webtest>
     </target>
-    
+
     <!-- Verify the user list screen displays without errors -->
     <target name="SearchUser" description="Tests search for and displaying all users">
         <webtest name="searchUser">
@@ -89,7 +89,7 @@
             <steps>
                 &login;
                 <invoke description="click View Users link" url="/admin/users"/>
-                <verifytitle description="we should see the user list title" 
+                <verifytitle description="we should see the user list title"
                     text=".*${userList.title}.*" regex="true"/>
                 <setinputfield description="set search term" name="q" value="tomcat"/>
                 <clickbutton label="${button.search}" description="Click Search"/>
@@ -100,7 +100,7 @@
             </steps>
         </webtest>
     </target>
-    
+
     <!-- Edit a user and then save -->
     <target name="SaveUser" description="Tests editing and saving a user">
         <webtest name="saveUser">
@@ -108,7 +108,7 @@
             <steps>
                 &login;
                 <invoke description="click Edit Profile link" url="/editProfile"/>
-                <verifytitle description="we should see the user profile title" 
+                <verifytitle description="we should see the user profile title"
                     text=".*${userProfile.title}.*" regex="true"/>
                 <setinputfield description="set address" name="user.address.address" value="2255 Lane Avenue"/>
                 <setinputfield description="set zipcode" name="user.address.postalCode" value="59826"/>
@@ -117,7 +117,7 @@
             </steps>
         </webtest>
     </target>
-    
+
     <!-- Add a new user after logging in -->
     <target name="AddUser" description="Adds a new user profile">
         <webtest name="addUser">
@@ -127,7 +127,7 @@
                 <invoke description="click Add Button" url="/editUser?from=list"/>
                 <verifytitle description="view the user profile title"
                     text=".*${userProfile.title}.*" regex="true"/>
-                    
+
                 <setinputfield description="set username" name="user.username" value="newuser"/>
                 <setinputfield description="set password" name="user.password" value="test"/>
                 <setinputfield description="set confirmPassword" name="user.confirmPassword" value="test"/>
@@ -146,20 +146,17 @@
                 <verifytitle description="view user list screen" text=".*${userList.title}.*" regex="true"/>
                 <verifytext description="verify success message" regex="true"
                     text='&lt;div class="alert alert-success.*&gt;.*Test Name.*&lt;/div&gt;'/>
-                    
+
                 <!-- Delete user -->
                 <clickLink description="Click edit user link" label="newuser"/>
-                <enableJavaScript enable="false"/>
-                <!--prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/-->
                 <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
-                <!--verifyNoDialogResponses/-->
                 <verifytext description="verify success message" regex="true"
                     text='&lt;div class="alert alert-success.*&gt;.*Test Name.*&lt;/div&gt;'/>
                 <verifytitle description="display user list" text=".*${userList.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
-    
+
     <!-- Sign up a new user (no login) -->
     <target name="Signup" description="Signup a new user">
         <webtest name="signup">
@@ -167,7 +164,7 @@
             <steps>
                 <invoke description="click signup link" url="/signup"/>
                 <verifytitle description="view signup title" text=".*${signup.title}.*" regex="true"/>
-                    
+
                 <setinputfield description="set username" name="user.username" value="signup-user"/>
                 <setinputfield description="set password" name="user.password" value="test"/>
                 <setinputfield description="set confirmPassword" name="user.confirmPassword" value="test"/>
@@ -180,10 +177,9 @@
                 <setinputfield description="set email" name="user.email" value="signup-user@raibledesigns.com"/>
                 <setinputfield description="set website" name="user.website" value="http://raibledesigns.com"/>
                 <setinputfield description="set passwordHint" name="user.passwordHint" value="test"/>
-                
-                <enableJavaScript enable="false"/> <!-- HtmlUnit doesn't understand table.rows.length -->
+
                 <clickbutton label="${button.register}"  description="Click button 'Signup'"/>
-                
+
                 <verifytitle description="view main menu" text=".*${home.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${user.registered}"/>
             </steps>
@@ -197,12 +193,12 @@
             <steps>
                 &login;
                 <invoke description="get activeUsers URL" url="/admin/activeUsers"/>
-                <verifytitle description="we should see the activeUsers title" 
+                <verifytitle description="we should see the activeUsers title"
                     text=".*${activeUsers.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
-    
+
     <!-- File Upload -->
     <target name="FileUpload" description="Tests uploading a file">
         <webtest name="fileUpload">

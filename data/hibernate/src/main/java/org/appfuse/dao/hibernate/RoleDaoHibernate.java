@@ -2,11 +2,11 @@ package org.appfuse.dao.hibernate;
 
 import org.appfuse.dao.RoleDao;
 import org.appfuse.model.Role;
-import java.util.List;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**

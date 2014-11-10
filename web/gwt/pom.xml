@@ -4,9 +4,9 @@
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -96,6 +96,23 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <configuration>
+                    <webApp>
+                        <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
+                            <resourcesAsCSV>
+                                ${basedir}/../common/src/main/resources,
+                                ${basedir}/src/main/resources,
+                                ${basedir}/src/main/webapp,
+                                ${basedir}/../common/src/main/webapp,
+                                ${basedir}/target/${project.build.finalName}
+                            </resourcesAsCSV>
+                        </baseResource>
+                    </webApp>
+                </configuration>
+            </plugin>
             <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
@@ -158,7 +175,7 @@
 					<compileSourcesArtifacts>
 						<artifact>javax.validation:validation-api</artifact>
 						<artifact>org.hibernate:hibernate-validator</artifact>
-					</compileSourcesArtifacts>                    
+					</compileSourcesArtifacts>
                     <modules>
                         <module>${gwtModuleName}</module>
                     </modules>
@@ -170,7 +187,7 @@
                 <executions>
                     <execution>
                         <id>gwtcompile</id>
-                        <phase>prepare-package</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
@@ -221,7 +238,7 @@
 						<replacement>
 							<token>null=</token>
 							<value>#null=</value>
-						</replacement>						
+						</replacement>
 					</replacements>
 				</configuration>
 			</plugin>
@@ -248,7 +265,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>            
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -262,7 +279,7 @@
           		</includes>
           		<targetPath>${project.build.outputDirectory}/org/appfuse/webapp/client/application</targetPath>
 				<filtering>true</filtering>
-			</resource>            
+			</resource>
         </resources>
         <testResources>
             <testResource>
@@ -343,7 +360,7 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>${json.version}</version>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>com.google.gwt.inject</groupId>
             <artifactId>gin</artifactId>
@@ -353,7 +370,7 @@
 			<groupId>com.github.gwtbootstrap</groupId>
 			<artifactId>gwt-bootstrap</artifactId>
 			<version>${gwtbootstrap.version}</version>
-		</dependency>        
+		</dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -364,7 +381,7 @@
         	<artifactId>hibernate-validator</artifactId>
         	<version>${hibernate-validator.version}</version>
         </dependency>
-        
+
         <!-- Selenium web tests -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -377,8 +394,8 @@
             <artifactId>selenium-chrome-driver</artifactId>
             <version>${selenium.version}</version>
             <scope>test</scope>
-        </dependency>     
-		
+        </dependency>
+
     </dependencies>
 
     <profiles>
@@ -454,15 +471,15 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <!-- GWT Development/Debug Profile -->
         <profile>
         	<id>gwtDebug</id>
         	<properties>
 				<gwt.draftCompile>true</gwt.draftCompile>
-				<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>        
+				<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>
         	</properties>
-        </profile>        
+        </profile>
     </profiles>
 
 	<properties>

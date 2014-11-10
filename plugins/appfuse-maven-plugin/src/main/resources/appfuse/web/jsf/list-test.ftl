@@ -17,6 +17,9 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import javax.transaction.Transactional;
+
+@Transactional
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
     private ${pojo.shortName}List bean;
 <#if genericcore>

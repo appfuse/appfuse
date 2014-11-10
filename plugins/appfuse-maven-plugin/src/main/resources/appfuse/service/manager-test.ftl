@@ -27,7 +27,6 @@ public class ${pojo.shortName}ManagerImplTest extends BaseManagerMockTestCase {
     @Mock
     private ${pojo.shortName}Dao dao;
 
-
     @Test
     public void testGet${pojo.shortName}() {
         log.debug("testing get...");
@@ -71,8 +70,6 @@ public class ${pojo.shortName}ManagerImplTest extends BaseManagerMockTestCase {
         </#if>
     </#foreach>
 </#foreach>
-        
-
 
         given(dao.save(${pojoNameLower})).willReturn(${pojoNameLower});
 

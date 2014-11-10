@@ -32,7 +32,6 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     private PasswordEncoder passwordEncoder;
     private UserDao userDao;
 
-
     private MailEngine mailEngine;
     private SimpleMailMessage message;
     private PasswordTokenManager passwordTokenManager;
@@ -228,11 +227,12 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         final User user = getUserByUsername(username);
         final String url = buildRecoveryPasswordUrl(user, urlTemplate);
 
-        sendUserEmail(user, passwordRecoveryTemplate, url);
+        sendUserEmail(user, passwordRecoveryTemplate, url, "Password Recovery");
     }
 
-    private void sendUserEmail(final User user, final String template, final String url) {
+    private void sendUserEmail(final User user, final String template, final String url, final String subject) {
         message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
+        message.setSubject(subject);
 
         final Map<String, Serializable> model = new HashMap<String, Serializable>();
         model.put("user", user);
@@ -254,7 +254,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
             user = saveUser(user);
             passwordTokenManager.invalidateRecoveryToken(user, recoveryToken);
 
-            sendUserEmail(user, passwordUpdatedTemplate, applicationUrl);
+            sendUserEmail(user, passwordUpdatedTemplate, applicationUrl, "Password Updated");
 
             return user;
         } else if (StringUtils.isNotBlank(currentPassword)) {

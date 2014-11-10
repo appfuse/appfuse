@@ -13,14 +13,14 @@ pageContext.setAttribute("ctxPath", contextPath);
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="rememberMeEnabled" content="${appConfig.rememberMeEnabled}" />
-	<meta name="gwt:property" content="locale=<%= LocaleContextHolder.getLocale() %>">    
+	<meta name="gwt:property" content="locale=<%= LocaleContextHolder.getLocale() %>">
     <link rel="icon" href="images/favicon.ico"/>
     <title><fmt:message key="webapp.name" /></title>
 
 	<c:set var="group" value="main" />
 	<c:choose>
 	    <c:when test="${param.debug}">
-	        <link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch/3.0.0/spacelab/bootstrap.min.css"/>
+	        <link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch-spacelab/3.2.0/css/bootstrap.min.css"/>
 	        <link rel="stylesheet" type="text/css" href="${base}/styles/style.css"/>
 	    </c:when>
 	    <c:otherwise>
@@ -37,15 +37,15 @@ pageContext.setAttribute("ctxPath", contextPath);
 
 	<c:choose>
 	    <c:when test="${param.debug}">
-	        <script type="text/javascript" src="${base}/webjars/jquery/1.9.0/jquery.min.js"></script>
-	        <script type="text/javascript" src="${base}/webjars/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+	        <script type="text/javascript" src="${base}/webjars/jquery/1.11.1/jquery.min.js"></script>
+	        <script type="text/javascript" src="${base}/webjars/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 	        <script type="text/javascript" src="${base}/webjars/jquery-cookie/1.3.1/jquery.cookie.js"></script>
 	    </c:when>
 	    <c:otherwise>
 	        <script type="text/javascript" src="${base}/assets/v/${applicationScope.assetsVersion}/${group}.js"></script>
 	    </c:otherwise>
 	</c:choose>
-  	
+
   	<script type="text/javascript">document.getElementById("progressbar").style.cssText("width: 30%")</script>
     <script type="text/javascript" language="javascript" src="script/script.nocache.js"></script>
 </body>

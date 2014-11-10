@@ -4,9 +4,9 @@
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-        
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -184,11 +184,6 @@
             <version>${sitemesh.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- For some reason, spring-aop isn't picked up from appfuse-service -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
@@ -196,15 +191,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
-                    <artifactId>spring-expression</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-web</artifactId>
+                    <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -237,8 +224,8 @@
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
-            <artifactId>bootswatch</artifactId>
-            <version>3.0.0</version>
+            <artifactId>bootswatch-spacelab</artifactId>
+            <version>3.2.0-1</version>
         </dependency>
         <!-- Necessary for Log4j2 to work at runtime with Velocity -->
         <dependency>

@@ -4,70 +4,73 @@ package ${basepackage}.webapp.controller;
 
 import ${basepackage}.webapp.controller.BaseControllerTestCase;
 import ${pojo.packageName}.${pojo.shortName};
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.DataBinder;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@Transactional
 public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase {
     @Autowired
-    private ${pojo.shortName}FormController form;
-    private ${pojo.shortName} ${pojoNameLower};
-    private MockHttpServletRequest request;
+    private ${pojo.shortName}FormController controller;
+    private MockMvc mockMvc;
+
+    @Before
+    public void setUp() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/WEB-INF/pages/");
+        viewResolver.setSuffix(".jsp");
+
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).setViewResolvers(viewResolver).build();
+    }
 
     @Test
     public void testEdit() throws Exception {
         log.debug("testing edit...");
-        request = newGet("/${pojoNameLower}form");
-        request.addParameter("${pojo.identifierProperty.name}", "-1");
-
-        ${pojoNameLower} = form.showForm(request);
-        assertNotNull(${pojoNameLower});
+        mockMvc.perform(get("/${pojoNameLower}form")
+            .param("${pojo.identifierProperty.name}", "-1"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("${pojoNameLower}"));
     }
 
     @Test
     public void testSave() throws Exception {
-        request = newGet("/${pojoNameLower}form");
-        request.addParameter("${pojo.identifierProperty.name}", "-1");
-
-        ${pojoNameLower} = form.showForm(request);
-        assertNotNull(${pojoNameLower});
-
-        request = newPost("/${pojoNameLower}form");
-
-        ${pojoNameLower} = form.showForm(request);
-        // update required fields
+        HttpSession session = mockMvc.perform(post("/${pojoNameLower}form")
 <#foreach field in pojo.getAllPropertiesIterator()>
     <#foreach column in field.getColumnIterator()>
         <#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
-            <#lt/>        ${pojoNameLower}.set${pojo.getPropertyName(field)}(${data.getValueForJavaTest(column)});
+            <#lt/>            .param("${field.name}", "${data.getValueForWebTest(column)}")
         </#if>
     </#foreach>
 </#foreach>
+            )
+            .andExpect(status().is3xxRedirection())
+            .andExpect(model().hasNoErrors())
+            .andReturn()
+            .getRequest()
+            .getSession();
 
-        BindingResult errors = new DataBinder(${pojoNameLower}).getBindingResult();
-        form.onSubmit(${pojoNameLower}, errors, request, new MockHttpServletResponse());
-        assertFalse(errors.hasErrors());
-        assertNotNull(request.getSession().getAttribute("successMessages"));
+        assertNotNull(session.getAttribute("successMessages"));
     }
 
     @Test
     public void testRemove() throws Exception {
-        request = newPost("/${pojoNameLower}form");
-        request.addParameter("delete", "");
-        ${pojoNameLower} = new ${pojo.shortName}();
-        ${pojoNameLower}.${setIdMethodName}(-2L);
+        HttpSession session = mockMvc.perform((post("/${pojoNameLower}form"))
+            .param("delete", "").param("${pojo.identifierProperty.name}", "-2"))
+            .andExpect(status().is3xxRedirection())
+            .andReturn().getRequest().getSession();
 
-        BindingResult errors = new DataBinder(${pojoNameLower}).getBindingResult();
-        form.onSubmit(${pojoNameLower}, errors, request, new MockHttpServletResponse());
-
-        assertNotNull(request.getSession().getAttribute("successMessages"));
+        assertNotNull(session.getAttribute("successMessages"));
     }
 }

@@ -3,11 +3,16 @@ package org.appfuse.webapp.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         locations = {"classpath:/applicationContext-resources.xml",
                 "classpath:/applicationContext-dao.xml",
@@ -15,9 +20,12 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
                 "classpath*:/applicationContext.xml", // for modular archetypes
                 "/WEB-INF/applicationContext*.xml",
                 "/WEB-INF/dispatcher-servlet.xml"})
-public abstract class BaseControllerTestCase extends AbstractTransactionalJUnit4SpringContextTests {
+public abstract class BaseControllerTestCase {
     protected transient final Log log = LogFactory.getLog(getClass());
     private int smtpPort = 25250;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Before
     public void onSetUp() {
@@ -31,19 +39,5 @@ public abstract class BaseControllerTestCase extends AbstractTransactionalJUnit4
 
     protected int getSmtpPort() {
         return smtpPort;
-    }
-
-    /**
-     * Convenience methods to make tests simpler
-     *
-     * @param url the URL to post to
-     * @return a MockHttpServletRequest with a POST to the specified URL
-     */
-    public MockHttpServletRequest newPost(String url) {
-        return new MockHttpServletRequest("POST", url);
-    }
-
-    public MockHttpServletRequest newGet(String url) {
-        return new MockHttpServletRequest("GET", url);
     }
 }

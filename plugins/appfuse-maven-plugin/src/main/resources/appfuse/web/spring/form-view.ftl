@@ -67,7 +67,7 @@
             <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
         </button>
         <c:if test="${'$'}{not empty ${pojoNameLower}.${idFieldName}}">
-            <button type="submit" class="btn btn-warning" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+            <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
                 <i class="icon-trash icon-white"></i> <fmt:message key="button.delete"/>
             </button>
         </c:if>
