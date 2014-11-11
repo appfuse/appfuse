@@ -206,15 +206,6 @@
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>
-                <plugin>
-                    <groupId>org.codehaus.cargo</groupId>
-                    <artifactId>cargo-maven2-plugin</artifactId>
-                    <version>${cargo.version}</version>
-                </plugin>
-                <plugin><groupId>org.codehaus.mojo</groupId>
-                    <artifactId>webtest-maven-plugin</artifactId>
-                    <version>1.0.0</version>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -327,8 +318,8 @@
             <artifactId>spring-security-ldap</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-tx</artifactId>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

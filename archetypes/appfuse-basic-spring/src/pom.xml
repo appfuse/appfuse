@@ -509,6 +509,7 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
+                        <version>1.0.0</version>
                         <dependencies>
                             <!-- Upgrade HtmlUnit to support jQuery 1.9 -->
                             <dependency>
