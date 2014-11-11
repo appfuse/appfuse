@@ -343,7 +343,7 @@
         <!-- Framework dependency versions -->
         <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
         <bootstrap.version>3.3.0</bootstrap.version>
-        <spring.version>4.0.7.RELEASE</spring.version>
+        <spring.version>4.1.2.RELEASE</spring.version>
         <wicket.version>6.18.0</wicket.version>
         <wicketstuff.version>6.17.0</wicketstuff.version>
         <wicket.bootstrap.version>0.9.2</wicket.bootstrap.version>
