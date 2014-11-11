@@ -1,6 +1,6 @@
 <html t:type="layout" title="home.title"
           heading="message:home.heading" menu="Home" bodyClass="home"
-          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
 
     <h2>${message:home.heading}</h2>
     <p>${message:home.message}</p>

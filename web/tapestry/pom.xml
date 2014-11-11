@@ -172,13 +172,6 @@
                                         <filter token="copyright.year" value="${copyright.year}" />
                                     </filterset>
                                 </copy>
-
-                                <echo message="Copying CSS and JavaScript resources..." />
-                                <copy todir="src/main/webapp" overwrite="true">
-                                    <fileset dir="../common/src/main/webapp">
-                                        <include name="styles/style.css" />
-                                    </fileset>
-                                </copy>
                             </tasks>
                         </configuration>
                         <goals>

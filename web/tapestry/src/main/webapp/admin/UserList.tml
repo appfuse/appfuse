@@ -1,6 +1,6 @@
 <html t:type="layout" title="userList.title"
       heading="message:userList.heading" menu="AdminMenu"
-      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd" xmlns:p="tapestry:parameter">
 
 <t:if test="errorMessage">
     <div class="alert alert-error fade in">

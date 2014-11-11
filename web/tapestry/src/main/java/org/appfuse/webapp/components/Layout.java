@@ -14,7 +14,6 @@ import org.apache.tapestry5.services.Context;
 import org.apache.tapestry5.services.Environment;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
-import org.appfuse.webapp.AppFuseSymbolConstants;
 import org.appfuse.webapp.services.SecurityContext;
 
 
@@ -25,16 +24,15 @@ import org.appfuse.webapp.services.SecurityContext;
  * @version $Id: Layout.java 5 2008-08-30 09:59:21Z serge.eby $
  */
 
-@Import(stack = { "core" },
-        module = { "bootstrap/collapse", "bootstrap/dropdown", "bootstrap/modal" },
-        stylesheet = { "app/layout.css", "app/t5-override.css" }
-)
+@Import(stack = {"core"}, module = {"bootstrap/collapse", "bootstrap/dropdown", "bootstrap/modal"},
+    stylesheet = {"classpath:/META-INF/resources/webjars/bootswatch-spacelab/3.2.0/css/bootstrap.min.css",
+        "app/layout.css", "app/t5-override.css",
+    })
 public class Layout {
 
     @Property
     @Parameter(required = true, defaultPrefix = BindingConstants.MESSAGE)
     private String title;
-
 
     @Property
     @Parameter(defaultPrefix = BindingConstants.MESSAGE)
@@ -48,11 +46,9 @@ public class Layout {
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     private String bodyId;
 
-
     @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     private String bodyClass;
-
 
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     private Block sidebar;
@@ -87,7 +83,6 @@ public class Layout {
     @Inject
     private Block adminMenuBlock;
 
-
     public boolean isLoggedIn() {
         return securityContext.isLoggedIn();
     }
@@ -99,15 +94,11 @@ public class Layout {
         return null;
     }
 
-
     public boolean isAdminMenu() {
         return "AdminMenu".equals(menu);
     }
 
-
     public String getCurrentPage() {
         return resources.getPageName().toLowerCase();
     }
-
-
 }

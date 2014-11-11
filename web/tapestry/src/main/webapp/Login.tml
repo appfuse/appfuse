@@ -1,8 +1,7 @@
 <html t:type="layout" title="login.title" heading="login.heading"
       menu="Login" bodyId="login" bodyClass="login"
-      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
 
-<body id="login">
     <form method="post" id="loginForm" action="${springSecurityUrl}"
           class="form-signin" autocomplete="off">
 
@@ -45,5 +44,4 @@
         <t:outputraw value="${message:updatePassword.requestRecoveryTokenLink.new}"/>
     </p>
 
-</body>
 </html>

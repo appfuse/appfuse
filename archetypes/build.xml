@@ -4,7 +4,7 @@
     <property name="version" value="3.0.1-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
-    <property name="dbunit.sample-data.xml" 
+    <property name="dbunit.sample-data.xml"
     	value="${basedir}/../../data/common/src/test/resources/sample-data.xml" />
 
     <taskdef resource="net/sf/antcontrib/antcontrib.properties">
@@ -137,7 +137,7 @@
                     <exclude name="*.log"/>
                 </fileset>
             </copy>
-            
+
             <if>
                 <equals arg1="@{dest}" arg2="web"/>
                 <then>
@@ -205,7 +205,7 @@
                     <delete dir="@{dir}/@{dest}/src/main/resources/org"/>
                 </then>
             </if>
-        	
+
         	<!-- Remove unused files in GWT -->
             <if>
                 <equals arg1="@{module}" arg2="gwt"/>
@@ -462,7 +462,9 @@
                         <replacetoken><![CDATA[<fileSet encoding="UTF-8">
       <directory>src/main/resources</directory>
       <includes>
+        <include>**/*.js</include>
         <include>**/*.tml</include>
+        <include>**/*.css</include>
       </includes>
     </fileSet>]]></replacetoken>
                         <replacevalue><![CDATA[<fileSet packaged="true" encoding="UTF-8">
@@ -470,12 +472,19 @@
       <includes>
         <include>**/*.tml</include>
       </includes>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*.js</include>
+        <include>**/*.css</include>
+      </includes>
     </fileSet>]]></replacevalue>
                     </replace>
                     <!-- Fix for APF-1324: previous replace does not work in win -->
                     <replaceregexp byline="false" flags="gim">
                         <regexp pattern="&lt;fileSet encoding=&quot;UTF-8&quot;&gt;(\s+)&lt;directory&gt;src/main/resources&lt;/directory&gt;(\s+)&lt;includes&gt;(\s+)&lt;include&gt;\*\*/\*.tml&lt;/include&gt;(\s+)&lt;/includes&gt;(\s+)&lt;/fileSet&gt;"/>
-                        <substitution expression="&lt;fileSet packaged=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/*.tml&lt;/include&gt;${line.separator}     &lt;/includes&gt;${line.separator}    &lt;/fileSet&gt;"/>
+                        <substitution expression="&lt;fileSet packaged=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/*.tml&lt;/include&gt;${line.separator}     &lt;/includes&gt;${line.separator}    &lt;/fileSet&gt;${line.separator}&lt;fileSet encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/*.js&lt;/include&gt;${line.separator}        &lt;include&gt;**/*.css&lt;/include&gt;${line.separator}     &lt;/includes&gt;${line.separator}    &lt;/fileSet&gt;"/>
                         <fileset dir="@{dir}/target/generated-sources/archetype">
                             <include name="**/archetype-metadata.xml"/>
                         </fileset>
@@ -487,7 +496,9 @@
                         <replacetoken><![CDATA[<fileSet encoding="UTF-8">
           <directory>src/main/resources</directory>
           <includes>
+            <include>**/*.js</include>
             <include>**/*.tml</include>
+            <include>**/*.css</include>
           </includes>
         </fileSet>]]></replacetoken>
                         <replacevalue><![CDATA[<fileSet packaged="true" encoding="UTF-8">
@@ -495,12 +506,19 @@
           <includes>
             <include>**/*.tml</include>
           </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+          <directory>src/main/resources</directory>
+          <includes>
+            <include>**/*.js</include>
+            <include>**/*.css</include>
+          </includes>
         </fileSet>]]></replacevalue>
                     </replace>
                     <!-- Fix for APF-1324: previous replace does not work in win -->
                     <replaceregexp byline="false" flags="gim">
                         <regexp pattern="&lt;fileSet encoding=&quot;UTF-8&quot;&gt;(\s+)&lt;directory&gt;src/main/resources&lt;/directory&gt;(\s+)&lt;includes&gt;(\s+)&lt;include&gt;\*\*/\*.tml&lt;/include&gt;(\s+)&lt;/includes&gt;(\s+)&lt;/fileSet&gt;"/>
-                        <substitution expression="&lt;fileSet packaged=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/*.tml&lt;/include&gt;${line.separator}     &lt;/includes&gt;${line.separator}    &lt;/fileSet&gt;"/>
+                        <substitution expression="&lt;fileSet packaged=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/*.tml&lt;/include&gt;${line.separator}     &lt;/includes&gt;${line.separator}    &lt;/fileSet&gt;${line.separator}&lt;fileSet encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/*.js&lt;/include&gt;${line.separator}        &lt;include&gt;**/*.css&lt;/include&gt;${line.separator}     &lt;/includes&gt;${line.separator}    &lt;/fileSet&gt;"/>
                         <fileset dir="@{dir}/target/generated-sources/archetype">
                             <include name="**/archetype-metadata.xml"/>
                         </fileset>
@@ -514,7 +532,7 @@
                 	<!-- scripts to generate regexp and substitution from xml: -->
                 	<!-- sed -e ':a;N;$!ba;s/\n//g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/"/\&quot;/g' -e 's/  \+/(\\s+)/g' -e 's/\*/\\*/g' -->
                 	<!-- sed -e ':a;N;$!ba;s/\n/${line.separator}/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/"/\&quot;/g' -->
-                	
+
 				    <!-- Set packaged="true" for ApplicationResources.properties in gwt -->
                     <replaceregexp byline="false" flags="gm">
                         <regexp pattern="&lt;fileSet filtered=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;(\s+)&lt;directory&gt;src/main/resources&lt;/directory&gt;(\s+)&lt;includes&gt;(\s+)&lt;include&gt;\*\*/\*.vm&lt;/include&gt;(\s+)&lt;include&gt;\*\*/\*.xml&lt;/include&gt;(\s+)&lt;include&gt;\*\*/\*.properties&lt;/include&gt;(\s+)&lt;/includes&gt;(\s+)&lt;/fileSet&gt;"/>
@@ -530,7 +548,7 @@
                         <fileset dir="@{dir}/target/generated-sources/archetype">
                             <include name="**/archetype-metadata.xml"/>
                         </fileset>
-                    </replaceregexp>                	
+                    </replaceregexp>
                 </then>
             </if>
 

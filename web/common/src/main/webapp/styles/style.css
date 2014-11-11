@@ -52,7 +52,7 @@ h1, h2 {
     padding-top: 5px;
 }
 
-.well.form-horizontal .form-actions {
+.well.form-horizontal .form-group {
     margin-bottom: 0;
 }
 
@@ -60,7 +60,7 @@ h1, h2 {
     margin-bottom: 10px;
 }
 
-.btn-group .btn, .form-actions .btn {
+.btn-group .btn, .form-group .btn {
     margin-left: 5px;
 }
 

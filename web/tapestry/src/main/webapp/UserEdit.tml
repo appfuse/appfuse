@@ -1,6 +1,6 @@
 <html t:type="layout" title="message:userProfile.title"
       heading="message:userProfile.heading" menu="UserMenu"
-      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
       xmlns:p="tapestry:parameter">
 
 <t:userform t:id="edit"

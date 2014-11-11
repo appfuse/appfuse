@@ -1,7 +1,7 @@
 define("app/login", ["jquery", "t5/core/console"], function ($, console) {
 
-
     function init(spec) {
+        alert('init called!');
         // URLs
         var passwordHintUrl = spec.passwordHintUrl;
         var passwordResetUrl = spec.passwordResetUrl;
@@ -33,13 +33,11 @@ define("app/login", ["jquery", "t5/core/console"], function ($, console) {
             //event.preventDefault();
             saveUsername(this);
         });
-
-
     }
 
     function saveUsername(theForm) {
         console.log("Saving username in cookie");
-        $.cookie("username", theForm.j_username.value, { expires: 30, path: "/"});
+        $.cookie("username", theForm.j_username.value, {expires: 30, path: "/"});
     }
 
     return {

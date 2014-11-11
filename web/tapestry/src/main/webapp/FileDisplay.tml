@@ -1,6 +1,6 @@
 <html t:type="layout" title="display.title"
       heading="message:display.heading" menu="AdminMenu"
-      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
 
 <div class="col-md-10">
     <h2>${message:display.heading}</h2>

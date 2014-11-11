@@ -2,16 +2,16 @@ package org.appfuse.webapp.services;
 
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.ValueEncoder;
+import org.apache.tapestry5.annotations.Path;
 import org.apache.tapestry5.ioc.MappedConfiguration;
+import org.apache.tapestry5.ioc.Resource;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
-import org.apache.tapestry5.ioc.annotations.SubModule;
+import org.apache.tapestry5.ioc.annotations.ImportModule;
 import org.apache.tapestry5.ioc.annotations.Symbol;
-import org.apache.tapestry5.ioc.services.ApplicationDefaults;
-import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.apache.tapestry5.services.*;
-import org.apache.tapestry5.services.compatibility.Compatibility;
-import org.apache.tapestry5.services.compatibility.Trait;
+import org.apache.tapestry5.services.javascript.JavaScriptModuleConfiguration;
+import org.apache.tapestry5.services.javascript.ModuleManager;
 import org.apache.tapestry5.upload.services.UploadSymbols;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
@@ -32,7 +32,7 @@ import java.io.IOException;
  * @author Serge Eby
  * @version $Id: AppModule.java 5 2008-08-30 09:59:21Z serge.eby $
  */
-@SubModule({EnableJQueryModule.class})
+@ImportModule({EnableJQueryModule.class})
 public class AppModule {
 
     public static void bind(ServiceBinder binder) {
@@ -43,7 +43,7 @@ public class AppModule {
 
     public static void contributeApplicationDefaults(MappedConfiguration<String, String> configuration) {
         configuration.add(SymbolConstants.SUPPORTED_LOCALES,
-                "de,en,es,fr,it,ko,nl,no,pt_BR,pt,tr,zh_CN,zh_TW,en_US");
+            "de,en,es,fr,it,ko,nl,no,pt_BR,pt,tr,zh_CN,zh_TW,en_US");
 
         // Turn off GZip Compression since it causes issues with SiteMesh
         configuration.add(SymbolConstants.GZIP_COMPRESSION_ENABLED, "false");
@@ -72,20 +72,16 @@ public class AppModule {
 
     }
 
-
     @Contribute(ValueEncoderSource.class)
     public static void provideEncoders(
-            MappedConfiguration<Class, ValueEncoderFactory> configuration,
-            UserManager userManager,
-            RoleManager roleManager) {
+        MappedConfiguration<Class, ValueEncoderFactory> configuration,
+        UserManager userManager,
+        RoleManager roleManager) {
 
         contributeEncoder(configuration, User.class, new UserEncoder(userManager));
         contributeEncoder(configuration, Role.class, new RoleEncoder(roleManager));
         contributeEncoder(configuration, FileData.class, new FileDataEncoder());
-
-
     }
-
 
     private static <T> void contributeEncoder(MappedConfiguration<Class, ValueEncoderFactory> configuration,
                                               Class<T> clazz, final ValueEncoder<T> encoder) {
@@ -112,12 +108,12 @@ public class AppModule {
      * @return
      */
     public RequestExceptionHandler decorateRequestExceptionHandler(
-            final Logger logger,
-            final ResponseRenderer renderer,
-            final ComponentSource componentSource,
-            @Symbol(SymbolConstants.PRODUCTION_MODE)
-            boolean productionMode,
-            Object service) {
+        final Logger logger, final ResponseRenderer renderer,
+        final ComponentSource componentSource,
+        @Symbol(SymbolConstants.PRODUCTION_MODE)
+        boolean productionMode,
+        Object service) {
+
         if (!productionMode) {
             return null;
         }
@@ -132,5 +128,15 @@ public class AppModule {
         };
     }
 
+    public static void contributeClasspathAssetAliasManager(MappedConfiguration<String, String> configuration) {
+        configuration.add("webjars", "META-INF/resources/webjars");
+        configuration.add("modules", "META-INF/modules");
+    }
 
+    @Contribute(ModuleManager.class)
+    public static void setupModule(MappedConfiguration<String, Object> configuration,
+                                   @Path("META-INF/modules/app/login.js") Resource appLogin) {
+        configuration.add("app/login", new JavaScriptModuleConfiguration(appLogin)
+            .dependsOn("jquery").dependsOn("t5/core/console"));
+    }
 }

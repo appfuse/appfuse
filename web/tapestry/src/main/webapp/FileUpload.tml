@@ -1,5 +1,5 @@
 <html t:type="layout" title="message:upload.title" heading="message:upload.heading"
-      menu="AdminMenu" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+      menu="AdminMenu" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
 
 <div class="col-md-3">
     <h2>${message:upload.heading}</h2>

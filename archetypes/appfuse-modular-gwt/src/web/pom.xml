@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.14.v20131031</version>
+                <version>9.2.1.v20140609</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -129,7 +129,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
         	<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
@@ -143,7 +143,7 @@
 					<compileSourcesArtifacts>
 						<artifact>javax.validation:validation-api</artifact>
 						<artifact>org.hibernate:hibernate-validator</artifact>
-					</compileSourcesArtifacts>                    
+					</compileSourcesArtifacts>
                     <modules>
                         <module>${gwtModuleName}</module>
                     </modules>
@@ -261,7 +261,7 @@
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
-        
+
 		<!-- gwt dependencies -->
     	<dependency>
             <groupId>com.google.gwt</groupId>
@@ -278,7 +278,7 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>${json.version}</version>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>com.google.gwt.inject</groupId>
             <artifactId>gin</artifactId>
@@ -288,7 +288,7 @@
 			<groupId>com.github.gwtbootstrap</groupId>
 			<artifactId>gwt-bootstrap</artifactId>
 			<version>${gwtbootstrap.version}</version>
-		</dependency>        
+		</dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -313,7 +313,7 @@
             <artifactId>selenium-chrome-driver</artifactId>
             <version>${selenium.version}</version>
             <scope>test</scope>
-        </dependency>     
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -413,9 +413,9 @@
         	<id>gwtDebug</id>
         	<properties>
 				<gwt.draftCompile>true</gwt.draftCompile>
-            	<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>  				
+            	<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>
         	</properties>
-        </profile>           
+        </profile>
     </profiles>
 
     <reporting>

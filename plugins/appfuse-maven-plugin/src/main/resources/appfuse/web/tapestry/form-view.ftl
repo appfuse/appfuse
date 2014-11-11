@@ -1,7 +1,7 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 <html t:type="layout" title="message:${pojoNameLower}Detail.title"
           heading="message:${pojoNameLower}Detail.heading" menu="${pojo.shortName}Menu"
-          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
 
 <div class="col-sm-2">
     <h2>${'$'}{message:${pojoNameLower}Detail.heading}</h2>
@@ -9,7 +9,7 @@
 </div>
 
 <div class="col-sm-7">
-    <form t:id="${pojoNameLower}Form" class="well" clientValidation="submit" >
+    <form t:id="${pojoNameLower}Form" class="well" clientValidation="submit">
 
         <div class="t-beaneditor">
             <t:beaneditor t:id="${pojoNameLower}" object="${pojoNameLower}" exclude="${pojo.identifierProperty.name}"/>

@@ -29,8 +29,7 @@ import java.util.Map;
  * @version $Id: Login.java 5 2008-08-30 09:59:21Z serge.eby $
  */
 
-
-@Import(library = {"plugins/jquery.cookie.js"})
+@Import(library = {"plugins/jquery.cookie.js"}, module = "app/login")
 public class Login {
 
     @Inject
@@ -44,7 +43,6 @@ public class Login {
     @Symbol(SymbolConstants.CONTEXT_PATH)
     private String contextPath;
 
-
     @Inject
     private Request request;
 
@@ -57,29 +55,25 @@ public class Login {
     @Inject
     private PageRenderLinkSource pageRendererLinkSource;
 
-
     @Environmental
     private JavaScriptSupport javascriptSupport;
 
     @Property
     private String errorMessage;
 
-
     @Inject
     private Context context;
-
 
     @Log
     void onActivate(String loginError) {
         if ("error".equals(loginError)) {
             this.errorMessage = ((Exception) request
-                    .getSession(true)
-                    .getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION))
-                    .getMessage();
+                .getSession(true)
+                .getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION))
+                .getMessage();
             logger.error(String.format("Error while attempting to login: %s",
-                    errorMessage));
+                errorMessage));
         }
-
     }
 
     String onPassivate() {
@@ -90,19 +84,18 @@ public class Login {
         JSONObject spec = new JSONObject();
 
         String requiredUsernameError = messages.format("errors.required",
-                messages.get("label.username"));
+            messages.get("label.username"));
         String requiredPasswordError = messages.format("errors.required",
-                messages.get("label.password"));
+            messages.get("label.password"));
 
         spec.put("passwordHintUrl", createLink(PasswordHint.class))
             .put("passwordResetUrl", createLink(PasswordRecoveryToken.class))
             .put("requiredUsername", requiredUsernameError)
-             .put("requiredPassword", requiredPasswordError);
+            .put("requiredPassword", requiredPasswordError);
 
-        javascriptSupport.require("app/login").invoke("init").with(spec);
-
+        // For some reason, the line below causes JavaScript to fail to load (loading screen)
+        //javascriptSupport.require("app/login").invoke("init").with(spec);
     }
-
 
     public String getSpringSecurityUrl() {
         return contextPath + securityUrl;
@@ -132,9 +125,7 @@ public class Login {
         return messages.format("login.signup", link);
     }
 
-
     private String createLink(Class clazz) {
         return pageRendererLinkSource.createPageRenderLink(clazz).toAbsoluteURI();
     }
-
 }
