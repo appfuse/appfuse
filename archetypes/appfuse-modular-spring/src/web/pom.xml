@@ -208,7 +208,7 @@
         <dependency>
             <groupId>org.springmodules</groupId>
             <artifactId>spring-modules-validation</artifactId>
-            <version>${springmodules.validation.version}</version>
+            <version>${springmodules-validation.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>

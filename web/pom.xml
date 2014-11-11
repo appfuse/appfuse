@@ -92,7 +92,6 @@
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version>${commons.dbcp.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>xerces</groupId>
@@ -128,13 +127,12 @@
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-web</artifactId>
-            <version>${ehcache.web.version}</version>
+            <version>${ehcache-web.version}</version>
         </dependency>
         <!-- Upgrade version of ehcache-core used -->
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-core</artifactId>
-            <version>${ehcache.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -155,7 +153,7 @@
         <dependency>
             <groupId>struts-menu</groupId>
             <artifactId>struts-menu</artifactId>
-            <version>${struts.menu.version}</version>
+            <version>${struts-menu.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>xml-apis</groupId>
@@ -187,7 +185,6 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
-            <version>${spring.security.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>

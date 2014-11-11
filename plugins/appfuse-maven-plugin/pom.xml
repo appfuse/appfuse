@@ -120,12 +120,10 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>${commons.beanutils.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.archetype</groupId>
@@ -159,7 +157,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-search</artifactId>
-            <version>${hibernate.search.version}</version>
+            <version>${hibernate-search.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -274,22 +274,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
-                <optional>true</optional>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>${spring.version}</version>
+                <groupId>org.appfuse</groupId>
+                <artifactId>appfuse</artifactId>
+                <version>${appfuse.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>bootstrap</artifactId>
-                <version>${bootstrap.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -323,17 +312,14 @@
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>${commons.fileupload.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
         </dependency>
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
-            <version>${displaytag.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -344,19 +330,16 @@
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springmodules</groupId>
             <artifactId>spring-modules-validation</artifactId>
-            <version>${springmodules.validation.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
@@ -371,19 +354,16 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
-            <version>1.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
@@ -400,7 +380,6 @@
         <dependency>
             <groupId>org.subethamail</groupId>
             <artifactId>subethasmtp-wiser</artifactId>
-            <version>${wiser.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -530,7 +509,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
-                        <version>1.0.0</version>
                         <dependencies>
                             <!-- Upgrade HtmlUnit to support jQuery 1.9 -->
                             <dependency>
@@ -725,20 +703,9 @@
 
         <!-- Framework dependency versions -->
         <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
-        <bootstrap.version>3.3.0</bootstrap.version>
-        <commons.fileupload.version>1.3</commons.fileupload.version>
-        <commons.io.version>2.4</commons.io.version>
-        <displaytag.version>1.2</displaytag.version>
-        <spring.version>4.1.2.RELEASE</spring.version>
-        <springmodules.validation.version>0.8</springmodules.validation.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>
-        <mockito.version>1.9.5</mockito.version>
-        <jsp.version>2.1</jsp.version>
-        <junit.version>4.11</junit.version>
-        <servlet.version>3.1.0</servlet.version>
-        <wiser.version>1.2</wiser.version>
 
         <!-- WebTest default target -->
         <webtest.target>run-all-tests</webtest.target>
@@ -749,11 +716,6 @@
         <cargo.host>localhost</cargo.host>
         <cargo.port>8081</cargo.port>
         <cargo.wait>false</cargo.wait>
-
-        <!-- Jetty Cargo settings:
-        <cargo.container>jetty6x</cargo.container>
-        <cargo.container.url>http://dist.codehaus.org/jetty/jetty-6.1.21/jetty-6.1.21.zip</cargo.container.url>
-        -->
 
         <!-- Database settings -->
         <dbunit.dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dbunit.dataTypeFactoryName>

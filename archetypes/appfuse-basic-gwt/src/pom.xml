@@ -440,7 +440,7 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>${javax.validation.version}</version>
+            <version>${javax-validation.version}</version>
         </dependency>
         <dependency>
         	<groupId>org.hibernate</groupId>
@@ -777,7 +777,7 @@
         <json.version>20140107</json.version>
         <gin.version>2.1.2</gin.version>
         <gwtbootstrap.version>2.2.1.0</gwtbootstrap.version>
-        <javax.validation.version>1.0.0.GA</javax.validation.version>
+        <javax-validation.version>1.0.0.GA</javax-validation.version>
         <hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
 
         <!-- Testing dependency versions -->

@@ -109,13 +109,11 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.entitymanager.version}</version>
         </dependency>
         <!-- Upgrade Hibernate version -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
         </dependency>
         <!-- Enable EhCache support -->
         <dependency>
@@ -127,7 +125,6 @@
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-core</artifactId>
-            <version>${ehcache.version}</version>
         </dependency>
     </dependencies>
 </project>

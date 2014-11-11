@@ -383,7 +383,7 @@
         <dependency>
             <groupId>de.agilecoders.wicket</groupId>
             <artifactId>wicket-bootstrap-core</artifactId>
-            <version>${wicket.bootstrap.version}</version>
+            <version>${wicket-bootstrap.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.wicket</groupId>
@@ -394,7 +394,7 @@
         <dependency>
           <groupId>de.agilecoders.wicket.webjars</groupId>
           <artifactId>wicket-webjars</artifactId>
-          <version>${wicket.webjars.version}</version>
+          <version>${wicket-webjars.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -757,8 +757,8 @@
         <spring.version>4.1.2.RELEASE</spring.version>
         <wicket.version>6.18.0</wicket.version>
         <wicketstuff.version>6.17.0</wicketstuff.version>
-        <wicket.bootstrap.version>0.9.2</wicket.bootstrap.version>
-        <wicket.webjars.version>0.4.1</wicket.webjars.version>
+        <wicket-bootstrap.version>0.9.2</wicket-bootstrap.version>
+        <wicket-webjars.version>0.4.1</wicket-webjars.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>

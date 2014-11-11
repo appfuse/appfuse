@@ -325,13 +325,11 @@
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>${commons.fileupload.version}</version>
         </dependency>
         <!-- Upgrade commons-io used by commons-fileupload -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
         </dependency>
         <!-- Add Bootstrap via WebJars -->
         <dependency>
@@ -374,7 +372,7 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>${javax.validation.version}</version>
+            <version>${javax-validation.version}</version>
         </dependency>
         <dependency>
         	<groupId>org.hibernate</groupId>

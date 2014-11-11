@@ -268,7 +268,7 @@
         <dependency>
             <groupId>de.agilecoders.wicket</groupId>
             <artifactId>wicket-bootstrap-core</artifactId>
-            <version>${wicket.bootstrap.version}</version>
+            <version>${wicket-bootstrap.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.wicket</groupId>
@@ -279,7 +279,7 @@
         <dependency>
             <groupId>de.agilecoders.wicket.webjars</groupId>
             <artifactId>wicket-webjars</artifactId>
-            <version>${wicket.webjars.version}</version>
+            <version>${wicket-webjars.version}</version>
         </dependency>
         <dependency>
             <groupId>org.javassist</groupId>
