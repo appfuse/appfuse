@@ -9,15 +9,20 @@ import com.opensymphony.xwork2.util.LocalizedTextUtil;
 import com.opensymphony.xwork2.util.ValueStack;
 import com.opensymphony.xwork2.util.ValueStackFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 import org.appfuse.Constants;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 
 /**
@@ -25,18 +30,20 @@ import java.util.HashMap;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         locations = {"classpath:/applicationContext-resources.xml",
                 "classpath:/applicationContext-dao.xml",
                 "classpath:/applicationContext-service.xml",
                 "classpath*:/applicationContext.xml",
                 "classpath:**/applicationContext*.xml"})
-public abstract class BaseActionTestCase extends AbstractTransactionalJUnit4SpringContextTests {
-    /**
-     * Transient log to prevent session synchronization issues - children can use instance for logging.
-     */
-    protected transient final Log log = logger;
+@Transactional
+public abstract class BaseActionTestCase {
+    protected transient final Log log = LogFactory.getLog(BaseActionTestCase.class);
     private int smtpPort = 25250;
+
+    @Autowired
+    protected ApplicationContext applicationContext;
 
     @Before
     public void onSetUp() {
@@ -56,7 +63,7 @@ public abstract class BaseActionTestCase extends AbstractTransactionalJUnit4Spri
 
         ActionContext.getContext().setSession(new HashMap<String, Object>());
 
-        // change the port on the mailSender so it doesn't conflict with an 
+        // change the port on the mailSender so it doesn't conflict with an
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
         mailSender.setPort(getSmtpPort());

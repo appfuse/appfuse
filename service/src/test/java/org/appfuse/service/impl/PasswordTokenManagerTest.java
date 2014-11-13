@@ -7,22 +7,28 @@ import org.appfuse.service.UserManager;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.subethamail.wiser.Wiser;
 
-import static org.junit.Assert.assertTrue;
+import javax.transaction.Transactional;
 
+import static org.junit.Assert.*;
+
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
-        locations = {
-                "classpath:/applicationContext-resources.xml",
-                "classpath:/applicationContext-dao.xml",
-                "classpath:/applicationContext-service.xml",
-                "classpath:/applicationContext-test.xml" })
-public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringContextTests {
+    locations = {
+        "classpath:/applicationContext-resources.xml",
+        "classpath:/applicationContext-dao.xml",
+        "classpath:/applicationContext-service.xml",
+        "classpath:/applicationContext-test.xml"})
+@Transactional
+public class PasswordTokenManagerTest {
 
     protected transient final Log log = LogFactory.getLog(getClass());
     private int smtpPort = 25250;
@@ -32,9 +38,12 @@ public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringC
     private PasswordTokenManager passwordTokenManager;
 
     @Autowired
+    private ApplicationContext applicationContext;
+
+    @Autowired
     @Qualifier("userManager")
     public void setUserManager(UserManager userManager) {
-	this.userManager = userManager;
+        this.userManager = userManager;
     }
 
     @Autowired
@@ -58,8 +67,8 @@ public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringC
     public void testGenerateRecoveryToken() {
         final User user = userManager.getUserByUsername("user");
         final String token = passwordTokenManager.generateRecoveryToken(user);
-        Assert.assertNotNull(token);
-        Assert.assertTrue(passwordTokenManager.isRecoveryTokenValid(user, token));
+        assertNotNull(token);
+        assertTrue(passwordTokenManager.isRecoveryTokenValid(user, token));
     }
 
     @Test
@@ -68,8 +77,8 @@ public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringC
         final Integer version = user.getVersion();
 
         final String token = passwordTokenManager.generateRecoveryToken(user);
-        Assert.assertNotNull(token);
-        Assert.assertTrue(passwordTokenManager.isRecoveryTokenValid(user, token));
+        assertNotNull(token);
+        assertTrue(passwordTokenManager.isRecoveryTokenValid(user, token));
 
         // start SMTP Server
         final Wiser wiser = new Wiser();
@@ -81,8 +90,8 @@ public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringC
         wiser.stop();
         assertTrue(wiser.getMessages().size() == 1);
 
-        Assert.assertTrue(user.getVersion() > version);
-        Assert.assertFalse(passwordTokenManager.isRecoveryTokenValid(user, token));
+        assertTrue(user.getVersion() > version);
+        assertFalse(passwordTokenManager.isRecoveryTokenValid(user, token));
     }
 
 }

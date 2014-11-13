@@ -17,15 +17,19 @@ import org.apache.shale.test.mock.MockServletContext;
 import org.appfuse.Constants;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.ApplicationFactory;
 import javax.faces.component.UIViewRoot;
 import javax.faces.lifecycle.LifecycleFactory;
 import javax.faces.render.RenderKitFactory;
+import javax.transaction.Transactional;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -55,25 +59,18 @@ import java.util.Locale;
  * instance will also have been registered in the apppriate thread local
  * variable, to simulate what a servlet container would do.</p>
  * <p/>
- * <p><strong>WARNING</strong> - If you choose to subclass this class, be sure
- * your <code>onSetUp()</code> and <code>onTearDown()</code> methods call
- * <code>super.setUp()</code> and <code>super.tearDown()</code> respectively,
- * and that you implement your own <code>suite()</code> method that exposes
- * the test methods for your test case.</p>
- * <p/>
- * <p><strong>NOTE:</strong> This class is a copy of Shale's AbstractJsfTestCase,
- * except it extends Spring's AbstractTransactionalDataSourceSpringContextTests
- * instead of JUnit's TestCase.</p>
  */
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         locations = {"classpath:/applicationContext-resources.xml",
                 "classpath:/applicationContext-dao.xml",
                 "classpath:/applicationContext-service.xml",
                 "classpath*:/applicationContext.xml",
                 "classpath:**/applicationContext*.xml"})
-public abstract class BasePageTestCase extends AbstractTransactionalJUnit4SpringContextTests {
+@Transactional
+public abstract class BasePageTestCase {
     protected final Log log = LogFactory.getLog(getClass());
-    
+
     protected MockApplication application = null;
     protected MockServletConfig config = null;
     protected MockExternalContext externalContext = null;
@@ -91,13 +88,16 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
     private ClassLoader threadContextClassLoader = null;
     private static int smtpPort = 25250;
 
+    @Autowired
+    protected ApplicationContext applicationContext;
+
     /**
      * <p>Set up instance variables required by this test case.</p>
      */
     @Before
     public void onSetUp() {
         smtpPort = smtpPort + (int) (Math.random() * 100);
-        
+
         // Set up a new thread context class loader
         threadContextClassLoader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(new URLClassLoader(new URL[0],
@@ -105,7 +105,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
 
         // Set up Servlet API Objects
         servletContext = new MockServletContext();
-        
+
         config = new MockServletConfig(servletContext);
         session = new MockHttpSession();
         session.setServletContext(servletContext);
@@ -131,7 +131,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
         facesContextFactory = (MockFacesContextFactory) FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
         facesContext = (MockFacesContext)
                 facesContextFactory.getFacesContext(servletContext, request, response, lifecycle);
-        
+
         externalContext = (MockExternalContext) facesContext.getExternalContext();
         UIViewRoot root = new UIViewRoot();
         root.setViewId("/viewId");

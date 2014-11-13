@@ -3,6 +3,9 @@ package org.appfuse.dao;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
@@ -12,20 +15,25 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import javax.persistence.EntityManagerFactory;
+import javax.transaction.Transactional;
+
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.junit.AfterClass;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Base class for running DAO tests.
  * @author mraible
  */
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
     locations={"classpath:/applicationContext-resources.xml",
                "classpath:/applicationContext-dao.xml",
                "classpath*:/applicationContext.xml",
                "classpath:**/applicationContext*.xml"})
-public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringContextTests {
+@Transactional
+public abstract class BaseDaoTestCase {
     /**
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
      */
@@ -75,7 +83,8 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringC
     /**
      * Flush search indexes, to be done after a reindex() or reindexAll() operation
      */
-    public void flushSearchIndexes() {
+    @Autowired
+    public void flushSearchIndexes(ApplicationContext applicationContext) {
         EntityManagerFactory entityManagerFactory = (EntityManagerFactory) applicationContext.getBean("entityManagerFactory");
         FullTextEntityManager fullTextEntityMgr = Search.getFullTextEntityManager(entityManagerFactory.createEntityManager());
         fullTextEntityMgr.flushToIndexes();
