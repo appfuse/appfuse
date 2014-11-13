@@ -39,7 +39,7 @@ import java.util.HashMap;
                 "classpath:**/applicationContext*.xml"})
 @Transactional
 public abstract class BaseActionTestCase {
-    protected transient final Log log = LogFactory.getLog(BaseActionTestCase.class);
+    protected transient final Log log = LogFactory.getLog(getClass());
     private int smtpPort = 25250;
 
     @Autowired
