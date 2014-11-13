@@ -8,7 +8,6 @@
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>AppFuse GWT Application</name>
-    <url>http://www.mycompany.com</url>
 
     <prerequisites>
         <maven>3.1.0</maven>
@@ -71,8 +70,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -155,7 +154,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.1.v20140609</version>
+                <version>${jetty.version}</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -174,10 +173,18 @@
                     </filesets>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <forkCount>2C</forkCount>
+                    <reuseForks>true</reuseForks>
+                </configuration>
+            </plugin>
             <!-- will package a ready-to-run app regarding hibernate-search index location -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4</version>
                 <configuration>
                     <escapeString>\</escapeString>
                     <webResources>
@@ -223,11 +230,10 @@
                     </execution>
                 </executions>
             </plugin>
-
         	<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
-                <version>2.6.0</version>
+                <version>${gwt.version}</version>
                 <configuration>
                     <style>PRETTY</style>
                     <runTarget>/</runTarget>
@@ -247,7 +253,7 @@
                 <executions>
                     <execution>
                         <id>gwtcompile</id>
-                        <phase>prepare-package</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
@@ -346,15 +352,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
-                <optional>true</optional>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>${spring.version}</version>
+                <groupId>org.appfuse</groupId>
+                <artifactId>appfuse</artifactId>
+                <version>${appfuse.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -390,75 +390,62 @@
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>${commons.fileupload.version}</version>
+        </dependency>
+        <!-- Add Bootstrap via WebJars -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.version}</version>
-            <scope>provided</scope>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-datepicker</artifactId>
         </dependency>
 
 		<!-- gwt dependencies -->
     	<dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
-            <version>${gwt.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
-            <version>${gwt.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>${json.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt.inject</groupId>
             <artifactId>gin</artifactId>
-            <version>${gin.version}</version>
         </dependency>
 		<dependency>
 			<groupId>com.github.gwtbootstrap</groupId>
 			<artifactId>gwt-bootstrap</artifactId>
-			<version>${gwtbootstrap.version}</version>
 		</dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>${javax-validation.version}</version>
         </dependency>
         <dependency>
         	<groupId>org.hibernate</groupId>
         	<artifactId>hibernate-validator</artifactId>
-        	<version>${hibernate-validator.version}</version>
         </dependency>
 		<!-- /gwt dependencies -->
 
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -469,31 +456,18 @@
         <dependency>
             <groupId>org.subethamail</groupId>
             <artifactId>subethasmtp-wiser</artifactId>
-            <version>${wiser.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- Selenium web tests -->
 	    <dependency>
 	        <groupId>org.seleniumhq.selenium</groupId>
 	        <artifactId>selenium-firefox-driver</artifactId>
-	        <version>${selenium.version}</version>
 	        <scope>test</scope>
 	    </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
-            <version>${selenium.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -538,7 +512,7 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
                     <linkXRef>true</linkXRef>
-                    <targetJdk>1.6</targetJdk>
+                    <targetJdk>${java.version}</targetJdk>
                 </configuration>
                 <version>3.0.1</version>
             </plugin>
@@ -568,7 +542,7 @@
                                     <extractDir>${installDir}</extractDir>
                                 </zipUrlInstaller>
                                 <systemProperties>
-                                	<mail.port>25250</mail.port>
+                                    <mail.port>25250</mail.port>
                                 </systemProperties>
                             </container>
                             <configuration>
@@ -599,9 +573,8 @@
                         </executions>
                     </plugin>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
-						<version>2.12</version>
+						<version>2.17</version>
 						<executions>
 							<execution>
 								<id>default</id>
@@ -615,13 +588,13 @@
                            <systemPropertyVariables>
                                 <baseUrl>http://${cargo.host}:${cargo.port}/${project.build.finalName}/</baseUrl>
                                 <mail.port>25250</mail.port>
+                                <webdriver.chrome.driver>/usr/bin/chromium-browser</webdriver.chrome.driver>
                            </systemPropertyVariables>
                         </configuration>
 					</plugin>
                 </plugins>
             </build>
         </profile>
-
 
         <!-- ================= Production Settings Profile ================= -->
         <!-- Use "-P prod" when you want to use the settings in this profile -->
@@ -692,11 +665,11 @@
             <properties>
                 <dbunit.dataTypeFactoryName>org.dbunit.ext.oracle.OracleDataTypeFactory</dbunit.dataTypeFactoryName>
                 <dbunit.schema>SYSTEM</dbunit.schema> <!-- Make sure to capitalize the schema name -->
-                <hibernate.dialect>org.hibernate.dialect.Oracle9Dialect</hibernate.dialect>
+                <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
                 <jdbc.groupId>com.oracle</jdbc.groupId>
                 <jdbc.artifactId>ojdbc14</jdbc.artifactId>
                 <jdbc.version>10.2.0.2.0</jdbc.version>
-                <jdbc.driverClassName>oracle.jdbc.OracleDriver</jdbc.driverClassName>
+                <jdbc.driverClassName>oracle.jdbc.driver.OracleDriver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:oracle:thin:@localhost:1521:XE]]></jdbc.url>
                 <jdbc.username>system</jdbc.username>
                 <jdbc.password>system</jdbc.password>
@@ -766,28 +739,12 @@
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 		<gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>
 
-        <!-- Framework dependency versions -->
+        <!-- Framework/Plugin versions -->
         <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
-        <bootstrap.version>2.3.2</bootstrap.version>
-        <commons.fileupload.version>1.3</commons.fileupload.version>
-        <commons.io.version>2.4</commons.io.version>
-        <displaytag.version>1.2</displaytag.version>
-        <spring.version>4.1.2.RELEASE</spring.version>
-        <gwt.version>2.6.0</gwt.version>
-        <json.version>20140107</json.version>
-        <gin.version>2.1.2</gin.version>
-        <gwtbootstrap.version>2.2.1.0</gwtbootstrap.version>
-        <javax-validation.version>1.0.0.GA</javax-validation.version>
-        <hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
-
-        <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>
-        <mockito.version>1.9.5</mockito.version>
-        <jsp.version>2.1</jsp.version>
-        <junit.version>4.11</junit.version>
-        <servlet.version>3.1.0</servlet.version>
-        <wiser.version>1.2</wiser.version>
-        <selenium.version>2.37.1</selenium.version>
+        <gwt.version>2.6.0</gwt.version>
+        <java.version>1.7</java.version>
+        <jetty.version>9.2.1.v20140609</jetty.version>
 
         <!-- WebTest default target -->
         <webtest.target>run-all-tests</webtest.target>
@@ -800,11 +757,6 @@
         <cargo.wait>false</cargo.wait>
         <skipITs>true</skipITs>
 
-        <!-- Jetty Cargo settings:
-        <cargo.container>jetty6x</cargo.container>
-        <cargo.container.url>http://dist.codehaus.org/jetty/jetty-6.1.21/jetty-6.1.21.zip</cargo.container.url>
-        -->
-
         <!-- Database settings -->
         <dbunit.dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dbunit.dataTypeFactoryName>
         <dbunit.operation.type>CLEAN_INSERT</dbunit.operation.type>
@@ -815,7 +767,7 @@
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url><![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
-        <jdbc.password></jdbc.password>
+        <jdbc.password/>
         <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
     </properties>
 </project>

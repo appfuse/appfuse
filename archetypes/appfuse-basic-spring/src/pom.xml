@@ -8,7 +8,6 @@
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>AppFuse Spring MVC Application</name>
-    <url>http://www.mycompany.com</url>
 
     <prerequisites>
         <maven>3.1.0</maven>
@@ -71,8 +70,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -155,7 +154,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.1.v20140609</version>
+                <version>${jetty.version}</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -174,10 +173,18 @@
                     </filesets>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <forkCount>2C</forkCount>
+                    <reuseForks>true</reuseForks>
+                </configuration>
+            </plugin>
             <!-- will package a ready-to-run app regarding hibernate-search index location -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4</version>
                 <configuration>
                     <escapeString>\</escapeString>
                     <webResources>
@@ -314,18 +321,8 @@
             <artifactId>commons-fileupload</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-        <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>jcl104-over-slf4j</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -340,16 +337,6 @@
         <dependency>
             <groupId>org.springmodules</groupId>
             <artifactId>spring-modules-validation</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -364,13 +351,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <artifactId>hamcrest-core</artifactId>
-                    <groupId>org.hamcrest</groupId>
-                </exclusion>
-            </exclusions>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -381,16 +362,6 @@
             <groupId>org.subethamail</groupId>
             <artifactId>subethasmtp-wiser</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- Add Bootstrap via WebJars -->
         <dependency>
@@ -400,7 +371,6 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
-            <version>1.2.0</version>
         </dependency>
     </dependencies>
 
@@ -444,7 +414,7 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
                     <linkXRef>true</linkXRef>
-                    <targetJdk>1.6</targetJdk>
+                    <targetJdk>${java.version}</targetJdk>
                 </configuration>
                 <version>3.0.1</version>
             </plugin>
@@ -637,11 +607,11 @@
             <properties>
                 <dbunit.dataTypeFactoryName>org.dbunit.ext.oracle.OracleDataTypeFactory</dbunit.dataTypeFactoryName>
                 <dbunit.schema>SYSTEM</dbunit.schema> <!-- Make sure to capitalize the schema name -->
-                <hibernate.dialect>org.hibernate.dialect.Oracle9Dialect</hibernate.dialect>
+                <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
                 <jdbc.groupId>com.oracle</jdbc.groupId>
                 <jdbc.artifactId>ojdbc14</jdbc.artifactId>
                 <jdbc.version>10.2.0.2.0</jdbc.version>
-                <jdbc.driverClassName>oracle.jdbc.OracleDriver</jdbc.driverClassName>
+                <jdbc.driverClassName>oracle.jdbc.driver.OracleDriver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:oracle:thin:@localhost:1521:XE]]></jdbc.url>
                 <jdbc.username>system</jdbc.username>
                 <jdbc.password>system</jdbc.password>
@@ -702,11 +672,11 @@
         <amp.fullSource>false</amp.fullSource>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
-        <!-- Framework dependency versions -->
+        <!-- Framework/Plugin versions -->
         <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
-
-        <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>
+        <java.version>1.7</java.version>
+        <jetty.version>9.2.1.v20140609</jetty.version>
 
         <!-- WebTest default target -->
         <webtest.target>run-all-tests</webtest.target>

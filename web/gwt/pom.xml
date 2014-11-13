@@ -37,28 +37,14 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/web/gwt</url>
-      <tag>HEAD</tag>
+        <tag>HEAD</tag>
     </scm>
-
-	<repositories>
-		<repository>
-			<id>sonatype</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-	</repositories>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
-                <version>1.0-beta-3</version>
                 <configuration>
                     <dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
                     <driver>${jdbc.driverClassName}</driver>
@@ -116,7 +102,6 @@
             <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
                 <configuration>
                     <filesets>
                         <fileset>
@@ -127,7 +112,6 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
                 <configuration>
                     <!-- will package a ready-to-run app regarding hibernate-search index location -->
                     <escapeString>\</escapeString>
@@ -144,7 +128,7 @@
                         <resource>
                             <directory>../common/src/main/webapp</directory>
                             <excludes>
-                            	<exclude>index.jsp</exclude>
+                                <exclude>index.jsp</exclude>
                             </excludes>
                         </resource>
                         <resource>
@@ -162,27 +146,26 @@
                     </archive>
                 </configuration>
             </plugin>
-        	<plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
-                <version>2.6.0</version>
                 <configuration>
                     <style>OBF</style>
                     <runTarget>/</runTarget>
-             		<noServer>true</noServer>
-             		<debugPort>8001</debugPort>
-					<debugSuspend>false</debugSuspend>
-					<compileSourcesArtifacts>
-						<artifact>javax.validation:validation-api</artifact>
-						<artifact>org.hibernate:hibernate-validator</artifact>
-					</compileSourcesArtifacts>
+                    <noServer>true</noServer>
+                    <debugPort>8001</debugPort>
+                    <debugSuspend>false</debugSuspend>
+                    <compileSourcesArtifacts>
+                        <artifact>javax.validation:validation-api</artifact>
+                        <artifact>org.hibernate:hibernate-validator</artifact>
+                    </compileSourcesArtifacts>
                     <modules>
                         <module>${gwtModuleName}</module>
                     </modules>
-                   	<i18nMessagesBundle>${project.groupId}.webapp.client.application.ApplicationResources</i18nMessagesBundle>
-                   	<generateDirectory>${basedir}/src/main/java</generateDirectory>
-                   	<persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
-                   	<fragmentCount>1</fragmentCount><!-- enable fragment merging, for less tiny split  -->
+                    <i18nMessagesBundle>${project.groupId}.webapp.client.application.ApplicationResources</i18nMessagesBundle>
+                    <generateDirectory>${basedir}/src/main/java</generateDirectory>
+                    <persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
+                    <fragmentCount>1</fragmentCount><!-- enable fragment merging, for less tiny split  -->
                 </configuration>
                 <executions>
                     <execution>
@@ -206,43 +189,43 @@
                     </dependency>
                 </dependencies>
             </plugin>
-	        <!-- Escape single quotes so gwt:i18n MessageFormat can parse the properties file -->
-	        <!-- FIXME: it should be improved to match only apostrophes alone and not 'two matching' single quotes -->
-	        <!-- http://docs.oracle.com/javase/6/docs/api/java/text/MessageFormat.html -->
-			<plugin>
-				<groupId>com.google.code.maven-replacer-plugin</groupId>
-				<artifactId>replacer</artifactId>
-				<version>1.5.2</version>
-				<executions>
-					<execution>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>replace</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<basedir>${project.build.outputDirectory}</basedir>
-					<includes>
-                    	<include>org/appfuse/webapp/client/application/ApplicationResources*.properties</include>
-	                </includes>
-					<replacements>
-						<replacement>
-							<token>'</token>
-							<value>''</value>
-						</replacement>
-						<replacement>
-							<token>javax.faces</token>
-							<value>#javax.faces</value>
-						</replacement>
-						<replacement>
-							<token>null=</token>
-							<value>#null=</value>
-						</replacement>
-					</replacements>
-				</configuration>
-			</plugin>
-        	<plugin>
+            <!-- Escape single quotes so gwt:i18n MessageFormat can parse the properties file -->
+            <!-- FIXME: it should be improved to match only apostrophes alone and not 'two matching' single quotes -->
+            <!-- http://docs.oracle.com/javase/6/docs/api/java/text/MessageFormat.html -->
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.2</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <basedir>${project.build.outputDirectory}</basedir>
+                    <includes>
+                        <include>org/appfuse/webapp/client/application/ApplicationResources*.properties</include>
+                    </includes>
+                    <replacements>
+                        <replacement>
+                            <token>'</token>
+                            <value>''</value>
+                        </replacement>
+                        <replacement>
+                            <token>javax.faces</token>
+                            <value>#javax.faces</value>
+                        </replacement>
+                        <replacement>
+                            <token>null=</token>
+                            <value>#null=</value>
+                        </replacement>
+                    </replacements>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2</version>
@@ -272,14 +255,14 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
-			<resource>
-				<directory>../common/src/main/resources</directory>
-        		<includes>
-          			<include>ApplicationResources*.properties</include>
-          		</includes>
-          		<targetPath>${project.build.outputDirectory}/org/appfuse/webapp/client/application</targetPath>
-				<filtering>true</filtering>
-			</resource>
+            <resource>
+                <directory>../common/src/main/resources</directory>
+                <includes>
+                    <include>ApplicationResources*.properties</include>
+                </includes>
+                <targetPath>${project.build.outputDirectory}/org/appfuse/webapp/client/application</targetPath>
+                <filtering>true</filtering>
+            </resource>
         </resources>
         <testResources>
             <testResource>
@@ -326,11 +309,6 @@
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
         </dependency>
-        <!-- Upgrade commons-io used by commons-fileupload -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
         <!-- Add Bootstrap via WebJars -->
         <dependency>
             <groupId>org.webjars</groupId>
@@ -339,61 +317,50 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
-            <version>1.2.0</version>
         </dependency>
 
-		<!-- gwt dependencies -->
-    	<dependency>
+        <!-- gwt dependencies -->
+        <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
-            <version>${gwt.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
-            <version>${gwt.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>${json.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt.inject</groupId>
             <artifactId>gin</artifactId>
-            <version>${gin.version}</version>
         </dependency>
-		<dependency>
-			<groupId>com.github.gwtbootstrap</groupId>
-			<artifactId>gwt-bootstrap</artifactId>
-			<version>${gwtbootstrap.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.github.gwtbootstrap</groupId>
+            <artifactId>gwt-bootstrap</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>${javax-validation.version}</version>
         </dependency>
         <dependency>
-        	<groupId>org.hibernate</groupId>
-        	<artifactId>hibernate-validator</artifactId>
-        	<version>${hibernate-validator.version}</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
         </dependency>
 
         <!-- Selenium web tests -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-firefox-driver</artifactId>
-            <version>${selenium.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
-            <version>${selenium.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <profiles>
@@ -404,7 +371,6 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>${cargo.version}</version>
                         <configuration>
                             <wait>${cargo.wait}</wait>
                             <container>
@@ -415,7 +381,7 @@
                                     <extractDir>${installDir}</extractDir>
                                 </zipUrlInstaller>
                                 <systemProperties>
-                                	<mail.port>25250</mail.port>
+                                    <mail.port>25250</mail.port>
                                 </systemProperties>
                             </container>
                             <configuration>
@@ -445,54 +411,51 @@
                             </execution>
                         </executions>
                     </plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-failsafe-plugin</artifactId>
-						<version>2.12</version>
-						<executions>
-							<execution>
-								<id>default</id>
-								<goals>
-									<goal>integration-test</goal>
-									<goal>verify</goal>
-								</goals>
-							</execution>
-						</executions>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default</id>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                         <configuration>
-                           <systemPropertyVariables>
+                            <systemPropertyVariables>
                                 <baseUrl>http://${cargo.host}:${cargo.port}/${project.build.finalName}/</baseUrl>
                                 <mail.port>25250</mail.port>
                                 <webdriver.chrome.driver>/usr/bin/chromium-browser</webdriver.chrome.driver>
-                           </systemPropertyVariables>
+                            </systemPropertyVariables>
                         </configuration>
-					</plugin>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
 
         <!-- GWT Development/Debug Profile -->
         <profile>
-        	<id>gwtDebug</id>
-        	<properties>
-				<gwt.draftCompile>true</gwt.draftCompile>
-				<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>
-        	</properties>
+            <id>gwtDebug</id>
+            <properties>
+                <gwt.draftCompile>true</gwt.draftCompile>
+                <gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>
+            </properties>
         </profile>
     </profiles>
 
-	<properties>
-		<gwtModuleSuffix></gwtModuleSuffix>
-		<gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>
-	</properties>
+    <properties>
+        <gwtModuleSuffix></gwtModuleSuffix>
+        <gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>
+    </properties>
 
     <reporting>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>webtest-maven-plugin</artifactId>
-                <version>1.0.0</version>
             </plugin>
         </plugins>
     </reporting>
 </project>
-

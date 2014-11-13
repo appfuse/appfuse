@@ -14,7 +14,8 @@
     limitations under the License.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -36,8 +37,8 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/web/tapestry</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <build>
         <plugins>
@@ -153,23 +154,23 @@
                             <tasks>
                                 <echo>Copying i18n files...</echo>
                                 <copy todir="src/main/webapp/WEB-INF" overwrite="true">
-                                    <globmapper from="ApplicationResources*" to="app*" />
-                                    <fileset dir="../common/src/main/resources" includes="ApplicationResources*" />
+                                    <globmapper from="ApplicationResources*" to="app*"/>
+                                    <fileset dir="../common/src/main/resources" includes="ApplicationResources*"/>
                                     <!-- Tapestry specific customizations -->
                                     <filterset begintoken="{" endtoken="}">
                                         <!-- Convert {i} to %s -->
-                                        <filter token="0" value="%1$s" />
-                                        <filter token="1" value="%2$s" />
-                                        <filter token="2" value="%3$s" />
-                                        <filter token="3" value="%4$s" />
-                                        <filter token="4" value="%5$s" />
-                                        <filter token="5" value="%6$s" />
-                                        <filter token="6" value="%7$s" />
+                                        <filter token="0" value="%1$s"/>
+                                        <filter token="1" value="%2$s"/>
+                                        <filter token="2" value="%3$s"/>
+                                        <filter token="3" value="%4$s"/>
+                                        <filter token="4" value="%5$s"/>
+                                        <filter token="5" value="%6$s"/>
+                                        <filter token="6" value="%7$s"/>
                                     </filterset>
                                     <filterset begintoken="${" endtoken="}">
                                         <!-- Tapestry interpret these as symbols -->
-                                        <filter token="pom.version" value="${project.version}" />
-                                        <filter token="copyright.year" value="${copyright.year}" />
+                                        <filter token="pom.version" value="${project.version}"/>
+                                        <filter token="copyright.year" value="${copyright.year}"/>
                                     </filterset>
                                 </copy>
                             </tasks>
@@ -246,65 +247,23 @@
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-core</artifactId>
-            <version>${tapestry.version}</version>
-            <!-- Exclude dependencies to upgrade to log4j2 -->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
-            <version>${tapestry.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-upload</artifactId>
-            <version>${tapestry.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-webresources</artifactId>
-            <version>${tapestry.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-test</artifactId>
-            <version>${tapestry.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.seleniumhq.selenium.client-drivers</groupId>
-                    <artifactId>selenium-java-client-driver</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.seleniumhq.selenium.server</groupId>
-                    <artifactId>selenium-server</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.seleniumhq.selenium.server</groupId>
-                    <artifactId>selenium-server-coreless</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.testng</groupId>
-                    <artifactId>testng</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty.orbit</groupId>
-                    <artifactId>javax.servlet</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- Add Bootstrap via WebJars -->
         <dependency>
@@ -314,12 +273,10 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
-            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
-            <version>1.4.01</version>
         </dependency>
     </dependencies>
 
@@ -331,7 +288,6 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>${cargo.version}</version>
                         <configuration>
                             <wait>${cargo.wait}</wait>
                             <container>
@@ -372,7 +328,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
-                        <version>1.0.0</version>
                         <dependencies>
                             <!-- Upgrade HtmlUnit to support jQuery 1.9 -->
                             <dependency>
@@ -432,4 +387,3 @@
         </profile>
     </profiles>
 </project>
-

@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.1.v20140609</version>
+                <version>${jetty.version}</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -83,7 +83,7 @@
             <!-- will package a ready-to-run app regarding hibernate-search index location -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4</version>
                 <configuration>
                     <escapeString>\</escapeString>
                     <webResources>
@@ -129,11 +129,10 @@
                     </execution>
                 </executions>
             </plugin>
-
         	<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
-                <version>2.6.0</version>
+                <version>${gwt.version}</version>
                 <configuration>
                     <style>PRETTY</style>
                     <runTarget>/</runTarget>
@@ -153,7 +152,7 @@
                 <executions>
                     <execution>
                         <id>gwtcompile</id>
-                        <phase>prepare-package</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
@@ -242,23 +241,15 @@
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>${commons.fileupload.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -266,38 +257,31 @@
     	<dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
-            <version>${gwt.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
-            <version>${gwt.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>${json.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt.inject</groupId>
             <artifactId>gin</artifactId>
-            <version>${gin.version}</version>
         </dependency>
 		<dependency>
 			<groupId>com.github.gwtbootstrap</groupId>
 			<artifactId>gwt-bootstrap</artifactId>
-			<version>${gwtbootstrap.version}</version>
 		</dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>${javax-validation.version}</version>
         </dependency>
         <dependency>
         	<groupId>org.hibernate</groupId>
         	<artifactId>hibernate-validator</artifactId>
-        	<version>${hibernate-validator.version}</version>
         </dependency>
 		<!-- /gwt dependencies -->
 
@@ -305,13 +289,11 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-firefox-driver</artifactId>
-            <version>${selenium.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
-            <version>${selenium.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -335,7 +317,7 @@
                                     <extractDir>${installDir}</extractDir>
                                 </zipUrlInstaller>
                                 <systemProperties>
-                                	<mail.port>25250</mail.port>
+                                    <mail.port>25250</mail.port>
                                 </systemProperties>
                             </container>
                             <configuration>
@@ -366,9 +348,7 @@
                         </executions>
                     </plugin>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
-						<version>2.12</version>
 						<executions>
 							<execution>
 								<id>default</id>
@@ -382,6 +362,7 @@
                            <systemPropertyVariables>
                                 <baseUrl>http://${cargo.host}:${cargo.port}/${project.build.finalName}/</baseUrl>
                                 <mail.port>25250</mail.port>
+                                <webdriver.chrome.driver>/usr/bin/chromium-browser</webdriver.chrome.driver>
                            </systemPropertyVariables>
                         </configuration>
 					</plugin>
@@ -413,13 +394,8 @@
         	<id>gwtDebug</id>
         	<properties>
 				<gwt.draftCompile>true</gwt.draftCompile>
-            	<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>
+				<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>
         	</properties>
         </profile>
     </profiles>
-
-    <reporting>
-        <plugins>
-        </plugins>
-    </reporting>
 </project>

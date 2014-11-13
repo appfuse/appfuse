@@ -35,13 +35,11 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/archetypes/appfuse-modular-spring
-        </connection>
-        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/archetypes/appfuse-modular-spring
-        </developerConnection>
+        <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
+        <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/archetypes/appfuse-modular-spring</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <build>
         <plugins>

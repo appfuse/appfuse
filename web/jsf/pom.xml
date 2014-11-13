@@ -36,8 +36,8 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/web/jsf</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <build>
         <plugins>
@@ -211,60 +211,45 @@
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
-            <version>${jsf.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
-            <version>${jsf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>${primefaces.version}</version>
         </dependency>
         <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>1.0.10</version>
         </dependency>
         <dependency>
             <groupId>com.ocpsoft</groupId>
             <artifactId>prettyfaces-jsf2</artifactId>
-            <version>${prettyfaces.version}</version>
         </dependency>
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
-            <version>${omnifaces.version}</version>
-        </dependency>
-        <!-- Upgrade version of commons-io used -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.shale</groupId>
             <artifactId>shale-test</artifactId>
-            <version>${shale.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
-            <version>${el.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- Add Bootstrap via WebJars -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>${bootstrap.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
-            <version>1.2.0</version>
         </dependency>
     </dependencies>
 
@@ -388,4 +373,3 @@
         </plugins>
     </reporting>
 </project>
-

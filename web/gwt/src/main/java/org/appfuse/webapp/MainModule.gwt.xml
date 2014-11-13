@@ -2,7 +2,6 @@
 <module rename-to="script">
 	<inherits name="org.appfuse.webapp.BaseModule"/>
 
-
 	<!-- Logging Configuration -->
 	<set-property name="gwt.logging.enabled" value="TRUE"/>
 	<set-property name="gwt.logging.logLevel" value="INFO"/>
@@ -14,18 +13,17 @@
 	<set-property name="gwt.logging.systemHandler" value="ENABLED"/>
 	<set-property name="gwt.logging.simpleRemoteHandler" value="DISABLED"/>
 
-
-
 	<!-- Uncomment if you are enabling server side deobfuscation of StackTraces
 		<set-property name="compiler.emulatedStack" value="true" />
 		<set-configuration-property name="compiler.emulatedStack.recordLineNumbers" value="true" />
 		<set-configuration-property name="compiler.emulatedStack.recordFileNames" value="true" />
 		-->
 
-	<extend-property name="locale" values="ca"/>
-	<extend-property name="locale" values="de"/>
+    <!-- Uncomment the locales that you need. -->
+	<!--<extend-property name="locale" values="ca"/>
+	<extend-property name="locale" values="de"/>-->
 	<extend-property name="locale" values="en"/>
-	<extend-property name="locale" values="es"/>
+	<!--<extend-property name="locale" values="es"/>
 	<extend-property name="locale" values="fr"/>
 	<extend-property name="locale" values="it"/>
 	<extend-property name="locale" values="ko"/>
@@ -37,6 +35,6 @@
 	<extend-property name="locale" values="tr"/>
 	<extend-property name="locale" values="zh_CN"/>
 	<extend-property name="locale" values="zh"/>
-	<extend-property name="locale" values="zh_TW"/>
+	<extend-property name="locale" values="zh_TW"/>-->
 
 </module>

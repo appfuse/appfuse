@@ -36,8 +36,8 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/web/struts</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <build>
         <plugins>
@@ -232,54 +232,31 @@
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
-            <version>${displaytag.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
-            <version>${struts.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-convention-plugin</artifactId>
-            <version>${struts.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-dojo-plugin</artifactId>
-            <version>${struts.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-spring-plugin</artifactId>
-            <version>${struts.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-        </dependency>
-        <!-- Upgrade version of commons-io used -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
         </dependency>
         <!-- Add Bootstrap via WebJars -->
         <dependency>
@@ -289,7 +266,6 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
-            <version>1.2.0</version>
         </dependency>
     </dependencies>
 
@@ -301,7 +277,6 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>${cargo.version}</version>
                         <configuration>
                             <wait>${cargo.wait}</wait>
                             <container>
@@ -342,7 +317,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
-                        <version>1.0.0</version>
                         <dependencies>
                             <!-- Upgrade HtmlUnit to support jQuery 1.9 -->
                             <dependency>
@@ -407,9 +381,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>webtest-maven-plugin</artifactId>
-                <version>1.0.0</version>
             </plugin>
         </plugins>
     </reporting>
 </project>
-

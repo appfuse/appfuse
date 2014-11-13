@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.1.v20140609</version>
+                <version>${jetty.version}</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -80,10 +80,18 @@
                     </filesets>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <forkCount>2C</forkCount>
+                    <reuseForks>true</reuseForks>
+                </configuration>
+            </plugin>
             <!-- will package a ready-to-run app regarding hibernate-search index location -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4</version>
                 <configuration>
                     <escapeString>\</escapeString>
                     <webResources>
@@ -140,23 +148,23 @@
                             <tasks>
                                 <echo>Copying i18n files...</echo>
                                 <copy todir="src/main/webapp/WEB-INF" overwrite="true">
-                                    <globmapper from="ApplicationResources*" to="app*" />
-                                    <fileset dir="${project.build.outputDirectory}" includes="ApplicationResources*" />
+                                    <globmapper from="ApplicationResources*" to="app*"/>
+                                    <fileset dir="${project.build.outputDirectory}" includes="ApplicationResources*"/>
                                     <!-- Tapestry specific customizations -->
                                     <filterset begintoken="{" endtoken="}">
-                                       <!-- Convert {i} to %s -->
-                                        <filter token="0" value="%1$s" />
-                                        <filter token="1" value="%2$s" />
-                                        <filter token="2" value="%3$s" />
-                                        <filter token="3" value="%4$s" />
-                                        <filter token="4" value="%5$s" />
-                                        <filter token="5" value="%6$s" />
-                                        <filter token="6" value="%7$s" />
+                                        <!-- Convert {i} to %s -->
+                                        <filter token="0" value="%1$s"/>
+                                        <filter token="1" value="%2$s"/>
+                                        <filter token="2" value="%3$s"/>
+                                        <filter token="3" value="%4$s"/>
+                                        <filter token="4" value="%5$s"/>
+                                        <filter token="5" value="%6$s"/>
+                                        <filter token="6" value="%7$s"/>
                                     </filterset>
                                     <filterset begintoken="${" endtoken="}">
-                                       <!-- Tapestry interpret these as symbols -->
-                                        <filter token="pom.version" value="${project.version}" />
-                                        <filter token="copyright.year" value="${copyright.year}" />
+                                        <!-- Tapestry interpret these as symbols -->
+                                        <filter token="pom.version" value="${project.version}"/>
+                                        <filter token="copyright.year" value="${copyright.year}"/>
                                     </filterset>
                                 </copy>
                             </tasks>
@@ -220,66 +228,33 @@
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-core</artifactId>
-            <version>${tapestry.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
-            <version>${tapestry.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-upload</artifactId>
-            <version>${tapestry.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-webresources</artifactId>
-            <version>${tapestry.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-test</artifactId>
-            <version>${tapestry.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.seleniumhq.selenium.client-drivers</groupId>
-                    <artifactId>selenium-java-client-driver</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.seleniumhq.selenium.server</groupId>
-                    <artifactId>selenium-server</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.seleniumhq.selenium.server</groupId>
-                    <artifactId>selenium-server-coreless</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.testng</groupId>
-                    <artifactId>testng</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty.orbit</groupId>
-                    <artifactId>javax.servlet</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- Add Bootstrap via WebJars -->
         <dependency>
@@ -289,7 +264,6 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
-            <version>1.2.0</version>
         </dependency>
     </dependencies>
 

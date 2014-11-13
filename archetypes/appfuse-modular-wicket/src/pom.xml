@@ -8,7 +8,6 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>AppFuse Modular Application</name>
-    <url>http://www.mycompany.com</url>
 
     <prerequisites>
         <maven>3.1.0</maven>
@@ -71,8 +70,16 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <forkCount>2C</forkCount>
+                    <reuseForks>true</reuseForks>
                 </configuration>
             </plugin>
         </plugins>
@@ -107,22 +114,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>${spring.version}</version>
+                <groupId>org.appfuse</groupId>
+                <artifactId>appfuse</artifactId>
+                <version>${appfuse.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>bootstrap</artifactId>
-                <version>${bootstrap.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -136,13 +132,16 @@
        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -153,18 +152,7 @@
         <dependency>
             <groupId>org.subethamail</groupId>
             <artifactId>subethasmtp-wiser</artifactId>
-            <version>${wiser.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
@@ -213,7 +201,7 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
                     <linkXRef>true</linkXRef>
-                    <targetJdk>1.6</targetJdk>
+                    <targetJdk>${java.version}</targetJdk>
                 </configuration>
                 <version>3.0.1</version>
             </plugin>
@@ -275,11 +263,11 @@
             <properties>
                 <dbunit.dataTypeFactoryName>org.dbunit.ext.oracle.OracleDataTypeFactory</dbunit.dataTypeFactoryName>
                 <dbunit.schema>SYSTEM</dbunit.schema> <!-- Make sure to capitalize the schema name -->
-                <hibernate.dialect>org.hibernate.dialect.Oracle9Dialect</hibernate.dialect>
+                <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
                 <jdbc.groupId>com.oracle</jdbc.groupId>
                 <jdbc.artifactId>ojdbc14</jdbc.artifactId>
                 <jdbc.version>10.2.0.2.0</jdbc.version>
-                <jdbc.driverClassName>oracle.jdbc.OracleDriver</jdbc.driverClassName>
+                <jdbc.driverClassName>oracle.jdbc.driver.OracleDriver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:oracle:thin:@localhost:1521:XE]]></jdbc.url>
                 <jdbc.username>system</jdbc.username>
                 <jdbc.password>system</jdbc.password>
@@ -340,22 +328,11 @@
         <amp.fullSource>false</amp.fullSource>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
-        <!-- Framework dependency versions -->
+        <!-- Framework/Plugin versions -->
         <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
-        <bootstrap.version>3.3.0</bootstrap.version>
-        <spring.version>4.1.2.RELEASE</spring.version>
-        <wicket.version>6.18.0</wicket.version>
-        <wicketstuff.version>6.17.0</wicketstuff.version>
-        <wicket-bootstrap.version>0.9.2</wicket-bootstrap.version>
-        <wicket-webjars.version>0.4.1</wicket-webjars.version>
-
-        <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>
-        <mockito.version>1.9.5</mockito.version>
-        <jsp.version>2.1</jsp.version>
-        <junit.version>4.11</junit.version>
-        <servlet.version>3.1.0</servlet.version>
-        <wiser.version>1.2</wiser.version>
+        <java.version>1.7</java.version>
+        <jetty.version>9.2.1.v20140609</jetty.version>
 
         <!-- WebTest default target -->
         <webtest.target>run-all-tests</webtest.target>
@@ -366,11 +343,6 @@
         <cargo.host>localhost</cargo.host>
         <cargo.port>8081</cargo.port>
         <cargo.wait>false</cargo.wait>
-
-        <!-- Jetty Cargo settings:
-        <cargo.container>jetty6x</cargo.container>
-        <cargo.container.url>http://dist.codehaus.org/jetty/jetty-6.1.21/jetty-6.1.21.zip</cargo.container.url>
-        -->
 
         <!-- Database settings -->
         <dbunit.dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dbunit.dataTypeFactoryName>

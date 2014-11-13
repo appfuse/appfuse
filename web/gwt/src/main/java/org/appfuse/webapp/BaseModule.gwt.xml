@@ -11,10 +11,9 @@
 	<inherits name="com.github.gwtbootstrap.BootstrapNoResources" />
 	<inherits name="org.hibernate.validator.HibernateValidator" />
 
-
 	<!--UiBinder Configuration -->
 	<set-configuration-property name="UiBinder.useSafeHtmlTemplates" value="true"/>
-	
+
 	<!-- gwt-bootstrap set responsive design -->
 	<set-property name="bootstrap.responsiveDesign" value="true"/>
 
@@ -54,9 +53,8 @@
   ]]>
 
 	</property-provider>
-	
-	
-	
+
+
 	<!-- Application (deferred binding)-->
 	<replace-with class="org.appfuse.webapp.client.application.MobileApplication">
 		<when-type-is class="org.appfuse.webapp.client.application.DesktopApplication"/>
@@ -66,12 +64,12 @@
 	<!-- Client Side Validation Factory -->
 	<replace-with class="org.appfuse.webapp.client.application.ApplicationValidatorFactory">
 	  <when-type-is class="javax.validation.ValidatorFactory" />
-	</replace-with>	
+	</replace-with>
 
 	<!-- Shell (deferred binding) -->
 	<replace-with class="org.appfuse.webapp.client.ui.DesktopShell">
 		<when-type-is class="org.appfuse.webapp.client.ui.Shell"/>
-	</replace-with>	
+	</replace-with>
 
 	<replace-with class="org.appfuse.webapp.client.ui.MobileShell">
 		<when-type-is class="org.appfuse.webapp.client.ui.Shell"/>
@@ -79,5 +77,4 @@
 	</replace-with>
 
 	<entry-point class="org.appfuse.webapp.client.MainEntryPoint"/>
-
 </module>

@@ -36,15 +36,14 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/web/spring</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
-                <version>1.0-beta-3</version>
                 <configuration>
                     <dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
                     <driver>${jdbc.driverClassName}</driver>
@@ -85,7 +84,6 @@
             <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
                 <configuration>
                     <filesets>
                         <fileset>
@@ -96,7 +94,6 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
                 <configuration>
                     <!-- will package a ready-to-run app regarding hibernate-search index location -->
                     <escapeString>\</escapeString>
@@ -188,34 +185,15 @@
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
-            <version>${displaytag.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springmodules</groupId>
             <artifactId>spring-modules-validation</artifactId>
-            <version>${springmodules-validation.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- Add Bootstrap via WebJars -->
         <dependency>
@@ -225,7 +203,6 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
-            <version>1.2.0</version>
         </dependency>
     </dependencies>
 
@@ -237,7 +214,6 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>${cargo.version}</version>
                         <configuration>
                             <wait>${cargo.wait}</wait>
                             <container>
@@ -278,7 +254,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
-                        <version>1.0.0</version>
                         <dependencies>
                             <!-- Upgrade HtmlUnit to support jQuery 1.9 -->
                             <dependency>
@@ -343,9 +318,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>webtest-maven-plugin</artifactId>
-                <version>1.0.0</version>
             </plugin>
         </plugins>
     </reporting>
 </project>
-

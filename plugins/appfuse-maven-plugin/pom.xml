@@ -33,7 +33,13 @@
                 </configuration>
                 <version>2.6</version>
             </plugin>
-
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <forkCount>1</forkCount>
+                    <reuseForks>false</reuseForks>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -88,6 +94,17 @@
             <artifactId>maven-hibernate3-jdk14</artifactId>
             <version>${hibernate3.plugin.version}</version>
         </dependency>
+        <!-- The hibernate3 plugin requires Hibernate 3 to work with -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>3.3.1.GA</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>3.4.0.GA</version>
+        </dependency>
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
@@ -97,7 +114,6 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-1.2-api</artifactId>
-            <version>${log4j.version}</version>
             <scope>runtime</scope>
         </dependency>
         <!-- This is to support the ant calls within the mojos -->
@@ -157,7 +173,6 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-search</artifactId>
-            <version>${hibernate-search.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -257,7 +272,6 @@
                         </executions>
                     </plugin>
                 </plugins>
-
             </build>
         </profile>
     </profiles>

@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.1.v20140609</version>
+                <version>${jetty.version}</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -83,7 +83,7 @@
             <!-- will package a ready-to-run app regarding hibernate-search index location -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4</version>
                 <configuration>
                     <escapeString>\</escapeString>
                     <webResources>
@@ -177,76 +177,53 @@
         <dependency>
             <groupId>net.sourceforge.jsf-comp</groupId>
             <artifactId>acegi-jsf</artifactId>
-            <version>${acegijsf.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.acegisecurity</groupId>
-                    <artifactId>acegi-security</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>${commons.fileupload.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
-            <version>${jsf.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
-            <version>${jsf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>${primefaces.version}</version>
         </dependency>
         <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>1.0.10</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
         </dependency>
         <dependency>
             <groupId>com.ocpsoft</groupId>
             <artifactId>prettyfaces-jsf2</artifactId>
-            <version>${prettyfaces.version}</version>
         </dependency>
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
-            <version>${omnifaces.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.shale</groupId>
             <artifactId>shale-test</artifactId>
-            <version>${shale.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
-            <version>${el.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- Add Bootstrap via WebJars -->
@@ -257,7 +234,6 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
-            <version>1.2.0</version>
         </dependency>
     </dependencies>
 
@@ -368,6 +344,7 @@
                 </plugins>
             </build>
         </profile>
+
         <!-- ================= Production Settings Profile ================= -->
         <!-- Use "-P prod" when you want to use the settings in this profile -->
         <!-- =============================================================== -->
