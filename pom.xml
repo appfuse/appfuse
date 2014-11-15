@@ -18,7 +18,7 @@
     <parent>
         <groupId>io.spring.platform</groupId>
         <artifactId>platform-bom</artifactId>
-        <version>1.0.2.RELEASE</version>
+        <version>1.0.3.RELEASE</version>
     </parent>
 
     <prerequisites>
@@ -194,7 +194,7 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
+                    <artifactId</artifactId>
                     <version>2.17</version>
                     <configuration>
                         <forkCount>2C</forkCount>
@@ -202,6 +202,7 @@
                         <systemPropertyVariables>
                             <localRepoPath>${settings.localRepository}</localRepoPath>
                         </systemPropertyVariables>
+                        <runOrder>alphabetical</runOrder>
                     </configuration>
                 </plugin>
                 <plugin>
