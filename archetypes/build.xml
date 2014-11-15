@@ -38,28 +38,6 @@
         <!-- Change the version number of the generated archetype -->
         <replace file="${dir}/target/generated-sources/archetype/pom.xml" value="${version}" token="1.0-SNAPSHOT"/>
 
-        <replace file="${dir}/target/generated-sources/archetype/pom.xml">
-            <replacetoken><![CDATA[</name>]]></replacetoken>
-            <replacevalue><![CDATA[</name>
-        <distributionManagement>
-        <repository>
-            <id>appfuse-releases</id>
-            <name>AppFuse Release Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
-        <snapshotRepository>
-            <id>appfuse-snapshots</id>
-            <name>AppFuse Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
-        </snapshotRepository>
-        <site>
-            <id>appfuse-site</id>
-            <name>AppFuse Maven Site</name>
-            <url>scp://static.appfuse.org/var/www/appfuse-site</url>
-        </site>
-    </distributionManagement>]]></replacevalue>
-        </replace>
-
         <!-- Add jdbc.password back in since archetype plugin strips it out -->
         <replace file="${dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/pom.xml">
             <replacetoken><![CDATA[<jdbc.username>root</jdbc.username>]]></replacetoken>
@@ -251,36 +229,6 @@
 
             <!-- Change the version number of the generated archetype -->
             <replace file="@{dir}/target/generated-sources/archetype/pom.xml" value="${version}" token="1.0-SNAPSHOT"/>
-
-            <!-- Add a description to the archetype's pom.xml -->
-            <replace file="@{dir}/target/generated-sources/archetype/pom.xml">
-                <replacetoken><![CDATA[</name>]]></replacetoken>
-                <replacevalue><![CDATA[</name>
-  <description>AppFuse Archetype</description>]]></replacevalue>
-            </replace>
-
-            <replace file="@{dir}/target/generated-sources/archetype/pom.xml">
-                <replacetoken><![CDATA[</description>]]></replacetoken>
-                <replacevalue><![CDATA[</description>
-
-  <distributionManagement>
-    <repository>
-      <id>appfuse-releases</id>
-      <name>AppFuse Release Repository</name>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-    </repository>
-    <snapshotRepository>
-      <id>appfuse-snapshots</id>
-      <name>AppFuse Snapshot Repository</name>
-      <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
-    </snapshotRepository>
-    <site>
-      <id>appfuse-site</id>
-      <name>AppFuse Maven Site</name>
-      <url>scp://static.appfuse.org/var/www/appfuse-site</url>
-    </site>
-  </distributionManagement>]]></replacevalue>
-            </replace>
 
             <!-- Preserve embedded package names -->
             <replace dir="@{dir}/target/generated-sources/archetype/src">
