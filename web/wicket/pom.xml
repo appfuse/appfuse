@@ -149,14 +149,14 @@
                         <id>web-common-resources</id>
                         <phase>process-resources</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <echo message="Copying CSS and JavaScript resources..."/>
                                 <copy todir="src/main/webapp" overwrite="true">
                                     <fileset dir="../common/src/main/webapp">
                                         <include name="styles/style.css"/>
                                     </fileset>
                                 </copy>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>

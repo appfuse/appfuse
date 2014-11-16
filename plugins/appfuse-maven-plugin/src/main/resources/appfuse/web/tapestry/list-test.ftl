@@ -62,6 +62,7 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
 
         fieldValues.put("q", "*");
         doc = tester.submitForm(form, fieldValues);
-        assertEquals(3, doc.getElementById("${pojoNameLower}List").find("tbody").getChildren().size());
+        assertTrue("At least 3 results found",
+            doc.getElementById("${pojoNameLower}List").find("tbody").getChildren().size() >= 3);
     }
 }

@@ -49,12 +49,12 @@
                         <id>build-archetype</id>
                         <phase>package</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <delete dir="target/${module}-archetype" />
                                 <ant antfile="../build.xml" dir="." target="build-archetype">
                                     <property name="module" value="${module}" />
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -64,11 +64,11 @@
                         <id>test-archetype</id>
                         <phase>integration-test</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <ant antfile="../build.xml" dir="." target="test">
                                     <property name="archetype" value="${project.artifactId}-archetype" />
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -78,11 +78,11 @@
                         <id>deploy-archetype</id>
                         <phase>deploy</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <ant antfile="../build.xml" dir="." target="deploy">
                                     <property name="module" value="${module}" />
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>

@@ -38,20 +38,18 @@ public class ArtifactUninstaller {
 
     public void execute() {
         antProject = AntUtils.createProject();
-        
+
         log("Removing sample data for DbUnit...");
         removeSampleData();
 
         // install dao and manager if jar (modular/core) or war w/o parent (basic)
-        if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && project.getParent() == null)) {
+        if (project.getPackaging().equals("jar") ||
+            (project.getPackaging().equals("war") && project.getParentArtifact().getGroupId().contains("appfuse"))) {
             removeGeneratedFiles(installedDirectory, "**/dao/**/" + pojoName + "*.java");
             removeGeneratedFiles(installedDirectory, "**/service/**/" + pojoName + "*.java");
             if (genericCore) {
                 log("Removing Spring bean definitions...");
                 removeGenericBeanDefinitions();
-            } else {
-                // APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
-                //removeDaoAndManagerBeanDefinitions();
             }
             // only installs if iBATIS is configured as dao.framework
             removeiBATISFiles();
@@ -59,7 +57,7 @@ public class ArtifactUninstaller {
 
         if (project.getPackaging().equalsIgnoreCase("war")) {
             removeGeneratedFiles(installedDirectory, "**/webapp/**/" + pojoName + "*.java");
-            
+
             String webFramework = project.getProperties().getProperty("web.framework");
 
             if ("jsf".equalsIgnoreCase(webFramework)) {

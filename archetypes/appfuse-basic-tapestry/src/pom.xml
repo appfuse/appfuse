@@ -242,7 +242,7 @@
                         <id>default-resources</id>
                         <phase>process-resources</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <echo>Copying i18n files...</echo>
                                 <copy todir="src/main/webapp/WEB-INF" overwrite="true">
                                     <globmapper from="ApplicationResources*" to="app*"/>
@@ -264,7 +264,7 @@
                                         <filter token="copyright.year" value="${copyright.year}"/>
                                     </filterset>
                                 </copy>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>

@@ -50,13 +50,13 @@
                         <id>build-archetype</id>
                         <phase>package</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <delete dir="target/ws-archetype" />
                                 <copy todir="${project.build.directory}/${module}-archetype/src/test/resources/" file="${project.basedir}/../../data/common/src/test/resources/sample-data.xml" />
                                 <ant antfile="../build.xml" dir="." target="install-module">
                                     <property name="module" value="${module}" />
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -66,11 +66,11 @@
                         <id>test-archetype</id>
                         <phase>integration-test</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <ant antfile="../build.xml" dir="." target="test">
                                     <property name="archetype" value="${project.artifactId}-archetype" />
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -80,11 +80,11 @@
                         <id>deploy-archetype</id>
                         <phase>deploy</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <ant antfile="../build.xml" dir="." target="deploy">
                                     <property name="module" value="${module}" />
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
