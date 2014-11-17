@@ -715,7 +715,7 @@
 
         <!-- Framework/Plugin versions -->
         <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
-        <cargo.version>1.4.4</cargo.version>
+        <cargo.version>1.4.10</cargo.version>
         <gwt.version>2.6.0</gwt.version>
         <java.version>1.7</java.version>
         <jetty.version>9.2.1.v20140609</jetty.version>

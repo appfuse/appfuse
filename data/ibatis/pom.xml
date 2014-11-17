@@ -6,9 +6,9 @@
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,13 +25,13 @@
         <artifactId>appfuse-data</artifactId>
         <version>2.2-SNAPSHOT</version>
     </parent>
-    
+
     <artifactId>appfuse-ibatis</artifactId>
     <packaging>jar</packaging>
     <name>AppFuse iBATIS Module</name>
 
     <description>
-        AppFuse DAO backend implemented with iBATIS (http://ibatis.apache.org).    
+        AppFuse DAO backend implemented with iBATIS (http://ibatis.apache.org).
     </description>
 
     <scm>
@@ -39,7 +39,7 @@
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/data/ibatis</url>
     </scm>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -122,7 +122,7 @@
                     <autocommit>true</autocommit>
                     <skip>${skipTests}</skip>
                 </configuration>
-                <executions>                    
+                <executions>
                     <execution>
                         <id>create-schema</id>
                         <phase>process-test-resources</phase>
