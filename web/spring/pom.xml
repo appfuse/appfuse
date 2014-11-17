@@ -301,7 +301,7 @@
                             <sourcedirectory>src/test/resources</sourcedirectory>
                             <sourcefile>web-tests.xml</sourcefile>
                             <target>run-all-tests</target>
-                            <basepath>${project.build.finalName}</basepath>
+                            <basepath>${project.artifactId}</basepath>
                             <resultpath>target/webtest/webtest-results</resultpath>
                             <haltonfailure>false</haltonfailure>
                             <haltonerror>false</haltonerror>

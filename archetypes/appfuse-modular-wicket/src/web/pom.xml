@@ -372,7 +372,7 @@
                             <sourcedirectory>src/test/resources</sourcedirectory>
                             <sourcefile>web-tests.xml</sourcefile>
                             <target>${webtest.target}</target>
-                            <basepath>${project.build.finalName}</basepath>
+                            <basepath>${project.artifactId}</basepath>
                             <resultpath>target/webtest/webtest-results</resultpath>
                             <haltonfailure>false</haltonfailure>
                             <haltonerror>false</haltonerror>
