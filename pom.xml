@@ -198,11 +198,10 @@
                     <version>2.17</version>
                     <configuration>
                         <forkCount>2C</forkCount>
-                        <reuseForks>true</reuseForks>
+                        <reuseForks>false</reuseForks>
                         <systemPropertyVariables>
                             <localRepoPath>${settings.localRepository}</localRepoPath>
                         </systemPropertyVariables>
-                        <runOrder>alphabetical</runOrder>
                     </configuration>
                 </plugin>
                 <plugin>
