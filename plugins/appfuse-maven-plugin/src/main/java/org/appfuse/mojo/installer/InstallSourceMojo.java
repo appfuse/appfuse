@@ -730,14 +730,12 @@ public class InstallSourceMojo extends AbstractMojo {
                 moduleLocation += "/";
             }
             pomLocation = new URL(trunk + tag + moduleLocation + "pom.xml");
-            log("Fetch: " + pomLocation);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
         Get get = (Get) AntUtils.createProject().createTask("get");
         get.setSrc(pomLocation);
-        log("To: " + pom.getAbsolutePath());
         get.setDest(pom);
         get.execute();
 
