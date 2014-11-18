@@ -14,14 +14,15 @@
     limitations under the License.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-web</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-gwt</artifactId>
@@ -46,41 +47,8 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
                 <configuration>
-                    <dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
-                    <driver>${jdbc.driverClassName}</driver>
-                    <username>${jdbc.username}</username>
-                    <password>${jdbc.password}</password>
-                    <url>${jdbc.url}</url>
                     <src>../../data/common/src/test/resources/sample-data.xml</src>
-                    <type>${dbunit.operation.type}</type>
-                    <schema>${dbunit.schema}</schema>
-                    <skip>${skipTests}</skip>
-                    <transaction>true</transaction>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <!-- Runs before integration tests and jetty:run-war -->
-                        <id>test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>${jdbc.groupId}</groupId>
-                        <artifactId>${jdbc.artifactId}</artifactId>
-                        <version>${jdbc.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
@@ -162,10 +130,12 @@
                     <modules>
                         <module>${gwtModuleName}</module>
                     </modules>
-                    <i18nMessagesBundle>${project.groupId}.webapp.client.application.ApplicationResources</i18nMessagesBundle>
+                    <i18nMessagesBundle>${project.groupId}.webapp.client.application.ApplicationResources
+                    </i18nMessagesBundle>
                     <generateDirectory>${basedir}/src/main/java</generateDirectory>
                     <persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
-                    <fragmentCount>1</fragmentCount><!-- enable fragment merging, for less tiny split  -->
+                    <fragmentCount>1</fragmentCount>
+                    <!-- enable fragment merging, for less tiny split  -->
                 </configuration>
                 <executions>
                     <execution>

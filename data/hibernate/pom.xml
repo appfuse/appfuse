@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-data</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-hibernate</artifactId>
@@ -43,75 +43,20 @@
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <reuseForks>false</reuseForks>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>hibernate3-maven-plugin</artifactId>
                 <configuration>
-                    <components>
-                        <component>
-                            <name>hbm2ddl</name>
-                            <implementation>annotationconfiguration</implementation>
-                        </component>
-                    </components>
                     <componentProperties>
-                        <drop>true</drop>
-                        <jdk5>true</jdk5>
                         <propertyfile>target/test-classes/jdbc.properties</propertyfile>
-                        <configurationfile>src/test/resources/hibernate.cfg.xml</configurationfile>
-                        <skip>${skipTests}</skip>
                     </componentProperties>
                 </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>hbm2ddl</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>${jdbc.groupId}</groupId>
-                        <artifactId>${jdbc.artifactId}</artifactId>
-                        <version>${jdbc.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
                 <configuration>
-                    <dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
-                    <driver>${jdbc.driverClassName}</driver>
-                    <username>${jdbc.username}</username>
-                    <password>${jdbc.password}</password>
-                    <url>${jdbc.url}</url>
                     <src>../common/src/test/resources/sample-data.xml</src>
-                    <type>${dbunit.operation.type}</type>
-                    <schema>${dbunit.schema}</schema>
-                    <skip>${skipTests}</skip>
-                    <transaction>true</transaction>
                 </configuration>
-                <executions>
-                    <execution>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>${jdbc.groupId}</groupId>
-                        <artifactId>${jdbc.artifactId}</artifactId>
-                        <version>${jdbc.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
         <testResources>

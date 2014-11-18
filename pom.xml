@@ -7,7 +7,7 @@
     <artifactId>appfuse</artifactId>
     <packaging>pom</packaging>
     <name>AppFuse</name>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.5.0-SNAPSHOT</version>
     <inceptionYear>2003</inceptionYear>
     <url>http://static.appfuse.org</url>
 
@@ -212,6 +212,42 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>dbunit-maven-plugin</artifactId>
                     <version>1.0-beta-3</version>
+                    <configuration>
+                        <dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
+                        <driver>${jdbc.driverClassName}</driver>
+                        <username>${jdbc.username}</username>
+                        <password>${jdbc.password}</password>
+                        <url>${jdbc.url}</url>
+                        <src>src/test/resources/sample-data.xml</src>
+                        <type>${dbunit.operation.type}</type>
+                        <schema>${dbunit.schema}</schema>
+                        <skip>${skipTests}</skip>
+                        <transaction>true</transaction>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>test-compile</id>
+                            <phase>test-compile</phase>
+                            <goals>
+                                <goal>operation</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <!-- Runs before integration tests and jetty:run-war -->
+                            <id>test</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>operation</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>${jdbc.groupId}</groupId>
+                            <artifactId>${jdbc.artifactId}</artifactId>
+                            <version>${jdbc.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -222,16 +258,85 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>hibernate3-maven-plugin</artifactId>
                     <version>2.2</version>
+                    <configuration>
+                        <components>
+                            <component>
+                                <name>hbm2ddl</name>
+                                <implementation>annotationconfiguration</implementation>
+                            </component>
+                        </components>
+                        <componentProperties>
+                            <drop>true</drop>
+                            <jdk5>true</jdk5>
+                            <propertyfile>${project.build.outputDirectory}/jdbc.properties</propertyfile>
+                            <skip>${skipTests}</skip>
+                        </componentProperties>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>process-test-resources</phase>
+                            <goals>
+                                <goal>hbm2ddl</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>${jdbc.groupId}</groupId>
+                            <artifactId>${jdbc.artifactId}</artifactId>
+                            <version>${jdbc.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.eclipse.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
                     <version>${jetty.version}</version>
+                    <configuration>
+                        <webApp>
+                            <contextPath>/</contextPath>
+                        </webApp>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.cargo</groupId>
                     <artifactId>cargo-maven2-plugin</artifactId>
                     <version>${cargo.version}</version>
+                    <configuration>
+                        <container>
+                            <containerId>${cargo.container}</containerId>
+                            <home>${cargo.container.home}</home>
+                            <zipUrlInstaller>
+                                <url>${cargo.container.url}</url>
+                                <extractDir>${installDir}</extractDir>
+                            </zipUrlInstaller>
+                        </container>
+                        <configuration>
+                            <home>${project.build.directory}/${cargo.container}/container</home>
+                            <properties>
+                                <cargo.hostname>${cargo.host}</cargo.hostname>
+                                <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+                                <!-- To prevent conflicts with already running instances -->
+                                <cargo.tomcat.ajp.port>8123</cargo.tomcat.ajp.port>
+                            </properties>
+                        </configuration>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>start-container</id>
+                            <phase>pre-integration-test</phase>
+                            <goals>
+                                <goal>start</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>stop-container</id>
+                            <phase>post-integration-test</phase>
+                            <goals>
+                                <goal>stop</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -241,7 +346,60 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>webtest-maven-plugin</artifactId>
-                    <version>1.0.0</version>
+                    <version>${webtest.version}</version>
+                    <dependencies>
+                        <!-- Upgrade HtmlUnit to support jQuery 1.9 -->
+                        <dependency>
+                            <groupId>net.sourceforge.htmlunit</groupId>
+                            <artifactId>htmlunit</artifactId>
+                            <version>2.12</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>xml-apis</groupId>
+                            <artifactId>xml-apis</artifactId>
+                            <version>1.4.01</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>commons-lang</groupId>
+                            <artifactId>commons-lang</artifactId>
+                            <version>2.6</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <id>webtest-test</id>
+                            <phase>integration-test</phase>
+                            <goals>
+                                <goal>test</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>webtest-verify</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>verify-result</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>webtest-report-html</id>
+                            <phase>post-integration-test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <host>${cargo.host}</host>
+                        <port>${cargo.port}</port>
+                        <sourcedirectory>src/test/resources</sourcedirectory>
+                        <sourcefile>web-tests.xml</sourcefile>
+                        <target>${webtest.target}</target>
+                        <basepath>${project.artifactId}</basepath>
+                        <resultpath>target/webtest/webtest-results</resultpath>
+                        <haltonfailure>false</haltonfailure>
+                        <haltonerror>false</haltonerror>
+                        <loglevel>fatal</loglevel>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -1096,7 +1254,7 @@
         <tapestry.version>5.4-beta-22</tapestry.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>
         <velocity.version>1.7</velocity.version>
-        <webtest.version>3.0</webtest.version>
+        <webtest.version>1.0.0</webtest.version>
         <wiser.version>1.2</wiser.version>
         <bootstrap.version>3.3.0</bootstrap.version>
         <bootstrap-datepicker.version>1.2.0</bootstrap-datepicker.version>
@@ -1114,5 +1272,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <copyright.year>2003-2014</copyright.year>
+        <!-- WebTest default target -->
+        <webtest.target>run-all-tests</webtest.target>
     </properties>
 </project>

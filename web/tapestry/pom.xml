@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-web</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-tapestry</artifactId>
@@ -45,51 +45,17 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
-                <version>1.0-beta-3</version>
                 <configuration>
-                    <dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
-                    <driver>${jdbc.driverClassName}</driver>
-                    <username>${jdbc.username}</username>
-                    <password>${jdbc.password}</password>
-                    <url>${jdbc.url}</url>
                     <src>../../data/common/src/test/resources/sample-data.xml</src>
-                    <type>${dbunit.operation.type}</type>
-                    <schema>${dbunit.schema}</schema>
-                    <skip>${skipTests}</skip>
-                    <transaction>true</transaction>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <!-- Runs before integration tests and jetty:run-war -->
-                        <id>test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>${jdbc.groupId}</groupId>
-                        <artifactId>${jdbc.artifactId}</artifactId>
-                        <version>${jdbc.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
                 <configuration>
                     <filesets>
                         <fileset>
+                            <directory>${project.basedir}/build</directory>
                             <directory>${user.home}/${project.build.finalName}/index</directory>
                         </fileset>
                     </filesets>
@@ -98,7 +64,6 @@
             <!-- Override plugin configuration from appfuse-web so can exclude overridden files -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
                 <configuration>
                     <!-- will package a ready-to-run app regarding hibernate-search index location -->
                     <escapeString>\</escapeString>
@@ -288,99 +253,10 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <configuration>
-                            <wait>${cargo.wait}</wait>
-                            <container>
-                                <containerId>${cargo.container}</containerId>
-                                <home>${cargo.container.home}</home>
-                                <zipUrlInstaller>
-                                    <url>${cargo.container.url}</url>
-                                    <extractDir>${installDir}</extractDir>
-                                </zipUrlInstaller>
-                            </container>
-                            <configuration>
-                                <home>${project.build.directory}/${cargo.container}/container</home>
-                                <properties>
-                                    <cargo.hostname>${cargo.host}</cargo.hostname>
-                                    <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
-                                    <!-- To prevent conflicts with already running instances -->
-                                    <cargo.tomcat.ajp.port>8123</cargo.tomcat.ajp.port>
-                                </properties>
-                            </configuration>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>start-container</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>start</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>stop-container</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
-                        <dependencies>
-                            <!-- Upgrade HtmlUnit to support jQuery 1.9 -->
-                            <dependency>
-                                <groupId>net.sourceforge.htmlunit</groupId>
-                                <artifactId>htmlunit</artifactId>
-                                <version>2.12</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>xml-apis</groupId>
-                                <artifactId>xml-apis</artifactId>
-                                <version>1.4.01</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>commons-lang</groupId>
-                                <artifactId>commons-lang</artifactId>
-                                <version>2.6</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <id>webtest-test</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>webtest-verify</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>verify-result</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>webtest-report-html</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <host>${cargo.host}</host>
-                            <port>${cargo.port}</port>
-                            <sourcedirectory>src/test/resources</sourcedirectory>
-                            <sourcefile>web-tests.xml</sourcefile>
-                            <target>run-all-tests</target>
-                            <basepath>${project.artifactId}</basepath>
-                            <resultpath>target/webtest/webtest-results</resultpath>
-                            <haltonfailure>false</haltonfailure>
-                            <haltonerror>false</haltonerror>
-                            <loglevel>fatal</loglevel>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>

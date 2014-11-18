@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.appfuse.plugins</groupId>
         <artifactId>appfuse-plugins</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-maven-plugin</artifactId>
@@ -37,7 +37,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <forkCount>1</forkCount>
-                    <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>
         </plugins>
