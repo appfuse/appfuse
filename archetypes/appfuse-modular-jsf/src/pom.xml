@@ -300,11 +300,8 @@
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
         <!-- Framework/Plugin versions -->
-        <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
+        <appfuse.version>3.5.0-SNAPSHOT</appfuse.version>
         <java.version>1.7</java.version>
-
-        <!-- WebTest default target -->
-        <webtest.target>run-all-tests</webtest.target>
 
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>

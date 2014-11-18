@@ -630,14 +630,8 @@
 		<gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>
 
         <!-- Framework/Plugin versions -->
-        <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
-        <cargo.version>1.4.10</cargo.version>
-        <gwt.version>2.6.0</gwt.version>
+        <appfuse.version>3.5.0-SNAPSHOT</appfuse.version>
         <java.version>1.7</java.version>
-        <jetty.version>9.2.1.v20140609</jetty.version>
-
-        <!-- WebTest default target -->
-        <webtest.target>run-all-tests</webtest.target>
 
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>

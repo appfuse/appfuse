@@ -78,6 +78,9 @@
                             <!--<implementation>jpaconfiguration</implementation>-->
                         </component>
                     </components>
+                    <componentProperties>
+                        <propertyfile>${project.build.testOutputDirectory}/jdbc.properties</propertyfile>
+                    </componentProperties>
                 </configuration>
             </plugin>
             <plugin>
@@ -412,11 +415,10 @@
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
         <!-- Framework/Plugin versions -->
-        <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
+        <appfuse.version>3.5.0-SNAPSHOT</appfuse.version>
         <cargo.version>1.4.10</cargo.version>
         <enunciate.version>1.28</enunciate.version>
-        <java.version>1.7</java.version>
-        <jetty.version>9.2.1.v20140609</jetty.version>
+        <java.version>1.7</java.version>        <jetty.version>9.2.1.v20140609</jetty.version>
 
         <!-- Database settings -->
         <dbunit.dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dbunit.dataTypeFactoryName>

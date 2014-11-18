@@ -6,14 +6,14 @@
             <pathelement location="lib/maven-ant-tasks-2.0.10.jar" />
         </classpath>
     </typedef>
-    
+
     <artifact:dependencies pathId="classpath">
         <dependency groupId="ant-contrib" artifactId="ant-contrib" version="1.0b2"/>
     </artifact:dependencies>
-    
+
     <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="classpath"/>
 
-    <property name="version" value="3.0.1-SNAPSHOT"/>
+    <property name="version" value="3.5.0-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
 
@@ -74,7 +74,7 @@
     <target name="test-tapestry-light" description="tests plugin with tapestry light archetype">
         <create-gen-basic archetype="appfuse-light-tapestry" name="light-tapestry"/>
     </target>
-    
+
     <target name="test-wicket-light" description="tests plugin with wicket light archetype">
         <create-gen-basic archetype="appfuse-light-wicket" name="light-wicket"/>
     </target>
@@ -101,7 +101,7 @@
         <!--antcall target="test-ibatis"/-->
         <antcall target="test-jpa"/>
     </target>
-    
+
     <target name="test-all-light" description="Tests AMP and Full Source with AppFuse Light">
         <antcall target="test-light"/>
         <antcall target="test-light-source"/>
@@ -140,9 +140,9 @@
                     <property name="test-command" value="verify -Duser.language=en"/>
                 </else>
             </if>
- 
+
             <echo message="Using test command: ${test-command}"/>
-            
+
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -e"/>
             <maven dir="${test.dir}/@{name}" command="${test-command}  -e"/>
 
@@ -224,7 +224,7 @@
         <antcall target="test-tapestry-light-source"/>
         <antcall target="test-wicket-light-source"/>
     </target>
-    
+
     <target name="test-jsf-basic-source" description="tests full-source plugin with jsf basic archetype">
         <full-source archetype="appfuse-basic-jsf" name="basic-jsf-source"/>
     </target>
@@ -250,7 +250,7 @@
     <target name="test-ws-source" description="tests full-source plugin with ws archetype">
         <full-source archetype="appfuse-ws" name="ws-source"/>
     </target>
-    
+
     <target name="test-jsf-modular-source" description="tests full-source plugin with jsf modular archetype">
         <full-source archetype="appfuse-modular-jsf" name="modular-jsf-source"/>
         <!--full-source archetype="appfuse-modular-jsf" name="modular-jsf-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/-->
@@ -274,7 +274,7 @@
         <!--full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/-->
         <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
-    
+
     <target name="test-jsf-light-source" description="tests full-source plugin with jsf light archetype">
         <full-source archetype="appfuse-light-jsf" name="light-jsf-source"/>
     </target>
@@ -290,15 +290,15 @@
     <target name="test-stripes-light-source" description="tests full-source plugin with stripes light archetype">
         <full-source archetype="appfuse-light-stripes" name="light-stripes-source"/>
     </target>
-    
+
     <target name="test-tapestry-light-source" description="tests full-source plugin with tapestry light archetype">
         <full-source archetype="appfuse-light-tapestry" name="light-tapestry-source"/>
     </target>
-    
+
     <target name="test-wicket-light-source" description="tests full-source plugin with wicket light archetype">
         <full-source archetype="appfuse-light-wicket" name="light-wicket-source"/>
     </target>
-    
+
     <macrodef name="full-source">
         <attribute name="archetype"/>
         <attribute name="version" default="${version}"/>
@@ -326,7 +326,7 @@
                     </if>
                 </then>
             </if>
-            
+
             <!-- Don't use db profile (in Bamboo) for AppFuse Light -->
             <if>
                 <contains string="@{name}" substring="light"/>
@@ -337,7 +337,7 @@
                     <property name="test-command" value="verify -Duser.language=en -Dsurefire.useFile=false"/>
                 </else>
             </if>
-            
+
             <!-- run full-source verify -->
             <maven dir="${test.dir}/@{name}" command="appfuse:full-source -e"/>
             <maven dir="${test.dir}/@{name}" command="${test-command} -e"/>
@@ -366,15 +366,15 @@
             <!--fail if="command.failed">Failed to run '@{command}' command</fail-->
         </sequential>
     </macrodef>
-    
+
     <!-- Test iBATIS -->
     <target name="test-ibatis" description="creates projects, changes dao.framework to ibatis and tests generation">
-        <create-project-for-daoframework archetype="appfuse-basic-jsf" name="basic-jsf-ibatis" 
+        <create-project-for-daoframework archetype="appfuse-basic-jsf" name="basic-jsf-ibatis"
             daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
-        <create-project-for-daoframework archetype="appfuse-basic-struts" name="basic-struts-ibatis" 
+        <create-project-for-daoframework archetype="appfuse-basic-struts" name="basic-struts-ibatis"
             daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
     </target>
-    
+
     <!-- Test JPA -->
     <target name="test-jpa" description="creates projects, changes dao.framework to jpa and tests generation">
         <create-project-for-daoframework archetype="appfuse-basic-spring" name="basic-spring-jpa" daoFramework="jpa"/>
@@ -382,7 +382,7 @@
     </target>
 
     <!-- Test generating POJOs from tables -->
-    
+
     <macrodef name="create-project-for-daoframework">
         <attribute name="archetype"/>
         <attribute name="version" default="${version}"/>
@@ -400,7 +400,7 @@
             <copy todir="${test.dir}/@{name}/src/main/java/com">
                 <fileset dir="src/test/java/com" includes="**/*.java"/>
             </copy>
-            
+
             <if>
                 <equals arg1="@{fullSource}" arg2="true"/>
                 <then>
@@ -409,25 +409,25 @@
                     <maven dir="${test.dir}/@{name}" command="test -Dsurefire.useFile=false"/>
                 </then>
             </if>
-            
+
             <changeDaoFramework name="@{name}" daoFramework="@{daoFramework}" hibernate3Config="@{hibernate3Config}"/>
 
             <!-- test with generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -e"/>
             <maven dir="${test.dir}/@{name}" command="verify -Duser.language=en -Dsurefire.useFile=false"/>
             <maven dir="${test.dir}/@{name}" command="appfuse:remove -Dentity=Person -Dskip.areyousure=true"/>
-            
+
             <!-- test w/o generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
             <maven dir="${test.dir}/@{name}" command="verify -Duser.language=en -Dsurefire.useFile=false"/>
         </sequential>
     </macrodef>
-    
+
     <macrodef name="changeDaoFramework">
         <attribute name="name"/>
         <attribute name="daoFramework"/>
         <attribute name="hibernate3Config" default="annotationconfiguration"/>
-        
+
         <sequential>
             <!-- Change dao.framework property -->
             <replace file="${test.dir}/@{name}/pom.xml">

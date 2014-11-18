@@ -28,6 +28,9 @@
                             <implementation>annotationconfiguration</implementation>
                         </component>
                     </components>
+                    <componentProperties>
+                        <propertyfile>${project.build.testOutputDirectory}/jdbc.properties</propertyfile>
+                    </componentProperties>
                 </configuration>
             </plugin>
             <plugin>
