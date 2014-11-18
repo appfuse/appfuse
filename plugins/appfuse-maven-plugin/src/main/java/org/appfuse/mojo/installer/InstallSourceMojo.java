@@ -61,7 +61,6 @@ public class InstallSourceMojo extends AbstractMojo {
     // ThreadLocale to hold properties as they're built when traversing through a modular project
     private static final ThreadLocal<Map> propertiesContextHolder = new ThreadLocal<Map>();
 
-
     /**
      * The path where the files from SVN will be placed. This is intentionally set to "src" since that's the default
      * src directory used for exporting AppFuse artifacts.
@@ -69,6 +68,13 @@ public class InstallSourceMojo extends AbstractMojo {
      * @parameter expression="${appfuse.destinationDirectory}" default-value="${basedir}/src"
      */
     private String destinationDirectory;
+
+    /**
+     * The branch containing the source code
+     *
+     * @parameter expression="${appfuse.branch}"
+     */
+    private String branch;
 
     /**
      * The directory containing the source code.
@@ -130,6 +136,10 @@ public class InstallSourceMojo extends AbstractMojo {
             }
         }
 
+        if (branch != null && !"".equals(branch)) {
+            tag = "branches/" + branch + "/";
+        }
+
         String daoFramework = project.getProperties().getProperty("dao.framework");
 
         if (daoFramework == null) {
@@ -138,8 +148,9 @@ public class InstallSourceMojo extends AbstractMojo {
 
         String webFramework = project.getProperties().getProperty("web.framework");
 
-        boolean modular = (project.getPackaging().equals("pom") && !project.hasParent());
-        if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && !project.hasParent())) {
+        boolean modular = (project.getPackaging().equals("pom") && project.getParentArtifact().getGroupId().contains("appfuse"));
+        if (project.getPackaging().equals("jar") ||
+            (project.getPackaging().equals("war") && project.getParentArtifact().getGroupId().contains("appfuse"))) {
             // export data-common
             log("Installing source from data-common module...");
             String coreSource = project.getBuild().getSourceDirectory();
@@ -200,7 +211,7 @@ public class InstallSourceMojo extends AbstractMojo {
                 throw new MojoExecutionException("No web.framework property specified, please modify pom.xml to add it.");
             }
 
-            if (project.hasParent()) {
+            if (project.hasParent() && !project.getParentArtifact().getGroupId().contains("appfuse")) {
                 // delete hibernate, ibatis and jpa files from web project
                 deleteFile("main/resources/hibernate.cfg.xml");
                 deleteFile("main/resources/META-INF");
@@ -217,7 +228,7 @@ public class InstallSourceMojo extends AbstractMojo {
         log("Source successfully exported, modifying pom.xml...");
 
         List dependencies = project.getOriginalModel().getDependencies();
-        List<Dependency> newDependencies = new ArrayList<Dependency>();
+        List<Dependency> newDependencies = new ArrayList<>();
 
         // remove all appfuse dependencies
         for (Object dependency : dependencies) {
@@ -228,7 +239,7 @@ public class InstallSourceMojo extends AbstractMojo {
             }
         }
 
-        if (!project.getPackaging().equals("pom") && !project.hasParent()) {
+        if (!project.getPackaging().equals("pom") && project.getParentArtifact().getGroupId().contains("appfuse")) {
 
             // add dependencies from root appfuse pom
             newDependencies = addModuleDependencies(newDependencies, "root", "", "");
@@ -342,14 +353,14 @@ public class InstallSourceMojo extends AbstractMojo {
 
     private void createFullSourcePom(List<Dependency> newDependencies) throws MojoFailureException {
         // create properties based on dependencies
-        Set<String> projectProperties = new TreeSet<String>();
+        Set<String> projectProperties = new TreeSet<>();
 
         for (Dependency dep : newDependencies) {
             projectProperties.add(getDependencyVersionOrThrowExceptionIfNotAvailable(dep));
         }
 
         // add core as a dependency for modular wars
-        if (project.getPackaging().equals("war") && project.hasParent()) {
+        if (project.getPackaging().equals("war") && !project.getParentArtifact().getGroupId().contains("appfuse")) {
             Dependency core = new Dependency();
             core.setGroupId("${project.parent.groupId}");
             // This assumes you're following conventions of ${project.artifactId}-core
@@ -464,7 +475,7 @@ public class InstallSourceMojo extends AbstractMojo {
         try {
             String packaging = project.getPackaging();
             String pathToPom = "pom.xml";
-            if (project.hasParent()) {
+            if (project.hasParent() && !project.getParentArtifact().getGroupId().contains("appfuse")) {
                 if (packaging.equals("jar")) {
                     pathToPom = "core/" + pathToPom;
                 } else if (packaging.equals("war")) {
@@ -486,7 +497,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
             // Calculate properties and add them to pom if not a modular project - otherwise properties are added
             // near the end of this method from a threadlocal
-            if (!project.getPackaging().equals("pom") && !project.hasParent()) {
+            if (!project.getPackaging().equals("pom") && project.getParentArtifact().getGroupId().contains("appfuse")) {
                 adjustedPom = addPropertiesToPom(adjustedPom, sortedProperties);
             }
 
@@ -506,7 +517,7 @@ public class InstallSourceMojo extends AbstractMojo {
         if (renamePackages && !project.getPackaging().equals("pom")) {
             log("Renaming packages to '" + project.getGroupId() + "'...");
             RenamePackages renamePackagesTool = new RenamePackages(project.getGroupId());
-            if (project.hasParent()) {
+            if (project.hasParent() && !project.getParentArtifact().getGroupId().contains("appfuse")) {
                 renamePackagesTool.setBaseDir(project.getBasedir() + "/src");
             }
 
@@ -514,11 +525,12 @@ public class InstallSourceMojo extends AbstractMojo {
         }
 
         // when performing full-source on a modular project, add the properties to the root pom.xml at the end
-        if (project.getPackaging().equals("war") && project.hasParent()) {
+        if (project.getPackaging().equals("war") &&
+            (project.hasParent() && !project.getParentArtifact().getGroupId().contains("appfuse"))) {
             // store sorted properties in a thread local for later retrieval
             Map properties = propertiesContextHolder.get();
             // alphabetize the properties by key
-            Set<String> propertiesToAdd = new TreeSet<String>(properties.keySet());
+            Set<String> propertiesToAdd = new TreeSet<>(properties.keySet());
 
             StringBuffer calculatedProperties = new StringBuffer();
 
@@ -615,15 +627,17 @@ public class InstallSourceMojo extends AbstractMojo {
     private static String addPropertiesToPom(String existingPomXmlAsString, StringBuffer sortedProperties) {
         String adjustedPom = existingPomXmlAsString;
 
-        // add new properties
-        adjustedPom = adjustedPom.replace("<jdbc.password/>", "<jdbc.password/>" + LINE_SEP + LINE_SEP +
+        if (!"".equals(sortedProperties)) {
+            // add new properties
+            adjustedPom = adjustedPom.replace("<jdbc.password/>", "<jdbc.password/>" + LINE_SEP + LINE_SEP +
                 "        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" +
                 sortedProperties);
 
-        // also look for empty jdbc.password tag since the archetype plugin sometimes expands empty elements
-        adjustedPom = adjustedPom.replace("<jdbc.password></jdbc.password>", "<jdbc.password/>" + LINE_SEP + LINE_SEP +
+            // also look for empty jdbc.password tag since the archetype plugin sometimes expands empty elements
+            adjustedPom = adjustedPom.replace("<jdbc.password></jdbc.password>", "<jdbc.password/>" + LINE_SEP + LINE_SEP +
                 "        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" +
                 sortedProperties);
+        }
 
         adjustedPom = adjustedPom.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
 
@@ -703,21 +717,27 @@ public class InstallSourceMojo extends AbstractMojo {
             // replace github.com with raw.github.com and trunk with master
             trunk = trunk.replace("https://github.com", "https://raw.githubusercontent.com");
             tag = tag.replace("trunk", "master");
-            // replace tags with nothing for fetching from tag
+            // replace tag/branch with nothing
             if (tag.contains("tags/")) {
                 tag = tag.replace("tags/", "");
             }
+            if (tag.contains("branches/")) {
+                tag = tag.replace("branches/", "");
+            }
+
             // add separator if moduleLocation is populated
             if (!"".equals(moduleLocation)) {
                 moduleLocation += "/";
             }
             pomLocation = new URL(trunk + tag + moduleLocation + "pom.xml");
+            log("Fetch: " + pomLocation);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
         Get get = (Get) AntUtils.createProject().createTask("get");
         get.setSrc(pomLocation);
+        log("To: " + pom.getAbsolutePath());
         get.setDest(pom);
         get.execute();
 

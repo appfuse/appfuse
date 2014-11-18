@@ -76,7 +76,6 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-ehcache</artifactId>
-            <version>${hibernate.version}</version>
         </dependency>
         <!-- Upgrade version of EhCache used -->
         <dependency>

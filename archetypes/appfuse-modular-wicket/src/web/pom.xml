@@ -241,7 +241,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
-
                     </plugin>
                 </plugins>
             </build>

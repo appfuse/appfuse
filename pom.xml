@@ -584,6 +584,21 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-jcl</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-web</artifactId>
                 <version>${log4j2.version}</version>
             </dependency>
@@ -651,16 +666,16 @@
                 <scope>test</scope>
                 <exclusions>
                     <exclusion>
-                        <groupId>org.seleniumhq.selenium.client-drivers</groupId>
-                        <artifactId>selenium-java-client-driver</artifactId>
+                        <groupId>org.apache.tomcat</groupId>
+                        <artifactId>*</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>org.seleniumhq.selenium.server</groupId>
-                        <artifactId>selenium-server</artifactId>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>*</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>org.seleniumhq.selenium.server</groupId>
-                        <artifactId>selenium-server-coreless</artifactId>
+                        <groupId>org.seleniumhq.selenium</groupId>
+                        <artifactId>*</artifactId>
                     </exclusion>
                     <exclusion>
                         <groupId>org.testng</groupId>
@@ -705,12 +720,6 @@
                 <groupId>org.wicketstuff</groupId>
                 <artifactId>wicketstuff-annotation</artifactId>
                 <version>${wicketstuff.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-core</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.jackson</groupId>
@@ -750,9 +759,19 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-ehcache</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.hibernate.javax.persistence</groupId>
                 <artifactId>hibernate-jpa-2.1-api</artifactId>
                 <version>1.0.0.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging</artifactId>
+                <version>${jboss-logging.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -918,7 +937,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <!-- Upgrade version of AspectJ used by Spring Security -->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -944,7 +962,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -953,23 +970,19 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-jcl</artifactId>
-            <version>${log4j2.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j2.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>${log4j2.version}</version>
         </dependency>
         <!-- To make JBoss projects aware of Log4j2 -->
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
-            <version>3.2.0.Beta1</version>
         </dependency>
         <dependency>
             <groupId>${jdbc.groupId}</groupId>
@@ -1232,6 +1245,7 @@
         <hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
         <java.version>1.7</java.version>
         <javax-mail.version>1.4.1</javax-mail.version>
+        <jboss-logging.version>3.2.0.Beta1</jboss-logging.version>
         <jetty.version>9.2.1.v20140609</jetty.version>
         <jsf.version>2.2.7</jsf.version>
         <jpa.version>2.1</jpa.version>

@@ -107,6 +107,8 @@
                 <fileset dir="${basedir}/../../web/@{module}">
                     <include name="**/**"/>
                     <exclude name="pom.xml"/>
+                    <exclude name=".idea/**"/>
+                    <exclude name="build/**"/>
                     <exclude name="target/**"/>
                     <exclude name="**/.svn/**"/>
                     <exclude name="*.iml"/>

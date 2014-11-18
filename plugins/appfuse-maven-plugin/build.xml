@@ -13,6 +13,7 @@
 
     <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="classpath"/>
 
+    <property name="branch" value="simplify-version-management"/>
     <property name="version" value="3.5.0-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
@@ -339,7 +340,7 @@
             </if>
 
             <!-- run full-source verify -->
-            <maven dir="${test.dir}/@{name}" command="appfuse:full-source -e"/>
+            <maven dir="${test.dir}/@{name}" command="appfuse:full-source -e -Dappfuse.branch=${branch}"/>
             <maven dir="${test.dir}/@{name}" command="${test-command} -e"/>
         </sequential>
     </macrodef>
@@ -405,7 +406,7 @@
                 <equals arg1="@{fullSource}" arg2="true"/>
                 <then>
                     <!-- full-source it and verify everything works -->
-                    <maven dir="${test.dir}/@{name}" command="appfuse:full-source"/>
+                    <maven dir="${test.dir}/@{name}" command="appfuse:full-source -Dappfuse.branch=${branch}"/>
                     <maven dir="${test.dir}/@{name}" command="test -Dsurefire.useFile=false"/>
                 </then>
             </if>
