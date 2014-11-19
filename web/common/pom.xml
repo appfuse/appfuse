@@ -80,12 +80,4 @@
             </testResource>
         </testResources>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 </project>

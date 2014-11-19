@@ -49,7 +49,6 @@
                     <src>../../data/common/src/test/resources/sample-data.xml</src>
                 </configuration>
             </plugin>
-            <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <configuration>
@@ -61,12 +60,26 @@
                     </filesets>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <configuration>
+                    <webApp>
+                        <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
+                            <resourcesAsCSV>
+                                ${basedir}/../common/src/main/resources,
+                                ${basedir}/src/main/resources,
+                                ${basedir}/src/main/webapp,
+                                ${basedir}/../common/src/main/webapp,
+                            </resourcesAsCSV>
+                        </baseResource>
+                    </webApp>
+                </configuration>
+            </plugin>
             <!-- Override plugin configuration from appfuse-web so can exclude overridden files -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <!-- will package a ready-to-run app regarding hibernate-search index location -->
-                    <escapeString>\</escapeString>
                     <webResources>
                         <!-- Need to overwrite. Cannot filter original with different values as filter cannot be escaped: MRESOURCES-126 -->
                         <resource>
@@ -98,14 +111,6 @@
                             <targetPath>WEB-INF</targetPath>
                         </resource>
                     </webResources>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Implementation-Version>${project.version}</Implementation-Version>
-                        </manifestEntries>
-                    </archive>
                 </configuration>
             </plugin>
             <plugin>
@@ -147,53 +152,13 @@
                 </executions>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.java</include>
-                    <include>**/*.tml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <excludes>
-                    <exclude>hibernate.properties</exclude>
-                </excludes>
-                <filtering>false</filtering>
-            </testResource>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <includes>
-                    <include>hibernate.properties</include>
-                </includes>
-                <filtering>true</filtering>
-            </testResource>
-            <testResource>
-                <directory>src/main/webapp</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </testResource>
-        </testResources>
     </build>
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.appfuse</groupId>
             <artifactId>appfuse-web-common</artifactId>
-            <version>${project.version}</version>
             <exclusions>
-                <exclusion>
-                    <groupId>org.appfuse</groupId>
-                    <artifactId>appfuse-hibernate</artifactId>
-                </exclusion>
                 <exclusion>
                     <groupId>struts-menu</groupId>
                     <artifactId>struts-menu</artifactId>
@@ -203,11 +168,6 @@
                     <artifactId>sitemesh</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.appfuse</groupId>
-            <artifactId>appfuse-${dao.framework}</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
@@ -262,4 +222,12 @@
             </build>
         </profile>
     </profiles>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>webtest-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

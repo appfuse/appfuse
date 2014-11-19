@@ -41,7 +41,7 @@ public abstract class SeleniumBaseTestCase {
 
     /**
      * WaitFor callback interface.
-     * 
+     *
      */
     protected interface WaitFor {
         boolean isFinished();

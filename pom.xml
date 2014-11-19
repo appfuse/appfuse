@@ -251,11 +251,6 @@
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>gwt-maven-plugin</artifactId>
-                    <version>2.6.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
                     <artifactId>hibernate3-maven-plugin</artifactId>
                     <version>2.2</version>
                     <configuration>
@@ -288,6 +283,12 @@
                         </dependency>
                     </dependencies>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>native2ascii-maven-plugin</artifactId>
+                    <version>1.0-beta-1</version>
+                </plugin>
+                <!-- Web related plugins - defined here instead of appfuse-web for modular archetypes -->
                 <plugin>
                     <groupId>org.eclipse.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
@@ -337,11 +338,6 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>native2ascii-maven-plugin</artifactId>
-                    <version>1.0-beta-1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -400,6 +396,77 @@
                         <haltonerror>false</haltonerror>
                         <loglevel>fatal</loglevel>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>gwt-maven-plugin</artifactId>
+                    <version>${gwt.version}</version>
+                    <configuration>
+                        <style>OBF</style>
+                        <runTarget>/</runTarget>
+                        <noServer>true</noServer>
+                        <debugPort>8001</debugPort>
+                        <debugSuspend>false</debugSuspend>
+                        <compileSourcesArtifacts>
+                            <artifact>javax.validation:validation-api</artifact>
+                            <artifact>org.hibernate:hibernate-validator</artifact>
+                        </compileSourcesArtifacts>
+                        <modules>
+                            <module>${gwtModuleName}</module>
+                        </modules>
+                        <i18nMessagesBundle>
+                            ${project.groupId}.webapp.client.application.ApplicationResources
+                        </i18nMessagesBundle>
+                        <generateDirectory>${basedir}/src/main/java</generateDirectory>
+                        <persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
+                        <fragmentCount>1</fragmentCount>
+                        <!-- enable fragment merging, for less tiny split  -->
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>gwtcompile</id>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.google.gwt</groupId>
+                            <artifactId>gwt-dev</artifactId>
+                            <version>${gwt.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.google.gwt</groupId>
+                            <artifactId>gwt-user</artifactId>
+                            <version>${gwt.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.2.1</version>
+                    <executions>
+                        <execution>
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <id>VerifyRequestFactoryInterfaces</id>
+                                <executable>java</executable>
+                                <arguments>
+                                    <argument>-cp</argument>
+                                    <classpath/>
+                                    <argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
+                                    <argument>${project.build.outputDirectory}</argument>
+                                    <argument>${project.groupId}.webapp.client.requests.ApplicationRequestFactory</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -876,6 +943,12 @@
                 <groupId>org.webjars</groupId>
                 <artifactId>jquery-cookie</artifactId>
                 <version>${jquery-cookie.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.webjars</groupId>
+                        <artifactId>jquery</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>opensymphony</groupId>
@@ -1057,6 +1130,25 @@
     </reporting>
 
     <profiles>
+        <!-- ================= Production Settings Profile ================= -->
+        <!-- Use "-P prod" when you want to use the settings in this profile -->
+        <!-- =============================================================== -->
+        <profile>
+            <id>prod</id>
+            <build>
+                <plugins>
+                    <!-- Override location of data file for DbUnit to load (doesn't have negative keys) -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>dbunit-maven-plugin</artifactId>
+                        <configuration>
+                            <src>src/main/resources/default-data.xml</src>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <!-- ================= Database Profiles ================= -->
         <profile>
             <!-- Embedded Derby doesn't work: http://tinyurl.com/27qenw -->
@@ -1067,7 +1159,7 @@
                 <jdbc.artifactId>derbyclient</jdbc.artifactId>
                 <jdbc.version>10.9.1.0</jdbc.version>
                 <jdbc.driverClassName>org.apache.derby.jdbc.ClientDriver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:derby://localhost/appfuse;create=true]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:derby://localhost/${db.name};create=true]]></jdbc.url>
                 <jdbc.username>any</jdbc.username>
                 <jdbc.password>value</jdbc.password>
                 <jdbc.validationQuery><![CDATA[values 1]]></jdbc.validationQuery>
@@ -1080,9 +1172,9 @@
                 <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
                 <jdbc.groupId>com.h2database</jdbc.groupId>
                 <jdbc.artifactId>h2</jdbc.artifactId>
-                <jdbc.version>1.3.170</jdbc.version>
+                <jdbc.version>1.4.182</jdbc.version>
                 <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:h2:/tmp/appfuse;MVCC=TRUE]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:h2:/tmp/${db.name};MULTI_THREADED=1]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password/>
                 <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
@@ -1095,9 +1187,9 @@
                 <hibernate.dialect>org.hibernate.dialect.HSQLDialect</hibernate.dialect>
                 <jdbc.groupId>org.hsqldb</jdbc.groupId>
                 <jdbc.artifactId>hsqldb</jdbc.artifactId>
-                <jdbc.version>2.2.9</jdbc.version>
+                <jdbc.version>2.3.2</jdbc.version>
                 <jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:hsqldb:/tmp/appfuse;shutdown=true]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:hsqldb:/tmp/${db.name};shutdown=true]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password/>
                 <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
@@ -1109,7 +1201,7 @@
                 <dbunit.dataTypeFactoryName>org.dbunit.ext.oracle.OracleDataTypeFactory</dbunit.dataTypeFactoryName>
                 <dbunit.schema>SYSTEM</dbunit.schema>
                 <!-- Make sure to capitalize the schema name -->
-                <hibernate.dialect>org.hibernate.dialect.Oracle9Dialect</hibernate.dialect>
+                <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
                 <jdbc.groupId>com.oracle</jdbc.groupId>
                 <jdbc.artifactId>ojdbc14</jdbc.artifactId>
                 <jdbc.version>10.2.0.2.0</jdbc.version>
@@ -1123,12 +1215,12 @@
         <profile>
             <id>postgresql</id>
             <properties>
-                <hibernate.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.dialect>
+                <hibernate.dialect>org.hibernate.dialect.Postgres9Dialect</hibernate.dialect>
                 <jdbc.groupId>postgresql</jdbc.groupId>
                 <jdbc.artifactId>postgresql</jdbc.artifactId>
                 <jdbc.version>9.1-901-1.jdbc4</jdbc.version>
                 <jdbc.driverClassName>org.postgresql.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:postgresql://localhost/appfuse]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:postgresql://localhost/${db.name}]]></jdbc.url>
                 <jdbc.username>postgres</jdbc.username>
                 <jdbc.password>postgres</jdbc.password>
                 <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
@@ -1146,7 +1238,7 @@
                 <jdbc.artifactId>jtds</jdbc.artifactId>
                 <jdbc.version>1.3.0</jdbc.version>
                 <jdbc.driverClassName>net.sourceforge.jtds.jdbc.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:1433/appfuse]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:1433/${db.name}]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password>appfuse</jdbc.password>
                 <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
@@ -1155,20 +1247,38 @@
 
         <!-- ================= Container Profiles ================= -->
         <profile>
-            <id>jboss</id>
+            <id>wildfly</id>
             <properties>
-                <cargo.container>jboss4x</cargo.container>
+                <cargo.container>wildfly8x</cargo.container>
                 <cargo.container.url>
-                    http://easynews.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.5.GA.zip
+                    http://download.jboss.org/wildfly/8.1.0.Final/wildfly-8.1.0.Final.zip
                 </cargo.container.url>
             </properties>
         </profile>
         <profile>
             <id>jetty</id>
             <properties>
-                <cargo.container>jetty6x</cargo.container>
+                <cargo.container>jetty9x</cargo.container>
                 <cargo.container.url>
-                    http://dist.codehaus.org/jetty/jetty-6.1.21/jetty-6.1.21.zip
+                    http://download.eclipse.org/jetty/stable-9/dist/jetty-distribution-9.2.5.v20141112.zip
+                </cargo.container.url>
+            </properties>
+        </profile>
+        <profile>
+            <id>tomcat8</id>
+            <properties>
+                <cargo.container>tomcat8x</cargo.container>
+                <cargo.container.url>
+                    http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.14/bin/apache-tomcat-8.0.14.zip
+                </cargo.container.url>
+            </properties>
+        </profile>
+        <profile>
+            <id>tomee</id>
+            <properties>
+                <cargo.container>tomee1x</cargo.container>
+                <cargo.container.url>
+                    http://archive.apache.org/dist/tomee/tomee-1.7.1/apache-tomee-1.7.1-webprofile.zip
                 </cargo.container.url>
             </properties>
         </profile>
@@ -1204,6 +1314,7 @@
     </profiles>
 
     <properties>
+        <db.name>appfuse</db.name>
         <dao.framework>hibernate</dao.framework>
 
         <dbunit.dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dbunit.dataTypeFactoryName>
@@ -1214,7 +1325,7 @@
         <jdbc.version>5.1.27</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>
-            <![CDATA[jdbc:mysql://localhost/appfuse?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]>
+            <![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]>
         </jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password/>
@@ -1227,7 +1338,6 @@
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
         <cargo.host>localhost</cargo.host>
         <cargo.port>8888</cargo.port>
-        <cargo.wait>false</cargo.wait>
         <skipITs>true</skipITs>
 
         <acegijsf.version>1.1.3</acegijsf.version>
