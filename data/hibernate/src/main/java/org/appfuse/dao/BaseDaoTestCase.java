@@ -24,9 +24,10 @@ import java.util.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
-    locations = {"classpath:/applicationContext-resources.xml",
-        "classpath:/applicationContext-dao.xml",
-        "classpath*:/applicationContext.xml"})
+        locations = {"classpath:/applicationContext-resources.xml",
+                "classpath:/applicationContext-dao.xml",
+                "classpath*:/applicationContext.xml",
+                "classpath:**/applicationContext*.xml"})
 @Transactional
 public abstract class BaseDaoTestCase {
     @Autowired

@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -19,7 +18,6 @@ import javax.transaction.Transactional;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
-import org.junit.AfterClass;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
@@ -30,7 +28,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(
     locations={"classpath:/applicationContext-resources.xml",
                "classpath:/applicationContext-dao.xml",
-               "classpath*:/applicationContext.xml"})
+               "classpath*:/applicationContext.xml",
+               "classpath:**/applicationContext*.xml"})
 @Transactional
 public abstract class BaseDaoTestCase {
     /**
