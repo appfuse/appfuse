@@ -41,7 +41,7 @@
                 <artifactId>hibernate3-maven-plugin</artifactId>
                 <configuration>
                     <componentProperties>
-                        <propertyfile>${project.build.testOutputDirectory}/jdbc.properties</propertyfile>
+                        <propertyfile>${project.build.outputDirectory}/jdbc.properties</propertyfile>
                     </componentProperties>
                 </configuration>
             </plugin>
