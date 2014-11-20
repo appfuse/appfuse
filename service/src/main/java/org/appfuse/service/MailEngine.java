@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * Class for sending e-mail messages based on Velocity templates
  * or with attachments.
- * 
+ *
  * @author Matt Raible
  */
 public class MailEngine {
@@ -50,6 +50,7 @@ public class MailEngine {
      * @param templateName the Velocity template to use (relative to classpath)
      * @param model a map containing key/value pairs
      */
+    @SuppressWarnings("unchecked")
     public void sendMessage(SimpleMailMessage msg, String templateName, Map model) {
         String result = null;
 
@@ -82,7 +83,7 @@ public class MailEngine {
 
     /**
      * Convenience method for sending messages with attachments.
-     * 
+     *
      * @param recipients array of e-mail addresses
      * @param sender e-mail address of sender
      * @param resource attachment from classpath
@@ -91,7 +92,7 @@ public class MailEngine {
      * @param attachmentName name for attachment
      * @throws MessagingException thrown when can't communicate with SMTP server
      */
-    public void sendMessage(String[] recipients, String sender, 
+    public void sendMessage(String[] recipients, String sender,
                             ClassPathResource resource, String bodyText,
                             String subject, String attachmentName)
     throws MessagingException {
