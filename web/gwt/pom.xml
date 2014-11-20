@@ -136,6 +136,25 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <id>VerifyRequestFactoryInterfaces</id>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-cp</argument>
+                                <classpath/>
+                                <argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
+                                <argument>${project.build.outputDirectory}</argument>
+                                <argument>${project.groupId}.webapp.client.requests.ApplicationRequestFactory</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
         <resources>
@@ -223,7 +242,10 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                    </plugin>
+                    <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <executions>
                             <execution>

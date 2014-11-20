@@ -180,6 +180,14 @@
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>2.5</version>
+                    <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->
+                    <configuration>
+                        <filesets>
+                            <fileset>
+                                <directory>${user.home}/${project.build.finalName}</directory>
+                            </fileset>
+                        </filesets>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
@@ -448,25 +456,6 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>1.2.1</version>
-                    <executions>
-                        <execution>
-                            <phase>process-classes</phase>
-                            <goals>
-                                <goal>exec</goal>
-                            </goals>
-                            <configuration>
-                                <id>VerifyRequestFactoryInterfaces</id>
-                                <executable>java</executable>
-                                <arguments>
-                                    <argument>-cp</argument>
-                                    <classpath/>
-                                    <argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
-                                    <argument>${project.build.outputDirectory}</argument>
-                                    <argument>${project.groupId}.webapp.client.requests.ApplicationRequestFactory</argument>
-                                </arguments>
-                            </configuration>
-                        </execution>
-                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

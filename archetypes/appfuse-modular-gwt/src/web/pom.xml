@@ -22,46 +22,6 @@
                 <artifactId>dbunit-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-            </plugin>
-            <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>${user.home}/${project.build.finalName}/index</directory>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
-            <!-- will package a ready-to-run app regarding hibernate-search index location -->
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <escapeString>\</escapeString>
-                    <webResources>
-                        <resource>
-                            <directory>src/main/resources/packaged</directory>
-                            <targetPath>WEB-INF/classes</targetPath>
-                            <filtering>true</filtering>
-                            <includes>
-                                <include>hibernate.properties</include>
-                            </includes>
-                        </resource>
-                    </webResources>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Implementation-Version>${project.version}</Implementation-Version>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
                 <executions>
@@ -76,8 +36,6 @@
                                 <include>ApplicationResources_el*.properties</include>
                                 <include>ApplicationResources_zh*.properties</include>
                                 <include>ApplicationResources_ko*.properties</include>
-                                <include>displaytag_el*.properties</include>
-                                <include>displaytag_zh*.properties</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -128,7 +86,6 @@
         	<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2</version>
                 <executions>
                     <execution>
                         <phase>process-classes</phase>
@@ -150,12 +107,6 @@
                 </executions>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
@@ -179,66 +130,25 @@
         </dependency>
         <dependency>
             <groupId>org.appfuse</groupId>
-            <artifactId>appfuse-web</artifactId>
+            <artifactId>appfuse-gwt</artifactId>
             <version>${appfuse.version}</version>
             <type>pom</type>
-            <!-- This exclusion and the dependency following this one allow DAO framework switching. -->
-            <!-- You only need these if you want to use JPA or iBATIS. See APF-565 for more information. -->
-            <!-- It does no harm to leave it in for Hibernate, but it's not needed. -->
             <exclusions>
                 <exclusion>
                     <groupId>org.appfuse</groupId>
                     <artifactId>appfuse-hibernate</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>opensymphony</groupId>
+                    <artifactId>sitemesh</artifactId>
+                </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-		<!-- gwt dependencies -->
-    	<dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-servlet</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt.inject</groupId>
-            <artifactId>gin</artifactId>
-        </dependency>
-		<dependency>
-			<groupId>com.github.gwtbootstrap</groupId>
-			<artifactId>gwt-bootstrap</artifactId>
-		</dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
-        <dependency>
-        	<groupId>org.hibernate</groupId>
-        	<artifactId>hibernate-validator</artifactId>
-        </dependency>
-		<!-- /gwt dependencies -->
-
         <!-- Selenium web tests -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -260,83 +170,24 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>${cargo.version}</version>
-                        <configuration>
-                            <wait>${cargo.wait}</wait>
-                            <container>
-                                <containerId>${cargo.container}</containerId>
-                                <home>${cargo.container.home}</home>
-                                <zipUrlInstaller>
-                                    <url>${cargo.container.url}</url>
-                                    <extractDir>${installDir}</extractDir>
-                                </zipUrlInstaller>
-                                <systemProperties>
-                                    <mail.port>25250</mail.port>
-                                </systemProperties>
-                            </container>
-                            <configuration>
-                                <home>${project.build.directory}/${cargo.container}/container</home>
-                                <properties>
-                                    <cargo.hostname>${cargo.host}</cargo.hostname>
-                                    <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
-                                    <!-- To prevent conflicts with already running instances -->
-                                    <cargo.tomcat.ajp.port>8123</cargo.tomcat.ajp.port>
-                                </properties>
-                            </configuration>
-                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>start-container</id>
-                                <phase>pre-integration-test</phase>
+                                <id>default</id>
                                 <goals>
-                                    <goal>start</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>stop-container</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-					<plugin>
-						<artifactId>maven-failsafe-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>default</id>
-								<goals>
-									<goal>integration-test</goal>
-									<goal>verify</goal>
-								</goals>
-							</execution>
-						</executions>
                         <configuration>
-                           <systemPropertyVariables>
-                                <baseUrl>http://${cargo.host}:${cargo.port}/${project.build.finalName}/</baseUrl>
+                            <systemPropertyVariables>
+                                <baseUrl>http://${cargo.host}:${cargo.port}/${project.artifactId}/</baseUrl>
                                 <mail.port>25250</mail.port>
-                                <webdriver.chrome.driver>/usr/bin/chromium-browser</webdriver.chrome.driver>
-                           </systemPropertyVariables>
-                        </configuration>
-					</plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <!-- ================= Production Settings Profile ================= -->
-        <!-- Use "-P prod" when you want to use the settings in this profile -->
-        <!-- =============================================================== -->
-        <profile>
-            <id>prod</id>
-            <build>
-                <plugins>
-                    <!-- Override location of data file for DbUnit to load (doesn't have negative keys) -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>dbunit-maven-plugin</artifactId>
-                        <configuration>
-                            <src>src/main/resources/default-data.xml</src>
+                                <webdriver.chrome.driver>/usr/bin/chromedriver</webdriver.chrome.driver>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>

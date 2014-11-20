@@ -32,6 +32,25 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <id>VerifyRequestFactoryInterfaces</id>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-cp</argument>
+                                <classpath/>
+                                <argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
+                                <argument>${project.build.outputDirectory}</argument>
+                                <argument>${project.groupId}.webapp.client.requests.ApplicationRequestFactory</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -39,13 +58,17 @@
     <dependencies>
         <dependency>
             <groupId>org.appfuse</groupId>
-            <artifactId>appfuse-gwt</artifactId>
+            <artifactId>appfuse-${web.framework}</artifactId>
             <version>${appfuse.version}</version>
             <type>pom</type>
             <exclusions>
                 <exclusion>
                     <groupId>org.appfuse</groupId>
                     <artifactId>appfuse-hibernate</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>opensymphony</groupId>
+                    <artifactId>sitemesh</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -73,6 +96,7 @@
         <dao.framework>hibernate</dao.framework>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
         <gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>
+        <web.framework>gwt</web.framework>
 
         <!-- Framework/Plugin versions -->
         <appfuse.version>3.5.0-SNAPSHOT</appfuse.version>
@@ -85,7 +109,10 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                    </plugin>
+                    <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <executions>
                             <execution>
@@ -100,7 +127,7 @@
                             <systemPropertyVariables>
                                 <baseUrl>http://${cargo.host}:${cargo.port}/${project.artifactId}/</baseUrl>
                                 <mail.port>25250</mail.port>
-                                <webdriver.chrome.driver>/usr/bin/chromium-browser</webdriver.chrome.driver>
+                                <webdriver.chrome.driver>/usr/bin/chromedriver</webdriver.chrome.driver>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
@@ -110,11 +137,11 @@
 
         <!-- GWT Development/Debug Profile -->
         <profile>
-            <id>gwtDebug</id>
-            <properties>
-                <gwt.draftCompile>true</gwt.draftCompile>
-                <gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>
-            </properties>
+        	<id>gwtDebug</id>
+        	<properties>
+				<gwt.draftCompile>true</gwt.draftCompile>
+				<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>
+        	</properties>
         </profile>
     </profiles>
 </project>

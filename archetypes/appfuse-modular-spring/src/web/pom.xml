@@ -22,10 +22,6 @@
                 <artifactId>dbunit-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
                 <executions>

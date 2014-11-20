@@ -22,10 +22,6 @@
                 <artifactId>dbunit-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
                 <executions>
@@ -82,7 +78,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>appfuse-modular-spring-core</artifactId>
+            <artifactId>appfuse-modular-struts-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

@@ -64,12 +64,38 @@
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.java</include>
+                    <include>**/*.tml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>src/main/webapp</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </testResource>
+        </testResources>
     </build>
 
     <dependencies>
         <dependency>
             <groupId>org.appfuse</groupId>
-            <artifactId>appfuse-tapestry</artifactId>
+            <artifactId>appfuse-${web.framework}</artifactId>
             <version>${appfuse.version}</version>
             <type>pom</type>
             <exclusions>
@@ -99,6 +125,7 @@
         <amp.fullSource>false</amp.fullSource>
         <dao.framework>hibernate</dao.framework>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
+        <web.framework>tapestry</web.framework>
 
         <!-- Framework/Plugin versions -->
         <appfuse.version>3.5.0-SNAPSHOT</appfuse.version>

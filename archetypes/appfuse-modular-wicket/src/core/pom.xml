@@ -21,12 +21,6 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>hibernate3-maven-plugin</artifactId>
                 <configuration>
-                    <components>
-                        <component>
-                            <name>hbm2ddl</name>
-                            <implementation>annotationconfiguration</implementation>
-                        </component>
-                    </components>
                     <componentProperties>
                         <propertyfile>${project.build.testOutputDirectory}/jdbc.properties</propertyfile>
                     </componentProperties>
@@ -37,12 +31,6 @@
                 <artifactId>dbunit-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <filtering>true</filtering>
-            </testResource>
-        </testResources>
     </build>
 
     <dependencies>
@@ -66,25 +54,4 @@
             <version>${appfuse.version}</version>
         </dependency>
     </dependencies>
-
-    <profiles>
-        <!-- ================= Production Settings Profile ================= -->
-        <!-- Use "-P prod" when you want to use the settings in this profile -->
-        <!-- =============================================================== -->
-        <profile>
-            <id>prod</id>
-            <build>
-                <plugins>
-                    <!-- Override location of data file for DbUnit to load (doesn't have negative keys) -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>dbunit-maven-plugin</artifactId>
-                        <configuration>
-                            <src>src/main/resources/default-data.xml</src>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
