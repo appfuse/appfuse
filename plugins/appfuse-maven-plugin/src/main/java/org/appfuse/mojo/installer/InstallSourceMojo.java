@@ -136,7 +136,7 @@ public class InstallSourceMojo extends AbstractMojo {
             }
         }
 
-        if (branch != null && !"".equals(branch)) {
+        if (branch != null && !"".equals(branch) && !"master".equals(branch)) {
             tag = "branches/" + branch + "/";
         }
 
@@ -225,8 +225,12 @@ public class InstallSourceMojo extends AbstractMojo {
             }
         }
 
-        log("Source successfully exported...");
+        log("Source successfully exported.");
+        // As of AppFuse 3.5, pom files no longer need to be adjusted when running full-source
+        //calculateDependencies(appfuseVersion, daoFramework, webFramework, isWebServicesProject);
+    }
 
+    private void calculateDependencies(String appfuseVersion, String daoFramework, String webFramework, boolean isWebServicesProject) throws MojoFailureException {
         List dependencies = project.getOriginalModel().getDependencies();
         List<Dependency> newDependencies = new ArrayList<>();
 
