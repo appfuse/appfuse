@@ -225,7 +225,7 @@ public class InstallSourceMojo extends AbstractMojo {
             }
         }
 
-        log("Source successfully exported, modifying pom.xml...");
+        log("Source successfully exported...");
 
         List dependencies = project.getOriginalModel().getDependencies();
         List<Dependency> newDependencies = new ArrayList<>();
@@ -367,19 +367,6 @@ public class InstallSourceMojo extends AbstractMojo {
             core.setArtifactId("${project.parent.artifactId}-core");
             core.setVersion("${project.parent.version}");
             newDependencies.add(core);
-
-            // workaround for JSF requiring JSP 2.1 - this is a true hack
-            if (project.getProperties().getProperty("web.framework").equals("jsf")) {
-                Dependency jsp21 = new Dependency();
-                jsp21.setGroupId("javax.servlet.jsp");
-                jsp21.setArtifactId("jsp-api");
-                jsp21.setVersion("${jsp.version}");
-                jsp21.setScope("provided");
-                newDependencies.add(jsp21);
-
-                // replace jsp.version property as well
-                project.getOriginalModel().getProperties().setProperty("jsp.version", "2.1");
-            }
         }
 
         Collections.sort(newDependencies, new BeanComparator("groupId"));
@@ -408,11 +395,6 @@ public class InstallSourceMojo extends AbstractMojo {
                 // this happens when the version number is hard-coded
                 if (value == null) {
                     continue;
-                }
-
-                // hack for Tapestry depending on commons-pool (a.k.a. commons-dbcp 1.2.2)
-                if ("tapestry".equals(project.getProperties().getProperty("web.framework")) && key.equals("commons.dbcp.version")) {
-                    value = "1.2.2";
                 }
 
                 if (value.contains("&amp;")) {
@@ -461,7 +443,7 @@ public class InstallSourceMojo extends AbstractMojo {
             throw new MojoFailureException(ex.getMessage());
         }
 
-        log("Updated dependencies in pom.xml...");
+        //log("Updated dependencies in pom.xml...");
 
         // I tried to use regex here, but couldn't get it to work - going with the old fashioned way instead
         String pomXml = writer.toString();
@@ -503,7 +485,8 @@ public class InstallSourceMojo extends AbstractMojo {
 
             adjustedPom = adjustLineEndingsForOS(adjustedPom);
 
-            FileUtils.writeStringToFile(new File(pathToPom), adjustedPom, "UTF-8"); // was pomWithProperties
+            // As of AppFuse 3.5, pom files no longer need to be adjusted when running full-source
+            //FileUtils.writeStringToFile(new File(pathToPom), adjustedPom, "UTF-8");
         } catch (IOException ex) {
             getLog().error("Unable to write to pom.xml: " + ex.getMessage(), ex);
             throw new MojoFailureException(ex.getMessage());
@@ -570,7 +553,8 @@ public class InstallSourceMojo extends AbstractMojo {
 
                 String pomWithProperties = addPropertiesToPom(originalPom, calculatedProperties);
 
-                FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties, "UTF-8");
+                // As of AppFuse 3.5, pom files no longer need to be adjusted when running full-source
+                //FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties, "UTF-8");
             } catch (IOException ex) {
                 getLog().error("Unable to read root pom.xml: " + ex.getMessage(), ex);
                 throw new MojoFailureException(ex.getMessage());
@@ -784,23 +768,6 @@ public class InstallSourceMojo extends AbstractMojo {
     }
 
     /**
-     * This method will create an ANT based LoadFile task based on an infile and a property name.
-     * The property will be loaded with the infile for use later by the Replace task.
-     *
-     * @param inFile   The file to process
-     * @param propName the name to assign it to
-     * @return The ANT LoadFile task that loads a property with a file
-     */
-    protected LoadFile createLoadFileTask(String inFile, String propName) {
-        LoadFile loadFileTask = (LoadFile) antProject.createTask("loadfile");
-        loadFileTask.init();
-        loadFileTask.setProperty(propName);
-        loadFileTask.setSrcFile(new File(inFile));
-
-        return loadFileTask;
-    }
-
-    /**
      * This method will movie files from the source directory to the destination directory based on
      * the pattern.
      *
@@ -831,5 +798,4 @@ public class InstallSourceMojo extends AbstractMojo {
         moveTask.setTofile(to);
         moveTask.execute();
     }
-
 }

@@ -195,7 +195,7 @@
             <maven dir="${test.dir}/@{name}/core" command="appfuse:gen -Dentity=Person -Damp.genericCore=false -e"/>
             <maven dir="${test.dir}/@{name}/core" command="install -Duser.language=en -Dsurefire.useFile=false -e"/>
 
-            <!-- get and test web -->
+            <!-- gen and test web -->
             <maven dir="${test.dir}/@{name}/web" command="appfuse:gen -Dentity=Person -Damp.genericCore=false -e"/>
             <maven dir="${test.dir}/@{name}/web" command="install -Duser.language=en -Dsurefire.useFile=false -e"/>
         </sequential>
@@ -332,10 +332,10 @@
             <if>
                 <contains string="@{name}" substring="light"/>
                 <then>
-                    <property name="test-command" value="integration-test -Duser.language=en -Dsurefire.useFile=false -Djdbc.username=sa -Djdbc.password="/>
+                    <property name="test-command" value="verify -Pitest -Duser.language=en -Dsurefire.useFile=false -Djdbc.username=sa -Djdbc.password="/>
                 </then>
                 <else>
-                    <property name="test-command" value="verify -Duser.language=en -Dsurefire.useFile=false"/>
+                    <property name="test-command" value="verify -Pitest -Duser.language=en -Dsurefire.useFile=false"/>
                 </else>
             </if>
 
@@ -420,7 +420,7 @@
 
             <!-- test w/o generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/@{name}" command="verify -Duser.language=en -Dsurefire.useFile=false"/>
+            <maven dir="${test.dir}/@{name}" command="verify -Pitest -Duser.language=en -Dsurefire.useFile=false"/>
         </sequential>
     </macrodef>
 
@@ -473,6 +473,6 @@
         </sql>
         <maven dir="${test.dir}/${name}" command="appfuse:gen-model"/>
         <maven dir="${test.dir}/${name}" command="appfuse:gen -Dentity=Cat"/>
-        <maven dir="${test.dir}/${name}" command="verify -Duser.language=en -Dsurefire.useFile=false"/>
+        <maven dir="${test.dir}/${name}" command="verify -Pitest -Duser.language=en -Dsurefire.useFile=false"/>
     </target>
 </project>

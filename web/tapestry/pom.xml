@@ -190,15 +190,6 @@
             <artifactId>tapestry-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- Add Bootstrap via WebJars -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap-datepicker</artifactId>
-        </dependency>
         <dependency>
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
