@@ -26,8 +26,7 @@ import java.util.*;
 @ContextConfiguration(
     locations = {"classpath:/applicationContext-resources.xml",
         "classpath:/applicationContext-dao.xml",
-        "classpath*:/applicationContext.xml",
-        "classpath:**/applicationContext*.xml"})
+        "classpath*:/applicationContext.xml"})
 @Transactional
 public abstract class BaseDaoTestCase {
     @Autowired

@@ -30,8 +30,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(
     locations={"classpath:/applicationContext-resources.xml",
                "classpath:/applicationContext-dao.xml",
-               "classpath*:/applicationContext.xml",
-               "classpath:**/applicationContext*.xml"})
+               "classpath*:/applicationContext.xml"})
 @Transactional
 public abstract class BaseDaoTestCase {
     /**

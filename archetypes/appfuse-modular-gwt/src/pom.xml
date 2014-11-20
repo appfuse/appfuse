@@ -25,7 +25,7 @@
             <plugin>
                 <groupId>org.appfuse.plugins</groupId>
                 <artifactId>appfuse-maven-plugin</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${appfuse.version}</version>
                 <configuration>
                     <componentProperties>
                         <implementation>annotationconfiguration</implementation>

@@ -148,7 +148,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
         String webFramework = project.getProperties().getProperty("web.framework");
 
-        boolean modular = (project.getPackaging().equals("pom") && project.getParentArtifact().getGroupId().contains("appfuse"));
+        boolean modular = project.getPackaging().equals("pom");
         if (project.getPackaging().equals("jar") ||
             (project.getPackaging().equals("war") && project.getParentArtifact().getGroupId().contains("appfuse"))) {
             // export data-common
@@ -191,6 +191,49 @@ public class InstallSourceMojo extends AbstractMojo {
                 deleteFile(orig.getPath());
                 renameFile(dest, orig);
             }
+
+            log("Source successfully installed!");
+        }
+
+        if (modular) {
+            try {
+                String pom = FileUtils.readFileToString(new File("pom.xml"), "UTF-8");
+
+                // Move modules to build section.
+                pom = pom.replaceAll("  <modules>\n", "");
+                pom = pom.replaceAll("    <module>.*?</module>\n", "");
+                pom = pom.replaceAll("  </modules>\n", "");
+
+                pom = pom.replace("<build>", "<modules>\n" +
+                    "        <module>core</module>\n" +
+                    "        <module>web</module>\n" +
+                    "    </modules>\n\n    <build>");
+
+                FileUtils.writeStringToFile(new File("pom.xml"), pom, "UTF-8");
+            } catch (IOException ex) {
+                // no big deal if this fails, everything will still work
+            }
+
+            // modify the appfuse dependencies to be type pom
+            try {
+                String pom = FileUtils.readFileToString(new File("core/pom.xml"), "UTF-8");
+                pom = pom.replaceAll("<version>(.*?)appfuse.version}</version>",
+                    "<version>$1appfuse.version}</version>\n            <type>pom</type>");
+                FileUtils.writeStringToFile(new File("core/pom.xml"), pom, "UTF-8");
+            } catch (IOException io) {
+                getLog().error("Failed to change core module's dependencies to use <type>pom</type>.\n" +
+                    "Please make this change manually.");
+            }
+
+            // exclude all appfuse dependencies in web module
+            try {
+                String pom = FileUtils.readFileToString(new File("web/pom.xml"), "UTF-8");
+                pom = pom.replaceAll("appfuse-hibernate", "*");
+                FileUtils.writeStringToFile(new File("web/pom.xml"), pom, "UTF-8");
+            } catch (IOException io) {
+                getLog().error("Failed to change web module to exclude AppFuse dependencies.\n" +
+                    "Please make this change manually: %s/appfuse-hibernate/*");
+            }
         }
 
         // it's OK if a project created with appfuse-ws doesn't have a web framework defined
@@ -211,7 +254,7 @@ public class InstallSourceMojo extends AbstractMojo {
                 throw new MojoExecutionException("No web.framework property specified, please modify pom.xml to add it.");
             }
 
-            if (project.hasParent() && !project.getParentArtifact().getGroupId().contains("appfuse")) {
+            if (project.getArtifactId().contains("core")) {
                 // delete hibernate, ibatis and jpa files from web project
                 deleteFile("main/resources/hibernate.cfg.xml");
                 deleteFile("main/resources/META-INF");
@@ -219,15 +262,17 @@ public class InstallSourceMojo extends AbstractMojo {
 
                 // there's a jdbc.properties in test/resources that shouldn't be there
                 deleteFile("test/resources/jdbc.properties");
+
             } else if (!isAppFuse()) {
                 // there's a jdbc.properties in test/resources that shouldn't be there
                 deleteFile("test/resources/jdbc.properties");
+                deleteFile("test/resources/log4j2.xml");
             }
         }
 
-        log("Source successfully exported.");
         // As of AppFuse 3.5, pom files no longer need to be adjusted when running full-source
         //calculateDependencies(appfuseVersion, daoFramework, webFramework, isWebServicesProject);
+        renamePackages();
     }
 
     private void calculateDependencies(String appfuseVersion, String daoFramework, String webFramework, boolean isWebServicesProject) throws MojoFailureException {
@@ -243,7 +288,7 @@ public class InstallSourceMojo extends AbstractMojo {
             }
         }
 
-        if (!project.getPackaging().equals("pom") && project.getParentArtifact().getGroupId().contains("appfuse")) {
+        if (!project.getPackaging().equals("pom")) {
 
             // add dependencies from root appfuse pom
             newDependencies = addModuleDependencies(newDependencies, "root", "", "");
@@ -331,8 +376,9 @@ public class InstallSourceMojo extends AbstractMojo {
         return newDependencies;
     }
 
+    // TODO: Improve logic or remove need for calculation
     private boolean isAppFuse() {
-        return (project.getProperties().getProperty("copyright.year") != null);
+        return (project.getParent().getArtifactId().contains("appfuse-web"));
     }
 
     private void deleteFile(String filePath) {
@@ -489,26 +535,17 @@ public class InstallSourceMojo extends AbstractMojo {
 
             adjustedPom = adjustLineEndingsForOS(adjustedPom);
 
-            // As of AppFuse 3.5, pom files no longer need to be adjusted when running full-source
-            //FileUtils.writeStringToFile(new File(pathToPom), adjustedPom, "UTF-8");
+            FileUtils.writeStringToFile(new File(pathToPom), adjustedPom, "UTF-8");
         } catch (IOException ex) {
             getLog().error("Unable to write to pom.xml: " + ex.getMessage(), ex);
             throw new MojoFailureException(ex.getMessage());
         }
 
-        boolean renamePackages = true;
-        if (System.getProperty("renamePackages") != null) {
-            renamePackages = Boolean.valueOf(System.getProperty("renamePackages"));
-        }
+        // cleanup so user isn't aware that files were created
+        File pom = new File("pom-fullsource.xml");
 
-        if (renamePackages && !project.getPackaging().equals("pom")) {
-            log("Renaming packages to '" + project.getGroupId() + "'...");
-            RenamePackages renamePackagesTool = new RenamePackages(project.getGroupId());
-            if (project.hasParent() && !project.getParentArtifact().getGroupId().contains("appfuse")) {
-                renamePackagesTool.setBaseDir(project.getBasedir() + "/src");
-            }
-
-            renamePackagesTool.execute();
+        if (pom.exists()) {
+            pom.delete();
         }
 
         // when performing full-source on a modular project, add the properties to the root pom.xml at the end
@@ -557,20 +594,28 @@ public class InstallSourceMojo extends AbstractMojo {
 
                 String pomWithProperties = addPropertiesToPom(originalPom, calculatedProperties);
 
-                // As of AppFuse 3.5, pom files no longer need to be adjusted when running full-source
-                //FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties, "UTF-8");
+                FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties, "UTF-8");
             } catch (IOException ex) {
-                getLog().error("Unable to read root pom.xml: " + ex.getMessage(), ex);
+                getLog().error("Unable to modify root pom.xml: " + ex.getMessage(), ex);
                 throw new MojoFailureException(ex.getMessage());
             }
+        }
+    }
 
+    private void renamePackages() {
+        boolean renamePackages = true;
+        if (System.getProperty("renamePackages") != null) {
+            renamePackages = Boolean.valueOf(System.getProperty("renamePackages"));
         }
 
-        // cleanup so user isn't aware that files were created
-        File pom = new File("pom-fullsource.xml");
+        if (renamePackages && !project.getPackaging().equals("pom")) {
+            log("Renaming packages to '" + project.getGroupId() + "'...");
+            RenamePackages renamePackagesTool = new RenamePackages(project.getGroupId());
+            if (project.hasParent() && !project.getParentArtifact().getGroupId().contains("appfuse")) {
+                renamePackagesTool.setBaseDir(project.getBasedir() + "/src");
+            }
 
-        if (pom.exists()) {
-            pom.delete();
+            renamePackagesTool.execute();
         }
     }
 

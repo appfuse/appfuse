@@ -63,9 +63,6 @@
             <groupId>org.appfuse</groupId>
             <artifactId>appfuse-service</artifactId>
             <version>${appfuse.version}</version>
-            <!-- This exclusion and the dependency following this one allow DAO framework switching. -->
-            <!-- You only need these if you want to use JPA or iBATIS. See APF-565 for more information. -->
-            <!-- It does no harm to leave it in for Hibernate, but it's not needed. -->
             <exclusions>
                 <exclusion>
                     <groupId>org.appfuse</groupId>
