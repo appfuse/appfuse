@@ -69,6 +69,7 @@
         <amp.fullSource>false</amp.fullSource>
         <dao.framework>hibernate</dao.framework>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
+        <hibernate-plugin.configuration>annotationconfiguration</hibernate-plugin.configuration>
         <web.framework>wicket</web.framework>
 
         <!-- Framework/Plugin versions -->

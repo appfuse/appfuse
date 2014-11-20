@@ -219,6 +219,7 @@ public class InstallSourceMojo extends AbstractMojo {
                 String pom = FileUtils.readFileToString(new File("core/pom.xml"), "UTF-8");
                 pom = pom.replaceAll("<version>(.*?)appfuse.version}</version>",
                     "<version>$1appfuse.version}</version>\n            <type>pom</type>");
+                pom = adjustLineEndingsForOS(pom);
                 FileUtils.writeStringToFile(new File("core/pom.xml"), pom, "UTF-8");
             } catch (IOException io) {
                 getLog().error("Failed to change core module's dependencies to use <type>pom</type>.\n" +
@@ -229,6 +230,7 @@ public class InstallSourceMojo extends AbstractMojo {
             try {
                 String pom = FileUtils.readFileToString(new File("web/pom.xml"), "UTF-8");
                 pom = pom.replaceAll("appfuse-hibernate", "*");
+                pom = adjustLineEndingsForOS(pom);
                 FileUtils.writeStringToFile(new File("web/pom.xml"), pom, "UTF-8");
             } catch (IOException io) {
                 getLog().error("Failed to change web module to exclude AppFuse dependencies.\n" +

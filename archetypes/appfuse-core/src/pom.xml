@@ -82,6 +82,7 @@
         <amp.fullSource>false</amp.fullSource>
         <dao.framework>hibernate</dao.framework>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
+        <hibernate-plugin.configuration>annotationconfiguration</hibernate-plugin.configuration>
 
         <!-- Framework/Plugin versions -->
         <appfuse.version>3.5.0-SNAPSHOT</appfuse.version>
