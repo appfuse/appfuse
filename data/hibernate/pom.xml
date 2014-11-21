@@ -42,13 +42,12 @@
 
     <build>
         <plugins>
+
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>hibernate3-maven-plugin</artifactId>
+                <groupId>de.juplo</groupId>
+                <artifactId>hibernate4-maven-plugin</artifactId>
                 <configuration>
-                    <componentProperties>
-                        <propertyfile>target/test-classes/jdbc.properties</propertyfile>
-                    </componentProperties>
+                    <hibernateProperties>${project.build.testOutputDirectory}/jdbc.properties</hibernateProperties>
                 </configuration>
             </plugin>
             <plugin>

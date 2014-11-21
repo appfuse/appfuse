@@ -37,8 +37,8 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>hibernate3-maven-plugin</artifactId>
+                <groupId>de.juplo</groupId>
+                <artifactId>hibernate4-maven-plugin</artifactId>
                 <configuration>
                     <componentProperties>
                         <propertyfile>${project.build.outputDirectory}/jdbc.properties</propertyfile>
@@ -156,7 +156,6 @@
         <amp.fullSource>false</amp.fullSource>
         <dao.framework>hibernate</dao.framework>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
-        <hibernate-plugin.configuration>annotationconfiguration</hibernate-plugin.configuration>
 
         <!-- Framework/Plugin versions -->
         <appfuse.version>3.5.0-SNAPSHOT</appfuse.version>

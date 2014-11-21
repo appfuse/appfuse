@@ -285,28 +285,19 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>hibernate3-maven-plugin</artifactId>
-                    <version>2.2</version>
+                    <groupId>de.juplo</groupId>
+                    <artifactId>hibernate4-maven-plugin</artifactId>
+                    <version>1.0.5</version>
                     <configuration>
-                        <components>
-                            <component>
-                                <name>hbm2ddl</name>
-                                <implementation>${hibernate-plugin.configuration}</implementation>
-                            </component>
-                        </components>
-                        <componentProperties>
-                            <drop>true</drop>
-                            <jdk5>true</jdk5>
-                            <propertyfile>${project.build.outputDirectory}/jdbc.properties</propertyfile>
-                            <skip>${skipTests}</skip>
-                        </componentProperties>
+                        <hibernateProperties>${project.build.outputDirectory}/jdbc.properties</hibernateProperties>
+                        <target>BOTH</target>
+                        <skip>${skipTests}</skip>
                     </configuration>
                     <executions>
                         <execution>
                             <phase>process-test-resources</phase>
                             <goals>
-                                <goal>hbm2ddl</goal>
+                                <goal>export</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -1332,7 +1323,6 @@
     <properties>
         <db.name>appfuse</db.name>
         <dao.framework>hibernate</dao.framework>
-        <hibernate-plugin.configuration>annotationconfiguration</hibernate-plugin.configuration>
 
         <dbunit.dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dbunit.dataTypeFactoryName>
         <dbunit.operation.type>CLEAN_INSERT</dbunit.operation.type>

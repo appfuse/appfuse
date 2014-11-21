@@ -70,7 +70,6 @@
         <dao.framework>hibernate</dao.framework>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
         <gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>
-        <hibernate-plugin.configuration>annotationconfiguration</hibernate-plugin.configuration>
         <web.framework>gwt</web.framework>
 
         <!-- Framework/Plugin versions -->
