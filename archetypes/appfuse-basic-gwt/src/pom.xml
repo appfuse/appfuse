@@ -20,6 +20,8 @@
             <plugin>
                 <groupId>de.juplo</groupId>
                 <artifactId>hibernate4-maven-plugin</artifactId>
+                <!-- Downgrade to prevent conflict with hibernate validator -->
+                <version>1.0.3</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
