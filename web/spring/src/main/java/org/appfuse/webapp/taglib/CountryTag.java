@@ -88,7 +88,7 @@ public class CountryTag extends TagSupport {
         }
 
         Locale userLocale = pageContext.getRequest().getLocale();
-        List countries = this.buildCountryList(userLocale);
+        List<LabelValue> countries = this.buildCountryList(userLocale);
 
         if (scope != null) {
             if (scope.equals("page")) {
@@ -103,23 +103,23 @@ public class CountryTag extends TagSupport {
                 throw new JspException("Attribute 'scope' must be: page, request, session or application");
             }
         } else {
-            StringBuffer sb = new StringBuffer();
-            sb.append("<select name=\"" + name + "\" id=\"" + name + "\" class=\"form-control\">\n");
+            StringBuilder sb = new StringBuilder();
+            sb.append("<select name=\"").append(name).append("\" id=\"").append(name).append("\" class=\"form-control\">\n");
 
             if (prompt != null) {
                 sb.append("    <option value=\"\" selected=\"selected\">");
-                sb.append(eval.evalString("prompt", prompt) + "</option>\n");
+                sb.append(eval.evalString("prompt", prompt)).append("</option>\n");
             }
 
-            for (Iterator i = countries.iterator(); i.hasNext();) {
-                LabelValue country = (LabelValue) i.next();
-                sb.append("    <option value=\"" + country.getValue() + "\"");
+            for (Iterator<LabelValue> i = countries.iterator(); i.hasNext();) {
+                LabelValue country = i.next();
+                sb.append("    <option value=\"").append(country.getValue()).append("\"");
 
                 if ((selected != null) && selected.equals(country.getValue())) {
                     sb.append(" selected=\"selected\"");
                 }
 
-                sb.append(">" + country.getLabel() + "</option>\n");
+                sb.append(">").append(country.getLabel()).append("</option>\n");
             }
 
             sb.append("</select>");
@@ -152,11 +152,12 @@ public class CountryTag extends TagSupport {
      *
      * @return List of LabelValues for all available countries.
      */
-    protected List buildCountryList(Locale locale) {
+    @SuppressWarnings("unchecked")
+    protected List<LabelValue> buildCountryList(Locale locale) {
         final String EMPTY = "";
         final Locale[] available = Locale.getAvailableLocales();
 
-        List countries = new ArrayList();
+        List<LabelValue> countries = new ArrayList<>();
 
         for (int i = 0; i < available.length; i++) {
             final String iso = available[i].getCountry();
@@ -181,7 +182,7 @@ public class CountryTag extends TagSupport {
      * locale-sensitive behaviour.
      */
     public class LabelValueComparator implements Comparator {
-        private Comparator c;
+        private Comparator<Object> c;
 
         /**
          * Creates a new LabelValueComparator object.
