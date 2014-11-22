@@ -47,7 +47,13 @@ public class SignupControllerTest extends BaseControllerTestCase {
         // start SMTP Server
         Wiser wiser = new Wiser();
         wiser.setPort(getSmtpPort());
-        wiser.start();
+        try {
+            wiser.start();
+        } catch (RuntimeException re) {
+            // address already in use, try different port
+            wiser.setPort(getSmtpPort() + (int) (Math.random() * 100));
+            wiser.start();
+        }
 
         ResultActions signup = mockMvc.perform(post("/signup.html")
                 .param("address.city", "Denver")

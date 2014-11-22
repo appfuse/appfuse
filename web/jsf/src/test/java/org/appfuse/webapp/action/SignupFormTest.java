@@ -49,10 +49,16 @@ public class SignupFormTest extends BasePageTestCase {
         user.setPasswordHint("Password is one with you.");
         bean.setUser(user);
 
-       // start SMTP Server
-        Wiser wiser = new Wiser();
+        // start SMTP Server
+        final Wiser wiser = new Wiser();
         wiser.setPort(getSmtpPort());
-        wiser.start();
+        try {
+            wiser.start();
+        } catch (RuntimeException re) {
+            // address already in use, try different port
+            wiser.setPort(getSmtpPort() + (int) (Math.random() * 100));
+            wiser.start();
+        }
 
         assertEquals("home", bean.save());
         assertFalse(bean.hasErrors());

@@ -61,8 +61,8 @@ public class SignupActionTest extends BaseActionTestCase {
         try {
             wiser.start();
         } catch (RuntimeException re) {
-            // address already in use, stop and try again
-            wiser.stop();
+            // address already in use, try different port
+            wiser.setPort(getSmtpPort() + (int) (Math.random() * 100));
             wiser.start();
         }
 
