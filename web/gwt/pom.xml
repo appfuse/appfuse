@@ -70,6 +70,7 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
+                    <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
                     <webResources>
                         <!-- Need to overwrite. Cannot filter original with different values as filter cannot be escaped: MRESOURCES-126 -->
                         <resource>
