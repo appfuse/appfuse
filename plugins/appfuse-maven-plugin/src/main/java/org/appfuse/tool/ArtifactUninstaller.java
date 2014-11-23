@@ -61,7 +61,7 @@ public class ArtifactUninstaller {
             String webFramework = project.getProperties().getProperty("web.framework");
 
             if ("jsf".equalsIgnoreCase(webFramework)) {
-                log("Installing JSF views and configuring...");
+                log("Removing JSF views and configuring...");
                 removeJSFNavigationAndBeans();
                 removeJSFViews();
             } else if ("struts".equalsIgnoreCase(webFramework)) {
@@ -226,7 +226,7 @@ public class ArtifactUninstaller {
     }
 
     private boolean isAppFuse() {
-        return (project.getProperties().getProperty("copyright.year") != null);
+        return (project.getParent().getArtifactId().contains("appfuse-web"));
     }
 
     private void removeInternationalizationKeys() {

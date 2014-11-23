@@ -316,7 +316,7 @@ public class ArtifactInstaller {
     }
 
     private boolean isAppFuse() {
-        return (project.getProperties().getProperty("copyright.year") != null);
+        return (project.getParent().getArtifactId().contains("appfuse-web"));
     }
 
     // =================== End of Views ===================
