@@ -28,14 +28,7 @@ public class PasswordHintTest extends BasePageTestCase {
     public void testExecute() throws Exception {
         // start SMTP Server
         Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        try {
-            wiser.start();
-        } catch (RuntimeException re) {
-            // address already in use, try different port
-            wiser.setPort(getSmtpPort() + (int) (Math.random() * 100));
-            wiser.start();
-        }
+        wiser.start();
 
         bean.setUsername("user");
         assertEquals("success", bean.execute());

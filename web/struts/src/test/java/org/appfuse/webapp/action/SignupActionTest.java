@@ -57,15 +57,7 @@ public class SignupActionTest extends BaseActionTestCase {
 
         // start SMTP Server
         final Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        try {
-            wiser.start();
-        } catch (RuntimeException re) {
-            // address already in use, try different port
-            wiser.setPort(getSmtpPort() + (int) (Math.random() * 100));
-            wiser.start();
-        }
-
+        wiser.start();
 
         assertNull(action.getUser().getId());
         assertEquals("success", action.save());
