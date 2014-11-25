@@ -46,6 +46,7 @@ public class SignupControllerTest extends BaseControllerTestCase {
     public void testSignupUser() throws Exception {
         // start SMTP Server
         Wiser wiser = new Wiser();
+        wiser.setPort(getSmtpPort());
         wiser.start();
 
         ResultActions signup = mockMvc.perform(post("/signup.html")

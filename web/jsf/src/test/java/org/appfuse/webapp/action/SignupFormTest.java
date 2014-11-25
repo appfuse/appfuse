@@ -51,6 +51,7 @@ public class SignupFormTest extends BasePageTestCase {
 
         // start SMTP Server
         final Wiser wiser = new Wiser();
+        wiser.setPort(getSmtpPort());
         wiser.start();
 
         assertEquals("home", bean.save());

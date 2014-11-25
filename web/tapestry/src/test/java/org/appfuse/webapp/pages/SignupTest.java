@@ -51,7 +51,8 @@ public class SignupTest extends BasePageTestCase {
 
         // start SMTP Server
         Wiser wiser = new Wiser();
-wiser.start();
+        wiser.setPort(getSmtpPort());
+        wiser.start();
 
         TestableResponse response = tester.submitFormAndReturnResponse(form, fieldValues);
 
@@ -87,6 +88,7 @@ wiser.start();
 
         // start SMTP Server
         Wiser wiser = new Wiser();
+        wiser.setPort(getSmtpPort());
         wiser.start();
 
         TestableResponse response = tester.submitFormAndReturnResponse(form, fieldValues);

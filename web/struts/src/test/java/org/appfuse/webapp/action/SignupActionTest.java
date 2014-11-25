@@ -57,6 +57,7 @@ public class SignupActionTest extends BaseActionTestCase {
 
         // start SMTP Server
         final Wiser wiser = new Wiser();
+        wiser.setPort(getSmtpPort());
         wiser.start();
 
         assertNull(action.getUser().getId());
