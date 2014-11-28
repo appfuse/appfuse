@@ -15,7 +15,6 @@ import org.apache.maven.project.MavenProjectBuilder;
 import org.apache.maven.settings.Settings;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Get;
-import org.apache.tools.ant.taskdefs.LoadFile;
 import org.apache.tools.ant.taskdefs.Move;
 import org.apache.tools.ant.types.FileSet;
 import org.appfuse.tool.RenamePackages;
@@ -29,15 +28,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import static java.lang.String.format;
 
@@ -101,11 +92,9 @@ public class InstallSourceMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
-     *
      * @parameter expression="${settings}"
      * @required
      * @readonly
-     *
      */
     private Settings settings;
 
@@ -173,7 +162,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
             // move Base*TestCase to test directory
             moveFiles((modular) ? coreSource + "/main" : destinationDirectory + "/main",
-                    (modular) ? coreSource + "/test" : destinationDirectory + "/test", "**/Base*TestCase.java");
+                (modular) ? coreSource + "/test" : destinationDirectory + "/test", "**/Base*TestCase.java");
 
             // delete dao.framework related files from test directory
             deleteFile("test/resources/hibernate.cfg.xml");
@@ -219,6 +208,13 @@ public class InstallSourceMojo extends AbstractMojo {
                 String pom = FileUtils.readFileToString(new File("core/pom.xml"), "UTF-8");
                 pom = pom.replaceAll("<version>(.*?)appfuse.version}</version>",
                     "<version>$1appfuse.version}</version>\n            <type>pom</type>");
+
+                // modify hibernate4-plugin to exclude dependency scan
+                pom = pom.replaceAll("<artifactId>hibernate4-maven-plugin</artifactId>\n" +
+                    "                <configuration>", "<artifactId>hibernate4-maven-plugin</artifactId>\n" +
+                    "                <configuration>\n" +
+                    "                    <scanDependencies>none</scanDependencies>");
+
                 pom = adjustLineEndingsForOS(pom);
                 FileUtils.writeStringToFile(new File("core/pom.xml"), pom, "UTF-8");
             } catch (IOException io) {
@@ -230,11 +226,40 @@ public class InstallSourceMojo extends AbstractMojo {
             try {
                 String pom = FileUtils.readFileToString(new File("web/pom.xml"), "UTF-8");
                 pom = pom.replaceAll("appfuse-hibernate", "*");
+
+                // modify hibernate4-plugin to exclude dependency scan
+                pom = pom.replaceAll("<artifactId>hibernate4-maven-plugin</artifactId>",
+                    "<artifactId>hibernate4-maven-plugin</artifactId>\n" +
+                        "                <configuration>\n                    " +
+                        "                    <scanDependencies>none</scanDependencies>\n" +
+                        "                </configuration>");
                 pom = adjustLineEndingsForOS(pom);
                 FileUtils.writeStringToFile(new File("web/pom.xml"), pom, "UTF-8");
             } catch (IOException io) {
                 getLog().error("Failed to change web module to exclude AppFuse dependencies.\n" +
                     "Please make this change manually: %s/appfuse-hibernate/*");
+            }
+        } else {
+            try {
+                String pom = FileUtils.readFileToString(new File("pom.xml"), "UTF-8");
+                // modify hibernate4-plugin to exclude dependency scan
+                if (project.getPackaging().equals("jar")) {
+                    pom = pom.replaceAll("<artifactId>hibernate4-maven-plugin</artifactId>\n" +
+                        "                <configuration>", "<artifactId>hibernate4-maven-plugin</artifactId>\n" +
+                        "                <configuration>\n" +
+                        "                    <scanDependencies>none</scanDependencies>");
+                } else {
+                    pom = pom.replaceAll("<artifactId>hibernate4-maven-plugin</artifactId>",
+                        "<artifactId>hibernate4-maven-plugin</artifactId>\n" +
+                            "                <configuration>\n" +
+                            "                    <scanDependencies>none</scanDependencies>\n" +
+                            "                </configuration>");
+                }
+                pom = adjustLineEndingsForOS(pom);
+                FileUtils.writeStringToFile(new File("pom.xml"), pom, "UTF-8");
+            } catch (IOException io) {
+                getLog().error("Failed to add <scanDependencies>none</scanDependencies> to hibernate4-maven-plugin. " +
+                    "Please make this change manually.");
             }
         }
 
@@ -252,7 +277,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
             if (webFramework == null && !isWebServicesProject) {
                 getLog().error("The web.framework property is not specified - please modify your pom.xml to add " +
-                        " this property. For example: <web.framework>struts</web.framework>.");
+                    " this property. For example: <web.framework>struts</web.framework>.");
                 throw new MojoExecutionException("No web.framework property specified, please modify pom.xml to add it.");
             }
 
@@ -454,7 +479,7 @@ public class InstallSourceMojo extends AbstractMojo {
                 }
 
                 sortedProperties.append("        <").append(key).append(">")
-                        .append(value).append("</").append(key).append(">" + "\n");
+                    .append(value).append("</").append(key).append(">" + "\n");
                 propertiesForPom.put(key, value);
             }
         }
@@ -590,9 +615,9 @@ public class InstallSourceMojo extends AbstractMojo {
                 originalPom = originalPom.replaceAll("  </modules>", "");
 
                 originalPom = originalPom.replace("<repositories>", "<modules>\n" +
-                        "        <module>core</module>\n" +
-                        "        <module>web</module>\n" +
-                        "    </modules>\n\n    <repositories>");
+                    "        <module>core</module>\n" +
+                    "        <module>web</module>\n" +
+                    "    </modules>\n\n    <repositories>");
 
                 String pomWithProperties = addPropertiesToPom(originalPom, calculatedProperties);
 
@@ -646,16 +671,16 @@ public class InstallSourceMojo extends AbstractMojo {
             List<Dependency> managedDeps = dependencyManagement.getDependencies();
             for (Dependency managedDep : managedDeps) {
                 if (managedDep.getArtifactId().equals(dep.getArtifactId()) &&
-                        managedDep.getGroupId().equals(dep.getGroupId())) {
+                    managedDep.getGroupId().equals(dep.getGroupId())) {
                     return managedDep.getVersion();
                 }
             }
             throw new IllegalArgumentException(format(
-                    "Unable to determine version for dependency: %s:%s", dep.getGroupId(), dep.getArtifactId()));
+                "Unable to determine version for dependency: %s:%s", dep.getGroupId(), dep.getArtifactId()));
         } else {
             throw new IllegalArgumentException(format(
-                    "Unable to determine version for dependency: %s:%s. DependencyManagement is null",
-                    dep.getGroupId(), dep.getArtifactId()));
+                "Unable to determine version for dependency: %s:%s. DependencyManagement is null",
+                dep.getGroupId(), dep.getArtifactId()));
         }
     }
 
@@ -722,8 +747,8 @@ public class InstallSourceMojo extends AbstractMojo {
              */
             while (err != null) {
                 getLog()
-                        .error(err.getErrorCode().getCode() + " : " +
-                                err.getMessage());
+                    .error(err.getErrorCode().getCode() + " : " +
+                        err.getMessage());
                 err = err.getChildErrorMessage();
             }
 
@@ -740,13 +765,13 @@ public class InstallSourceMojo extends AbstractMojo {
 
         // Read dependencies from module's pom.xml
         URL pomLocation = null;
-        File newDir = new File(project.getFile().getParent(), "target/"+ parentModule +"/appfuse-" + moduleName);
+        File newDir = new File(project.getFile().getParent(), "target/" + parentModule + "/appfuse-" + moduleName);
 
         if (!newDir.exists()) {
             newDir.mkdirs();
         }
 
-        File pom = new File(project.getFile().getParent(),"target/" + parentModule +"/appfuse-" + moduleName + "/pom.xml");
+        File pom = new File(project.getFile().getParent(), "target/" + parentModule + "/appfuse-" + moduleName + "/pom.xml");
 
         try {
             // replace github.com with raw.github.com and trunk with master
@@ -795,13 +820,13 @@ public class InstallSourceMojo extends AbstractMojo {
             Dependency dep = (Dependency) moduleDependency;
 
             if (dep.getGroupId().equals("javax.servlet.jsp") && dep.getArtifactId().equals("jsp-api")
-                    && "jsf".equals(project.getProperties().getProperty("web.framework"))) {
+                && "jsf".equals(project.getProperties().getProperty("web.framework"))) {
                 // skip adding dependency for old group id of jsp-api
                 continue;
             }
 
             if (!artifactIds.contains(dep.getArtifactId()) &&
-                    !dep.getArtifactId().contains("appfuse")) {
+                !dep.getArtifactId().contains("appfuse")) {
                 dependencies.add(dep);
             }
         }
@@ -813,7 +838,7 @@ public class InstallSourceMojo extends AbstractMojo {
         try {
             return mavenProjectBuilder.buildWithDependencies(pom, local, null);
         } catch (Exception e) {
-            getLog().warn( "skip error reading maven project: " + e.getMessage(), e );
+            getLog().warn("skip error reading maven project: " + e.getMessage(), e);
         }
         return null;
     }
@@ -835,12 +860,13 @@ public class InstallSourceMojo extends AbstractMojo {
         moveTask.addFileset(fileSet);
         moveTask.execute();
     }
+
     /**
      * This method will movie files from the source directory to the destination directory based on
      * the pattern.
      *
-     * @param from      The source file to rename.
-     * @param to        The file to rename to.
+     * @param from The source file to rename.
+     * @param to   The file to rename to.
      */
     protected void renameFile(final File from, final File to) {
         Move moveTask = (Move) antProject.createTask("move");

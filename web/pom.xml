@@ -224,6 +224,12 @@
             <artifactId>appfuse-${dao.framework}</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <!-- Added as compile dependency to hibernate4-maven-plugin picks it up -->
+        <dependency>
+            <groupId>org.appfuse</groupId>
+            <artifactId>appfuse-data-common</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
