@@ -41,12 +41,10 @@
     </target>
 
     <target name="test-basic" description="Runs all basic archetype tests using Ant">
-        <parallel threadcount="4" failonany="true">
-            <antcall target="test-jsf-basic"/>
-            <antcall target="test-spring-basic"/>
-            <antcall target="test-struts-basic"/>
-            <antcall target="test-tapestry-basic"/>
-        </parallel>
+        <antcall target="test-jsf-basic"/>
+        <antcall target="test-spring-basic"/>
+        <antcall target="test-struts-basic"/>
+        <antcall target="test-tapestry-basic"/>
     </target>
 
     <!-- Modular Archetypes -->
@@ -88,21 +86,17 @@
     </target>
 
     <target name="test-light" description="Runs all light archetype tests using Ant">
-        <parallel threadcount="4" failonany="true">
-            <antcall target="test-jsf-light"/>
-            <antcall target="test-spring-light"/>
-            <antcall target="test-struts-light"/>
-            <antcall target="test-tapestry-light"/>
-        </parallel>
+        <antcall target="test-jsf-light"/>
+        <antcall target="test-spring-light"/>
+        <antcall target="test-struts-light"/>
+        <antcall target="test-tapestry-light"/>
     </target>
 
     <target name="test-modular" description="Runs all modular archetype tests using Ant">
-        <parallel threadcount="4" failonany="true">
-            <antcall target="test-jsf-modular"/>
-            <antcall target="test-spring-modular"/>
-            <antcall target="test-struts-modular"/>
-            <antcall target="test-tapestry-modular"/>
-        </parallel>
+        <antcall target="test-jsf-modular"/>
+        <antcall target="test-spring-modular"/>
+        <antcall target="test-struts-modular"/>
+        <antcall target="test-tapestry-modular"/>
     </target>
 
     <target name="test-all" description="Tests AMP, Full Source and JPA with AppFuse archetypes">
