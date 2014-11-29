@@ -106,7 +106,7 @@
     </target>
 
     <target name="test-all" description="Tests AMP, Full Source and JPA with AppFuse archetypes">
-        <exec command="drop-databases.sh"/>
+        <exec executable="drop-databases.sh" failifexecutionfails="false"/>
         <antcall target="test-basic"/>
         <antcall target="test-modular"/>
         <antcall target="test-basic-source"/>
