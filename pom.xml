@@ -266,6 +266,7 @@
                                 <portNames>
                                     <portName>cargo.port</portName>
                                     <portName>cargo.ajp.port</portName>
+                                    <portName>cargo.debug.port</portName>
                                 </portNames>
                             </configuration>
                         </execution>
@@ -370,9 +371,10 @@
                             <home>${project.build.directory}/${cargo.container}/container</home>
                             <properties>
                                 <cargo.hostname>${cargo.host}</cargo.hostname>
+                                <!-- These are set by the build-helper-maven-plugin to prevent port conflicts -->
                                 <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
-                                <!-- To prevent conflicts with already running instances -->
                                 <cargo.tomcat.ajp.port>${cargo.ajp.port}</cargo.tomcat.ajp.port>
+                                <cargo.debug.port>${cargo.debug.port}</cargo.debug.port>
                             </properties>
                         </configuration>
                     </configuration>

@@ -41,10 +41,12 @@
     </target>
 
     <target name="test-basic" description="Runs all basic archetype tests using Ant">
-        <antcall target="test-jsf-basic"/>
-        <antcall target="test-spring-basic"/>
-        <antcall target="test-struts-basic"/>
-        <antcall target="test-tapestry-basic"/>
+        <parallel threadcount="4" failonany="true">
+            <antcall target="test-jsf-basic"/>
+            <antcall target="test-spring-basic"/>
+            <antcall target="test-struts-basic"/>
+            <antcall target="test-tapestry-basic"/>
+        </parallel>
     </target>
 
     <!-- Modular Archetypes -->
@@ -86,20 +88,25 @@
     </target>
 
     <target name="test-light" description="Runs all light archetype tests using Ant">
-        <antcall target="test-jsf-light"/>
-        <antcall target="test-spring-light"/>
-        <antcall target="test-struts-light"/>
-        <antcall target="test-tapestry-light"/>
+        <parallel threadcount="4" failonany="true">
+            <antcall target="test-jsf-light"/>
+            <antcall target="test-spring-light"/>
+            <antcall target="test-struts-light"/>
+            <antcall target="test-tapestry-light"/>
+        </parallel>
     </target>
 
     <target name="test-modular" description="Runs all modular archetype tests using Ant">
-        <antcall target="test-jsf-modular"/>
-        <antcall target="test-spring-modular"/>
-        <antcall target="test-struts-modular"/>
-        <antcall target="test-tapestry-modular"/>
+        <parallel threadcount="4" failonany="true">
+            <antcall target="test-jsf-modular"/>
+            <antcall target="test-spring-modular"/>
+            <antcall target="test-struts-modular"/>
+            <antcall target="test-tapestry-modular"/>
+        </parallel>
     </target>
 
     <target name="test-all" description="Tests AMP, Full Source and JPA with AppFuse archetypes">
+        <exec command="drop-databases.sh"/>
         <antcall target="test-basic"/>
         <antcall target="test-modular"/>
         <antcall target="test-basic-source"/>
@@ -137,16 +144,7 @@
 
             <echo level="info">Generating Generic CRUD for Person entity...</echo>
             <!-- run gen install integration-test -->
-            <if>
-                <contains string="@{name}" substring="light"/>
-                <then>
-                    <property name="test-command"
-                              value="verify -Duser.language=en -Djdbc.username=sa -Djdbc.password="/>
-                </then>
-                <else>
-                    <property name="test-command" value="verify -Duser.language=en"/>
-                </else>
-            </if>
+            <property name="test-command" value="verify -Duser.language=en"/>
 
             <echo message="Using test command: ${test-command}"/>
 
@@ -387,9 +385,10 @@
 
     <!-- Test JPA -->
     <target name="test-jpa" description="creates projects, changes dao.framework to jpa and tests generation">
+        <create-project-for-daoframework archetype="appfuse-basic-jsf" name="basic-jsf-jpa" daoFramework="jpa"/>
         <create-project-for-daoframework archetype="appfuse-basic-spring" name="basic-spring-jpa" daoFramework="jpa"/>
-        <create-project-for-daoframework archetype="appfuse-basic-tapestry" name="basic-tapestry-jpa"
-                                         daoFramework="jpa"/>
+        <create-project-for-daoframework archetype="appfuse-basic-struts" name="basic-struts-jpa" daoFramework="jpa"/>
+        <create-project-for-daoframework archetype="appfuse-basic-tapestry" name="basic-tapestry-jpa" daoFramework="jpa"/>
     </target>
 
     <!-- Test generating POJOs from tables -->

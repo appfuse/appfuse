@@ -112,7 +112,6 @@
             <steps>
                 &login;
                 <invoke description="click Edit ${pojo.shortName} link" url="/${pojoNameLower}form?${pojo.identifierProperty.name}=-1"/>
-                <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
                 <clickbutton label="${'$'}{button.delete}" description="Click button 'Delete'"/>
                 <verifytitle description="display ${pojo.shortName} List" text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${'$'}{${pojoNameLower}.deleted}"/>

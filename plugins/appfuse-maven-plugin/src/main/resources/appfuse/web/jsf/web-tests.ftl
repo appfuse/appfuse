@@ -115,9 +115,7 @@
                 [#if hasSecurity]&login;[/#if]
                 <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <clicklink label="2"/>
-                <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
                 <clickbutton label="${'$'}{button.delete}" description="Click button 'Delete'"/>
-                <verifyNoDialogResponses/>
                 <verifytitle description="display ${pojo.shortName} List" text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${'$'}{${pojoNameLower}.deleted}"/>
             </steps>
