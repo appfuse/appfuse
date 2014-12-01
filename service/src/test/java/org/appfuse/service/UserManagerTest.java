@@ -23,7 +23,7 @@ public class UserManagerTest extends BaseManagerTestCase {
     public void testGetUser() throws Exception {
         user = mgr.getUserByUsername("user");
         assertNotNull(user);
-        
+
         log.debug(user);
         assertEquals(1, user.getRoles().size());
     }
@@ -66,13 +66,12 @@ public class UserManagerTest extends BaseManagerTestCase {
             assertNotNull(e);
         }
     }
-    
+
     @Test
     public void testGetAll() throws Exception {
         List<User> found = mgr.getAll();
         log.debug("Users found: " + found);
-        assertEquals(3, found.size());
+        // don't assume exact number so tests can run in parallel
+        assertFalse(found.isEmpty());
     }
-
-
 }
