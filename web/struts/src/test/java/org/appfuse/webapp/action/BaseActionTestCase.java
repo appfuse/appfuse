@@ -24,6 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.transaction.Transactional;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Base class for running Struts 2 Action tests.
@@ -31,23 +32,26 @@ import java.util.HashMap;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-        locations = {"classpath:/applicationContext-resources.xml",
-                "classpath:/applicationContext-dao.xml",
-                "classpath:/applicationContext-service.xml",
-                "classpath*:/applicationContext.xml",
-                "classpath:**/applicationContext*.xml"})
+@ContextConfiguration(locations = {
+    "classpath:/applicationContext-resources.xml",
+    "classpath:/applicationContext-dao.xml",
+    "classpath:/applicationContext-service.xml",
+    "classpath*:/applicationContext.xml",
+    "classpath:**/applicationContext*.xml"
+})
 @Transactional
 public abstract class BaseActionTestCase {
     protected transient final Log log = LogFactory.getLog(getClass());
-    private int smtpPort = 25250;
+    private int smtpPort;
 
     @Autowired
     protected ApplicationContext applicationContext;
 
     @Before
     public void onSetUp() {
-        smtpPort = smtpPort + (int) (Math.random() * 100);
+        smtpPort = Integer.parseInt(System.getProperty("smtp.port",
+            String.valueOf((new Random().nextInt(9999 - 1000) + 1000))));
+        log.debug("SMTP Port set to: " + smtpPort);
 
         LocalizedTextUtil.addDefaultResourceBundle(Constants.BUNDLE_KEY);
 

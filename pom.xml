@@ -236,6 +236,7 @@
                         <reuseForks>false</reuseForks>
                         <systemPropertyVariables>
                             <localRepoPath>${settings.localRepository}</localRepoPath>
+                            <smtp.port>${smtp.port}</smtp.port>
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>
@@ -267,6 +268,7 @@
                                     <portName>cargo.port</portName>
                                     <portName>cargo.ajp.port</portName>
                                     <portName>cargo.debug.port</portName>
+                                    <portName>smtp.port</portName>
                                 </portNames>
                             </configuration>
                         </execution>
