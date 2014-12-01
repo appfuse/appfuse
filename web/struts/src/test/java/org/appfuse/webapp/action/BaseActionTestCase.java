@@ -49,8 +49,7 @@ public abstract class BaseActionTestCase {
 
     @Before
     public void onSetUp() {
-        smtpPort = Integer.parseInt(System.getProperty("smtp.port",
-            String.valueOf((new Random().nextInt(9999 - 1000) + 1000))));
+        smtpPort = (new Random().nextInt(9999 - 1000) + 1000);
         log.debug("SMTP Port set to: " + smtpPort);
 
         LocalizedTextUtil.addDefaultResourceBundle(Constants.BUNDLE_KEY);

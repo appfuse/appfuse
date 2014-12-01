@@ -40,8 +40,7 @@ public abstract class BaseServiceTestCase {
 
     @Before
     public void onSetUp() {
-        smtpPort = Integer.parseInt(System.getProperty("smtp.port",
-            String.valueOf((new Random().nextInt(9999 - 1000) + 1000))));
+        smtpPort = (new Random().nextInt(9999 - 1000) + 1000);
         log.debug("SMTP Port set to: " + smtpPort);
         // change the port on the mailSender so it doesn't conflict with an
         // existing SMTP server on localhost
