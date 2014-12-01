@@ -328,17 +328,7 @@
                 </then>
             </if>
 
-            <!-- Don't use db profile (in Bamboo) for AppFuse Light -->
-            <if>
-                <contains string="@{name}" substring="light"/>
-                <then>
-                    <property name="test-command"
-                              value="verify -Pitest -Duser.language=en -Dsurefire.useFile=false -Djdbc.username=sa -Djdbc.password="/>
-                </then>
-                <else>
-                    <property name="test-command" value="verify -Pitest -Duser.language=en -Dsurefire.useFile=false"/>
-                </else>
-            </if>
+            <property name="test-command" value="verify -Pitest -Duser.language=en -Dsurefire.useFile=false"/>
 
             <!-- run full-source verify -->
             <maven dir="${test.dir}/@{name}" command="appfuse:full-source -e -Dappfuse.branch=${branch}"/>
