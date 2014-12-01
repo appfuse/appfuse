@@ -40,6 +40,11 @@
     <dependencies>
         <dependency>
             <groupId>org.appfuse</groupId>
+            <artifactId>appfuse-data-common</artifactId>
+            <version>${appfuse.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.appfuse</groupId>
             <artifactId>appfuse-service</artifactId>
             <version>${appfuse.version}</version>
             <exclusions>

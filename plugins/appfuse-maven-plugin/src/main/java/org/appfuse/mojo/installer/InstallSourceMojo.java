@@ -203,9 +203,18 @@ public class InstallSourceMojo extends AbstractMojo {
                 // no big deal if this fails, everything will still work
             }
 
-            // modify the appfuse dependencies to be type pom
             try {
                 String pom = FileUtils.readFileToString(new File("core/pom.xml"), "UTF-8");
+
+                // remove appfuse-data-common as a dependency
+                pom = pom.replaceAll("<dependencies>\n" +
+                    "        <dependency>\n" +
+                    "            <groupId>org.appfuse</groupId>\n" +
+                    "            <artifactId>appfuse-data-common</artifactId>\n" +
+                    "            <version>(.*?)appfuse.version}</version>\n" +
+                    "        </dependency>", "<dependencies>");
+
+                // modify the appfuse dependencies to be type pom
                 pom = pom.replaceAll("<version>(.*?)appfuse.version}</version>",
                     "<version>$1appfuse.version}</version>\n            <type>pom</type>");
 
@@ -255,6 +264,15 @@ public class InstallSourceMojo extends AbstractMojo {
                             "                    <scanDependencies>none</scanDependencies>\n" +
                             "                </configuration>");
                 }
+
+                // remove appfuse-data-common as a dependency
+                pom = pom.replaceAll("<dependencies>\n" +
+                    "        <dependency>\n" +
+                    "            <groupId>org.appfuse</groupId>\n" +
+                    "            <artifactId>appfuse-data-common</artifactId>\n" +
+                    "            <version>(.*?)appfuse.version}</version>\n" +
+                    "        </dependency>", "<dependencies>");
+
                 pom = adjustLineEndingsForOS(pom);
                 FileUtils.writeStringToFile(new File("pom.xml"), pom, "UTF-8");
             } catch (IOException io) {
