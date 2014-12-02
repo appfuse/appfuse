@@ -1,16 +1,39 @@
 package org.appfuse.webapp.pages.admin;
 
-import java.util.Locale;
 import org.apache.tapestry5.dom.Element;
-import org.appfuse.webapp.pages.BasePageTestCase;
-import org.junit.Test;
-
-import java.util.ResourceBundle;
 import org.appfuse.service.UserManager;
+import org.appfuse.service.UserExistsException;
+import org.appfuse.model.User;
+import org.appfuse.webapp.pages.BasePageTestCase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static org.junit.Assert.*;
 
 public class UserListTest extends BasePageTestCase {
+    @Autowired
+    private UserManager userManager;
+
+    @Before
+    public void before() throws UserExistsException {
+        User user = new User("foo");
+        user.setPassword("bar");
+        user.setFirstName("Foo");
+        user.setLastName("Bar");
+        user.setEmail("foo@appfuse.org");
+        userManager.saveUser(user);
+    }
+
+    @After
+    public void after() {
+        User user = userManager.getUserByUsername("foo");
+        userManager.removeUser(user.getId().toString());
+    }
 
     @Test
     public void testListUsers() {
@@ -44,6 +67,7 @@ public class UserListTest extends BasePageTestCase {
 
         fieldValues.put("q", "admin");
         doc = tester.submitForm(form, fieldValues);
+        assertNotNull(doc.getElementById("userList"));
         assertTrue(doc.getElementById("userList").find("tbody").getChildren().size() == 1);
     }
 }
