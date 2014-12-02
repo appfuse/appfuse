@@ -173,6 +173,9 @@
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
             </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
