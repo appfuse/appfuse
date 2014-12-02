@@ -10,11 +10,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static org.junit.Assert.*;
 
+@Transactional(Transactional.TxType.NOT_SUPPORTED)
 public class UserListTest extends BasePageTestCase {
     @Autowired
     private UserManager userManager;
@@ -65,10 +67,10 @@ public class UserListTest extends BasePageTestCase {
         Element form = doc.getElementById("searchForm");
         assertNotNull(form);
 
-        fieldValues.put("q", "admin");
+        fieldValues.put("q", "foo");
         doc = tester.submitForm(form, fieldValues);
-        log.debug("search results: " + doc);
-        assertNotNull(doc.getElementById("userList"));
+
+        assertNotNull("search doesn't contain any results", doc.getElementById("userList"));
         assertTrue(doc.getElementById("userList").find("tbody").getChildren().size() == 1);
     }
 }
