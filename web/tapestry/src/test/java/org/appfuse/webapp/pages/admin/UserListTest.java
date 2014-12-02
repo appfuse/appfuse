@@ -67,6 +67,7 @@ public class UserListTest extends BasePageTestCase {
 
         fieldValues.put("q", "admin");
         doc = tester.submitForm(form, fieldValues);
+        log.debug("search results: " + doc);
         assertNotNull(doc.getElementById("userList"));
         assertTrue(doc.getElementById("userList").find("tbody").getChildren().size() == 1);
     }
