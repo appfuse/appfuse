@@ -23,6 +23,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.subethamail.wiser.Wiser;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.ApplicationFactory;
@@ -30,11 +31,13 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.lifecycle.LifecycleFactory;
 import javax.faces.render.RenderKitFactory;
 import javax.transaction.Transactional;
+import java.net.BindException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * <p>Abstract JUnit test case base class, which sets up the JavaServer Faces
@@ -86,17 +89,17 @@ public abstract class BasePageTestCase {
 
     // Thread context class loader saved and restored after each test
     private ClassLoader threadContextClassLoader = null;
-    private static int smtpPort = 25250;
+    private int smtpPort;
 
     @Autowired
-    protected ApplicationContext applicationContext;
+    private JavaMailSenderImpl mailSender;
 
     /**
      * <p>Set up instance variables required by this test case.</p>
      */
     @Before
     public void onSetUp() {
-        smtpPort = smtpPort + (int) (Math.random() * 100);
+        smtpPort = (new Random().nextInt(9999 - 1000) + 1000);
 
         // Set up a new thread context class loader
         threadContextClassLoader = Thread.currentThread().getContextClassLoader();
@@ -155,16 +158,26 @@ public abstract class BasePageTestCase {
         list.add(new Locale("de"));
         list.add(new Locale("es"));
         application.setSupportedLocales(list);
-
-        // change the port on the mailSender so it doesn't conflict with an
-        // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
-        mailSender.setPort(getSmtpPort());
-        mailSender.setHost("localhost");
     }
 
-    public int getSmtpPort() {
+    protected int getSmtpPort() {
         return smtpPort;
+    }
+
+    protected Wiser startWiser(int smtpPort) {
+        Wiser wiser = new Wiser();
+        wiser.setPort(smtpPort);
+        try {
+            wiser.start();
+        } catch (RuntimeException re) {
+            if (re.getCause() instanceof BindException) {
+                int nextPort = smtpPort++;
+                log.error("SMTP port " + smtpPort + " already in use, trying " + nextPort);
+                return startWiser(nextPort);
+            }
+        }
+        mailSender.setPort(smtpPort);
+        return wiser;
     }
 
     /**

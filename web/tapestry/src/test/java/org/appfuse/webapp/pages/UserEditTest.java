@@ -59,9 +59,7 @@ public class UserEditTest extends BasePageTestCase {
         fieldValues.put("country", "US");
 
         // start SMTP Server
-        Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
+        Wiser wiser = startWiser(getSmtpPort());
 
         doc = tester.submitForm(form, fieldValues);
 

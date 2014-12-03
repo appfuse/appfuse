@@ -10,9 +10,7 @@ public class PasswordHintTest extends BasePageTestCase {
     @Test
     public void testActivate() throws Exception {
         // start SMTP Server
-        Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
+        Wiser wiser = startWiser(getSmtpPort());
 
         doc = tester.renderPage("passwordHint/admin");
 
@@ -22,5 +20,4 @@ public class PasswordHintTest extends BasePageTestCase {
 
         assertTrue(doc.toString().contains("The password hint for admin has been sent to"));
     }
-
 }

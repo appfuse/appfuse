@@ -16,13 +16,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.subethamail.wiser.Wiser;
 
 import javax.transaction.Transactional;
+import java.net.BindException;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -45,7 +46,7 @@ public abstract class BaseActionTestCase {
     private int smtpPort;
 
     @Autowired
-    protected ApplicationContext applicationContext;
+    protected JavaMailSenderImpl mailSender;
 
     @Before
     public void onSetUp() {
@@ -66,18 +67,28 @@ public abstract class BaseActionTestCase {
 
         ActionContext.getContext().setSession(new HashMap<String, Object>());
 
-        // change the port on the mailSender so it doesn't conflict with an
-        // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
-        mailSender.setPort(getSmtpPort());
-        mailSender.setHost("localhost");
-
         // populate the request so getRequest().getSession() doesn't fail in BaseAction.java
         ServletActionContext.setRequest(new MockHttpServletRequest());
     }
 
     protected int getSmtpPort() {
         return smtpPort;
+    }
+
+    protected Wiser startWiser(int smtpPort) {
+        Wiser wiser = new Wiser();
+        wiser.setPort(smtpPort);
+        try {
+            wiser.start();
+        } catch (RuntimeException re) {
+            if (re.getCause() instanceof BindException) {
+                int nextPort = smtpPort++;
+                log.error("SMTP port " + smtpPort + " already in use, trying " + nextPort);
+                return startWiser(nextPort);
+            }
+        }
+        mailSender.setPort(smtpPort);
+        return wiser;
     }
 
     @After

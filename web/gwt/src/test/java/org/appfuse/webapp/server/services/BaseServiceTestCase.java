@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
 
+import java.net.BindException;
 import java.util.List;
 import java.util.Random;
 
@@ -42,10 +43,6 @@ public abstract class BaseServiceTestCase {
     public void onSetUp() {
         smtpPort = (new Random().nextInt(9999 - 1000) + 1000);
         log.debug("SMTP Port set to: " + smtpPort);
-        // change the port on the mailSender so it doesn't conflict with an
-        // existing SMTP server on localhost
-        mailSender.setPort(smtpPort);
-        mailSender.setHost("localhost");
     }
 
     protected int getSmtpPort() {
@@ -69,9 +66,23 @@ public abstract class BaseServiceTestCase {
     }
 
     protected void startSmtpServer() {
-        wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
+        wiser = startWiser(getSmtpPort());
+    }
+
+    protected Wiser startWiser(int smtpPort) {
+        Wiser wiser = new Wiser();
+        wiser.setPort(smtpPort);
+        try {
+            wiser.start();
+        } catch (RuntimeException re) {
+            if (re.getCause() instanceof BindException) {
+                int nextPort = smtpPort++;
+                log.error("SMTP port " + smtpPort + " already in use, trying " + nextPort);
+                return startWiser(nextPort);
+            }
+        }
+        mailSender.setPort(smtpPort);
+        return wiser;
     }
 
     protected List<WiserMessage> getReceivedMailMessages(final boolean stopServer) {

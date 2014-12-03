@@ -22,10 +22,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
+import org.subethamail.wiser.Wiser;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.transaction.Transactional;
+import java.net.BindException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -49,10 +51,9 @@ public abstract class BasePageTestCase {
 
     private final String[] locations = extractLocationFromAnnotation(this.getClass());
 
+    private JavaMailSenderImpl mailSender;
     private MockServletContext servletContext;
-
     private ServletContextListener listener;
-
     protected ApplicationContext applicationContext;
 
     @Before
@@ -86,12 +87,7 @@ public abstract class BasePageTestCase {
 
         smtpPort = (new Random().nextInt(9999 - 1000) + 1000);
         log.debug("SMTP Port set to: " + smtpPort);
-
-        // change the port on the mailSender so it doesn't conflict with an
-        // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = applicationContext.getBean(JavaMailSenderImpl.class);
-        mailSender.setPort(getSmtpPort());
-        mailSender.setHost("localhost");
+        mailSender = applicationContext.getBean(JavaMailSenderImpl.class);
     }
 
     private String[] extractLocationFromAnnotation(Class<?> clazz) {
@@ -119,6 +115,22 @@ public abstract class BasePageTestCase {
 
     protected int getSmtpPort() {
         return smtpPort;
+    }
+
+    protected Wiser startWiser(int smtpPort) {
+        Wiser wiser = new Wiser();
+        wiser.setPort(smtpPort);
+        try {
+            wiser.start();
+        } catch (RuntimeException re) {
+            if (re.getCause() instanceof BindException) {
+                int nextPort = smtpPort++;
+                log.error("SMTP port " + smtpPort + " already in use, trying " + nextPort);
+                return startWiser(nextPort);
+            }
+        }
+        mailSender.setPort(smtpPort);
+        return wiser;
     }
 
     protected void assertTextPresent(Document document, String text) {

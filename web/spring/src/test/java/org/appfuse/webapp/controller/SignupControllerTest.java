@@ -1,8 +1,6 @@
 package org.appfuse.webapp.controller;
 
 import org.appfuse.Constants;
-import org.appfuse.model.Address;
-import org.appfuse.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +43,7 @@ public class SignupControllerTest extends BaseControllerTestCase {
     @Test
     public void testSignupUser() throws Exception {
         // start SMTP Server
-        Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
+        Wiser wiser = startWiser(getSmtpPort());
 
         ResultActions signup = mockMvc.perform(post("/signup.html")
                 .param("address.city", "Denver")

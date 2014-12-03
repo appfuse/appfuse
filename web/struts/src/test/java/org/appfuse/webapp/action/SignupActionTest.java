@@ -12,8 +12,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.subethamail.wiser.Wiser;
 
-import java.net.BindException;
-
 import static org.junit.Assert.*;
 
 public class SignupActionTest extends BaseActionTestCase {
@@ -56,9 +54,7 @@ public class SignupActionTest extends BaseActionTestCase {
         ServletActionContext.setResponse(new MockHttpServletResponse());
 
         // start SMTP Server
-        final Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
+        final Wiser wiser = startWiser(getSmtpPort());
 
         assertNull(action.getUser().getId());
         assertEquals("success", action.save());

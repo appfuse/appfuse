@@ -18,9 +18,7 @@ public class PasswordHintActionTest extends BaseActionTestCase {
     @Test
     public void testExecute() throws Exception {
         // start SMTP Server
-        Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
+        Wiser wiser = startWiser(getSmtpPort());
         
         action.setUsername("user");
         assertEquals("success", action.execute());
