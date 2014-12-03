@@ -125,9 +125,11 @@ public class InstallSourceMojo extends AbstractMojo {
             }
         }
 
+        log("Branch: " + branch);
         if (branch != null && !"".equals(branch) && !"master".equals(branch)) {
             tag = "branches/" + branch + "/";
         }
+        log("Tag: " + tag);
 
         String daoFramework = project.getProperties().getProperty("dao.framework");
 
