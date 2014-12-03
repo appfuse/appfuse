@@ -13,8 +13,7 @@
 
     <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="classpath"/>
 
-    <exec executable="git" outputproperty="git.branch"
-          failifexecutionfails="false">
+    <exec executable="git" outputproperty="git.branch" failifexecutionfails="false">
         <arg line="rev-parse --abbrev-ref HEAD"/>
     </exec>
 
