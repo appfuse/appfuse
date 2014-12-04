@@ -139,19 +139,27 @@ public class InstallSourceMojo extends AbstractMojo {
         String webFramework = project.getProperties().getProperty("web.framework");
 
         boolean modular = project.getPackaging().equals("pom");
+        // if core project or modular web
         if (project.getPackaging().equals("jar") ||
             (project.getPackaging().equals("war") && project.getParentArtifact().getGroupId().contains("appfuse"))) {
             // export data-common
-            log("Installing source from data-common module...");
+            log("Importing source from data-common module...");
             String coreSource = project.getBuild().getSourceDirectory();
             export("data/common/src", (modular) ? coreSource : destinationDirectory);
 
+            // Keep web project original testing hibernate.properties instead of overwriting it: rename
+            File orig = new File((modular ? coreSource : destinationDirectory) + "/test/resources/hibernate.properties");
+            File dest = new File((modular ? coreSource : destinationDirectory) + "/test/resources/hibernate.properties.orig");
+            if (orig.exists() && webFramework != null && !webFramework.isEmpty()) {
+                renameFile(orig, dest);
+            }
+
             // export persistence framework
-            log("Installing source from " + daoFramework + " module...");
+            log("Importing source from " + daoFramework + " module...");
             export("data/" + daoFramework + "/src", (modular) ? coreSource : destinationDirectory);
 
             // export service module
-            log("Installing source from service module...");
+            log("Importing source from service module...");
             export("service/src", (modular) ? coreSource : destinationDirectory);
 
             // move Base*TestCase to test directory
@@ -169,7 +177,13 @@ public class InstallSourceMojo extends AbstractMojo {
                 deleteFile("main/resources/hibernate.cfg.xml");
             }
 
-            log("Source successfully installed!");
+            // Keep web project original testing hibernate.properties instead of overwriting it: delete copied and rename back
+            if (orig.exists() && webFramework != null && !webFramework.isEmpty()) {
+                deleteFile(orig.getPath());
+                renameFile(dest, orig);
+            }
+
+            log("Source successfully imported!");
         }
 
         if (modular) {
