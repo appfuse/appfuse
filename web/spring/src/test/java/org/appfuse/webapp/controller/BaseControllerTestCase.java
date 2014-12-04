@@ -47,7 +47,11 @@ public abstract class BaseControllerTestCase {
             wiser.start();
         } catch (RuntimeException re) {
             if (re.getCause() instanceof BindException) {
-                int nextPort = smtpPort++;
+                int nextPort = smtpPort + 1;
+                if (nextPort - smtpPort > 10) {
+                    log.error("Exceeded 10 attempts to start SMTP server, aborting...");
+                    throw re;
+                }
                 log.error("SMTP port " + smtpPort + " already in use, trying " + nextPort);
                 return startWiser(nextPort);
             }
