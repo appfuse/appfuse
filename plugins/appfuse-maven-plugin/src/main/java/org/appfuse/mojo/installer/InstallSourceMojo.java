@@ -178,7 +178,7 @@ public class InstallSourceMojo extends AbstractMojo {
             }
 
             // Keep web project original testing hibernate.properties instead of overwriting it: delete copied and rename back
-            if (orig.exists() && webFramework != null && !webFramework.isEmpty()) {
+            if (dest.exists() && webFramework != null && !webFramework.isEmpty()) {
                 deleteFile(orig.getPath());
                 renameFile(dest, orig);
             }
