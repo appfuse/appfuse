@@ -56,8 +56,6 @@
                     <webApp>
                         <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
                             <resourcesAsCSV>
-                                ${basedir}/../common/src/main/resources,
-                                ${basedir}/src/main/resources,
                                 ${basedir}/src/main/webapp,
                                 ${basedir}/../common/src/main/webapp,
                             </resourcesAsCSV>
@@ -71,7 +69,7 @@
                     <webResources>
                         <!-- Need to overwrite. Cannot filter original with different values as filter cannot be escaped: MRESOURCES-126 -->
                         <resource>
-                            <directory>src/main/resources/packaged</directory>
+                            <directory>../common/src/main/resources/packaged</directory>
                             <targetPath>WEB-INF/classes</targetPath>
                             <filtering>true</filtering>
                             <includes>
@@ -102,8 +100,23 @@
                             <resources>
                                 <resource>
                                     <directory>../common/src/main/resources</directory>
+                                    <excludes>
+                                        <exclude>jdbc.properties</exclude>
+                                    </excludes>
                                 </resource>
                             </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-test-source</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>../common/src/test/resources</source>
+                            </sources>
                         </configuration>
                     </execution>
                 </executions>

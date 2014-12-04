@@ -74,18 +74,6 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <configuration>
-                    <webApp>
-                        <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
-                            <resourcesAsCSV>
-                                ${basedir}/../common/src/main/resources,
-                                ${basedir}/src/main/resources,
-                                ${basedir}/src/main/webapp,
-                                ${basedir}/../common/src/main/webapp,
-                            </resourcesAsCSV>
-                        </baseResource>
-                    </webApp>
-                </configuration>
             </plugin>
             <!-- will package a ready-to-run app regarding hibernate-search index location -->
             <plugin>
