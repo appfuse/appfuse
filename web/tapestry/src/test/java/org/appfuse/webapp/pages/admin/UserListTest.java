@@ -59,7 +59,6 @@ public class UserListTest extends BasePageTestCase {
     @Test
     public void testSearch() {
         // regenerate search index
-        UserManager userManager = (UserManager) applicationContext.getBean("userManager");
         userManager.reindex();
 
         doc = tester.renderPage("admin/userList");

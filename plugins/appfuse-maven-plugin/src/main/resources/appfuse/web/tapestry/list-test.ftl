@@ -4,8 +4,10 @@ package ${basepackage}.webapp.pages;
 
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
+    <#assign managerClass = 'GenericManager'>
 <#else>
 import ${basepackage}.service.${pojo.shortName}Manager;
+    <#assign managerClass = pojo.shortName + 'Manager'>
 </#if>
 import ${pojo.packageName}.${pojo.shortName};
 
@@ -21,6 +23,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
+
+    @Autowired
+    private ${managerClass} ${pojoNameLower}Manager;
 
     @Test
     public void testList() {
@@ -48,11 +53,6 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
     @Test
     public void testSearch() {
         // regenerate indexes
-<#if genericcore>
-        GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager = (GenericManager<${pojo.shortName}, ${identifierType}>) applicationContext.getBean(${'"'}${pojoNameLower}Manager${'"'});
-<#else>
-        ${pojo.shortName}Manager ${pojoNameLower}Manager = (${pojo.shortName}Manager) applicationContext.getBean(${'"'}${pojoNameLower}Manager${'"'});
-</#if>
         ${pojoNameLower}Manager.reindex();
 
         doc = tester.renderPage("${pojoNameLower}List");

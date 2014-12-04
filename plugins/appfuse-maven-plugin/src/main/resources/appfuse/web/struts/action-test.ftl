@@ -26,12 +26,14 @@ import static org.junit.Assert.*;
 public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
     private ${pojo.shortName}Action action;
 
+    @Autowired
+    private ${managerClass} ${pojoNameLower}Manager;
+
     @Before
     public void onSetUp() {
         super.onSetUp();
 
         action = new ${pojo.shortName}Action();
-        ${managerClass} ${pojoNameLower}Manager = (${managerClass}) applicationContext.getBean("${pojoNameLower}Manager");
         action.set${pojo.shortName}Manager(${pojoNameLower}Manager);
 
         // add a test ${pojoNameLower} to the database
@@ -59,11 +61,6 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
     @Test
     public void testSearch() throws Exception {
         // regenerate indexes
-<#if genericcore>
-        GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager = (GenericManager<${pojo.shortName}, ${identifierType}>) applicationContext.getBean(${'"'}${pojoNameLower}Manager${'"'});
-<#else>
-        ${pojo.shortName}Manager ${pojoNameLower}Manager = (${pojo.shortName}Manager) applicationContext.getBean(${'"'}${pojoNameLower}Manager${'"'});
-</#if>
         ${pojoNameLower}Manager.reindex();
 
         action.setQ("*");
