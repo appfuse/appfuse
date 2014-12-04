@@ -146,13 +146,6 @@ public class InstallSourceMojo extends AbstractMojo {
             String coreSource = project.getBuild().getSourceDirectory();
             export("data/common/src", (modular) ? coreSource : destinationDirectory);
 
-            // Keep web project original testing hibernate.properties instead of overwriting it: rename
-            File orig = new File((modular ? coreSource : destinationDirectory) + "/test/resources/hibernate.properties");
-            File dest = new File((modular ? coreSource : destinationDirectory) + "/test/resources/hibernate.properties.orig");
-            if (webFramework != null && !webFramework.isEmpty()) {
-                renameFile(orig, dest);
-            }
-
             // export persistence framework
             log("Installing source from " + daoFramework + " module...");
             export("data/" + daoFramework + "/src", (modular) ? coreSource : destinationDirectory);
@@ -174,12 +167,6 @@ public class InstallSourceMojo extends AbstractMojo {
             // using jpaconfiguration with the hibernate3-maven-plugin
             if ("jpa".equalsIgnoreCase(daoFramework)) {
                 deleteFile("main/resources/hibernate.cfg.xml");
-            }
-
-            // Keep web project original testing hibernate.properties instead of overwriting it: delete copied and rename back
-            if (webFramework != null && !webFramework.isEmpty()) {
-                deleteFile(orig.getPath());
-                renameFile(dest, orig);
             }
 
             log("Source successfully installed!");
