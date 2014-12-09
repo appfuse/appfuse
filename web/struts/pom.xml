@@ -145,10 +145,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.struts</groupId>
-            <artifactId>struts2-dojo-plugin</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.struts</groupId>
             <artifactId>struts2-spring-plugin</artifactId>
         </dependency>
         <dependency>
