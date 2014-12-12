@@ -78,7 +78,7 @@ public class UninstallArtifactsMojo extends AbstractMojo {
                 String proceed = prompter.prompt(text);
                 if (!"Y".equalsIgnoreCase(proceed)) {
                     log("Cancelling removal at your request.");
-                    return;    
+                    return;
                 } else {
                     log("Proceeding... let's hope you're using source control!");
                 }
@@ -97,7 +97,8 @@ public class UninstallArtifactsMojo extends AbstractMojo {
         String hibernateCfgLocation = installedDirectory + "/src/main/resources/hibernate.cfg.xml";
         // remove entity from hibernate.cfg.xml
         // this is to allow using hibernate.cfg.xml from core module
-        if (project.getPackaging().equals("war") && project.hasParent()) {
+        if (project.getPackaging().equals("war") && (project.hasParent()
+            && !project.getParentArtifact().getGroupId().contains("appfuse"))) {
             // assume first module in parent project has hibernate.cfg.xml
             String moduleName = (String) project.getParent().getModules().get(0);
             String pathToParent = project.getOriginalModel().getParent().getRelativePath();
@@ -110,7 +111,7 @@ public class UninstallArtifactsMojo extends AbstractMojo {
         String daoFramework = (String) project.getProperties().get("dao.framework");
 
         if (daoFramework == null) {
-            getLog().error("[ERROR] No <dao.framework> property found in pom.xml. Please add this property.");    
+            getLog().error("[ERROR] No <dao.framework> property found in pom.xml. Please add this property.");
         }
 
         if ("hibernate".equals(daoFramework)) {

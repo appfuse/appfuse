@@ -1,8 +1,5 @@
 package org.appfuse.webapp.pages;
 
-import org.apache.tapestry5.dom.Document;
-import org.apache.tapestry5.dom.Element;
-import org.apache.tapestry5.func.Predicate;
 import org.junit.Test;
 import org.subethamail.wiser.Wiser;
 
@@ -13,9 +10,7 @@ public class PasswordRecoveryTokenTest extends BasePageTestCase {
     @Test
     public void testActivate() throws Exception {
         // start SMTP Server
-        Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
+        Wiser wiser = startWiser(getSmtpPort());
 
         doc = tester.renderPage("passwordRecoveryToken/admin");
 

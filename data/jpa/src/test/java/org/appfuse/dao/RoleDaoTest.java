@@ -5,8 +5,11 @@ import org.appfuse.model.Role;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
+
 import static org.junit.Assert.*;
 
+@Transactional
 public class RoleDaoTest extends BaseDaoTestCase {
     @Autowired
     private RoleDao dao;

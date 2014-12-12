@@ -13,14 +13,15 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-web</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-wicket</artifactId>
@@ -35,75 +36,40 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/web/wicket</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
-                <version>1.0-beta-3</version>
                 <configuration>
-                    <dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
-                    <driver>${jdbc.driverClassName}</driver>
-                    <username>${jdbc.username}</username>
-                    <password>${jdbc.password}</password>
-                    <url>${jdbc.url}</url>
                     <src>../../data/common/src/test/resources/sample-data.xml</src>
-                    <type>${dbunit.operation.type}</type>
-                    <schema>${dbunit.schema}</schema>
-                    <skip>${skipTests}</skip>
-                    <transaction>true</transaction>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <!-- Runs before integration tests and jetty:run-war -->
-                        <id>test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>${jdbc.groupId}</groupId>
-                        <artifactId>${jdbc.artifactId}</artifactId>
-                        <version>${jdbc.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
-            <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->
             <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>${user.home}/${project.build.finalName}/index</directory>
-                        </fileset>
-                    </filesets>
+                    <webApp>
+                        <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
+                            <resourcesAsCSV>
+                                ${basedir}/src/main/webapp,
+                                ${basedir}/../common/src/main/webapp,
+                            </resourcesAsCSV>
+                        </baseResource>
+                    </webApp>
                 </configuration>
             </plugin>
             <!-- Override plugin configuration from appfuse-web so can exclude overridden files -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
                 <configuration>
-                    <!-- will package a ready-to-run app regarding hibernate-search index location -->
-                    <escapeString>\</escapeString>
                     <webResources>
                         <!-- Need to overwrite. Cannot filter original with different values as filter cannot be escaped: MRESOURCES-126 -->
                         <resource>
-                            <directory>src/main/resources/packaged</directory>
+                            <directory>../common/src/main/resources/packaged</directory>
                             <targetPath>WEB-INF/classes</targetPath>
                             <filtering>true</filtering>
                             <includes>
@@ -130,15 +96,39 @@
                             <targetPath>WEB-INF</targetPath>
                         </resource>
                     </webResources>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Implementation-Version>${project.version}</Implementation-Version>
-                        </manifestEntries>
-                    </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>../common/src/main/resources</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-test-source</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>../common/src/test/resources</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -148,14 +138,14 @@
                         <id>web-common-resources</id>
                         <phase>process-resources</phase>
                         <configuration>
-                            <tasks>
-                                <echo message="Copying CSS and JavaScript resources..." />
+                            <target>
+                                <echo message="Copying CSS and JavaScript resources..."/>
                                 <copy todir="src/main/webapp" overwrite="true">
                                     <fileset dir="../common/src/main/webapp">
-                                        <include name="styles/style.css" />
+                                        <include name="styles/style.css"/>
                                     </fileset>
                                 </copy>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -164,137 +154,54 @@
                 </executions>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <!-- MZA: Specific for Wicket - .html and .js files are placed together with java classes by default -->
-                <filtering>false</filtering>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <excludes>
-                    <exclude>hibernate.properties</exclude>
-                </excludes>
-                <filtering>false</filtering>
-            </testResource>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <includes>
-                    <include>hibernate.properties</include>
-                </includes>
-                <filtering>true</filtering>
-            </testResource>
-            <testResource>
-                <directory>src/main/webapp</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </testResource>
-            <testResource>
-                <!-- MZA: Specific for Wicket - .html and .js files are placed together with java classes by default -->
-                <filtering>false</filtering>
-                <directory>src/test/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </testResource>
-        </testResources>
     </build>
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.appfuse</groupId>
             <artifactId>appfuse-web-common</artifactId>
-            <version>${project.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.appfuse</groupId>
-                    <artifactId>appfuse-hibernate</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- Wicket -->
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-core</artifactId>
-            <version>${wicket.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-spring</artifactId>
-            <version>${wicket.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-extensions</artifactId>
-            <version>${wicket.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-auth-roles</artifactId>
-            <version>${wicket.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-ioc</artifactId>
-            <version>${wicket.version}</version>
         </dependency>
         <dependency>
             <groupId>org.wicketstuff</groupId>
             <artifactId>wicketstuff-annotation</artifactId>
-            <version>${wicketstuff.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>de.agilecoders.wicket</groupId>
             <artifactId>wicket-bootstrap-core</artifactId>
-            <version>${wicket.bootstrap.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.wicket</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>de.agilecoders.wicket.webjars</groupId>
             <artifactId>wicket-webjars</artifactId>
-            <version>${wicket.webjars.version}</version>
         </dependency>
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.17.1-GA</version>
         </dependency>
         <dependency>
             <groupId>org.easytesting</groupId>
             <artifactId>fest-assert</artifactId>
-            <version>1.4</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
         </dependency>
     </dependencies>
 
@@ -306,111 +213,21 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>${cargo.version}</version>
-                        <configuration>
-                            <wait>${cargo.wait}</wait>
-                            <container>
-                                <containerId>${cargo.container}</containerId>
-                                <home>${cargo.container.home}</home>
-                                <zipUrlInstaller>
-                                    <url>${cargo.container.url}</url>
-                                    <extractDir>${installDir}</extractDir>
-                                </zipUrlInstaller>
-                            </container>
-                            <configuration>
-                                <home>${project.build.directory}/${cargo.container}/container</home>
-                                <properties>
-                                    <cargo.hostname>${cargo.host}</cargo.hostname>
-                                    <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
-                                    <!-- To prevent conflicts with already running instances -->
-                                    <cargo.tomcat.ajp.port>8123</cargo.tomcat.ajp.port>
-                                    <!-- MZA: Default settings doesn't work with Tomcat 7.x - https://jira.codehaus.org/browse/CARGO-1165 -->
-                                    <cargo.servlet.users>admin::manager-gui</cargo.servlet.users>
-                                </properties>
-                            </configuration>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>start-container</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>start</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>stop-container</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
-                        <version>1.0.0</version>
-                        <dependencies>
-                            <!-- Upgrade HtmlUnit to support jQuery 1.9 -->
-                            <dependency>
-                                <groupId>net.sourceforge.htmlunit</groupId>
-                                <artifactId>htmlunit</artifactId>
-                                <version>2.12</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>xml-apis</groupId>
-                                <artifactId>xml-apis</artifactId>
-                                <version>1.4.01</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>commons-lang</groupId>
-                                <artifactId>commons-lang</artifactId>
-                                <version>2.6</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <id>webtest-test</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>webtest-verify</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>verify-result</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>webtest-report-html</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <host>${cargo.host}</host>
-                            <port>${cargo.port}</port>
-                            <sourcedirectory>src/test/resources</sourcedirectory>
-                            <sourcefile>web-tests.xml</sourcefile>
-                            <target>run-all-tests</target>
-                            <basepath>${project.build.finalName}</basepath>
-                            <resultpath>target/webtest/webtest-results</resultpath>
-                            <haltonfailure>true</haltonfailure>
-                            <haltonerror>true</haltonerror>
-                            <loglevel>fatal</loglevel>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
-
-    <properties>
-        <bootstrap.version>3.3.0</bootstrap.version>
-    </properties>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>webtest-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
-

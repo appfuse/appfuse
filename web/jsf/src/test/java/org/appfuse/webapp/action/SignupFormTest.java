@@ -8,6 +8,8 @@ import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.subethamail.wiser.Wiser;
@@ -16,6 +18,9 @@ import static org.junit.Assert.*;
 
 public class SignupFormTest extends BasePageTestCase {
     private SignupForm bean;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Override
     @Before
@@ -49,11 +54,8 @@ public class SignupFormTest extends BasePageTestCase {
         user.setPasswordHint("Password is one with you.");
         bean.setUser(user);
 
-       // start SMTP Server
-        Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
-
+        // start SMTP Server
+        final Wiser wiser = startWiser(getSmtpPort());
         assertEquals("home", bean.save());
         assertFalse(bean.hasErrors());
 

@@ -15,7 +15,6 @@ import org.apache.maven.project.MavenProjectBuilder;
 import org.apache.maven.settings.Settings;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Get;
-import org.apache.tools.ant.taskdefs.LoadFile;
 import org.apache.tools.ant.taskdefs.Move;
 import org.apache.tools.ant.types.FileSet;
 import org.appfuse.tool.RenamePackages;
@@ -29,15 +28,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import static java.lang.String.format;
 
@@ -61,7 +52,6 @@ public class InstallSourceMojo extends AbstractMojo {
     // ThreadLocale to hold properties as they're built when traversing through a modular project
     private static final ThreadLocal<Map> propertiesContextHolder = new ThreadLocal<Map>();
 
-
     /**
      * The path where the files from SVN will be placed. This is intentionally set to "src" since that's the default
      * src directory used for exporting AppFuse artifacts.
@@ -69,6 +59,13 @@ public class InstallSourceMojo extends AbstractMojo {
      * @parameter expression="${appfuse.destinationDirectory}" default-value="${basedir}/src"
      */
     private String destinationDirectory;
+
+    /**
+     * The branch containing the source code
+     *
+     * @parameter expression="${appfuse.branch}"
+     */
+    private String branch;
 
     /**
      * The directory containing the source code.
@@ -95,11 +92,9 @@ public class InstallSourceMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
-     *
      * @parameter expression="${settings}"
      * @required
      * @readonly
-     *
      */
     private Settings settings;
 
@@ -130,6 +125,11 @@ public class InstallSourceMojo extends AbstractMojo {
             }
         }
 
+        if (branch != null && !"".equals(branch) && !"master".equals(branch) && !"HEAD".equals(branch)) {
+            log("Using branch: " + branch);
+            tag = "branches/" + branch + "/";
+        }
+
         String daoFramework = project.getProperties().getProperty("dao.framework");
 
         if (daoFramework == null) {
@@ -138,31 +138,33 @@ public class InstallSourceMojo extends AbstractMojo {
 
         String webFramework = project.getProperties().getProperty("web.framework");
 
-        boolean modular = (project.getPackaging().equals("pom") && !project.hasParent());
-        if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && !project.hasParent())) {
+        boolean modular = project.getPackaging().equals("pom");
+        // if core project or modular web
+        if (project.getPackaging().equals("jar") ||
+            (project.getPackaging().equals("war") && project.getParentArtifact().getGroupId().contains("appfuse"))) {
             // export data-common
-            log("Installing source from data-common module...");
+            log("Importing source from data-common module...");
             String coreSource = project.getBuild().getSourceDirectory();
             export("data/common/src", (modular) ? coreSource : destinationDirectory);
 
             // Keep web project original testing hibernate.properties instead of overwriting it: rename
             File orig = new File((modular ? coreSource : destinationDirectory) + "/test/resources/hibernate.properties");
             File dest = new File((modular ? coreSource : destinationDirectory) + "/test/resources/hibernate.properties.orig");
-            if (webFramework != null && !webFramework.isEmpty()) {
+            if (orig.exists() && webFramework != null && !webFramework.isEmpty()) {
                 renameFile(orig, dest);
             }
 
             // export persistence framework
-            log("Installing source from " + daoFramework + " module...");
+            log("Importing source from " + daoFramework + " module...");
             export("data/" + daoFramework + "/src", (modular) ? coreSource : destinationDirectory);
 
             // export service module
-            log("Installing source from service module...");
+            log("Importing source from service module...");
             export("service/src", (modular) ? coreSource : destinationDirectory);
 
             // move Base*TestCase to test directory
             moveFiles((modular) ? coreSource + "/main" : destinationDirectory + "/main",
-                    (modular) ? coreSource + "/test" : destinationDirectory + "/test", "**/Base*TestCase.java");
+                (modular) ? coreSource + "/test" : destinationDirectory + "/test", "**/Base*TestCase.java");
 
             // delete dao.framework related files from test directory
             deleteFile("test/resources/hibernate.cfg.xml");
@@ -176,9 +178,108 @@ public class InstallSourceMojo extends AbstractMojo {
             }
 
             // Keep web project original testing hibernate.properties instead of overwriting it: delete copied and rename back
-            if (webFramework != null && !webFramework.isEmpty()) {
+            if (dest.exists() && webFramework != null && !webFramework.isEmpty()) {
                 deleteFile(orig.getPath());
                 renameFile(dest, orig);
+            }
+
+            log("Source successfully imported!");
+        }
+
+        if (modular) {
+            try {
+                String pom = FileUtils.readFileToString(new File("pom.xml"), "UTF-8");
+
+                // Move modules to build section.
+                pom = pom.replaceAll("  <modules>\n", "");
+                pom = pom.replaceAll("    <module>.*?</module>\n", "");
+                pom = pom.replaceAll("  </modules>\n", "");
+
+                pom = pom.replace("<build>", "<modules>\n" +
+                    "        <module>core</module>\n" +
+                    "        <module>web</module>\n" +
+                    "    </modules>\n\n    <build>");
+
+                FileUtils.writeStringToFile(new File("pom.xml"), pom, "UTF-8");
+            } catch (IOException ex) {
+                // no big deal if this fails, everything will still work
+            }
+
+            try {
+                String pom = FileUtils.readFileToString(new File("core/pom.xml"), "UTF-8");
+
+                // remove appfuse-data-common as a dependency
+                pom = pom.replaceAll("<dependencies>\n" +
+                    "        <dependency>\n" +
+                    "            <groupId>org.appfuse</groupId>\n" +
+                    "            <artifactId>appfuse-data-common</artifactId>\n" +
+                    "            <version>(.*?)appfuse.version}</version>\n" +
+                    "        </dependency>", "<dependencies>");
+
+                // modify the appfuse dependencies to be type pom
+                pom = pom.replaceAll("<version>(.*?)appfuse.version}</version>",
+                    "<version>$1appfuse.version}</version>\n            <type>pom</type>");
+
+                // modify hibernate4-plugin to exclude dependency scan
+                pom = pom.replaceAll("<artifactId>hibernate4-maven-plugin</artifactId>\n" +
+                    "                <configuration>", "<artifactId>hibernate4-maven-plugin</artifactId>\n" +
+                    "                <configuration>\n" +
+                    "                    <scanDependencies>none</scanDependencies>");
+
+                pom = adjustLineEndingsForOS(pom);
+                FileUtils.writeStringToFile(new File("core/pom.xml"), pom, "UTF-8");
+            } catch (IOException io) {
+                getLog().error("Failed to change core module's dependencies to use <type>pom</type>.\n" +
+                    "Please make this change manually.");
+            }
+
+            // exclude all appfuse dependencies in web module
+            try {
+                String pom = FileUtils.readFileToString(new File("web/pom.xml"), "UTF-8");
+                pom = pom.replaceAll("appfuse-hibernate", "*");
+
+                // modify hibernate4-plugin to exclude dependency scan
+                pom = pom.replaceAll("<artifactId>hibernate4-maven-plugin</artifactId>",
+                    "<artifactId>hibernate4-maven-plugin</artifactId>\n" +
+                        "                <configuration>\n                    " +
+                        "                    <scanDependencies>none</scanDependencies>\n" +
+                        "                </configuration>");
+                pom = adjustLineEndingsForOS(pom);
+                FileUtils.writeStringToFile(new File("web/pom.xml"), pom, "UTF-8");
+            } catch (IOException io) {
+                getLog().error("Failed to change web module to exclude AppFuse dependencies.\n" +
+                    "Please make this change manually: %s/appfuse-hibernate/*");
+            }
+        } else {
+            try {
+                String pom = FileUtils.readFileToString(new File("pom.xml"), "UTF-8");
+                // modify hibernate4-plugin to exclude dependency scan
+                if (project.getPackaging().equals("jar")) {
+                    pom = pom.replaceAll("<artifactId>hibernate4-maven-plugin</artifactId>\n" +
+                        "                <configuration>", "<artifactId>hibernate4-maven-plugin</artifactId>\n" +
+                        "                <configuration>\n" +
+                        "                    <scanDependencies>none</scanDependencies>");
+                } else {
+                    pom = pom.replaceAll("<artifactId>hibernate4-maven-plugin</artifactId>",
+                        "<artifactId>hibernate4-maven-plugin</artifactId>\n" +
+                            "                <configuration>\n" +
+                            "                    <scanDependencies>none</scanDependencies>\n" +
+                            "                </configuration>");
+                }
+
+                // remove appfuse-data-common as a dependency
+                pom = pom.replaceAll("<dependencies>\n" +
+                    "        <dependency>\n" +
+                    "            <groupId>org.appfuse</groupId>\n" +
+                    "            <artifactId>appfuse-data-common</artifactId>\n" +
+                    "            <version>(.*?)appfuse.version}</version>\n" +
+                    "        </dependency>", "<dependencies>");
+
+                pom = adjustLineEndingsForOS(pom);
+                FileUtils.writeStringToFile(new File("pom.xml"), pom, "UTF-8");
+            } catch (IOException io) {
+                getLog().error("Failed to add <scanDependencies>none</scanDependencies> to hibernate4-maven-plugin. " +
+                    "Please make this change manually.");
             }
         }
 
@@ -196,11 +297,11 @@ public class InstallSourceMojo extends AbstractMojo {
 
             if (webFramework == null && !isWebServicesProject) {
                 getLog().error("The web.framework property is not specified - please modify your pom.xml to add " +
-                        " this property. For example: <web.framework>struts</web.framework>.");
+                    " this property. For example: <web.framework>struts</web.framework>.");
                 throw new MojoExecutionException("No web.framework property specified, please modify pom.xml to add it.");
             }
 
-            if (project.hasParent()) {
+            if (project.getArtifactId().contains("core")) {
                 // delete hibernate, ibatis and jpa files from web project
                 deleteFile("main/resources/hibernate.cfg.xml");
                 deleteFile("main/resources/META-INF");
@@ -208,16 +309,22 @@ public class InstallSourceMojo extends AbstractMojo {
 
                 // there's a jdbc.properties in test/resources that shouldn't be there
                 deleteFile("test/resources/jdbc.properties");
+
             } else if (!isAppFuse()) {
                 // there's a jdbc.properties in test/resources that shouldn't be there
                 deleteFile("test/resources/jdbc.properties");
+                deleteFile("test/resources/log4j2.xml");
             }
         }
 
-        log("Source successfully exported, modifying pom.xml...");
+        // As of AppFuse 3.5, pom files no longer need to be adjusted when running full-source
+        //calculateDependencies(appfuseVersion, daoFramework, webFramework, isWebServicesProject);
+        renamePackages();
+    }
 
+    private void calculateDependencies(String appfuseVersion, String daoFramework, String webFramework, boolean isWebServicesProject) throws MojoFailureException {
         List dependencies = project.getOriginalModel().getDependencies();
-        List<Dependency> newDependencies = new ArrayList<Dependency>();
+        List<Dependency> newDependencies = new ArrayList<>();
 
         // remove all appfuse dependencies
         for (Object dependency : dependencies) {
@@ -228,7 +335,7 @@ public class InstallSourceMojo extends AbstractMojo {
             }
         }
 
-        if (!project.getPackaging().equals("pom") && !project.hasParent()) {
+        if (!project.getPackaging().equals("pom")) {
 
             // add dependencies from root appfuse pom
             newDependencies = addModuleDependencies(newDependencies, "root", "", "");
@@ -316,8 +423,9 @@ public class InstallSourceMojo extends AbstractMojo {
         return newDependencies;
     }
 
+    // TODO: Improve logic or remove need for calculation
     private boolean isAppFuse() {
-        return (project.getProperties().getProperty("copyright.year") != null);
+        return (project.getParent().getArtifactId().contains("appfuse-web"));
     }
 
     private void deleteFile(String filePath) {
@@ -342,33 +450,20 @@ public class InstallSourceMojo extends AbstractMojo {
 
     private void createFullSourcePom(List<Dependency> newDependencies) throws MojoFailureException {
         // create properties based on dependencies
-        Set<String> projectProperties = new TreeSet<String>();
+        Set<String> projectProperties = new TreeSet<>();
 
         for (Dependency dep : newDependencies) {
             projectProperties.add(getDependencyVersionOrThrowExceptionIfNotAvailable(dep));
         }
 
         // add core as a dependency for modular wars
-        if (project.getPackaging().equals("war") && project.hasParent()) {
+        if (project.getPackaging().equals("war") && !project.getParentArtifact().getGroupId().contains("appfuse")) {
             Dependency core = new Dependency();
             core.setGroupId("${project.parent.groupId}");
             // This assumes you're following conventions of ${project.artifactId}-core
             core.setArtifactId("${project.parent.artifactId}-core");
             core.setVersion("${project.parent.version}");
             newDependencies.add(core);
-
-            // workaround for JSF requiring JSP 2.1 - this is a true hack
-            if (project.getProperties().getProperty("web.framework").equals("jsf")) {
-                Dependency jsp21 = new Dependency();
-                jsp21.setGroupId("javax.servlet.jsp");
-                jsp21.setArtifactId("jsp-api");
-                jsp21.setVersion("${jsp.version}");
-                jsp21.setScope("provided");
-                newDependencies.add(jsp21);
-
-                // replace jsp.version property as well
-                project.getOriginalModel().getProperties().setProperty("jsp.version", "2.1");
-            }
         }
 
         Collections.sort(newDependencies, new BeanComparator("groupId"));
@@ -399,17 +494,12 @@ public class InstallSourceMojo extends AbstractMojo {
                     continue;
                 }
 
-                // hack for Tapestry depending on commons-pool (a.k.a. commons-dbcp 1.2.2)
-                if ("tapestry".equals(project.getProperties().getProperty("web.framework")) && key.equals("commons.dbcp.version")) {
-                    value = "1.2.2";
-                }
-
                 if (value.contains("&amp;")) {
                     value = "<![CDATA[" + value + "]]>";
                 }
 
                 sortedProperties.append("        <").append(key).append(">")
-                        .append(value).append("</").append(key).append(">" + "\n");
+                    .append(value).append("</").append(key).append(">" + "\n");
                 propertiesForPom.put(key, value);
             }
         }
@@ -450,7 +540,7 @@ public class InstallSourceMojo extends AbstractMojo {
             throw new MojoFailureException(ex.getMessage());
         }
 
-        log("Updated dependencies in pom.xml...");
+        //log("Updated dependencies in pom.xml...");
 
         // I tried to use regex here, but couldn't get it to work - going with the old fashioned way instead
         String pomXml = writer.toString();
@@ -464,7 +554,7 @@ public class InstallSourceMojo extends AbstractMojo {
         try {
             String packaging = project.getPackaging();
             String pathToPom = "pom.xml";
-            if (project.hasParent()) {
+            if (project.hasParent() && !project.getParentArtifact().getGroupId().contains("appfuse")) {
                 if (packaging.equals("jar")) {
                     pathToPom = "core/" + pathToPom;
                 } else if (packaging.equals("war")) {
@@ -486,39 +576,32 @@ public class InstallSourceMojo extends AbstractMojo {
 
             // Calculate properties and add them to pom if not a modular project - otherwise properties are added
             // near the end of this method from a threadlocal
-            if (!project.getPackaging().equals("pom") && !project.hasParent()) {
+            if (!project.getPackaging().equals("pom") && project.getParentArtifact().getGroupId().contains("appfuse")) {
                 adjustedPom = addPropertiesToPom(adjustedPom, sortedProperties);
             }
 
             adjustedPom = adjustLineEndingsForOS(adjustedPom);
 
-            FileUtils.writeStringToFile(new File(pathToPom), adjustedPom, "UTF-8"); // was pomWithProperties
+            FileUtils.writeStringToFile(new File(pathToPom), adjustedPom, "UTF-8");
         } catch (IOException ex) {
             getLog().error("Unable to write to pom.xml: " + ex.getMessage(), ex);
             throw new MojoFailureException(ex.getMessage());
         }
 
-        boolean renamePackages = true;
-        if (System.getProperty("renamePackages") != null) {
-            renamePackages = Boolean.valueOf(System.getProperty("renamePackages"));
-        }
+        // cleanup so user isn't aware that files were created
+        File pom = new File("pom-fullsource.xml");
 
-        if (renamePackages && !project.getPackaging().equals("pom")) {
-            log("Renaming packages to '" + project.getGroupId() + "'...");
-            RenamePackages renamePackagesTool = new RenamePackages(project.getGroupId());
-            if (project.hasParent()) {
-                renamePackagesTool.setBaseDir(project.getBasedir() + "/src");
-            }
-
-            renamePackagesTool.execute();
+        if (pom.exists()) {
+            pom.delete();
         }
 
         // when performing full-source on a modular project, add the properties to the root pom.xml at the end
-        if (project.getPackaging().equals("war") && project.hasParent()) {
+        if (project.getPackaging().equals("war") &&
+            (project.hasParent() && !project.getParentArtifact().getGroupId().contains("appfuse"))) {
             // store sorted properties in a thread local for later retrieval
             Map properties = propertiesContextHolder.get();
             // alphabetize the properties by key
-            Set<String> propertiesToAdd = new TreeSet<String>(properties.keySet());
+            Set<String> propertiesToAdd = new TreeSet<>(properties.keySet());
 
             StringBuffer calculatedProperties = new StringBuffer();
 
@@ -552,25 +635,34 @@ public class InstallSourceMojo extends AbstractMojo {
                 originalPom = originalPom.replaceAll("  </modules>", "");
 
                 originalPom = originalPom.replace("<repositories>", "<modules>\n" +
-                        "        <module>core</module>\n" +
-                        "        <module>web</module>\n" +
-                        "    </modules>\n\n    <repositories>");
+                    "        <module>core</module>\n" +
+                    "        <module>web</module>\n" +
+                    "    </modules>\n\n    <repositories>");
 
                 String pomWithProperties = addPropertiesToPom(originalPom, calculatedProperties);
 
                 FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties, "UTF-8");
             } catch (IOException ex) {
-                getLog().error("Unable to read root pom.xml: " + ex.getMessage(), ex);
+                getLog().error("Unable to modify root pom.xml: " + ex.getMessage(), ex);
                 throw new MojoFailureException(ex.getMessage());
             }
+        }
+    }
 
+    private void renamePackages() {
+        boolean renamePackages = true;
+        if (System.getProperty("renamePackages") != null) {
+            renamePackages = Boolean.valueOf(System.getProperty("renamePackages"));
         }
 
-        // cleanup so user isn't aware that files were created
-        File pom = new File("pom-fullsource.xml");
+        if (renamePackages && !project.getPackaging().equals("pom")) {
+            log("Renaming packages to '" + project.getGroupId() + "'...");
+            RenamePackages renamePackagesTool = new RenamePackages(project.getGroupId());
+            if (project.hasParent() && !project.getParentArtifact().getGroupId().contains("appfuse")) {
+                renamePackagesTool.setBaseDir(project.getBasedir() + "/src");
+            }
 
-        if (pom.exists()) {
-            pom.delete();
+            renamePackagesTool.execute();
         }
     }
 
@@ -599,31 +691,33 @@ public class InstallSourceMojo extends AbstractMojo {
             List<Dependency> managedDeps = dependencyManagement.getDependencies();
             for (Dependency managedDep : managedDeps) {
                 if (managedDep.getArtifactId().equals(dep.getArtifactId()) &&
-                        managedDep.getGroupId().equals(dep.getGroupId())) {
+                    managedDep.getGroupId().equals(dep.getGroupId())) {
                     return managedDep.getVersion();
                 }
             }
             throw new IllegalArgumentException(format(
-                    "Unable to determine version for dependency: %s:%s", dep.getGroupId(), dep.getArtifactId()));
+                "Unable to determine version for dependency: %s:%s", dep.getGroupId(), dep.getArtifactId()));
         } else {
             throw new IllegalArgumentException(format(
-                    "Unable to determine version for dependency: %s:%s. DependencyManagement is null",
-                    dep.getGroupId(), dep.getArtifactId()));
+                "Unable to determine version for dependency: %s:%s. DependencyManagement is null",
+                dep.getGroupId(), dep.getArtifactId()));
         }
     }
 
     private static String addPropertiesToPom(String existingPomXmlAsString, StringBuffer sortedProperties) {
         String adjustedPom = existingPomXmlAsString;
 
-        // add new properties
-        adjustedPom = adjustedPom.replace("<jdbc.password/>", "<jdbc.password/>" + LINE_SEP + LINE_SEP +
+        if (!"".equals(sortedProperties)) {
+            // add new properties
+            adjustedPom = adjustedPom.replace("<jdbc.password/>", "<jdbc.password/>" + LINE_SEP + LINE_SEP +
                 "        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" +
                 sortedProperties);
 
-        // also look for empty jdbc.password tag since the archetype plugin sometimes expands empty elements
-        adjustedPom = adjustedPom.replace("<jdbc.password></jdbc.password>", "<jdbc.password/>" + LINE_SEP + LINE_SEP +
+            // also look for empty jdbc.password tag since the archetype plugin sometimes expands empty elements
+            adjustedPom = adjustedPom.replace("<jdbc.password></jdbc.password>", "<jdbc.password/>" + LINE_SEP + LINE_SEP +
                 "        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" +
                 sortedProperties);
+        }
 
         adjustedPom = adjustedPom.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
 
@@ -673,8 +767,8 @@ public class InstallSourceMojo extends AbstractMojo {
              */
             while (err != null) {
                 getLog()
-                        .error(err.getErrorCode().getCode() + " : " +
-                                err.getMessage());
+                    .error(err.getErrorCode().getCode() + " : " +
+                        err.getMessage());
                 err = err.getChildErrorMessage();
             }
 
@@ -691,22 +785,26 @@ public class InstallSourceMojo extends AbstractMojo {
 
         // Read dependencies from module's pom.xml
         URL pomLocation = null;
-        File newDir = new File(project.getFile().getParent(), "target/"+ parentModule +"/appfuse-" + moduleName);
+        File newDir = new File(project.getFile().getParent(), "target/" + parentModule + "/appfuse-" + moduleName);
 
         if (!newDir.exists()) {
             newDir.mkdirs();
         }
 
-        File pom = new File(project.getFile().getParent(),"target/" + parentModule +"/appfuse-" + moduleName + "/pom.xml");
+        File pom = new File(project.getFile().getParent(), "target/" + parentModule + "/appfuse-" + moduleName + "/pom.xml");
 
         try {
             // replace github.com with raw.github.com and trunk with master
             trunk = trunk.replace("https://github.com", "https://raw.githubusercontent.com");
             tag = tag.replace("trunk", "master");
-            // replace tags with nothing for fetching from tag
+            // replace tag/branch with nothing
             if (tag.contains("tags/")) {
                 tag = tag.replace("tags/", "");
             }
+            if (tag.contains("branches/")) {
+                tag = tag.replace("branches/", "");
+            }
+
             // add separator if moduleLocation is populated
             if (!"".equals(moduleLocation)) {
                 moduleLocation += "/";
@@ -742,13 +840,13 @@ public class InstallSourceMojo extends AbstractMojo {
             Dependency dep = (Dependency) moduleDependency;
 
             if (dep.getGroupId().equals("javax.servlet.jsp") && dep.getArtifactId().equals("jsp-api")
-                    && "jsf".equals(project.getProperties().getProperty("web.framework"))) {
+                && "jsf".equals(project.getProperties().getProperty("web.framework"))) {
                 // skip adding dependency for old group id of jsp-api
                 continue;
             }
 
             if (!artifactIds.contains(dep.getArtifactId()) &&
-                    !dep.getArtifactId().contains("appfuse")) {
+                !dep.getArtifactId().contains("appfuse")) {
                 dependencies.add(dep);
             }
         }
@@ -760,26 +858,9 @@ public class InstallSourceMojo extends AbstractMojo {
         try {
             return mavenProjectBuilder.buildWithDependencies(pom, local, null);
         } catch (Exception e) {
-            getLog().warn( "skip error reading maven project: " + e.getMessage(), e );
+            getLog().warn("skip error reading maven project: " + e.getMessage(), e);
         }
         return null;
-    }
-
-    /**
-     * This method will create an ANT based LoadFile task based on an infile and a property name.
-     * The property will be loaded with the infile for use later by the Replace task.
-     *
-     * @param inFile   The file to process
-     * @param propName the name to assign it to
-     * @return The ANT LoadFile task that loads a property with a file
-     */
-    protected LoadFile createLoadFileTask(String inFile, String propName) {
-        LoadFile loadFileTask = (LoadFile) antProject.createTask("loadfile");
-        loadFileTask.init();
-        loadFileTask.setProperty(propName);
-        loadFileTask.setSrcFile(new File(inFile));
-
-        return loadFileTask;
     }
 
     /**
@@ -799,12 +880,13 @@ public class InstallSourceMojo extends AbstractMojo {
         moveTask.addFileset(fileSet);
         moveTask.execute();
     }
+
     /**
      * This method will movie files from the source directory to the destination directory based on
      * the pattern.
      *
-     * @param from      The source file to rename.
-     * @param to        The file to rename to.
+     * @param from The source file to rename.
+     * @param to   The file to rename to.
      */
     protected void renameFile(final File from, final File to) {
         Move moveTask = (Move) antProject.createTask("move");
@@ -813,5 +895,4 @@ public class InstallSourceMojo extends AbstractMojo {
         moveTask.setTofile(to);
         moveTask.execute();
     }
-
 }

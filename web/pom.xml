@@ -14,14 +14,15 @@
     limitations under the License.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-web</artifactId>
@@ -36,8 +37,8 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/web</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <modules>
         <module>common</module>
@@ -52,31 +53,153 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.appfuse.plugins</groupId>
+                <artifactId>appfuse-maven-plugin</artifactId>
+                <version>${project.parent.version}</version>
+                <configuration>
+                    <componentProperties>
+                        <implementation>annotationconfiguration</implementation>
+                    </componentProperties>
+                    <genericCore>${amp.genericCore}</genericCore>
+                    <fullSource>${amp.fullSource}</fullSource>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>${jdbc.groupId}</groupId>
+                        <artifactId>${jdbc.artifactId}</artifactId>
+                        <version>${jdbc.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.version}</version>
+            </plugin>
+            <!-- will package a ready-to-run app regarding hibernate-search index location -->
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <webApp>
-                        <contextPath>/</contextPath>
-                        <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
-                            <resourcesAsCSV>
-                                ${basedir}/../common/src/main/resources,
-                                ${basedir}/src/main/resources,
-                                ${basedir}/src/main/webapp,
-                                ${basedir}/../common/src/main/webapp,
-                            </resourcesAsCSV>
-                        </baseResource>
-                    </webApp>
+                    <escapeString>\</escapeString>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/resources/packaged</directory>
+                            <targetPath>WEB-INF/classes</targetPath>
+                            <filtering>true</filtering>
+                            <includes>
+                                <include>hibernate.properties</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native2ascii-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>native2ascii-utf8</id>
+                        <goals>
+                            <goal>native2ascii</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF8</encoding>
+                            <includes>
+                                <include>ApplicationResources_el*.properties</include>
+                                <include>ApplicationResources_zh*.properties</include>
+                                <include>ApplicationResources_ko*.properties</include>
+                                <include>displaytag_el*.properties</include>
+                                <include>displaytag_zh*.properties</include>
+                                <include>errors_el*</include>
+                                <include>errors_ko*</include>
+                                <include>errors_tr*</include>
+                                <include>errors_zh*</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>native2ascii-8859_1</id>
+                        <goals>
+                            <goal>native2ascii</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>8859_1</encoding>
+                            <includes>
+                                <include>errors_de.properties</include>
+                                <include>errors_fr.properties</include>
+                                <include>errors_nl.properties</include>
+                                <include>errors_pt*.properties</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/java</directory>
+                <includes>
+                    <!-- For Wicket -->
+                    <include>**/*.html</include>
+                    <include>**/*.properties</include>
+                    <!-- For Tapestry -->
+                    <include>**/*.tml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>src/main/webapp</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </testResource>
+        </testResources>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.appfuse</groupId>
+                <artifactId>appfuse-web-common</artifactId>
+                <version>${project.parent.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.appfuse</groupId>
+                        <artifactId>appfuse-hibernate</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.appfuse</groupId>
+                <artifactId>appfuse-${dao.framework}</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.appfuse</groupId>
             <artifactId>appfuse-service</artifactId>
-            <version>${project.version}</version>
+            <version>${project.parent.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.appfuse</groupId>
@@ -87,113 +210,66 @@
         <dependency>
             <groupId>org.appfuse</groupId>
             <artifactId>appfuse-${dao.framework}</artifactId>
-            <version>${project.version}</version>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <!-- Added as compile dependency to hibernate4-maven-plugin picks it up -->
+        <dependency>
+            <groupId>org.appfuse</groupId>
+            <artifactId>appfuse-data-common</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version>${commons.dbcp.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>xerces</groupId>
-                    <artifactId>xercesImpl</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-collections</artifactId>
-                    <groupId>commons-collections</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.subethamail</groupId>
             <artifactId>subethasmtp-wiser</artifactId>
-            <version>${wiser.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.directwebremoting</groupId>
             <artifactId>dwr</artifactId>
-            <version>${dwr.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-web</artifactId>
-            <version>${ehcache.web.version}</version>
         </dependency>
-        <!-- Upgrade version of ehcache-core used -->
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-core</artifactId>
-            <version>${ehcache.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>${jstl.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${jdbc.groupId}</groupId>
-            <artifactId>${jdbc.artifactId}</artifactId>
-            <version>${jdbc.version}</version>
         </dependency>
         <dependency>
             <groupId>struts-menu</groupId>
             <artifactId>struts-menu</artifactId>
-            <version>${struts.menu.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>velocity</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>velocity-tools</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-tools</artifactId>
-            <version>2.0</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>sitemesh</artifactId>
-            <version>${sitemesh.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
-            <version>${spring.security.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- Needed to load CXF for all web frameworks -->
         <dependency>
@@ -203,42 +279,37 @@
         <dependency>
             <groupId>org.tuckey</groupId>
             <artifactId>urlrewritefilter</artifactId>
-            <version>${urlrewrite.version}</version>
         </dependency>
         <dependency>
             <groupId>ro.isdc.wro4j</groupId>
             <artifactId>wro4j-core</artifactId>
-            <version>${wro4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery-cookie</artifactId>
-            <version>1.3.1</version>
-            <!-- Exclude jQuery so version from Boostrap is used instead. -->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.webjars</groupId>
-                    <artifactId>jquery</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-datepicker</artifactId>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootswatch-spacelab</artifactId>
-            <version>3.2.0-1</version>
         </dependency>
         <!-- Necessary for Log4j2 to work at runtime with Velocity -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-1.2-api</artifactId>
-            <version>${log4j.version}</version>
             <scope>runtime</scope>
         </dependency>
         <!-- Necessary for Log4j2 to work in a web container -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-web</artifactId>
-            <version>${log4j.version}</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>

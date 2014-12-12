@@ -2,6 +2,7 @@ package org.appfuse.webapp.services;
 
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
+import org.apache.tapestry5.ioc.annotations.ImportModule;
 import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.apache.tapestry5.services.*;
 import org.appfuse.Constants;
@@ -16,14 +17,11 @@ import java.io.IOException;
  *
  * @author Serge Eby
  */
-@SubModule(AppModule.class)
+@ImportModule(AppModule.class)
 public class AppTestModule {
 
     /**
      * Use to allow PageTester to run with spring and spring-security.
-     *
-     * @param config
-     * @param requestGlobals
      */
     public static void contributeRequestHandler(OrderedConfiguration<RequestFilter> config,
                                                 final RequestGlobals requestGlobals) {

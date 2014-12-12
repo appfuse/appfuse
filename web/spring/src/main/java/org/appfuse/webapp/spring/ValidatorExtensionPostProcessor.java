@@ -25,7 +25,7 @@ import java.util.List;
  *   &lt;/property&gt;
  * &lt;/bean&gt;
  * </pre>
- 
+
  * <p>The sample adds a single validation configuration file (foo-validation.xml) to an existing Spring commons
  * Validator Factory bean (a bean of class org.springmodules.validation.commons.DefaultValidatorFactory). Assuming the
  * validator extension is included in a Spring configuration file called applicationContext-foo-validation.xml, and
@@ -43,6 +43,7 @@ public class ValidatorExtensionPostProcessor implements BeanFactoryPostProcessor
      * Adds the validation configuration files to the list already held in the validator factory bean configuration.
      * @param configurableListableBeanFactory the bean factory
      */
+    @SuppressWarnings("unchecked")
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) {
         if (configurableListableBeanFactory.containsBean(validatorFactoryBeanName)) {
             BeanDefinition validatorFactoryBeanDefinition =

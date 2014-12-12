@@ -38,11 +38,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * This class represents the basic "user" object in AppFuse that allows for authentication
- * and user management.  It implements Acegi Security's UserDetails interface.
+ * and user management.  It implements Spring Security's UserDetails interface.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *         Updated by Dan Kibler (dan@getrolling.com)
- *         Extended to implement Acegi UserDetails interface
+ *         Extended to implement Spring UserDetails interface
  *         by David Carter david@carter.net
  */
 @Entity
@@ -164,7 +164,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)    
+    @Fetch(FetchMode.SELECT)
     @JoinTable(
             name = "user_role",
             joinColumns = { @JoinColumn(name = "user_id") },

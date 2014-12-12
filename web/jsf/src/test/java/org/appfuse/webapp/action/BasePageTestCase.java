@@ -17,20 +17,27 @@ import org.apache.shale.test.mock.MockServletContext;
 import org.appfuse.Constants;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.subethamail.wiser.Wiser;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.ApplicationFactory;
 import javax.faces.component.UIViewRoot;
 import javax.faces.lifecycle.LifecycleFactory;
 import javax.faces.render.RenderKitFactory;
+import javax.transaction.Transactional;
+import java.net.BindException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * <p>Abstract JUnit test case base class, which sets up the JavaServer Faces
@@ -55,25 +62,18 @@ import java.util.Locale;
  * instance will also have been registered in the apppriate thread local
  * variable, to simulate what a servlet container would do.</p>
  * <p/>
- * <p><strong>WARNING</strong> - If you choose to subclass this class, be sure
- * your <code>onSetUp()</code> and <code>onTearDown()</code> methods call
- * <code>super.setUp()</code> and <code>super.tearDown()</code> respectively,
- * and that you implement your own <code>suite()</code> method that exposes
- * the test methods for your test case.</p>
- * <p/>
- * <p><strong>NOTE:</strong> This class is a copy of Shale's AbstractJsfTestCase,
- * except it extends Spring's AbstractTransactionalDataSourceSpringContextTests
- * instead of JUnit's TestCase.</p>
  */
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         locations = {"classpath:/applicationContext-resources.xml",
                 "classpath:/applicationContext-dao.xml",
                 "classpath:/applicationContext-service.xml",
                 "classpath*:/applicationContext.xml",
                 "classpath:**/applicationContext*.xml"})
-public abstract class BasePageTestCase extends AbstractTransactionalJUnit4SpringContextTests {
+@Transactional
+public abstract class BasePageTestCase {
     protected final Log log = LogFactory.getLog(getClass());
-    
+
     protected MockApplication application = null;
     protected MockServletConfig config = null;
     protected MockExternalContext externalContext = null;
@@ -89,15 +89,18 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
 
     // Thread context class loader saved and restored after each test
     private ClassLoader threadContextClassLoader = null;
-    private static int smtpPort = 25250;
+    private int smtpPort;
+
+    @Autowired
+    private JavaMailSenderImpl mailSender;
 
     /**
      * <p>Set up instance variables required by this test case.</p>
      */
     @Before
     public void onSetUp() {
-        smtpPort = smtpPort + (int) (Math.random() * 100);
-        
+        smtpPort = (new Random().nextInt(9999 - 1000) + 1000);
+
         // Set up a new thread context class loader
         threadContextClassLoader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(new URLClassLoader(new URL[0],
@@ -105,7 +108,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
 
         // Set up Servlet API Objects
         servletContext = new MockServletContext();
-        
+
         config = new MockServletConfig(servletContext);
         session = new MockHttpSession();
         session.setServletContext(servletContext);
@@ -131,7 +134,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
         facesContextFactory = (MockFacesContextFactory) FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
         facesContext = (MockFacesContext)
                 facesContextFactory.getFacesContext(servletContext, request, response, lifecycle);
-        
+
         externalContext = (MockExternalContext) facesContext.getExternalContext();
         UIViewRoot root = new UIViewRoot();
         root.setViewId("/viewId");
@@ -155,16 +158,30 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
         list.add(new Locale("de"));
         list.add(new Locale("es"));
         application.setSupportedLocales(list);
-
-        // change the port on the mailSender so it doesn't conflict with an
-        // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
-        mailSender.setPort(getSmtpPort());
-        mailSender.setHost("localhost");
     }
 
-    public int getSmtpPort() {
+    protected int getSmtpPort() {
         return smtpPort;
+    }
+
+    protected Wiser startWiser(int smtpPort) {
+        Wiser wiser = new Wiser();
+        wiser.setPort(smtpPort);
+        try {
+            wiser.start();
+        } catch (RuntimeException re) {
+            if (re.getCause() instanceof BindException) {
+                int nextPort = smtpPort + 1;
+                if (nextPort - smtpPort > 10) {
+                    log.error("Exceeded 10 attempts to start SMTP server, aborting...");
+                    throw re;
+                }
+                log.error("SMTP port " + smtpPort + " already in use, trying " + nextPort);
+                return startWiser(nextPort);
+            }
+        }
+        mailSender.setPort(smtpPort);
+        return wiser;
     }
 
     /**

@@ -12,6 +12,8 @@ import static org.junit.Assert.*;
 public class UserActionTest extends BaseActionTestCase {
     @Autowired
     private UserAction action;
+    @Autowired
+    private UserManager userManager;
 
     @Test
     public void testCancel() throws Exception {
@@ -37,7 +39,6 @@ public class UserActionTest extends BaseActionTestCase {
 
     @Test
     public void testSave() throws Exception {
-        UserManager userManager = (UserManager) applicationContext.getBean("userManager");
         User user = userManager.getUserByUsername("user");
         user.setPassword("user");
         user.setConfirmPassword("user");
@@ -55,7 +56,6 @@ public class UserActionTest extends BaseActionTestCase {
 
     @Test
     public void testSaveConflictingUser() throws Exception {
-        UserManager userManager = (UserManager) applicationContext.getBean("userManager");
         User user = userManager.getUserByUsername("user");
         user.setPassword("user");
         user.setConfirmPassword("user");
@@ -98,7 +98,6 @@ public class UserActionTest extends BaseActionTestCase {
     @Test
     public void testSearch() throws Exception {
         // regenerate search index
-        UserManager userManager = (UserManager) applicationContext.getBean("userManager");
         userManager.reindex();
 
         action.setQ("admin");

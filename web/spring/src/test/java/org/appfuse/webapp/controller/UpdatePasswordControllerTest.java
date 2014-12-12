@@ -58,9 +58,7 @@ public class UpdatePasswordControllerTest extends BaseControllerTestCase {
     @Test
     public void testRequestRecoveryToken() throws Exception {
         // start SMTP Server
-        Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
+        Wiser wiser = startWiser(getSmtpPort());
 
         ResultActions update = mockMvc.perform(get("/requestRecoveryToken").param("username", "admin"))
             .andExpect(status().is3xxRedirection())
@@ -121,9 +119,7 @@ public class UpdatePasswordControllerTest extends BaseControllerTestCase {
         String token = userManager.generateRecoveryToken(user);
         String password = "new-pass";
 
-        Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
+        Wiser wiser = startWiser(getSmtpPort());
 
         ResultActions update = mockMvc.perform(post("/updatePassword")
             .param("username", username).param("token", token)

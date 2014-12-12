@@ -46,7 +46,7 @@ public class ${pojo.shortName}ManagerImplTest extends BaseManagerMockTestCase {
     public void testGet${util.getPluralForWord(pojo.shortName)}() {
         log.debug("testing getAll...");
         //given
-        final List ${util.getPluralForWord(pojoNameLower)} = new ArrayList();
+        final List<${pojo.shortName}> ${util.getPluralForWord(pojoNameLower)} = new ArrayList<>();
         given(dao.getAll()).willReturn(${util.getPluralForWord(pojoNameLower)});
 
         //when

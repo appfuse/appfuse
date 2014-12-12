@@ -50,9 +50,7 @@ public class SignupTest extends BasePageTestCase {
         fieldValues.put("postalCode", "80210");
 
         // start SMTP Server
-        Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
+        Wiser wiser = startWiser(getSmtpPort());
 
         TestableResponse response = tester.submitFormAndReturnResponse(form, fieldValues);
 
@@ -87,9 +85,7 @@ public class SignupTest extends BasePageTestCase {
         fieldValues.put("postalCode", "80210");
 
         // start SMTP Server
-        Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
+        Wiser wiser = startWiser(getSmtpPort());
 
         TestableResponse response = tester.submitFormAndReturnResponse(form, fieldValues);
         assertEquals(response.getRedirectURL(), "signup");

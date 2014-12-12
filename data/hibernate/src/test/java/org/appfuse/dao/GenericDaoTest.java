@@ -19,7 +19,7 @@ public class GenericDaoTest extends BaseDaoTestCase {
 
     @Before
     public void setUp() {
-        genericDao = new GenericDaoHibernate<User, Long>(User.class, sessionFactory);
+        genericDao = new GenericDaoHibernate<>(User.class, sessionFactory);
     }
 
     @Test

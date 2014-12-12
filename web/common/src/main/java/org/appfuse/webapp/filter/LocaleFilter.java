@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.jstl.core.Config;
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * Filter to wrap request with a request including user preferred locale.
@@ -22,7 +21,7 @@ public class LocaleFilter extends OncePerRequestFilter {
     /**
      * This method looks for a "locale" request parameter. If it finds one, it sets it as the preferred locale
      * and also configures it to work with JSTL.
-     * 
+     *
      * @param request the current request
      * @param response the current response
      * @param chain the chain

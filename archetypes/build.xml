@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="archetypes" basedir=".">
 
-    <property name="version" value="3.0.1-SNAPSHOT"/>
+    <property name="version" value="3.5.0-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
     <property name="dbunit.sample-data.xml"
@@ -37,28 +37,6 @@
 
         <!-- Change the version number of the generated archetype -->
         <replace file="${dir}/target/generated-sources/archetype/pom.xml" value="${version}" token="1.0-SNAPSHOT"/>
-
-        <replace file="${dir}/target/generated-sources/archetype/pom.xml">
-            <replacetoken><![CDATA[</name>]]></replacetoken>
-            <replacevalue><![CDATA[</name>
-        <distributionManagement>
-        <repository>
-            <id>appfuse-releases</id>
-            <name>AppFuse Release Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
-        <snapshotRepository>
-            <id>appfuse-snapshots</id>
-            <name>AppFuse Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
-        </snapshotRepository>
-        <site>
-            <id>appfuse-site</id>
-            <name>AppFuse Maven Site</name>
-            <url>scp://static.appfuse.org/var/www/appfuse-site</url>
-        </site>
-    </distributionManagement>]]></replacevalue>
-        </replace>
 
         <!-- Add jdbc.password back in since archetype plugin strips it out -->
         <replace file="${dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/pom.xml">
@@ -129,6 +107,8 @@
                 <fileset dir="${basedir}/../../web/@{module}">
                     <include name="**/**"/>
                     <exclude name="pom.xml"/>
+                    <exclude name=".idea/**"/>
+                    <exclude name="build/**"/>
                     <exclude name="target/**"/>
                     <exclude name="**/.svn/**"/>
                     <exclude name="*.iml"/>
@@ -217,7 +197,6 @@
                     <delete dir="@{dir}" includes="**/*.jsp" excludes="**/index.jsp" />
                     <delete dir="@{dir}/@{dest}/src/main/webapp/common/" />
                     <delete dir="@{dir}/@{dest}/src/main/webapp/decorators/" />
-                    <delete dir="@{dir}/@{dest}/src/main/webapp/scripts/" />
                     <move todir="@{dir}/@{dest}/src/main/resources/webapp/client/application">
                     	<fileset dir="@{dir}/@{dest}/src/main/resources/" includes="ApplicationResources**.properties" />
                     </move>
@@ -251,36 +230,6 @@
 
             <!-- Change the version number of the generated archetype -->
             <replace file="@{dir}/target/generated-sources/archetype/pom.xml" value="${version}" token="1.0-SNAPSHOT"/>
-
-            <!-- Add a description to the archetype's pom.xml -->
-            <replace file="@{dir}/target/generated-sources/archetype/pom.xml">
-                <replacetoken><![CDATA[</name>]]></replacetoken>
-                <replacevalue><![CDATA[</name>
-  <description>AppFuse Archetype</description>]]></replacevalue>
-            </replace>
-
-            <replace file="@{dir}/target/generated-sources/archetype/pom.xml">
-                <replacetoken><![CDATA[</description>]]></replacetoken>
-                <replacevalue><![CDATA[</description>
-
-  <distributionManagement>
-    <repository>
-      <id>appfuse-releases</id>
-      <name>AppFuse Release Repository</name>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-    </repository>
-    <snapshotRepository>
-      <id>appfuse-snapshots</id>
-      <name>AppFuse Snapshot Repository</name>
-      <url>https://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
-    </snapshotRepository>
-    <site>
-      <id>appfuse-site</id>
-      <name>AppFuse Maven Site</name>
-      <url>scp://static.appfuse.org/var/www/appfuse-site</url>
-    </site>
-  </distributionManagement>]]></replacevalue>
-            </replace>
 
             <!-- Preserve embedded package names -->
             <replace dir="@{dir}/target/generated-sources/archetype/src">

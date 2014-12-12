@@ -30,7 +30,7 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringC
      * ResourceBundle loaded from src/test/resources/${package.name}/ClassName.properties (if exists)
      */
     protected ResourceBundle rb;
-    
+
     /**
      * Default constructor - populates "rb" variable if properties file exists for the class in
      * src/test/resources.

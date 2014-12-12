@@ -1,23 +1,11 @@
 package org.appfuse.webapp.integration;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,6 +13,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
 import org.tuckey.web.filters.urlrewrite.utils.StringUtils;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.net.BindException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @ContextConfiguration(locations = {
         "classpath:/applicationContext-resources.xml"
@@ -41,7 +36,7 @@ public abstract class SeleniumBaseTestCase {
 
     /**
      * WaitFor callback interface.
-     * 
+     *
      */
     protected interface WaitFor {
         boolean isFinished();
@@ -78,9 +73,7 @@ public abstract class SeleniumBaseTestCase {
         log.debug("");
 
         log.debug("Starting wiser on port " + smtpPort);
-        wiser = new Wiser();
-        wiser.setPort(smtpPort);
-        wiser.start();
+        wiser = startWiser(smtpPort);
 
         setDriver(new ChromeDriver());
         getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -96,6 +89,25 @@ public abstract class SeleniumBaseTestCase {
         if (wiser != null) {
             wiser.stop();
         }
+    }
+
+    protected Wiser startWiser(int smtpPort) {
+        Wiser wiser = new Wiser();
+        wiser.setPort(smtpPort);
+        try {
+            wiser.start();
+        } catch (RuntimeException re) {
+            if (re.getCause() instanceof BindException) {
+                int nextPort = smtpPort + 1;
+                if (nextPort - smtpPort > 10) {
+                    log.error("Exceeded 10 attempts to start SMTP server, aborting...");
+                    throw re;
+                }
+                log.error("SMTP port " + smtpPort + " already in use, trying " + nextPort);
+                return startWiser(nextPort);
+            }
+        }
+        return wiser;
     }
 
     protected List<MimeMessage> getMailMessages() throws MessagingException {

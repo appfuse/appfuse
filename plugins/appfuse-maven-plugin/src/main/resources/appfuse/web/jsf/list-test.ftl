@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ${basepackage}.webapp.action.BasePageTestCase;
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
+    <#assign managerClass = 'GenericManager'>
 <#else>
 import ${basepackage}.service.${pojo.shortName}Manager;
+    <#assign managerClass = pojo.shortName + 'Manager'>
 </#if>
 import ${basepackage}.model.${pojo.shortName};
 
@@ -22,13 +24,9 @@ import javax.transaction.Transactional;
 @Transactional
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
     private ${pojo.shortName}List bean;
-<#if genericcore>
+
     @Autowired
-    private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager;
-<#else>
-    @Autowired
-    private ${pojo.shortName}Manager ${pojoNameLower}Manager;
-</#if>
+    private ${managerClass} ${pojoNameLower}Manager;
 
     @Before
     public void onSetUp() {

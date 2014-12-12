@@ -56,16 +56,14 @@ public class ArtifactInstaller {
         }
 
         // install dao and manager if jar (modular/core) or war w/o parent (basic)
-        if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && project.getParent() == null)) {
+        if (project.getPackaging().equals("jar") ||
+            (project.getPackaging().equals("war") && project.getParentArtifact().getGroupId().contains("appfuse"))) {
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/model/**/*.java");
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/dao/**/*.java");
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/service/**/*.java");
             if (genericCore) {
                 log("Installing Spring bean definitions (genericCore == true)...");
                 installGenericBeanDefinitions();
-            } else {
-                // APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
-                //installDaoAndManagerBeanDefinitions();
             }
             // only installs if iBATIS is configured as dao.framework
             installiBATISFiles();
@@ -318,7 +316,7 @@ public class ArtifactInstaller {
     }
 
     private boolean isAppFuse() {
-        return (project.getProperties().getProperty("copyright.year") != null);
+        return (project.getParent().getArtifactId().contains("appfuse-web"));
     }
 
     // =================== End of Views ===================

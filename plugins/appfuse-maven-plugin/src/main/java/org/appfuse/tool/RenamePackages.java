@@ -592,12 +592,6 @@ public class RenamePackages {
         }
 
         FileUtils.writeStringToFile(new File(fileName), contents, "UTF-8");
-        /*BufferedOutputStream bout = new BufferedOutputStream(
-                new DataOutputStream(new FileOutputStream(fileName)));
-
-        bout.write(contents.getBytes());
-        bout.flush();
-        bout.close();*/
     }
 
     /**

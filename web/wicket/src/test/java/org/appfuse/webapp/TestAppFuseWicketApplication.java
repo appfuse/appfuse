@@ -29,10 +29,9 @@ public class TestAppFuseWicketApplication extends AppFuseWicketApplication {
     private void setTestConfigInServletContext() {
         Map<String, Object> config = (Map<String, Object>) getServletContext().getAttribute(Constants.CONFIG);
         if (config == null) {
-            config = new HashMap<String, Object>();
+            config = new HashMap<>();
             getServletContext().setAttribute(Constants.CONFIG, config);
         }
-        config.put(Constants.CSS_THEME, "simplicity");
     }
 
     //ApplicationContext has to be created completely before AppFuseWicketApplication class (cannot be created here)

@@ -20,96 +20,15 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
-                <version>1.0-beta-3</version>
-                <configuration>
-                    <dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
-                    <driver>${jdbc.driverClassName}</driver>
-                    <username>${jdbc.username}</username>
-                    <password>${jdbc.password}</password>
-                    <url>${jdbc.url}</url>
-                    <src>src/test/resources/sample-data.xml</src>
-                    <type>${dbunit.operation.type}</type>
-                    <schema>${dbunit.schema}</schema>
-                    <skip>${skipTests}</skip>
-                    <transaction>true</transaction>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <!-- Runs before integration tests and jetty:run-war -->
-                        <id>test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>${jdbc.groupId}</groupId>
-                        <artifactId>${jdbc.artifactId}</artifactId>
-                        <version>${jdbc.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
+            <!-- Sets cargo.port and cargo.ajp.port to open ports -->
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.1.v20140609</version>
-                <configuration>
-                    <webApp>
-                        <contextPath>/</contextPath>
-                    </webApp>
-                </configuration>
-            </plugin>
-            <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>${user.home}/${project.build.finalName}/index</directory>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
-            <!-- will package a ready-to-run app regarding hibernate-search index location -->
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <escapeString>\</escapeString>
-                    <webResources>
-                        <resource>
-                            <directory>src/main/resources/packaged</directory>
-                            <targetPath>WEB-INF/classes</targetPath>
-                            <filtering>true</filtering>
-                            <includes>
-                                <include>hibernate.properties</include>
-                            </includes>
-                        </resource>
-                    </webResources>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Implementation-Version>${project.version}</Implementation-Version>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
-                <version>1.0-beta-1</version>
                 <executions>
                     <execution>
                         <id>native2ascii-utf8</id>
@@ -128,12 +47,6 @@
                 </executions>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
@@ -157,12 +70,9 @@
         </dependency>
         <dependency>
             <groupId>org.appfuse</groupId>
-            <artifactId>appfuse-web</artifactId>
+            <artifactId>appfuse-jsf</artifactId>
             <version>${appfuse.version}</version>
             <type>pom</type>
-            <!-- This exclusion and the dependency following this one allow DAO framework switching. -->
-            <!-- You only need these if you want to use JPA or iBATIS. See APF-565 for more information. -->
-            <!-- It does no harm to leave it in for Hibernate, but it's not needed. -->
             <exclusions>
                 <exclusion>
                     <groupId>org.appfuse</groupId>
@@ -175,89 +85,19 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge.jsf-comp</groupId>
-            <artifactId>acegi-jsf</artifactId>
-            <version>${acegijsf.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.acegisecurity</groupId>
-                    <artifactId>acegi-security</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>${commons.fileupload.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>${jsf.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <version>${jsf.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>${primefaces.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.primefaces.themes</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>1.0.10</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.ocpsoft</groupId>
-            <artifactId>prettyfaces-jsf2</artifactId>
-            <version>${prettyfaces.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.omnifaces</groupId>
-            <artifactId>omnifaces</artifactId>
-            <version>${omnifaces.version}</version>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.shale</groupId>
             <artifactId>shale-test</artifactId>
-            <version>${shale.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <version>${el.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- Add Bootstrap via WebJars -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap-datepicker</artifactId>
-            <version>1.2.0</version>
         </dependency>
     </dependencies>
 
@@ -269,122 +109,22 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>${cargo.version}</version>
-                        <configuration>
-                            <wait>${cargo.wait}</wait>
-                            <container>
-                                <containerId>${cargo.container}</containerId>
-                                <home>${cargo.container.home}</home>
-                                <zipUrlInstaller>
-                                    <url>${cargo.container.url}</url>
-                                    <extractDir>${installDir}</extractDir>
-                                </zipUrlInstaller>
-                            </container>
-                            <configuration>
-                                <home>${project.build.directory}/${cargo.container}/container</home>
-                                <properties>
-                                    <cargo.hostname>${cargo.host}</cargo.hostname>
-                                    <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
-                                    <!-- To prevent conflicts with already running instances -->
-                                    <cargo.tomcat.ajp.port>8123</cargo.tomcat.ajp.port>
-                                </properties>
-                            </configuration>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>start-container</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>start</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>stop-container</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
-                        <version>1.0.0</version>
-                        <dependencies>
-                            <!-- Upgrade HtmlUnit to support jQuery 1.9 -->
-                            <dependency>
-                                <groupId>net.sourceforge.htmlunit</groupId>
-                                <artifactId>htmlunit</artifactId>
-                                <version>2.12</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>xml-apis</groupId>
-                                <artifactId>xml-apis</artifactId>
-                                <version>1.4.01</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>commons-lang</groupId>
-                                <artifactId>commons-lang</artifactId>
-                                <version>2.6</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <id>webtest-test</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>webtest-verify</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>verify-result</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>webtest-report-html</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <host>${cargo.host}</host>
-                            <port>${cargo.port}</port>
-                            <sourcedirectory>src/test/resources</sourcedirectory>
-                            <sourcefile>web-tests.xml</sourcefile>
-                            <target>${webtest.target}</target>
-                            <basepath>${project.build.finalName}</basepath>
-                            <resultpath>target/webtest/webtest-results</resultpath>
-                            <haltonfailure>false</haltonfailure>
-                            <haltonerror>false</haltonerror>
-                            <loglevel>fatal</loglevel>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- ================= Production Settings Profile ================= -->
-        <!-- Use "-P prod" when you want to use the settings in this profile -->
-        <!-- =============================================================== -->
-        <profile>
-            <id>prod</id>
-            <build>
-                <plugins>
-                    <!-- Override location of data file for DbUnit to load (doesn't have negative keys) -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>dbunit-maven-plugin</artifactId>
-                        <configuration>
-                            <src>src/main/resources/default-data.xml</src>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>webtest-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

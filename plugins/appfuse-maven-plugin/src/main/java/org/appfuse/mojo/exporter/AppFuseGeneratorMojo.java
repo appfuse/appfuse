@@ -155,14 +155,15 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
         // for war projects that have a parent pom, don't reset classpath
         // this is to allow using hibernate.cfg.xml from core module
-        if (getProject().getPackaging().equals("war") && getProject().hasParent()) {
+        if (getProject().getPackaging().equals("war") && (getProject().hasParent()
+            && !getProject().getParentArtifact().getGroupId().contains("appfuse"))) {
             // assume first module in parent project has hibernate.cfg.xml
             String moduleName = (String) getProject().getParent().getModules().get(0);
             String pathToParent = getProject().getOriginalModel().getParent().getRelativePath();
             pathToParent = pathToParent.substring(0, pathToParent.lastIndexOf('/') + 1);
             log("Assuming '" + moduleName + "' has hibernate.cfg.xml in its src/main/resources directory");
             getComponentProperties().put("configurationfile",
-                    getProject().getBasedir() + "/" + pathToParent + moduleName + "/src/main/resources/hibernate.cfg.xml");
+                getProject().getBasedir() + "/" + pathToParent + moduleName + "/src/main/resources/hibernate.cfg.xml");
         }
 
         if (getComponentProperty("configurationfile") == null) {
@@ -251,7 +252,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         exporter.getProperties().setProperty("daoframework", getProject().getProperties().getProperty("dao.framework"));
 
         String webFramework = (getProject().getProperties().containsKey("web.framework")) ?
-                getProject().getProperties().getProperty("web.framework") : "";
+            getProject().getProperties().getProperty("web.framework") : "";
 
         exporter.getProperties().setProperty("webframework", webFramework);
 
@@ -271,7 +272,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         // See if the project has security enabled
         boolean hasSecurity = false;
         if (getProject().getPackaging().equals("war")) {
-            Collection<File> sourceFiles = FileUtils.listFiles(getProject().getBasedir(),new String[]{"xml"}, true);
+            Collection<File> sourceFiles = FileUtils.listFiles(getProject().getBasedir(), new String[]{"xml"}, true);
             for (File file : sourceFiles) {
                 if (file.getPath().contains("security.xml")) {
                     hasSecurity = true;
@@ -285,7 +286,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         // determine if using Home or Home for Tapestry
         if (webFramework.equals("tapestry")) {
             boolean useHome = true;
-            Collection<File> sourceFiles = FileUtils.listFiles(getProject().getBasedir(),new String[]{"java"}, true);
+            Collection<File> sourceFiles = FileUtils.listFiles(getProject().getBasedir(), new String[]{"java"}, true);
             for (File file : sourceFiles) {
                 if (file.getPath().contains("Home.java")) {
                     useHome = false;
@@ -351,17 +352,17 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             checkEntityExists();
 
             hibernateCfgXml = hibernateCfgXml.replace("</session-factory>",
-                    "    <mapping class=\"" + className + "\"/>"
-                            + "\n    </session-factory>");
+                "    <mapping class=\"" + className + "\"/>"
+                    + "\n    </session-factory>");
             log("Adding '" + pojoName + "' to hibernate.cfg.xml...");
         }
 
         hibernateCfgXml = hibernateCfgXml.replaceAll("\\$\\{appfusepackage}",
-                (isFullSource()) ? getProject().getGroupId() : "org.appfuse");
+            (isFullSource()) ? getProject().getGroupId() : "org.appfuse");
 
         try {
             FileUtils.writeStringToFile(new File(
-                    getComponentProperty("configurationfile", "src/main/resources/hibernate.cfg.xml")), hibernateCfgXml);
+                getComponentProperty("configurationfile", "src/main/resources/hibernate.cfg.xml")), hibernateCfgXml);
         } catch (IOException io) {
             throw new MojoFailureException(io.getMessage());
         }
@@ -372,7 +373,8 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         if (!"false".equals(System.getProperty("entity.check"))) {
             final String FILE_SEP = System.getProperty("file.separator");
             String pathToModelPackage = "src" + FILE_SEP + "main" + FILE_SEP + "java" + FILE_SEP;
-            if (getProject().getPackaging().equals("war") && getProject().hasParent()) {
+            if (getProject().getPackaging().equals("war") && (getProject().hasParent()
+                && !getProject().getParentArtifact().getGroupId().contains("appfuse"))) {
                 String moduleName = (String) getProject().getParent().getModules().get(0);
                 String pathToParent = getProject().getOriginalModel().getParent().getRelativePath();
                 pathToParent = pathToParent.substring(0, pathToParent.lastIndexOf('/') + 1);

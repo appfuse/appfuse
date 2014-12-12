@@ -241,7 +241,6 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         mailEngine.sendMessage(message, template, model);
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -249,7 +248,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     public User updatePassword(final String username, final String currentPassword, final String recoveryToken, final String newPassword, final String applicationUrl) throws UserExistsException {
         User user = getUserByUsername(username);
         if (isRecoveryTokenValid(user, recoveryToken)) {
-            log.debug("Updating password from recovery token for user:" + username);
+            log.debug("Updating password from recovery token for user: " + username);
             user.setPassword(newPassword);
             user = saveUser(user);
             passwordTokenManager.invalidateRecoveryToken(user, recoveryToken);

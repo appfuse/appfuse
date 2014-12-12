@@ -3,7 +3,6 @@
 package ${basepackage}.webapp.controller;
 
 import ${basepackage}.webapp.controller.BaseControllerTestCase;
-import ${pojo.packageName}.${pojo.shortName};
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

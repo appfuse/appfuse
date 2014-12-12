@@ -54,9 +54,7 @@ public class SignupActionTest extends BaseActionTestCase {
         ServletActionContext.setResponse(new MockHttpServletResponse());
 
         // start SMTP Server
-        final Wiser wiser = new Wiser();
-        wiser.setPort(getSmtpPort());
-        wiser.start();
+        final Wiser wiser = startWiser(getSmtpPort());
 
         assertNull(action.getUser().getId());
         assertEquals("success", action.save());

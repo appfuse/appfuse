@@ -20,14 +20,13 @@
     <parent>
         <groupId>org.appfuse.archetypes</groupId>
         <artifactId>appfuse-archetypes</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.5.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-basic-gwt</artifactId>
     <name>AppFuse Basic Archetype - GWT</name>
     <packaging>pom</packaging>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.5.0-SNAPSHOT</version>
 
     <description>
         Maven 2 project that creates the AppFuse Basic GWT Archetype.
@@ -37,7 +36,7 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/archetypes/appfuse-basic-gwt</url>
-      <tag>HEAD</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <build>
@@ -50,12 +49,12 @@
                         <id>build-archetype</id>
                         <phase>package</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <delete dir="target/${module}-archetype" />
                                 <ant antfile="../build.xml" dir="." target="build-archetype">
                                     <property name="module" value="${module}" />
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -65,11 +64,11 @@
                         <id>test-archetype</id>
                         <phase>integration-test</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <ant antfile="../build.xml" dir="." target="test">
                                     <property name="archetype" value="${project.artifactId}-archetype" />
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -79,11 +78,11 @@
                         <id>deploy-archetype</id>
                         <phase>deploy</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <ant antfile="../build.xml" dir="." target="deploy">
                                     <property name="module" value="${module}" />
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>

@@ -20,13 +20,13 @@
     <parent>
         <groupId>org.appfuse.archetypes</groupId>
         <artifactId>appfuse-archetypes</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-modular-tapestry</artifactId>
     <name>AppFuse Modular Archetype - Tapestry</name>
     <packaging>pom</packaging>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.5.0-SNAPSHOT</version>
 
     <description>
         Maven 2 archetype that creates a modular web application with AppFuse. This archetype creates two modules:
@@ -38,8 +38,8 @@
         <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
         <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/archetypes/appfuse-modular-tapestry</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <build>
         <plugins>
@@ -51,7 +51,7 @@
                         <id>build-archetype</id>
                         <phase>package</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <delete dir="target/${module}-archetype" />
                                 <mkdir dir="target/${module}-archetype/core" />
                                 <copy todir="target/${module}-archetype/core">
@@ -67,7 +67,7 @@
                                     <property name="module" value="${module}" />
                                     <property name="dest" value="web" />
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -77,11 +77,11 @@
                         <id>test-archetype</id>
                         <phase>integration-test</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <ant antfile="../build.xml" dir="." target="test">
                                     <property name="archetype" value="${project.artifactId}-archetype" />
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -91,11 +91,11 @@
                         <id>deploy-archetype</id>
                         <phase>deploy</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <ant antfile="../build.xml" dir="." target="deploy">
                                     <property name="module" value="${module}" />
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>

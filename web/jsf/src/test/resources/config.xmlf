@@ -3,5 +3,5 @@
     resultfile="web-tests-result.xml" haltonfailure="${haltonfailure}"
     haltonerror="${haltonerror}" summary="true">
     <header name="Accept-Language" value="${user.language}"/>
-    <option name="ThrowExceptionOnScriptError" value="true"/>
+    <option name="ThrowExceptionOnScriptError" value="false"/>
 </config>
