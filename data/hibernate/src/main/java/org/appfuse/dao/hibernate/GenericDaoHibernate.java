@@ -2,30 +2,22 @@ package org.appfuse.dao.hibernate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.dao.GenericDao;
-import org.appfuse.dao.SearchException;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.orm.ObjectRetrievalFailureException;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Resource;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.util.Version;
-import org.hibernate.HibernateException;
-import org.hibernate.IdentifierLoadAccess;
-import org.hibernate.Query;
-import org.hibernate.Session;
+import org.appfuse.dao.GenericDao;
+import org.appfuse.dao.SearchException;
+import org.hibernate.*;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.orm.ObjectRetrievalFailureException;
+
+import javax.annotation.Resource;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * This class serves as the Base class for all other DAOs - namely to hold
@@ -39,11 +31,11 @@ import org.hibernate.search.Search;
  *      &lt;/bean&gt;
  * </pre>
  *
- * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a>
- *      Updated by jgarcia: update hibernate3 to hibernate4
- * @author jgarcia (update: added full text search + reindexing)
- * @param <T> a type variable
+ * @param <T>  a type variable
  * @param <PK> the primary key for that type
+ * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a>
+ *         Updated by jgarcia: update hibernate3 to hibernate4
+ * @author jgarcia (update: added full text search + reindexing)
  */
 public class GenericDaoHibernate<T, PK extends Serializable> implements GenericDao<T, PK> {
     /**
@@ -194,11 +186,14 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
     public List<T> findByNamedQuery(String queryName, Map<String, Object> queryParams) {
         Session sess = getSession();
         Query namedQuery = sess.getNamedQuery(queryName);
-
         for (String s : queryParams.keySet()) {
-            namedQuery.setParameter(s, queryParams.get(s));
+            Object val = queryParams.get(s);
+            if (val instanceof Collection) {
+                namedQuery.setParameterList(s, (Collection) val);
+            } else {
+                namedQuery.setParameter(s, val);
+            }
         }
-
         return namedQuery.list();
     }
 
