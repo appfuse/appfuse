@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
+/**
+ * This class runs a SELECT * of all mapped objects. If an object's
+ * corresponding table does not exist in the database, the test will fail.
+ */
 public class HibernateConfigurationTest extends BaseDaoTestCase {
     @Autowired
     SessionFactory sessionFactory;
