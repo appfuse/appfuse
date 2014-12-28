@@ -7,9 +7,7 @@
 	<set-property name="gwt.logging.logLevel" value="FINE"/>
 	<set-property name="gwt.logging.consoleHandler" value="ENABLED"/>
 	<set-property name="gwt.logging.developmentModeHandler" value="ENABLED"/>
-	<set-property name="gwt.logging.firebugHandler" value="ENABLED"/>
 	<set-property name="gwt.logging.hasWidgetsHandler" value="DISABLED"/>
-	<set-property name="gwt.logging.popupHandler" value="DISABLED"/>
 	<set-property name="gwt.logging.systemHandler" value="ENABLED"/>
 	<set-property name="gwt.logging.simpleRemoteHandler" value="DISABLED"/>
 
@@ -21,8 +19,9 @@
 		
 
 	<set-property name="user.agent" value="gecko1_8,safari,ie8" />
+    
+    <extend-property name="locale" values="en"/>    
 	
 	<collapse-all-properties />
 	
-
 </module>

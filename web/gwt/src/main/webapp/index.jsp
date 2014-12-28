@@ -46,7 +46,7 @@ pageContext.setAttribute("ctxPath", contextPath);
 	    </c:otherwise>
 	</c:choose>
 
-  	<script type="text/javascript">document.getElementById("progressbar").style.cssText("width: 30%")</script>
-    <script type="text/javascript" language="javascript" src="script/script.nocache.js"></script>
+  	<script type="text/javascript">$("#progressbar").css("width", "30%")</script>
+    <script type="text/javascript" src="script/script.nocache.js"></script>
 </body>
 </html>
