@@ -6,6 +6,7 @@ package org.appfuse.webapp.client.ui.users.editUser;
 import java.util.List;
 
 import org.appfuse.webapp.client.application.ApplicationResources;
+import org.appfuse.webapp.client.application.base.view.ProxyEditView;
 import org.appfuse.webapp.client.proxies.LabelValueProxy;
 import org.appfuse.webapp.client.proxies.RoleProxy;
 import org.appfuse.webapp.client.proxies.UserProxy;
@@ -134,8 +135,8 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     }
 
     @Override
-    public void setDelegate(final EditUserView.Delegate delegate) {
-        this.delegate = delegate;
+    public <D extends ProxyEditView.Delegate> void setDelegate(D delegate) {
+        this.delegate = (Delegate) delegate;
     }
 
     @Override

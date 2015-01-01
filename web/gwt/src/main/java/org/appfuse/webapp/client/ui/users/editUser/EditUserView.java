@@ -9,6 +9,13 @@ import org.appfuse.webapp.client.proxies.UserProxy;
 
 public interface EditUserView extends ProxyEditView<UserProxy, EditUserView> {
 
-	void setCountries(List<LabelValueProxy> countries);
-	void setAvailableRoles(List<RoleProxy> roles);
+    interface Delegate extends ProxyEditView.Delegate {
+
+        void updatePasswordClicked();
+
+    }
+
+    void setCountries(List<LabelValueProxy> countries);
+
+    void setAvailableRoles(List<RoleProxy> roles);
 }
