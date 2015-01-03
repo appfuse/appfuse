@@ -9,11 +9,11 @@ import org.apache.cxf.jaxrs.ext.MessageContext;
  *
  */
 public interface CxfMessageContextAware {
-	
-	/**
-	 * Sets an CXF Message Context
-	 * 
-	 * @param messageContext
-	 */
-	void setMessageContext(MessageContext messageContext); 
+
+    /**
+     * Sets an CXF Message Context
+     * 
+     * @param messageContext
+     */
+    void setMessageContext(MessageContext messageContext);
 }

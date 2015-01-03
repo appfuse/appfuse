@@ -1,6 +1,5 @@
 package org.appfuse.webapp.client.application;
 
-
 import org.appfuse.webapp.client.application.base.security.LoginEvent;
 import org.appfuse.webapp.client.application.base.security.LogoutEvent;
 import org.appfuse.webapp.client.requests.ApplicationRequestFactory;
@@ -12,7 +11,6 @@ import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-
 
 /**
  * Application for browsing entities.

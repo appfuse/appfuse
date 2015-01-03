@@ -13,36 +13,37 @@ import com.google.gwt.place.shared.Prefix;
  */
 public class LoginPlace extends Place {
 
-	private static final String TOKEN_PREFIX = "login";
-	private static final String FULL_TOKEN_PREFIX = TOKEN_PREFIX + ":";
-	
-	private String historyToken = "";
+    private static final String TOKEN_PREFIX = "login";
+    private static final String FULL_TOKEN_PREFIX = TOKEN_PREFIX + ":";
 
-	public LoginPlace() {
-		super();
-	}
+    private String historyToken = "";
 
-	/**
-	 * Constructor with a history token to redirect after successful login.
-	 * 
-	 * @param loginHistoryToken history token to redirect after successful login.
-	 */
-	public LoginPlace(String loginHistoryToken) {
-		super();
-		if(loginHistoryToken != null) {
-			if(loginHistoryToken.startsWith(FULL_TOKEN_PREFIX)) {
-				this.historyToken = loginHistoryToken.replaceFirst(FULL_TOKEN_PREFIX, "");
-			} else {
-				this.historyToken = loginHistoryToken;
-			}
-		}
-	}
+    public LoginPlace() {
+        super();
+    }
 
-	public String getHistoryToken() {
-		return historyToken;
-	}
+    /**
+     * Constructor with a history token to redirect after successful login.
+     * 
+     * @param loginHistoryToken
+     *            history token to redirect after successful login.
+     */
+    public LoginPlace(String loginHistoryToken) {
+        super();
+        if (loginHistoryToken != null) {
+            if (loginHistoryToken.startsWith(FULL_TOKEN_PREFIX)) {
+                this.historyToken = loginHistoryToken.replaceFirst(FULL_TOKEN_PREFIX, "");
+            } else {
+                this.historyToken = loginHistoryToken;
+            }
+        }
+    }
 
-	@Prefix(TOKEN_PREFIX)
+    public String getHistoryToken() {
+        return historyToken;
+    }
+
+    @Prefix(TOKEN_PREFIX)
     public static class Tokenizer implements PlaceTokenizer<LoginPlace> {
         @Override
         public String getToken(LoginPlace place) {
@@ -55,8 +56,8 @@ public class LoginPlace extends Place {
         }
     }
 
-	@Override
-	public boolean equals(Object obj) {
-		return false;//allow go to same place
-	}
+    @Override
+    public boolean equals(Object obj) {
+        return false;// allow go to same place
+    }
 }

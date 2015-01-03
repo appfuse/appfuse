@@ -13,7 +13,6 @@ import com.google.gwt.place.shared.Prefix;
  */
 public class HomePlace extends Place {
 
-
     @Prefix("home")
     public static class Tokenizer implements PlaceTokenizer<HomePlace> {
         @Override

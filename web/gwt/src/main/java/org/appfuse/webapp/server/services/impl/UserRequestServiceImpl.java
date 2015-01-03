@@ -52,9 +52,9 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
     @Override
     public User getCurrentUser() {
         final String username = getCurrentUsername();
-        if(username != null) {
+        if (username != null) {
             final User user = userManager.getUserByUsername(username);
-            if(isFullyAuthenticated()) {
+            if (isFullyAuthenticated()) {
                 user.getRoles().add(new Role(RoleProxy.FULLY_AUTHENTICATED));
             }
             return user;
@@ -88,11 +88,11 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
             userManager.saveUser(user);
         } catch (final UserExistsException e) {
             log.debug(String.format("Trying to duplicate user username=%s, email=%d", user.getUsername(), user.getEmail()), e);
-            //            errors.rejectValue("username", "errors.existing.user",
-            //                    new Object[]{user.getUsername(), user.getEmail()}, "duplicate user");
+            // errors.rejectValue("username", "errors.existing.user",
+            // new Object[]{user.getUsername(), user.getEmail()},
+            // "duplicate user");
             throw e;
         }
-
 
         // log user in automatically
         final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
@@ -112,13 +112,12 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
         try {
             sendUserMessage(user, "accountCreated.vm", getText("signup.email.message", locale), RequestUtil.getAppURL(getServletRequest()));
         } catch (final MailException me) {
-            //saveError(request, me.getMostSpecificCause().getMessage());
+            // saveError(request, me.getMostSpecificCause().getMessage());
             throw me;
         }
 
         return user;
     }
-
 
     /**
      * 
@@ -141,7 +140,7 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
     @Override
     public User editProfile(final User user) throws Exception {
         final String username = getCurrentUsername();
-        if(!username.equals(user.getUsername())) {
+        if (!username.equals(user.getUsername())) {
             throw new AccessDeniedException("Trying to edit another users profile");
         }
         return userManager.saveUser(user);
@@ -181,7 +180,7 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      */
     @Override
     public long countUsers(final UsersSearchCriteria searchCriteria) {
-        final String searchTerm = searchCriteria != null? searchCriteria.getSearchTerm() : null;
+        final String searchTerm = searchCriteria != null ? searchCriteria.getSearchTerm() : null;
         return userManager.search(searchTerm).size();
     }
 
@@ -193,7 +192,7 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * @return
      */
     @Override
-    public List<User> searchUsers(final UsersSearchCriteria searchCriteria, final int firstResult, final int maxResults){
+    public List<User> searchUsers(final UsersSearchCriteria searchCriteria, final int firstResult, final int maxResults) {
         return searchUsers(searchCriteria, firstResult, maxResults, null, true);
     }
 
@@ -205,10 +204,10 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * @return
      */
     @Override
-    public List<User> searchUsers(final UsersSearchCriteria searchCriteria, final int firstResult, final int maxResults, final String sortProperty, final boolean ascending){
-        final String searchTerm = searchCriteria != null? searchCriteria.getSearchTerm() : null;
+    public List<User> searchUsers(final UsersSearchCriteria searchCriteria, final int firstResult, final int maxResults, final String sortProperty, final boolean ascending) {
+        final String searchTerm = searchCriteria != null ? searchCriteria.getSearchTerm() : null;
         final List<User> users = userManager.search(searchTerm);
-        if(StringUtils.isNotEmpty(sortProperty)) {
+        if (StringUtils.isNotEmpty(sortProperty)) {
             log.debug(String.format("Sorting usersList by property='%s', ascending='%s'", sortProperty, ascending));
             Collections.sort(users, new PropertyComparator(sortProperty, true, ascending));
         }
@@ -254,12 +253,13 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
 
             message.setTo(user.getEmail());
             final String subject =
-                    '[' +getText("webapp.name", locale) + "] " +
+                    '[' + getText("webapp.name", locale) + "] " +
                             getText("user.passwordHint", locale);
             message.setSubject(subject);
             message.setText(msg.toString());
             mailEngine.send(message);
-            return user.getFullName();//XXX disabling returning user.getEmail();
+            return user.getFullName();// XXX disabling returning
+                                      // user.getEmail();
         } catch (final UsernameNotFoundException e) {
             log.warn(e.getMessage());
         } catch (final MailException me) {
@@ -301,7 +301,7 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
             final String token,
             final String currentPassword,
             final String password)
-                    throws UserExistsException {
+            throws UserExistsException {
 
         final HttpServletRequest request = getServletRequest();
 
@@ -332,10 +332,9 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * @return
      */
     @Override
-    public List<User> getActiveUsers(){
+    public List<User> getActiveUsers() {
         return new ArrayList((Set) getServletContext().getAttribute(UserCounterListener.USERS_KEY));
     }
-
 
     /**
      * 

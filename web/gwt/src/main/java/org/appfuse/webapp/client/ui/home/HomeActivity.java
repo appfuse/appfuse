@@ -16,7 +16,6 @@ import com.google.inject.Inject;
  */
 public class HomeActivity extends AbstractBaseActivity {
 
-
     private final HomeView view;
 
     @Inject
@@ -28,8 +27,12 @@ public class HomeActivity extends AbstractBaseActivity {
         setBodyClassname("home");
     }
 
-    /* (non-Javadoc)
-     * @see com.google.gwt.activity.shared.Activity#start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.google.gwt.activity.shared.Activity#start(com.google.gwt.user.client
+     * .ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)
      */
     @Override
     public void start(final AcceptsOneWidget panel, final EventBus eventBus) {

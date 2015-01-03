@@ -35,35 +35,37 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
  * 
  * Required methods are:
  * <ol>
- * 	<li> {@link #createView(Place)}</li>
- * 	<li> {@link #createProxyRequest()}</li>
- *	<li> {@link #loadProxyRequest(RequestContext, EntityProxyId)}</li>
- * 	<li> {@link #saveOrUpdateRequest(RequestContext, EntityProxy)}</li>
- * 	<li> {@link #deleteRequest(RequestContext, EntityProxy)}</li>
+ * <li> {@link #createView(Place)}</li>
+ * <li> {@link #createProxyRequest()}</li>
+ * <li> {@link #loadProxyRequest(RequestContext, EntityProxyId)}</li>
+ * <li> {@link #saveOrUpdateRequest(RequestContext, EntityProxy)}</li>
+ * <li> {@link #deleteRequest(RequestContext, EntityProxy)}</li>
  * </ol>
  * 
  * Customization:
  * <ol>
- * 	<li> {@link #createProxy(RequestContext)}</li>
- * 	<li> {@link #getEntityId()}</li>
- * 	<li> {@link #getProxyClass()}</li>
- * 	<li> {@link #loadProxyRequest(RequestContext, EntityProxyId)}</li>
- * 	<li> {@link #getSavedMessage()}</li>
- * 	<li> {@link #getDeletedMessage()}</li>
- * 	<li> {@link #nextPlace(boolean)}</li>
- * 	<li> {@link #previousPlace()}</li>
+ * <li> {@link #createProxy(RequestContext)}</li>
+ * <li> {@link #getEntityId()}</li>
+ * <li> {@link #getProxyClass()}</li>
+ * <li> {@link #loadProxyRequest(RequestContext, EntityProxyId)}</li>
+ * <li> {@link #getSavedMessage()}</li>
+ * <li> {@link #getDeletedMessage()}</li>
+ * <li> {@link #nextPlace(boolean)}</li>
+ * <li> {@link #previousPlace()}</li>
  * </ol>
  * 
- * @param <P> the type of Proxy being edited
+ * @param <P>
+ *            the type of Proxy being edited
  */
-public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends AbstractBaseActivity implements Activity,  ProxyEditView.Delegate {
+public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends AbstractBaseActivity implements Activity, ProxyEditView.Delegate {
 
     protected ProxyEditView<P, ?> view;
     protected RequestFactoryEditorDriver<P, ?> editorDriver;
     protected P entityProxy;
     private boolean waiting;
 
-    private String abandonChangesMessage = "Are you sure you want to abandon your changes?";//FIXME i18n
+    private String abandonChangesMessage = "Are you sure you want to abandon your changes?";// FIXME
+                                                                                            // i18n
     private String savedMessage = i18n.entity_saved();
     private String deletedMessage = i18n.entity_deleted();
     private String deleteConfirmation = i18n.delete_confirm("");
@@ -100,10 +102,9 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
         this.deleteConfirmation = deleteConfirmation;
     }
 
-
     /**
-     * Called once to create the appropriate request to create/find and edit this entity and
-     * that will be fired when the save button is clicked.
+     * Called once to create the appropriate request to create/find and edit
+     * this entity and that will be fired when the save button is clicked.
      * 
      * @return the request context to edit this entity proxy.
      */
@@ -121,7 +122,8 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
     /**
      * Create are Request to load this entity proxy.
      * 
-     * Note: Request.find() method is disabled in the server for security reasons.
+     * Note: Request.find() method is disabled in the server for security
+     * reasons.
      * 
      * @param requestContext
      * @param proxyId
@@ -138,12 +140,12 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
     protected abstract RequestContext saveOrUpdateRequest(RequestContext requestContext, P proxy);
 
     /**
-     * Called on {@link #deleteClicked()} to create the appropriate request to delete entity.
+     * Called on {@link #deleteClicked()} to create the appropriate request to
+     * delete entity.
      * 
      * @return the request context to fire when the delete button is clicked
      */
     protected abstract RequestContext deleteRequest(RequestContext requestContext, P proxy);
-
 
     /**
      * @param currentPlace
@@ -153,7 +155,6 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
         super(application);
         this.view = view;
     }
-
 
     /**
      * 
@@ -173,52 +174,50 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
         });
     }
 
-    protected String getEntityId(){
-        if(currentPlace instanceof EntityProxyPlace) {
+    protected String getEntityId() {
+        if (currentPlace instanceof EntityProxyPlace) {
             return ((EntityProxyPlace) currentPlace).getEntityId();
         }
         return null;
     }
 
-    protected Class<? extends EntityProxy> getProxyClass(){
-        if(currentPlace instanceof EntityProxyPlace) {
+    protected Class<? extends EntityProxy> getProxyClass() {
+        if (currentPlace instanceof EntityProxyPlace) {
             return ((EntityProxyPlace) currentPlace).getProxyClass();
         }
         return null;
     }
-
 
     /**
      * 
      */
     protected void doLoadEntityProxy(final Receiver<P> onloadCallback) {
         final String proxyId = getEntityId();
-        if(proxyId == null) {
-            //create a brand new proxy entity
+        if (proxyId == null) {
+            // create a brand new proxy entity
             final RequestContext requestContext = createProxyRequest();
             final P proxy = createProxy(requestContext);
-            //edit this entity proxy on the same request it was created
+            // edit this entity proxy on the same request it was created
             editorDriver.edit(proxy, saveOrUpdateRequest(requestContext, proxy));
-            //finish loading
+            // finish loading
             onloadCallback.onSuccess(proxy);
         } else {
-            //find this entity proxy on the server
+            // find this entity proxy on the server
             loadProxyRequest(createProxyRequest(), proxyId)
-            .with(editorDriver.getPaths())
-            .fire(new Receiver<P>() {
-                @Override
-                public void onSuccess(final P response) {
-                    if(editorDriver != null) {
-                        //edit this entity proxy on a new request
-                        editorDriver.edit(response, saveOrUpdateRequest(createProxyRequest(), response));
-                        //finish loading
-                        onloadCallback.onSuccess(response);
-                    }
-                }
-            });
+                    .with(editorDriver.getPaths())
+                    .fire(new Receiver<P>() {
+                        @Override
+                        public void onSuccess(final P response) {
+                            if (editorDriver != null) {
+                                // edit this entity proxy on a new request
+                                editorDriver.edit(response, saveOrUpdateRequest(createProxyRequest(), response));
+                                // finish loading
+                                onloadCallback.onSuccess(response);
+                            }
+                        }
+                    });
         }
     }
-
 
     /**
      * 
@@ -237,7 +236,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
             public void onFailure(final ServerFailure error) {
                 if (editorDriver != null) {
                     setWaiting(false);
-                    throw new RuntimeException(error.getMessage());//FIXME
+                    throw new RuntimeException(error.getMessage());// FIXME
                 }
             }
 
@@ -262,14 +261,13 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
         });
     }
 
-
     /**
      * 
      * @see org.appfuse.webapp.client.application.base.view.ProxyEditView.Delegate#deleteClicked()
      */
     @Override
     public void deleteClicked() {
-        if(!Window.confirm(getDeleteConfirmation())) {
+        if (!Window.confirm(getDeleteConfirmation())) {
             return;
         }
         deleteRequest(createProxyRequest(), entityProxy).fire(new Receiver<Void>() {
@@ -295,9 +293,9 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
         }
     }
 
-
     /**
      * Creates the {@link Place} to go when this activity is canceled.
+     * 
      * @param saved
      * @return
      */
@@ -306,12 +304,14 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
     }
 
     /**
-     * Creates the {@link Place} to go after successfully saved or deleted this entity.
+     * Creates the {@link Place} to go after successfully saved or deleted this
+     * entity.
+     * 
      * @param saved
      * @return
      */
     protected Place nextPlace(final boolean saved) {
-        if(saved) {
+        if (saved) {
             return new EntitySearchPlace(getProxyClass());
         } else { // deleted
             return new HomePlace();
@@ -380,8 +380,8 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 
     /**
      * While we are waiting for a response, we cannot poke setters on the proxy
-     * (that is, we cannot call editorDriver.flush). So we set the waiting flag to
-     * warn ourselves not to, and to disable the view.
+     * (that is, we cannot call editorDriver.flush). So we set the waiting flag
+     * to warn ourselves not to, and to disable the view.
      */
     protected void setWaiting(final boolean wait) {
         this.waiting = wait;

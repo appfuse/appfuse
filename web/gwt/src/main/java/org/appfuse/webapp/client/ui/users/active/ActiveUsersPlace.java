@@ -13,8 +13,7 @@ import com.google.gwt.place.shared.Prefix;
  */
 public class ActiveUsersPlace extends Place {
 
-
-	@Prefix("activeUsers")
+    @Prefix("activeUsers")
     public static class Tokenizer implements PlaceTokenizer<ActiveUsersPlace> {
         @Override
         public String getToken(ActiveUsersPlace place) {

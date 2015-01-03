@@ -13,7 +13,7 @@ import com.google.gwt.place.shared.Prefix;
  */
 public class FileUploadPlace extends Place {
 
-	@Prefix("upload")
+    @Prefix("upload")
     public static class Tokenizer implements PlaceTokenizer<FileUploadPlace> {
         @Override
         public String getToken(FileUploadPlace place) {

@@ -45,7 +45,8 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
     }
 
     /**
-     * @see com.google.gwt.activity.shared.Activity#start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)
+     * @see com.google.gwt.activity.shared.Activity#start(com.google.gwt.user.client.ui.AcceptsOneWidget,
+     *      com.google.gwt.event.shared.EventBus)
      */
     @Override
     public void start(final AcceptsOneWidget panel, final EventBus eventBus) {
@@ -57,20 +58,19 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
         setDocumentTitleAndBodyAttributtes();
     }
 
-
     @Override
     public void onLoginClick() {
         view.setMessage(null);
         final EditorDriver<LoginDetails> editorDriver = view.getEditorDriver();
         final LoginDetails login = editorDriver.flush();
         final Set<ConstraintViolation<LoginDetails>> violations = getValidator().validate(login);
-        if(!violations.isEmpty()) {
+        if (!violations.isEmpty()) {
             editorDriver.setConstraintViolations((Set) violations);
             return;
         }
         final RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.POST, "j_security_check");
-        requestBuilder.setHeader("Content-Type","application/x-www-form-urlencoded");
-        requestBuilder.setHeader("X-Requested-With","XMLHttpRequest");
+        requestBuilder.setHeader("Content-Type", "application/x-www-form-urlencoded");
+        requestBuilder.setHeader("X-Requested-With", "XMLHttpRequest");
         try {
             view.setWaiting(true);
             requestBuilder.sendRequest(createLoginPostData(login), new RequestCallback() {
@@ -78,10 +78,10 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
                 @Override
                 public void onResponseReceived(final Request request, final Response response) {
                     final int statusCode = response.getStatusCode();
-                    if(statusCode == Response.SC_OK) {
+                    if (statusCode == Response.SC_OK) {
                         eventBus.fireEvent(new LoginEvent());
                     }
-                    else if(statusCode == Response.SC_FORBIDDEN || statusCode == Response.SC_UNAUTHORIZED) {
+                    else if (statusCode == Response.SC_FORBIDDEN || statusCode == Response.SC_UNAUTHORIZED) {
                         view.setWaiting(false);
                         view.setMessage(new Alert(i18n.errors_password_mismatch(), AlertType.ERROR, false));
                     }
@@ -104,14 +104,14 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
     private String createLoginPostData(final LoginView.LoginDetails login) {
         return "j_username=" + URL.encodeQueryString(login.getUsername()) +
                 "&j_password=" + URL.encodeQueryString(login.getPassword()) +
-                (login.isRememberMe()? "&_spring_security_remember_me=on" : "");
+                (login.isRememberMe() ? "&_spring_security_remember_me=on" : "");
     }
 
     @Override
     public void onPasswordHintClick() {
         final LoginDetails login = view.getEditorDriver().flush();
         final String username = login.getUsername();
-        if(username == null || "".equals(username.trim())) {
+        if (username == null || "".equals(username.trim())) {
             Window.alert(i18n.errors_required(i18n.user_username()));
             return;
         }
@@ -119,12 +119,12 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
             @Override
             public void onSuccess(final String userEmail) {
                 Alert message = null;
-                if(userEmail != null) {
+                if (userEmail != null) {
                     message = new Alert(i18n.login_passwordHint_sent(username, userEmail), AlertType.SUCCESS);
                 } else {
                     message = new Alert(i18n.login_passwordHint_error(username), AlertType.ERROR);
                 }
-                if(message != null) {
+                if (message != null) {
                     shell.addMessage(message);
                 }
             }
@@ -148,7 +148,6 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
             }
         });
     }
-
 
     @Override
     public void onCancelClick() {

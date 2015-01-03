@@ -14,11 +14,11 @@ import com.google.gwt.core.client.GWT;
  */
 public class MainEntryPoint implements EntryPoint {
 
-	final private ClientInjector injectorWrapper = GWT.create(ClientInjector.class);
+    final private ClientInjector injectorWrapper = GWT.create(ClientInjector.class);
 
-	public void onModuleLoad() {
-		/* Get and run platform specific app */
-		injectorWrapper.getApplication().run();
-	}
+    public void onModuleLoad() {
+        /* Get and run platform specific app */
+        injectorWrapper.getApplication().run();
+    }
 
 }

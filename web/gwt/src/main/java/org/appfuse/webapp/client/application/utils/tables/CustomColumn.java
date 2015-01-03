@@ -10,72 +10,70 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.text.shared.SafeHtmlRenderer;
 import com.google.gwt.user.cellview.client.Column;
 
-public abstract class CustomColumn<T,V> extends Column<T,V>{
+public abstract class CustomColumn<T, V> extends Column<T, V> {
 
-	private static final SafeHtmlRenderer<Object> SAFE_HTML_RENDERER = new SafeHtmlRenderer<Object>() {
-		@Override
-		public SafeHtml render(Object object) {
-			return (object == null) ? SafeHtmlUtils.EMPTY_SAFE_HTML : SafeHtmlUtils.fromString(object.toString());
-		}
-		
-		@Override
-		public void render(Object object, SafeHtmlBuilder appendable) {
-			appendable.append(render(object));
-		}
-	};
-	
-	private SafeHtmlRenderer<V> renderer = (SafeHtmlRenderer<V>) SAFE_HTML_RENDERER;
-	private FieldUpdater<T,V> fieldUpdater;
-	private String propertyName;
-	private boolean sortable = false;
+    private static final SafeHtmlRenderer<Object> SAFE_HTML_RENDERER = new SafeHtmlRenderer<Object>() {
+        @Override
+        public SafeHtml render(Object object) {
+            return (object == null) ? SafeHtmlUtils.EMPTY_SAFE_HTML : SafeHtmlUtils.fromString(object.toString());
+        }
 
+        @Override
+        public void render(Object object, SafeHtmlBuilder appendable) {
+            appendable.append(render(object));
+        }
+    };
 
-	public CustomColumn(String propertyName) {
-		this(propertyName, false, null);
-	}
+    private SafeHtmlRenderer<V> renderer = (SafeHtmlRenderer<V>) SAFE_HTML_RENDERER;
+    private FieldUpdater<T, V> fieldUpdater;
+    private String propertyName;
+    private boolean sortable = false;
 
-	/**
-	 * @param headerText
-	 * @param sortable
-	 */
-	public CustomColumn(String propertyName, boolean sortable) {
-		this(propertyName, sortable, null);
-	}
+    public CustomColumn(String propertyName) {
+        this(propertyName, false, null);
+    }
 
-	/**
-	 * @param anchorRenderer
-	 * @param headerText
-	 * @param valueUpdater
-	 * @param sortable
-	 */
-	public CustomColumn(String propertyName, boolean sortable, FieldUpdater<T,V> fieldUpdater) {
-		super((Cell)new ClickableTextCell());
-		this.fieldUpdater = fieldUpdater;
-		this.sortable = sortable;
-		this.propertyName = propertyName;
+    /**
+     * @param headerText
+     * @param sortable
+     */
+    public CustomColumn(String propertyName, boolean sortable) {
+        this(propertyName, sortable, null);
+    }
 
-		setSortable(isSortable());
-		if(fieldUpdater != null) {
-			setFieldUpdater(fieldUpdater);
-		}
-	}
+    /**
+     * @param anchorRenderer
+     * @param headerText
+     * @param valueUpdater
+     * @param sortable
+     */
+    public CustomColumn(String propertyName, boolean sortable, FieldUpdater<T, V> fieldUpdater) {
+        super((Cell) new ClickableTextCell());
+        this.fieldUpdater = fieldUpdater;
+        this.sortable = sortable;
+        this.propertyName = propertyName;
 
-	
-	public abstract V getValue(T row);
+        setSortable(isSortable());
+        if (fieldUpdater != null) {
+            setFieldUpdater(fieldUpdater);
+        }
+    }
 
-	public void render(Context context,  T object, SafeHtmlBuilder sb) {
-		renderer.render(getValue(object), sb);
-	}
+    public abstract V getValue(T row);
 
-	public FieldUpdater<T,V> getFieldUpdater() {
-		return fieldUpdater;
-	}
-	
-	public String getPropertyName() {
-		return propertyName;
-	}
+    public void render(Context context, T object, SafeHtmlBuilder sb) {
+        renderer.render(getValue(object), sb);
+    }
 
-	public boolean isSortable() {
-		return sortable;
-	}
+    public FieldUpdater<T, V> getFieldUpdater() {
+        return fieldUpdater;
+    }
+
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public boolean isSortable() {
+        return sortable;
+    }
 }

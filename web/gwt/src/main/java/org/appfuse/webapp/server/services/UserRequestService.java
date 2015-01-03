@@ -125,7 +125,7 @@ public interface UserRequestService {
     @DELETE
     @Path("removeUser/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    void removeUser(@PathParam("id")Long userId);
+    void removeUser(@PathParam("id") Long userId);
 
     /**
      * 
@@ -161,7 +161,5 @@ public interface UserRequestService {
     @GET
     @Path("/logout")
     boolean logout();
-
-
 
 }

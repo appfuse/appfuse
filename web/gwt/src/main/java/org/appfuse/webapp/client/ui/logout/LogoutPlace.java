@@ -13,8 +13,7 @@ import com.google.gwt.place.shared.Prefix;
  */
 public class LogoutPlace extends Place {
 
-
-	@Prefix("logout")
+    @Prefix("logout")
     public static class Tokenizer implements PlaceTokenizer<LogoutPlace> {
         @Override
         public String getToken(LogoutPlace place) {

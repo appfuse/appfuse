@@ -13,8 +13,7 @@ import com.google.gwt.place.shared.Prefix;
  */
 public class ReloadOptionsPlace extends Place {
 
-
-	@Prefix("reloadOptions")
+    @Prefix("reloadOptions")
     public static class Tokenizer implements PlaceTokenizer<ReloadOptionsPlace> {
         @Override
         public String getToken(ReloadOptionsPlace place) {

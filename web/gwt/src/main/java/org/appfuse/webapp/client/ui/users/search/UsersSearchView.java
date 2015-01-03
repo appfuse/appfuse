@@ -13,5 +13,4 @@ import org.appfuse.webapp.client.proxies.UsersSearchCriteriaProxy;
  */
 public interface UsersSearchView extends ProxySearchView<UserProxy, UsersSearchCriteriaProxy> {
 
-
 }

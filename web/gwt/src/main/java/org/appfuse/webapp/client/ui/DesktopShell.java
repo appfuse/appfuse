@@ -25,16 +25,23 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEvent.Handler, PlaceChangeEvent.Handler {
 
-    interface Binder extends UiBinder<Widget, DesktopShell> {	}
+    interface Binder extends UiBinder<Widget, DesktopShell> {
+    }
+
     private static final Binder uiBinder = GWT.create(Binder.class);
 
-    @UiField NavigationBar navigationBar;
-    @UiField SideNavigationBar sideNavigationBar;
+    @UiField
+    NavigationBar navigationBar;
+    @UiField
+    SideNavigationBar sideNavigationBar;
 
-    @UiField FlowPanel messages;
-    @UiField NotificationMole mole;
+    @UiField
+    FlowPanel messages;
+    @UiField
+    NotificationMole mole;
 
-    @UiField Element currentUserInfo;
+    @UiField
+    Element currentUserInfo;
 
     public DesktopShell() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -70,7 +77,7 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
     @Override
     public void addMessage(final AlertBase alert) {
         messages.add(alert);
-        Window.scrollTo(0 ,0);
+        Window.scrollTo(0, 0);
     }
 
     /**
@@ -102,7 +109,6 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
         currentUserInfo.setInnerSafeHtml(sb.toSafeHtml());
     }
 
-
     @Override
     public void onLogoutEvent(final LogoutEvent logoutEvent) {
         navigationBar.load();
@@ -111,13 +117,13 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
 
     @Override
     public void onPlaceChange(final PlaceChangeEvent event) {
-        Window.scrollTo(0 ,0);
+        Window.scrollTo(0, 0);
         for (final Widget widget : messages) {
             try {
                 widget.removeFromParent();
             } catch (final Throwable e) {
-                //already removed
-                //XXX null in native method Node.removeChild:L291
+                // already removed
+                // XXX null in native method Node.removeChild:L291
             }
         }
     }

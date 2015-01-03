@@ -26,8 +26,12 @@ public class ReloadOptionsActivity extends AbstractBaseActivity {
         super(application);
     }
 
-    /* (non-Javadoc)
-     * @see com.google.gwt.activity.shared.Activity#start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.google.gwt.activity.shared.Activity#start(com.google.gwt.user.client
+     * .ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)
      */
     @Override
     public void start(final AcceptsOneWidget panel, final EventBus eventBus) {
@@ -39,6 +43,7 @@ public class ReloadOptionsActivity extends AbstractBaseActivity {
                 placeController.goTo(new HomePlace());
                 shell.addMessage(i18n.reload_succeeded(), AlertType.SUCCESS);
             }
+
             @Override
             public void onFailure(final ServerFailure error) {
                 super.onFailure(error);

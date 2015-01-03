@@ -15,7 +15,7 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 @ProxyFor(UsersSearchCriteria.class)
 public interface UsersSearchCriteriaProxy extends ValueProxy {
 
-	String getSearchTerm();
+    String getSearchTerm();
 
-	void setSearchTerm(String searchTerm);
+    void setSearchTerm(String searchTerm);
 }

@@ -5,72 +5,75 @@ import com.google.gwt.event.shared.GwtEvent;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 
-
 /**
  * An event posted whenever an RPC request is sent or its response is received.
  */
 public class RequestEvent extends GwtEvent<RequestEvent.Handler> {
 
-	/**
-	 * Implemented by handlers of this type of event.
-	 */
-	public interface Handler extends EventHandler {
-		
-		/**
-		 * Called when a {@link RequestEvent} is fired.
-		 *
-		 * @param requestEvent a {@link RequestEvent} instance
-		 */
-		void onRequestEvent(RequestEvent requestEvent);
-	}
+    /**
+     * Implemented by handlers of this type of event.
+     */
+    public interface Handler extends EventHandler {
 
-	/**
-	 * The request state.
-	 */
-	public enum State {
-		SENT, RECEIVED
-	}
+        /**
+         * Called when a {@link RequestEvent} is fired.
+         *
+         * @param requestEvent
+         *            a {@link RequestEvent} instance
+         */
+        void onRequestEvent(RequestEvent requestEvent);
+    }
 
-	private static final Type<Handler> TYPE = new Type<Handler>();
+    /**
+     * The request state.
+     */
+    public enum State {
+        SENT, RECEIVED
+    }
 
-	/**
-	 * Register a {@link RequestEvent.Handler} on an {@link EventBus}.
-	 *
-	 * @param eventBus the {@link EventBus}
-	 * @param handler  a {@link RequestEvent.Handler}
-	 * @return a {@link HandlerRegistration} instance
-	 */
-	public static HandlerRegistration register(EventBus eventBus, RequestEvent.Handler handler) {
-		return eventBus.addHandler(TYPE, handler);
-	}
+    private static final Type<Handler> TYPE = new Type<Handler>();
 
-	private final State state;
+    /**
+     * Register a {@link RequestEvent.Handler} on an {@link EventBus}.
+     *
+     * @param eventBus
+     *            the {@link EventBus}
+     * @param handler
+     *            a {@link RequestEvent.Handler}
+     * @return a {@link HandlerRegistration} instance
+     */
+    public static HandlerRegistration register(EventBus eventBus, RequestEvent.Handler handler) {
+        return eventBus.addHandler(TYPE, handler);
+    }
 
-	/**
-	 * Constructs a new @{link RequestEvent}.
-	 *
-	 * @param state a {@link State} instance
-	 */
-	public RequestEvent(State state) {
-		this.state = state;
-	}
+    private final State state;
 
-	@Override
-	public GwtEvent.Type<Handler> getAssociatedType() {
-		return TYPE;
-	}
+    /**
+     * Constructs a new @{link RequestEvent}.
+     *
+     * @param state
+     *            a {@link State} instance
+     */
+    public RequestEvent(State state) {
+        this.state = state;
+    }
 
-	/**
-	 * Returns the {@link State} associated with this event.
-	 *
-	 * @return a {@link State} instance
-	 */
-	public State getState() {
-		return state;
-	}
+    @Override
+    public GwtEvent.Type<Handler> getAssociatedType() {
+        return TYPE;
+    }
 
-	@Override
-	protected void dispatch(Handler handler) {
-		handler.onRequestEvent(this);
-	}
+    /**
+     * Returns the {@link State} associated with this event.
+     *
+     * @return a {@link State} instance
+     */
+    public State getState() {
+        return state;
+    }
+
+    @Override
+    protected void dispatch(Handler handler) {
+        handler.onRequestEvent(this);
+    }
 }

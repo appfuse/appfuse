@@ -8,13 +8,11 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 
-
 public class AsyncActivityProxy<A extends Activity> implements Activity {
 
     private final AsyncProvider<A> provider;
     private Activity activity;
     private boolean isCancelled;
-
 
     /**
      * @param provider
@@ -27,7 +25,7 @@ public class AsyncActivityProxy<A extends Activity> implements Activity {
 
     @Override
     public String mayStop() {
-        if(activity != null) {
+        if (activity != null) {
             return activity.mayStop();
         }
         return null;
@@ -43,13 +41,13 @@ public class AsyncActivityProxy<A extends Activity> implements Activity {
 
     @Override
     public void onStop() {
-        if(activity != null) {
+        if (activity != null) {
             activity.onStop();
         }
     }
 
     @Override
-    public void start(final AcceptsOneWidget panel, final EventBus eventBus){
+    public void start(final AcceptsOneWidget panel, final EventBus eventBus) {
         provider.get(new AsyncCallback<A>() {
 
             @Override
@@ -60,7 +58,7 @@ public class AsyncActivityProxy<A extends Activity> implements Activity {
             @Override
             public void onSuccess(final A result) {
                 activity = result;
-                if(!isCancelled) {
+                if (!isCancelled) {
                     activity.start(panel, eventBus);
                 }
             }

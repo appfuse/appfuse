@@ -29,31 +29,30 @@ public class SignUpActivity extends AbstractProxyEditActivity<UserProxy> impleme
 
     @Inject
     public SignUpActivity(final Application application, final SignUpView editUserView) {
-	super(application, editUserView);
-	this.signUpView = editUserView;
-	this.setTitle(this.i18n.signup_title());
-	this.setBodyClassname("signup");
-	this.setDeleteConfirmation(this.i18n.delete_confirm(this.i18n.userList_user()));
+        super(application, editUserView);
+        this.signUpView = editUserView;
+        this.setTitle(this.i18n.signup_title());
+        this.setBodyClassname("signup");
+        this.setDeleteConfirmation(this.i18n.delete_confirm(this.i18n.userList_user()));
     }
-
 
     @Override
     public String getSavedMessage() {
-	return this.application.getI18n().user_registered();
+        return this.application.getI18n().user_registered();
     }
 
     @Override
     public String getDeletedMessage() {
-	return this.application.getI18n().user_deleted(this.entityProxy.getUsername());
+        return this.application.getI18n().user_deleted(this.entityProxy.getUsername());
     }
 
     @Override
     public void start(final AcceptsOneWidget display, final EventBus eventBus) {
-	if(this.signUpView != null) {
-	    this.signUpView.setAvailableRoles(this.application.getLookupConstants().getAvailableRoles());
-	    this.signUpView.setCountries(this.application.getLookupConstants().getCountries());
-	}
-	super.start(display, eventBus);
+        if (this.signUpView != null) {
+            this.signUpView.setAvailableRoles(this.application.getLookupConstants().getAvailableRoles());
+            this.signUpView.setCountries(this.application.getLookupConstants().getCountries());
+        }
+        super.start(display, eventBus);
     }
 
     @Override
@@ -62,42 +61,41 @@ public class SignUpActivity extends AbstractProxyEditActivity<UserProxy> impleme
 
     @Override
     protected String getEntityId() {
-	//return a not null entityId so super does not try to create a new profile
-	return "x";
+        // return a not null entityId so super does not try to create a new
+        // profile
+        return "x";
     }
 
     @Override
     protected RequestContext createProxyRequest() {
-	return this.requests.userRequest();
+        return this.requests.userRequest();
     }
-
 
     @Override
     protected Request<UserProxy> loadProxyRequest(final RequestContext requestContext, final String proxyId) {
-	return ((UserRequest)requestContext).signUp();
+        return ((UserRequest) requestContext).signUp();
     }
-
 
     @Override
     protected RequestContext saveOrUpdateRequest(final RequestContext requestContext, final UserProxy proxy) {
-	((UserRequest) requestContext).signUp(proxy);
-	return requestContext;
+        ((UserRequest) requestContext).signUp(proxy);
+        return requestContext;
     }
 
     @Override
     protected RequestContext deleteRequest(final RequestContext requestContext, final UserProxy proxy) {
-	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     protected Place previousPlace() {
-	return new LoginPlace();
+        return new LoginPlace();
     }
 
     @Override
     protected Place nextPlace(final boolean saved) {
-	this.eventBus.fireEvent(new LoginEvent());
-	return new HomePlace();
+        this.eventBus.fireEvent(new LoginEvent());
+        return new HomePlace();
     }
 
 }

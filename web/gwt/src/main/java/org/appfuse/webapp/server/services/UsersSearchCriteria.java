@@ -13,14 +13,14 @@ package org.appfuse.webapp.server.services;
  */
 public class UsersSearchCriteria {
 
-	private String searchTerm;
+    private String searchTerm;
 
-	public String getSearchTerm() {
-		return searchTerm;
-	}
+    public String getSearchTerm() {
+        return searchTerm;
+    }
 
-	public void setSearchTerm(String searchTerm) {
-		this.searchTerm = searchTerm;
-	}
-	
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
+    }
+
 }

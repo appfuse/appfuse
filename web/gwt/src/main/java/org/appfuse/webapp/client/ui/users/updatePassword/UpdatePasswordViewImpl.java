@@ -26,26 +26,34 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class UpdatePasswordViewImpl extends Composite implements UpdatePasswordView, Editor<UpdatePasswordView.UserCredentials> {
 
-    interface Binder extends UiBinder<Widget, UpdatePasswordViewImpl> {}
+    interface Binder extends UiBinder<Widget, UpdatePasswordViewImpl> {
+    }
+
     private static Binder uiBinder = GWT.create(Binder.class);
 
-    interface Driver extends SimpleBeanEditorDriver<UpdatePasswordView.UserCredentials, UpdatePasswordViewImpl> { }
+    interface Driver extends SimpleBeanEditorDriver<UpdatePasswordView.UserCredentials, UpdatePasswordViewImpl> {
+    }
+
     private final Driver driver = GWT.create(Driver.class);
 
     ApplicationResources i18n = GWT.create(ApplicationResources.class);
 
-
     private Delegate delegate;
 
-    @UiField Paragraph subheading;
+    @UiField
+    Paragraph subheading;
 
-    @UiField TextBox username;
-    @UiField TextBox token;
-    @UiField PasswordTextBox currentPassword;
-    @UiField PasswordTextBox password;
+    @UiField
+    TextBox username;
+    @UiField
+    TextBox token;
+    @UiField
+    PasswordTextBox currentPassword;
+    @UiField
+    PasswordTextBox password;
 
-    @UiField Widget currentPasswordControlGroup;
-
+    @UiField
+    Widget currentPasswordControlGroup;
 
     @UiField
     Button updatePasswordButton;
@@ -76,7 +84,7 @@ public class UpdatePasswordViewImpl extends Composite implements UpdatePasswordV
     public void setUserCredentials(final UserCredentials userCredentials) {
         driver.edit(userCredentials);
         final String token = userCredentials.getToken();
-        if(token == null || "".equals(token.trim())){
+        if (token == null || "".equals(token.trim())) {
             currentPasswordControlGroup.setVisible(true);
             subheading.setText(i18n.updatePassword_changePassword_message());
         } else {
@@ -95,16 +103,13 @@ public class UpdatePasswordViewImpl extends Composite implements UpdatePasswordV
         delegate.onCancelClick();
     }
 
-
     @Override
     public EditorDriver<UpdatePasswordView.UserCredentials> getEditorDriver() {
         return driver;
     }
-
 
     @Override
     public void setWaiting(final boolean wait) {
         updatePasswordButton.setEnabled(!wait);
     }
 }
-

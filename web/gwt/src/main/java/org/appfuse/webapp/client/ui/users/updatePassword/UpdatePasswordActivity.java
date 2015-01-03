@@ -37,7 +37,8 @@ public class UpdatePasswordActivity extends AbstractBaseActivity implements Upda
     }
 
     /**
-     * @see com.google.gwt.activity.shared.Activity#start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)
+     * @see com.google.gwt.activity.shared.Activity#start(com.google.gwt.user.client.ui.AcceptsOneWidget,
+     *      com.google.gwt.event.shared.EventBus)
      */
     @Override
     public void start(final AcceptsOneWidget panel, final EventBus eventBus) {
@@ -48,13 +49,12 @@ public class UpdatePasswordActivity extends AbstractBaseActivity implements Upda
         setDocumentTitleAndBodyAttributtes();
     }
 
-
     @Override
     public void onUpdatePasswordClick() {
         final EditorDriver<UserCredentials> editorDriver = view.getEditorDriver();
         final UserCredentials userCredentials = editorDriver.flush();
         final Set<ConstraintViolation<UserCredentials>> violations = getValidator().validate(userCredentials);
-        if(!violations.isEmpty()) {
+        if (!violations.isEmpty()) {
             editorDriver.setConstraintViolations((Set) violations);
             return;
         }
@@ -84,7 +84,6 @@ public class UpdatePasswordActivity extends AbstractBaseActivity implements Upda
                     }
                 });
     }
-
 
     @Override
     public void onCancelClick() {

@@ -64,13 +64,11 @@ public class ApplicationActivityMapper implements ActivityMapper {
     @Inject
     private AsyncProvider<UsersSearchActivity> usersSearchActivityProvider;
 
-
-
     @Override
     public Activity getActivity(final Place place) {
         Activity activity = null;
 
-        if(place instanceof LoginPlace) {
+        if (place instanceof LoginPlace) {
             activity = this.loginActivityProvider.get();
         }
         else if (place instanceof HomePlace) {

@@ -31,17 +31,25 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class UsersSearchViewImpl extends AbstractProxySearchView<UserProxy, UsersSearchCriteriaProxy> implements UsersSearchView, Editor<UsersSearchCriteriaProxy> {
 
-    interface Binder extends UiBinder<Widget, UsersSearchViewImpl> { }
+    interface Binder extends UiBinder<Widget, UsersSearchViewImpl> {
+    }
+
     private static final Binder uiBinder = GWT.create(Binder.class);
 
-	interface Driver extends SimpleBeanEditorDriver<UsersSearchCriteriaProxy, UsersSearchViewImpl> { }	
-	private Driver editorDriver = GWT.create(Driver.class);
-	
-    @UiField TextBox searchTerm;
-    
-    @UiField Button addButton;
-    @UiField Button doneButton;
-    @UiField com.google.gwt.user.client.ui.Button searchButton;
+    interface Driver extends SimpleBeanEditorDriver<UsersSearchCriteriaProxy, UsersSearchViewImpl> {
+    }
+
+    private Driver editorDriver = GWT.create(Driver.class);
+
+    @UiField
+    TextBox searchTerm;
+
+    @UiField
+    Button addButton;
+    @UiField
+    Button doneButton;
+    @UiField
+    com.google.gwt.user.client.ui.Button searchButton;
 
     public UsersSearchViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -50,105 +58,106 @@ public class UsersSearchViewImpl extends AbstractProxySearchView<UserProxy, User
         createTableColumns();
     }
 
-    
     @UiHandler("addButton")
     public void addButtonClicked(ClickEvent event) {
-    	delegate.addClicked();
+        delegate.addClicked();
     }
 
     @UiHandler("doneButton")
     public void doneClicked(ClickEvent event) {
-    	delegate.cancelClicked();
+        delegate.cancelClicked();
     }
-    
+
     @UiHandler("searchButton")
     public void searchButtonClicked(ClickEvent event) {
-    	delegate.searchClicked();
+        delegate.searchClicked();
     }
-    
-	@UiHandler("searchTerm")
-	void defaultAction(KeyDownEvent event) {
-		if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-			delegate.searchClicked();
-		}
-	}
-    
+
+    @UiHandler("searchTerm")
+    void defaultAction(KeyDownEvent event) {
+        if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+            delegate.searchClicked();
+        }
+    }
+
     public void createTableColumns() {
-    	FieldUpdater<UserProxy, String> showDetails = new FieldUpdater<UserProxy, String>() {
-			@Override
-			public void update(int index, UserProxy object, String value) {
-				delegate.showDetails(UserProxy.class, object.getId().toString());
-			}
-		};
-    	
-		int columnNumber = 0;
+        FieldUpdater<UserProxy, String> showDetails = new FieldUpdater<UserProxy, String>() {
+            @Override
+            public void update(int index, UserProxy object, String value) {
+                delegate.showDetails(UserProxy.class, object.getId().toString());
+            }
+        };
+
+        int columnNumber = 0;
         paths.add("username");
         table.addColumn(new CustomColumn<UserProxy, String>("username", true, showDetails) {
-			@Override
-			public String getValue(UserProxy user) {
-				return user.getUsername();
-			}
-			@Override
-			public void render(Context context, UserProxy object, SafeHtmlBuilder sb) {
-				Anchor anchor = new Anchor(SafeHtmlUtils.htmlEscape(getValue(object)));
-				sb.append(SafeHtmlUtils.fromTrustedString(anchor.toString()));
-			};
-		}, i18n.user_username());
+            @Override
+            public String getValue(UserProxy user) {
+                return user.getUsername();
+            }
+
+            @Override
+            public void render(Context context, UserProxy object, SafeHtmlBuilder sb) {
+                Anchor anchor = new Anchor(SafeHtmlUtils.htmlEscape(getValue(object)));
+                sb.append(SafeHtmlUtils.fromTrustedString(anchor.toString()));
+            };
+        }, i18n.user_username());
         table.setColumnWidth(columnNumber++, "25%");
-        
+
         paths.add("firstName");
         paths.add("lastName");
         table.addColumn(new CustomColumn<UserProxy, String>("firstName", true) {
 
-			@Override
-			public String getValue(UserProxy user) {
-				return user.getFirstName() + " " + user.getLastName();
-			}
-		}, i18n.activeUsers_fullName());
+            @Override
+            public String getValue(UserProxy user) {
+                return user.getFirstName() + " " + user.getLastName();
+            }
+        }, i18n.activeUsers_fullName());
         table.setColumnWidth(columnNumber++, "34%");
-        
+
         paths.add("email");
         table.addColumn(new CustomColumn<UserProxy, String>("email", true) {
 
-			@Override
-			public String getValue(UserProxy user) {
-				return user.getEmail();
-			}
-			@Override
-			public void render(Context context, UserProxy object, SafeHtmlBuilder sb) {
-				String email = object.getEmail();
-				Anchor anchor = new Anchor(SafeHtmlUtils.htmlEscape(email), "mailto:" + email);
-				sb.append(SafeHtmlUtils.fromTrustedString(anchor.toString()));
-			};			
-		}, i18n.user_email());           
+            @Override
+            public String getValue(UserProxy user) {
+                return user.getEmail();
+            }
+
+            @Override
+            public void render(Context context, UserProxy object, SafeHtmlBuilder sb) {
+                String email = object.getEmail();
+                Anchor anchor = new Anchor(SafeHtmlUtils.htmlEscape(email), "mailto:" + email);
+                sb.append(SafeHtmlUtils.fromTrustedString(anchor.toString()));
+            };
+        }, i18n.user_email());
         table.setColumnWidth(columnNumber++, "25%");
-        
+
         paths.add("enabled");
         table.addColumn(new CustomColumn<UserProxy, Boolean>("enabled", true) {
-			@Override
-			public Boolean getValue(UserProxy user) {
-				return user.isEnabled();
-			}
-			@Override
-			public void render(Context context, UserProxy object, SafeHtmlBuilder sb) {
-				boolean isEnabled = object.isEnabled();
-				CheckBox checkBox = new CheckBox();
-				checkBox.setValue(isEnabled);
-				checkBox.setEnabled(false);
-				sb.append(SafeHtmlUtils.fromTrustedString(checkBox.toString()));
-			};				
-		}, i18n.user_enabled());          
+            @Override
+            public Boolean getValue(UserProxy user) {
+                return user.isEnabled();
+            }
+
+            @Override
+            public void render(Context context, UserProxy object, SafeHtmlBuilder sb) {
+                boolean isEnabled = object.isEnabled();
+                CheckBox checkBox = new CheckBox();
+                checkBox.setValue(isEnabled);
+                checkBox.setEnabled(false);
+                sb.append(SafeHtmlUtils.fromTrustedString(checkBox.toString()));
+            };
+        }, i18n.user_enabled());
         table.setColumnWidth(columnNumber++, "16%");
-        
+
     }
 
-	/**
-	 * @return the editorDriver
-	 */
+    /**
+     * @return the editorDriver
+     */
     @Override
-	protected Driver getEditorDriver() {
-		return editorDriver;
-	}
-
+    protected Driver getEditorDriver() {
+        return editorDriver;
+    }
 
 }

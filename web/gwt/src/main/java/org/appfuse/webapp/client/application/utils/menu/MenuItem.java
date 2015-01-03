@@ -10,7 +10,7 @@ import org.appfuse.webapp.client.proxies.RoleProxy;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.place.shared.Place;
 
-public class MenuItem implements Iterable<MenuItem>{
+public class MenuItem implements Iterable<MenuItem> {
 
     private final String title;
     private final Place place;
@@ -32,7 +32,7 @@ public class MenuItem implements Iterable<MenuItem>{
         this.title = title;
         this.place = place;
         this.roles.addAll(Arrays.asList(roles));
-        if(this.roles.isEmpty()) {
+        if (this.roles.isEmpty()) {
             this.roles.add(RoleProxy.ANONYMOUS);
         }
     }

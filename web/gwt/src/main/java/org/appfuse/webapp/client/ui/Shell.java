@@ -20,38 +20,38 @@ import com.google.gwt.user.client.ui.SimplePanel;
  */
 public abstract class Shell extends Composite implements LoginEvent.Handler, LogoutEvent.Handler {
 
-	protected Application application;
+    protected Application application;
 
-	@UiField SimplePanel contentsPanel;
+    @UiField
+    SimplePanel contentsPanel;
 
-	/**
-	 * Contents Panel
-	 * @return
-	 */
-	public SimplePanel getContentsPanel() {
-		return contentsPanel;
-	}
-	
-	public void clearMessages() {
-		// TODO Auto-generated method stub
-	}
+    /**
+     * Contents Panel
+     * 
+     * @return
+     */
+    public SimplePanel getContentsPanel() {
+        return contentsPanel;
+    }
 
-	public void addMessage(AlertBase alert) {
-		//TODO
-	}
+    public void clearMessages() {
+        // TODO Auto-generated method stub
+    }
 
-	public void addMessage(String html, AlertType alertType) {
-		// TODO 
-	}
+    public void addMessage(AlertBase alert) {
+        // TODO
+    }
 
-	public NotificationMole getMole() {
-		return null;
-	}
+    public void addMessage(String html, AlertType alertType) {
+        // TODO
+    }
 
-	public void setApplication(Application application) {
-		this.application = application;
-	}
+    public NotificationMole getMole() {
+        return null;
+    }
 
-
+    public void setApplication(Application application) {
+        this.application = application;
+    }
 
 }

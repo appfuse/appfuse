@@ -24,5 +24,4 @@ public class SignUpViewImpl extends EditUserViewImpl implements SignUpView {
         deleteButton.removeFromParent();
     }
 
-
 }

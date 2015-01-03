@@ -45,76 +45,76 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 public class FileUploadController implements ServletContextAware {
 
     private MessageSourceAccessor messages;
-	private ServletContext servletContext;
-	
+    private ServletContext servletContext;
+
     public void setServletContext(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
-    
+
     @Autowired
     public void setMessages(MessageSource messageSource) {
-    	messages = new MessageSourceAccessor(messageSource);
+        messages = new MessageSourceAccessor(messageSource);
     }
-	
+
     /**
      *
      */
-	public  static class FileUpload {
-	    private String name;
-	    private byte[] file;
+    public static class FileUpload {
+        private String name;
+        private byte[] file;
 
-	    /**
-	     * @return Returns the name.
-	     */
-	    public String getName() {
-	        return name;
-	    }
+        /**
+         * @return Returns the name.
+         */
+        public String getName() {
+            return name;
+        }
 
-	    /**
-	     * @param name The name to set.
-	     */
-	    public void setName(String name) {
-	        this.name = name;
-	    }
+        /**
+         * @param name
+         *            The name to set.
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
 
-	    public void setFile(byte[] file) {
-	        this.file = file;
-	    }
+        public void setFile(byte[] file) {
+            this.file = file;
+        }
 
-	    public byte[] getFile() {
-	        return file;
-	    }
-	}
-	
+        public byte[] getFile() {
+            return file;
+        }
+    }
+
     @InitBinder
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
         binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
-    }	
-	
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public void onSubmit(@ModelAttribute FileUpload fileUpload, BindingResult errors, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
+        JSONObject jsonObject = new JSONObject();
 
-    	JSONObject jsonObject = new JSONObject();
-    	
-    	if(StringUtils.isBlank(fileUpload.getName())) {
-            Object[] args = new Object[]{messages.getMessage("uploadForm.name", request.getLocale())};
+        if (StringUtils.isBlank(fileUpload.getName())) {
+            Object[] args = new Object[] { messages.getMessage("uploadForm.name", request.getLocale()) };
             errors.rejectValue("name", "errors.required", args, "Name");
-    	}
-    	// validate a file was entered
+        }
+        // validate a file was entered
         if (fileUpload.getFile().length == 0) {
-            Object[] args = new Object[]{messages.getMessage("uploadForm.file", request.getLocale())};
+            Object[] args = new Object[] { messages.getMessage("uploadForm.file", request.getLocale()) };
             errors.rejectValue("file", "errors.required", args, "File");
         }
-        if(errors.hasErrors()) {
-        	List<String> errorMessages = new ArrayList<String>();
-        	for (ObjectError error : errors.getAllErrors()) {
-				errorMessages.add(messages.getMessage(error));
-			}
-        	jsonObject.put("errorMessages", errorMessages);
-        	sendResponse(response, jsonObject);
-        	return;
+        if (errors.hasErrors()) {
+            List<String> errorMessages = new ArrayList<String>();
+            for (ObjectError error : errors.getAllErrors()) {
+                errorMessages.add(messages.getMessage(error));
+            }
+            jsonObject.put("errorMessages", errorMessages);
+            sendResponse(response, jsonObject);
+            return;
         }
 
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
@@ -130,10 +130,10 @@ public class FileUploadController implements ServletContextAware {
             dirPath.mkdirs();
         }
 
-        //retrieve the file data
+        // retrieve the file data
         InputStream stream = file.getInputStream();
 
-        //write the file to the file specified
+        // write the file to the file specified
         OutputStream bos = new FileOutputStream(uploadDir + file.getOriginalFilename());
         int bytesRead;
         byte[] buffer = new byte[8192];
@@ -144,9 +144,8 @@ public class FileUploadController implements ServletContextAware {
 
         bos.close();
 
-        //close the stream
+        // close the stream
         stream.close();
-        
 
         // place the data into the request for retrieval on next page
         jsonObject.put("name", fileUpload.getName());
@@ -160,10 +159,10 @@ public class FileUploadController implements ServletContextAware {
 
         sendResponse(response, jsonObject);
     }
-    
+
     private void sendResponse(HttpServletResponse response, JSONObject jsonObject) throws IOException {
-    	response.setContentType("text/html");
-    	response.getWriter().write(jsonObject.toString());
-    	response.getWriter().flush();
+        response.setContentType("text/html");
+        response.getWriter().write(jsonObject.toString());
+        response.getWriter().flush();
     }
 }

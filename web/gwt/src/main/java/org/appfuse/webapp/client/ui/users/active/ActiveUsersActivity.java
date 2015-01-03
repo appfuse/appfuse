@@ -59,4 +59,3 @@ public class ActiveUsersActivity extends AbstractBaseActivity implements ActiveU
     }
 
 }
-

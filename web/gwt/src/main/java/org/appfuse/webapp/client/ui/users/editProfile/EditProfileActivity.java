@@ -36,7 +36,6 @@ public class EditProfileActivity extends AbstractProxyEditActivity<UserProxy> im
         setDeleteConfirmation(i18n.delete_confirm(i18n.userList_user()));
     }
 
-
     @Override
     public String getSavedMessage() {
         return application.getI18n().user_saved();
@@ -62,10 +61,10 @@ public class EditProfileActivity extends AbstractProxyEditActivity<UserProxy> im
         super.start(display, eventBus);
     }
 
-
     @Override
     protected String getEntityId() {
-        //return a not null entityId so super does not try to create a new profile
+        // return a not null entityId so super does not try to create a new
+        // profile
         return "x";
     }
 
@@ -78,7 +77,6 @@ public class EditProfileActivity extends AbstractProxyEditActivity<UserProxy> im
     protected Request<UserProxy> loadProxyRequest(final RequestContext requestContext, final String proxyId) {
         return ((UserRequest) requestContext).editProfile();
     }
-
 
     @Override
     protected RequestContext saveOrUpdateRequest(final RequestContext requestContext, final UserProxy proxy) {
@@ -101,7 +99,8 @@ public class EditProfileActivity extends AbstractProxyEditActivity<UserProxy> im
         return new EditProfilePlace();
     }
 
-    @Override public void updatePasswordClicked() {
+    @Override
+    public void updatePasswordClicked() {
         placeController.goTo(new UpdatePasswordPlace(entityProxy.getUsername()));
     }
 

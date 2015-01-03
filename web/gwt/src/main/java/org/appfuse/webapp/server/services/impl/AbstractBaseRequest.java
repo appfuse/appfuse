@@ -38,7 +38,8 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
 
     protected final transient Log log = LogFactory.getLog(getClass());
 
-    @Autowired @Qualifier("messageSource")
+    @Autowired
+    @Qualifier("messageSource")
     protected MessageSource messages;
     @Autowired
     protected MailEngine mailEngine;
@@ -53,22 +54,25 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
      */
     public MessageContext messageContext;
 
-    @Override public void setServletContext(final ServletContext servletContext) {
+    @Override
+    public void setServletContext(final ServletContext servletContext) {
         this.servletContext = servletContext;
     }
 
-    @Override @Context
+    @Override
+    @Context
     public void setMessageContext(final MessageContext messageContext) {
         this.messageContext = messageContext;
     }
 
     /**
-     * Convenience method for getting a i18n key's value.  Calling
-     * getMessageSourceAccessor() is used because the RequestContext variable
-     * is not set in unit tests b/c there's no DispatchServlet Request.
+     * Convenience method for getting a i18n key's value. Calling
+     * getMessageSourceAccessor() is used because the RequestContext variable is
+     * not set in unit tests b/c there's no DispatchServlet Request.
      *
      * @param msgKey
-     * @param locale the current locale
+     * @param locale
+     *            the current locale
      * @return
      */
     public String getText(final String msgKey, final Locale locale) {
@@ -76,12 +80,13 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
     }
 
     /**
-     * Convenient method for getting a i18n key's value with a single
-     * string argument.
+     * Convenient method for getting a i18n key's value with a single string
+     * argument.
      *
      * @param msgKey
      * @param arg
-     * @param locale the current locale
+     * @param locale
+     *            the current locale
      * @return
      */
     public String getText(final String msgKey, final String arg, final Locale locale) {
@@ -93,19 +98,24 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
      *
      * @param msgKey
      * @param args
-     * @param locale the current locale
+     * @param locale
+     *            the current locale
      * @return
      */
     public String getText(final String msgKey, final Object[] args, final Locale locale) {
         return messages.getMessage(msgKey, args, locale);
     }
 
-
     /**
-     * Convenience message to send messages to users, includes app URL as footer.
-     * @param user the user to send a message to.
-     * @param msg the message to send.
-     * @param url the URL of the application.
+     * Convenience message to send messages to users, includes app URL as
+     * footer.
+     * 
+     * @param user
+     *            the user to send a message to.
+     * @param msg
+     *            the message to send.
+     * @param url
+     *            the URL of the application.
      */
     protected void sendUserMessage(final User user, final String templateName, final String msg, final String url) {
         if (log.isDebugEnabled()) {
@@ -118,7 +128,7 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
         model.put("user", user);
 
         // TODO: once you figure out how to get the global resource bundle in
-        // WebWork, then figure it out here too.  In the meantime, the Username
+        // WebWork, then figure it out here too. In the meantime, the Username
         // and Password labels are hard-coded into the template.
         // model.put("bundle", getTexts());
         model.put("message", msg);
@@ -128,7 +138,7 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
 
     protected String getCurrentUsername() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication != null && !isAnonymousLogin()) {
+        if (authentication != null && !isAnonymousLogin()) {
             return authentication.getName();
         }
         return null;
@@ -148,14 +158,13 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
         return !isAnonymousLogin() && !isRememberMeLogin();
     }
 
-
     /**
      * 
      * @return
      */
     protected HttpServletRequest getServletRequest() {
         final HttpServletRequest request = RequestFactoryServlet.getThreadLocalRequest();
-        if(request == null) { // jax-rs
+        if (request == null) { // jax-rs
             return messageContext.getHttpServletRequest();
         }
         return request;
@@ -167,7 +176,7 @@ public abstract class AbstractBaseRequest implements ServletContextAware, CxfMes
      */
     protected HttpServletResponse getServletResponse() {
         final HttpServletResponse response = RequestFactoryServlet.getThreadLocalResponse();
-        if(response == null) { // jax-rs
+        if (response == null) { // jax-rs
             return messageContext.getHttpServletResponse();
         }
         return response;

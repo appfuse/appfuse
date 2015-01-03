@@ -6,25 +6,25 @@ import org.appfuse.webapp.server.locators.RoleLocator;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
-@ProxyFor(value=Role.class, locator=RoleLocator.class)
+@ProxyFor(value = Role.class, locator = RoleLocator.class)
 public interface RoleProxy extends EntityProxy {
 
-	public static final String ANONYMOUS = "ANONYMOUS";
-	public static final String AUTHENTICATED = "AUTHENTICATED";
-	public static final String FULLY_AUTHENTICATED = "FULLY_AUTHENTICATED";
-	public static final String ROLE_USER = "ROLE_USER";
-	public static final String ROLE_ADMIN = "ROLE_ADMIN";
-	
-	Long getId();
+    public static final String ANONYMOUS = "ANONYMOUS";
+    public static final String AUTHENTICATED = "AUTHENTICATED";
+    public static final String FULLY_AUTHENTICATED = "FULLY_AUTHENTICATED";
+    public static final String ROLE_USER = "ROLE_USER";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
 
-	String getName();
+    Long getId();
 
-	String getDescription();
+    String getName();
 
-	void setId(Long id);
+    String getDescription();
 
-	void setName(String name);
+    void setId(Long id);
 
-	void setDescription(String description);
+    void setName(String name);
+
+    void setDescription(String description);
 
 }

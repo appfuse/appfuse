@@ -19,13 +19,13 @@ public class RoleLocator extends Locator<Role, Long> {
 
     @Autowired
     private RoleManager roleManager;
-    
+
     public Role create(Class<? extends Role> clazz) {
         return new Role();
     }
 
     public Role find(Class<? extends Role> clazz, Long id) {
-    	return roleManager.get(id);
+        return roleManager.get(id);
     }
 
     public Class<Role> getDomainType() {
@@ -43,9 +43,9 @@ public class RoleLocator extends Locator<Role, Long> {
     public Object getVersion(Role role) {
         return 0;
     }
-    
+
     @Override
     public boolean isLive(Role domainObject) {
-    	return true;
+        return true;
     }
 }

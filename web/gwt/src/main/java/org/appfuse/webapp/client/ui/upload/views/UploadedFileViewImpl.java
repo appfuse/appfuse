@@ -26,58 +26,68 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class UploadedFileViewImpl extends Composite implements UploadedFileView, Editor<UploadedFileBean> {
 
-	interface Binder extends UiBinder<Widget, UploadedFileViewImpl> {}
-	private static final Binder BINDER = GWT.create(Binder.class);
+    interface Binder extends UiBinder<Widget, UploadedFileViewImpl> {
+    }
 
-	interface Driver extends SimpleBeanEditorDriver<UploadedFileBean, UploadedFileViewImpl> { }	
-	private Driver driver = GWT.create(Driver.class);		
-	
-	private UploadedFileView.Delegate delegate;
-	
-	@UiField Label name;
-	@UiField Label fileName;
-	@UiField Label contentType;
-	@UiField Label size;
-	@UiField AnchorElement location;
-	
-	@UiField Button doneButton;
-	@UiField Button uploadAnotherFileButton;
-	
-	
-	/**
+    private static final Binder BINDER = GWT.create(Binder.class);
+
+    interface Driver extends SimpleBeanEditorDriver<UploadedFileBean, UploadedFileViewImpl> {
+    }
+
+    private Driver driver = GWT.create(Driver.class);
+
+    private UploadedFileView.Delegate delegate;
+
+    @UiField
+    Label name;
+    @UiField
+    Label fileName;
+    @UiField
+    Label contentType;
+    @UiField
+    Label size;
+    @UiField
+    AnchorElement location;
+
+    @UiField
+    Button doneButton;
+    @UiField
+    Button uploadAnotherFileButton;
+
+    /**
 	 * 
 	 */
-	public UploadedFileViewImpl() {
-		super();
-		initWidget(BINDER.createAndBindUi(this));
-		driver.initialize(this);
-	}
-	
-	@Override
-	public void setDelegate(UploadedFileView.Delegate delegate) {
-		this.delegate = delegate;
-	}
-	
-	@Override
-	public void display(UploadedFileBean object) {
-		driver.edit(object);
-		location.setHref(object.getLink());
-		location.setInnerSafeHtml(SafeHtmlUtils.fromSafeConstant(object.getLocation()));
-	}
+    public UploadedFileViewImpl() {
+        super();
+        initWidget(BINDER.createAndBindUi(this));
+        driver.initialize(this);
+    }
 
-	@Override
-	public EditorDriver<UploadedFileBean> getEditorDriver() {
-		return driver;
-	}
-	
-	@UiHandler("doneButton")
-	public void onDoneClick(ClickEvent event) {
-		delegate.onDoneClick();
-	}
+    @Override
+    public void setDelegate(UploadedFileView.Delegate delegate) {
+        this.delegate = delegate;
+    }
 
-	@UiHandler("uploadAnotherFileButton")
-	public void onUploadAnotherFileClick(ClickEvent event) {
-		delegate.onUploadAnotherFileClick();
-	}
+    @Override
+    public void display(UploadedFileBean object) {
+        driver.edit(object);
+        location.setHref(object.getLink());
+        location.setInnerSafeHtml(SafeHtmlUtils.fromSafeConstant(object.getLocation()));
+    }
+
+    @Override
+    public EditorDriver<UploadedFileBean> getEditorDriver() {
+        return driver;
+    }
+
+    @UiHandler("doneButton")
+    public void onDoneClick(ClickEvent event) {
+        delegate.onDoneClick();
+    }
+
+    @UiHandler("uploadAnotherFileButton")
+    public void onUploadAnotherFileClick(ClickEvent event) {
+        delegate.onUploadAnotherFileClick();
+    }
 
 }

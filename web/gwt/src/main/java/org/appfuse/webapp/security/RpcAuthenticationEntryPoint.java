@@ -10,10 +10,16 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 /**
- * Used to indicate RPC requests that login is required sending a '401' error, code.
+ * Used to indicate RPC requests that login is required sending a '401' error,
+ * code.
  * 
- * <p>It can be used in combination with {@link org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint}</p>
- * <p>A configuration might look like this:</p>
+ * <p>
+ * It can be used in combination with
+ * {@link org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint}
+ * </p>
+ * <p>
+ * A configuration might look like this:
+ * </p>
  *
  * <pre>
  * &lt;bean id=&quot;daep&quot; class=&quot;org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint&quot;&gt;
@@ -31,9 +37,9 @@ import org.springframework.security.web.AuthenticationEntryPoint;
  */
 public class RpcAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-	@Override
-	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
-	}
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+    }
 
 }

@@ -14,16 +14,17 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class HomeViewDesktop extends Composite implements HomeView {
 
-	interface Binder extends UiBinder<Widget, HomeViewDesktop> {}
-	private static final Binder BINDER = GWT.create(Binder.class);
-	
-	/**
+    interface Binder extends UiBinder<Widget, HomeViewDesktop> {
+    }
+
+    private static final Binder BINDER = GWT.create(Binder.class);
+
+    /**
 	 * 
 	 */
-	public HomeViewDesktop() {
-		super();
-		initWidget(BINDER.createAndBindUi(this));
-	}
-	
-	
+    public HomeViewDesktop() {
+        super();
+        initWidget(BINDER.createAndBindUi(this));
+    }
+
 }

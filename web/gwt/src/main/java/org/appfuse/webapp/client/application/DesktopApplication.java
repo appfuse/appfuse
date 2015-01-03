@@ -1,6 +1,5 @@
 package org.appfuse.webapp.client.application;
 
-
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +37,6 @@ import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryLogHandler
 import com.google.web.bindery.requestfactory.shared.LoggingRequest;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
-
 /**
  * Application for browsing entities.
  */
@@ -60,8 +58,6 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
         super(shell, menu, requestFactory, eventBus, placeController, placeHistoryMapper, placeHistoryHandler, activityManager, proxyFactory,
                 validatorFactory);
     }
-
-
 
     @Override
     public void run() {
@@ -85,13 +81,16 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
                     public void onSuccess(final UserProxy currentUser) {
                         setProgress(85);
 
-                        if(currentUser != null) {
+                        if (currentUser != null) {
                             setCurrentUser(currentUser);
 
                             setProgress(100);
                             showShell();
 
-                            /* Register home place and parse url for current place token */
+                            /*
+                             * Register home place and parse url for current
+                             * place token
+                             */
                             final Place defaultPlace = new HomePlace();
                             placeHistoryHandler.register(placeController, eventBus, defaultPlace);
                             placeHistoryHandler.handleCurrentHistory();
@@ -99,7 +98,10 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
                         } else {
                             showShell();
 
-                            /* Register home place and parse url for current place token */
+                            /*
+                             * Register home place and parse url for current
+                             * place token
+                             */
                             final Place defaultPlace = new LoginPlace(History.getToken());
                             placeHistoryHandler.register(placeController, eventBus, defaultPlace);
                             placeController.goTo(defaultPlace);
@@ -112,7 +114,6 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 
     }
 
-
     protected void showShell() {
         final Element loading = Document.get().getElementById("loading");
         loading.getParentElement().removeChild(loading);
@@ -121,7 +122,8 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
         RootLayoutPanel.get().add(shell);
         RootLayoutPanel.get().getElement().setId("rootPanel");
 
-        // remove gwt extra divs and place shell nodes directly into the document body,
+        // remove gwt extra divs and place shell nodes directly into the
+        // document body,
         // (and hope for the best about xbrowser compatibility..)
         shell.getElement().setId("shell");
         final Element shellElement = Document.get().getElementById("shell");
@@ -174,10 +176,9 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
             }
         });
 
-        if(shell instanceof PlaceChangeEvent.Handler) {
-            eventBus.addHandler(PlaceChangeEvent.TYPE, (PlaceChangeEvent.Handler)shell);
+        if (shell instanceof PlaceChangeEvent.Handler) {
+            eventBus.addHandler(PlaceChangeEvent.TYPE, (PlaceChangeEvent.Handler) shell);
         }
-
 
         LoginEvent.register(eventBus, this);
         LogoutEvent.register(eventBus, this);
@@ -204,7 +205,7 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
         requestFactory.userRequest().getCurrentUser().with("roles").fire(new Receiver<UserProxy>() {
             @Override
             public void onSuccess(final UserProxy currentUser) {
-                if(currentUser != null) {
+                if (currentUser != null) {
                     setCurrentUser(currentUser);
                     /* re-load application constants */
                     requestFactory.lookupRequest().getApplicationConstants().fire(new Receiver<LookupConstantsProxy>() {
@@ -214,15 +215,17 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
                             shell.onLoginEvent(loginEvent);
 
                             final Place currentPlace = placeController.getWhere();
-                            if(currentPlace instanceof LoginPlace) {// explicit login
+                            if (currentPlace instanceof LoginPlace) {// explicit
+                                                                     // login
                                 final LoginPlace loginPlace = (LoginPlace) currentPlace;
-                                if(loginPlace.getHistoryToken() != null && !"".equals(loginPlace.getHistoryToken())) {
+                                if (loginPlace.getHistoryToken() != null && !"".equals(loginPlace.getHistoryToken())) {
                                     History.newItem(loginPlace.getHistoryToken());
                                 } else {
                                     placeController.goTo(new HomePlace());
                                 }
-                            }else {
-                                //this was an intercepted login so we leave user on current page
+                            } else {
+                                // this was an intercepted login so we leave
+                                // user on current page
                             }
                         }
                     });
@@ -240,8 +243,9 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 
     /* The progressbar */
     private Element progressbar;
+
     private void setProgress(final int progress) {
-        if(progressbar == null) {
+        if (progressbar == null) {
             progressbar = Document.get().getElementById("progressbar");
         }
         progressbar.setAttribute("style", "width: " + progress + "%;");

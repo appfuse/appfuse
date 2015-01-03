@@ -22,77 +22,75 @@ import com.google.web.bindery.requestfactory.shared.EntityProxy;
 /**
  * Abstract implementation of ProxyListView.
  *
- * @param <P> the type of the proxy
+ * @param <P>
+ *            the type of the proxy
  */
 public abstract class AbstractProxySearchView<P extends EntityProxy, S> extends Composite implements ProxySearchView<P, S> {
 
-	public @UiField(provided=true) ApplicationResources i18n = GWT.create(ApplicationResources.class);
-	protected ProxySearchView.Delegate<P> delegate;
+    public @UiField(provided = true) ApplicationResources i18n = GWT.create(ApplicationResources.class);
+    protected ProxySearchView.Delegate<P> delegate;
 
-	@UiField(provided=true)
-	public Integer pageSize = 25;
+    @UiField(provided = true)
+    public Integer pageSize = 25;
 
-	@UiField 
-	public CellTable<P> table;
+    @UiField
+    public CellTable<P> table;
 
-	public Set<String> paths = new HashSet<String>();
+    public Set<String> paths = new HashSet<String>();
 
-	protected abstract SimpleBeanEditorDriver<S, ?> getEditorDriver();
+    protected abstract SimpleBeanEditorDriver<S, ?> getEditorDriver();
 
-    
     @Override
     public S getSearchCriteria() {
-    	return getEditorDriver() != null? getEditorDriver().flush() : null;
+        return getEditorDriver() != null ? getEditorDriver().flush() : null;
     }
-    
+
     @Override
     public void setSearchCriteria(S searchCriteria) {
-    	if(getEditorDriver() != null){ 
-    		getEditorDriver().edit(searchCriteria);
-    	}
+        if (getEditorDriver() != null) {
+            getEditorDriver().edit(searchCriteria);
+        }
     }
-    
-	@Override
-	public boolean setConstraintViolations(Iterable<ConstraintViolation<S>> violations) {
-		return getEditorDriver() != null? 
-				getEditorDriver().setConstraintViolations((Set)violations) : false;
-	}
-    
+
+    @Override
+    public boolean setConstraintViolations(Iterable<ConstraintViolation<S>> violations) {
+        return getEditorDriver() != null ?
+                getEditorDriver().setConstraintViolations((Set) violations) : false;
+    }
 
     @Override
     public HasData<P> asHasData() {
-    	return table;
+        return table;
     }
-    
+
     @Override
     public ColumnSortList getColumnSortList() {
-    	return table.getColumnSortList();
+        return table.getColumnSortList();
     }
-    
+
     @Override
     public void addColumnSortHandler(Handler clientSideSortHandler) {
-    	table.addColumnSortHandler(clientSideSortHandler);
+        table.addColumnSortHandler(clientSideSortHandler);
     }
-    
+
     @Override
     public String[] getPaths() {
-    	return paths.toArray(new String[paths.size()]);
+        return paths.toArray(new String[paths.size()]);
     }
 
-	
-	@Override
-	public AbstractProxySearchView<P, S> asWidget() {
-		return this;
-	}
+    @Override
+    public AbstractProxySearchView<P, S> asWidget() {
+        return this;
+    }
 
-	@Override
-	public void setDelegate(final Delegate<P> delegate) {
-		this.delegate = delegate;
-	}
-	
-	@Override
-	public void setPageSize(Integer pageSize) {
-		asHasData().setVisibleRange(asHasData().getVisibleRange().getStart(), pageSize);
-	}
+    @Override
+    public void setDelegate(final Delegate<P> delegate) {
+        this.delegate = delegate;
+    }
+
+    @Override
+    public void setPageSize(Integer pageSize) {
+        asHasData().setVisibleRange(asHasData().getVisibleRange().getStart(), pageSize);
+    }
 
 }

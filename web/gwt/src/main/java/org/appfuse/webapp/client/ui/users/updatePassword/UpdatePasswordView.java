@@ -16,18 +16,22 @@ public interface UpdatePasswordView extends IsWidget {
 
     public interface Delegate {
         void onUpdatePasswordClick();
+
         void onCancelClick();
     }
 
     public static class UserCredentials {
-        @NotNull String username;
-        @NotNull String password;
+        @NotNull
+        String username;
+        @NotNull
+        String password;
         String token;
         String currentPassword;
 
         public String getUsername() {
             return username;
         }
+
         public String getPassword() {
             return password;
         }

@@ -1,6 +1,5 @@
 package org.appfuse.webapp.client.application.ioc;
 
-
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.ApplicationActivityMapper;
 import org.appfuse.webapp.client.application.ApplicationPlaceHistoryFactory;
@@ -52,7 +51,6 @@ import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 
-
 public class ClientGinModule extends AbstractGinModule {
 
     @Override
@@ -83,7 +81,6 @@ public class ClientGinModule extends AbstractGinModule {
         bind(EditUserView.class).to(EditUserViewImpl.class).in(Singleton.class);
         bind(UsersSearchView.class).to(UsersSearchViewImpl.class).in(Singleton.class);
     }
-
 
     @Provides
     @Singleton

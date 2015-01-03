@@ -38,12 +38,15 @@ import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriv
  */
 public class EditUserViewImpl extends Composite implements EditUserView {
 
-    interface Binder extends UiBinder<Widget, EditUserViewImpl> {}
+    interface Binder extends UiBinder<Widget, EditUserViewImpl> {
+    }
+
     private static final Binder BINDER = GWT.create(Binder.class);
 
-    interface Driver extends RequestFactoryEditorDriver<UserProxy, EditUserViewImpl> { }
+    interface Driver extends RequestFactoryEditorDriver<UserProxy, EditUserViewImpl> {
+    }
 
-    @UiField(provided=true)
+    @UiField(provided = true)
     protected ApplicationResources i18n = GWT.create(ApplicationResources.class);
 
     private EditUserView.Delegate delegate;
@@ -51,46 +54,74 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     @UiField
     protected Element subheading;
 
-    @UiField LongBox id;
-    @UiField IntegerBox version;
-    @UiField TextBox username;
-    @UiField PasswordTextBox password;
-    @UiField Anchor updatePasswordButton;
-    @UiField TextBox passwordHint;
-    @UiField TextBox firstName;
-    @UiField TextBox lastName;
-    @UiField TextBox email;
-    @UiField TextBox phoneNumber;
-    @UiField TextBox website;
+    @UiField
+    LongBox id;
+    @UiField
+    IntegerBox version;
+    @UiField
+    TextBox username;
+    @UiField
+    PasswordTextBox password;
+    @UiField
+    Anchor updatePasswordButton;
+    @UiField
+    TextBox passwordHint;
+    @UiField
+    TextBox firstName;
+    @UiField
+    TextBox lastName;
+    @UiField
+    TextBox email;
+    @UiField
+    TextBox phoneNumber;
+    @UiField
+    TextBox website;
 
-    @UiField UIObject addressFieldset;
-    @UiField @Path("address.address")
+    @UiField
+    UIObject addressFieldset;
+    @UiField
+    @Path("address.address")
     TextBox address;
-    @UiField @Path("address.city")
+    @UiField
+    @Path("address.city")
     TextBox city;
-    @UiField @Path("address.province")
+    @UiField
+    @Path("address.province")
     TextBox province;
-    @UiField @Path("address.country")
+    @UiField
+    @Path("address.country")
     ListBox country;
-    @UiField  @Path("address.postalCode")
+    @UiField
+    @Path("address.postalCode")
     TextBox postalCode;
 
-    @UiField(provided=true)
+    @UiField(provided = true)
     protected RolesListBox roles = new RolesListBox();
 
-    @UiField protected Widget passwordControlGroup;
-    @UiField protected Widget updatePasswordControl;
-    @UiField protected Widget userRoles;//control group for
-    @UiField protected Widget accountSettings;//control group for
+    @UiField
+    protected Widget passwordControlGroup;
+    @UiField
+    protected Widget updatePasswordControl;
+    @UiField
+    protected Widget userRoles;// control group for
+    @UiField
+    protected Widget accountSettings;// control group for
 
-    @UiField CheckBox enabled;
-    @UiField CheckBox accountExpired;
-    @UiField CheckBox accountLocked;
-    @UiField CheckBox credentialsExpired;
+    @UiField
+    CheckBox enabled;
+    @UiField
+    CheckBox accountExpired;
+    @UiField
+    CheckBox accountLocked;
+    @UiField
+    CheckBox credentialsExpired;
 
-    @UiField Button saveButton;
-    @UiField protected Button deleteButton;
-    @UiField Button cancelButton;
+    @UiField
+    Button saveButton;
+    @UiField
+    protected Button deleteButton;
+    @UiField
+    Button cancelButton;
 
     /**
      *
@@ -128,10 +159,10 @@ public class EditUserViewImpl extends Composite implements EditUserView {
 
     @Override
     public void showErrors(final List<EditorError> errors) {
-        if(errors != null && !errors.isEmpty()) {
+        if (errors != null && !errors.isEmpty()) {
             final SafeHtmlBuilder b = new SafeHtmlBuilder();
             for (final EditorError error : errors) {
-                if(error.getPath() != null && !"".equals(error.getPath())) {
+                if (error.getPath() != null && !"".equals(error.getPath())) {
                     final Object userData = error.getUserData();
                     b.appendEscaped(error.getPath()).appendEscaped(": ");
                 }
@@ -163,7 +194,7 @@ public class EditUserViewImpl extends Composite implements EditUserView {
 
     @Override
     public void setEnabled(final boolean b) {
-        //TODO
+        // TODO
     }
 
 }

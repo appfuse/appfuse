@@ -167,4 +167,3 @@ public class LoginViewImpl extends Composite implements LoginView, Editor<LoginV
         loginButton.setEnabled(!wait);
     }
 }
-

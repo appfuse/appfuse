@@ -18,48 +18,55 @@ import com.google.web.bindery.requestfactory.shared.EntityProxy;
  * in ui.xml files which declare the properties of interest, which is why the
  * view is a source of a property set rather than a receiver of one.
  *
- * @param <P> the type of the records to display
+ * @param <P>
+ *            the type of the records to display
  */
 public interface ProxySearchView<P extends EntityProxy, S> extends IsWidget {
-	
-	/**
-	 * Implemented by the owner of a RecordTableView.
-	 *
-	 * @param <P> the type of the records to display
-	 */
-	interface Delegate<P> {
 
-		void addClicked();
-		void searchClicked();		
-		void cancelClicked();
+    /**
+     * Implemented by the owner of a RecordTableView.
+     *
+     * @param <P>
+     *            the type of the records to display
+     */
+    interface Delegate<P> {
 
-		void showDetails(Class<? extends EntityProxy> proxyClass, String entityId);
-		void deleteClicked(Class<? extends EntityProxy> proxyClass, String entityId);
-	}
+        void addClicked();
 
-	/**
-	 * Sets the delegate.
-	 */
-	void setDelegate(Delegate<P> delegate);
-	void setSearchCriteria(S searchCriteria);
-	S getSearchCriteria();
-	
-	boolean setConstraintViolations(Iterable<ConstraintViolation<S>> violations);
-	
-	
-	HasData<P> asHasData();
-	ColumnSortList getColumnSortList();
-	void addColumnSortHandler(Handler clientSideSortHandler);
+        void searchClicked();
 
-	/**
-	 * @return the set of properties this view displays
-	 */
-	String[] getPaths();
+        void cancelClicked();
 
+        void showDetails(Class<? extends EntityProxy> proxyClass, String entityId);
 
-	/**
-	 * 
-	 * @param pageSize
-	 */
-	void setPageSize(Integer pageSize);
+        void deleteClicked(Class<? extends EntityProxy> proxyClass, String entityId);
+    }
+
+    /**
+     * Sets the delegate.
+     */
+    void setDelegate(Delegate<P> delegate);
+
+    void setSearchCriteria(S searchCriteria);
+
+    S getSearchCriteria();
+
+    boolean setConstraintViolations(Iterable<ConstraintViolation<S>> violations);
+
+    HasData<P> asHasData();
+
+    ColumnSortList getColumnSortList();
+
+    void addColumnSortHandler(Handler clientSideSortHandler);
+
+    /**
+     * @return the set of properties this view displays
+     */
+    String[] getPaths();
+
+    /**
+     * 
+     * @param pageSize
+     */
+    void setPageSize(Integer pageSize);
 }

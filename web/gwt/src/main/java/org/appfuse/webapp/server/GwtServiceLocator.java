@@ -10,11 +10,11 @@ import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 
 public class GwtServiceLocator implements ServiceLocator {
 
-	HttpServletRequest request = RequestFactoryServlet.getThreadLocalRequest();
-	ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
+    HttpServletRequest request = RequestFactoryServlet.getThreadLocalRequest();
+    ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
 
-	@Override
-	public Object getInstance(Class<?> clazz) {
-		return context.getBean(clazz);
-	}
+    @Override
+    public Object getInstance(Class<?> clazz) {
+        return context.getBean(clazz);
+    }
 }

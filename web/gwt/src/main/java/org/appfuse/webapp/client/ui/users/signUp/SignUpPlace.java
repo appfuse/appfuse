@@ -13,20 +13,20 @@ import com.google.gwt.place.shared.Prefix;
  */
 public class SignUpPlace extends Place {
 
-	public static final String PREFIX = "signup";
-	
-	@Prefix(PREFIX)
+    public static final String PREFIX = "signup";
+
+    @Prefix(PREFIX)
     public static class Tokenizer implements PlaceTokenizer<SignUpPlace> {
 
-		@Override
-		public SignUpPlace getPlace(String token) {
-			return new SignUpPlace();
-		}
+        @Override
+        public SignUpPlace getPlace(String token) {
+            return new SignUpPlace();
+        }
 
-		@Override
-		public String getToken(SignUpPlace place) {
-			return "";
-		}
+        @Override
+        public String getToken(SignUpPlace place) {
+            return "";
+        }
 
     }
 }

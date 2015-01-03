@@ -17,11 +17,11 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 @ProxyFor(LookupConstants.class)
 public interface LookupConstantsProxy extends ValueProxy {
 
-	List<RoleProxy> getAvailableRoles();
+    List<RoleProxy> getAvailableRoles();
 
-	void setAvailableRoles(List<RoleProxy> availableRoles);
+    void setAvailableRoles(List<RoleProxy> availableRoles);
 
-	List<LabelValueProxy> getCountries();
+    List<LabelValueProxy> getCountries();
 
-	void setCountries(List<LabelValueProxy> countries);
+    void setCountries(List<LabelValueProxy> countries);
 }

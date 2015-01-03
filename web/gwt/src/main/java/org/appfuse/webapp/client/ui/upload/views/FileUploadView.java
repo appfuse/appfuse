@@ -11,12 +11,15 @@ import com.google.gwt.user.client.ui.IsWidget;
 
 public interface FileUploadView extends IsWidget {
 
-	public interface Delegate extends SubmitHandler, SubmitCompleteHandler {
-		void onCancelClick();
-	}
-	
-	void setDelegate(Delegate delegate);
-	void edit(FileUploadBean fileUpload);
-	EditorDriver<FileUploadBean> getEditorDriver();
-	void showErrorsMessages(List<String> errors);
+    public interface Delegate extends SubmitHandler, SubmitCompleteHandler {
+        void onCancelClick();
+    }
+
+    void setDelegate(Delegate delegate);
+
+    void edit(FileUploadBean fileUpload);
+
+    EditorDriver<FileUploadBean> getEditorDriver();
+
+    void showErrorsMessages(List<String> errors);
 }

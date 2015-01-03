@@ -17,29 +17,37 @@ public interface LoginView extends IsWidget {
 
     public interface Delegate {
         void onLoginClick();
+
         void onCancelClick();
+
         void onPasswordHintClick();
 
         void onRequestPasswordRecoveryClick();
     }
 
     public static class LoginDetails {
-        @NotNull String username;
-        @NotNull String password;
+        @NotNull
+        String username;
+        @NotNull
+        String password;
         boolean rememberMe;
 
         public String getUsername() {
             return username;
         }
+
         public void setUsername(final String username) {
             this.username = username;
         }
+
         public String getPassword() {
             return password;
         }
+
         public void setPassword(final String password) {
             this.password = password;
         }
+
         public boolean isRememberMe() {
             return rememberMe;
         }
@@ -52,7 +60,6 @@ public interface LoginView extends IsWidget {
         public String toString() {
             return "LoginDetails [username=" + username + ", password=" + password + ", spring_security_remember_me=" + rememberMe + "]";
         }
-
 
     }
 

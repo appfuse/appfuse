@@ -36,74 +36,73 @@ public class UsersSearchActivity extends AbstractProxySearchActivity<UserProxy, 
 
     @Inject
     public UsersSearchActivity(final Application application, final UsersSearchView view) {
-	super(application, view, UsersSearchCriteriaProxy.class);
-	this.view = view;
-	setTitle(i18n.userList_title());
+        super(application, view, UsersSearchCriteriaProxy.class);
+        this.view = view;
+        setTitle(i18n.userList_title());
     }
 
     @Override
     public void start(final AcceptsOneWidget panel, final EventBus eventBus) {
-	view.setDelegate(this);
-	// Configure local/remote sorting
-	// sortHandler = createLocalColumnSortHandler(view.asHasData());
-	sortHandler = new ColumnSortEvent.AsyncHandler(view.asHasData());
-	view.addColumnSortHandler(sortHandler);
+        view.setDelegate(this);
+        // Configure local/remote sorting
+        // sortHandler = createLocalColumnSortHandler(view.asHasData());
+        sortHandler = new ColumnSortEvent.AsyncHandler(view.asHasData());
+        view.addColumnSortHandler(sortHandler);
 
-	super.start(panel, eventBus);
+        super.start(panel, eventBus);
     }
-
 
     /**
      * @param hasData
      */
     private Handler createLocalColumnSortHandler(final HasData hasData) {
-	return new LocalColumnSortHandler<UserProxy>(hasData) {
-	    @Override
-	    public List<UserProxy> getList() {
-		return (List<UserProxy>) hasData.getVisibleItems();
-	    }
-	};
+        return new LocalColumnSortHandler<UserProxy>(hasData) {
+            @Override
+            public List<UserProxy> getList() {
+                return (List<UserProxy>) hasData.getVisibleItems();
+            }
+        };
     }
 
     private String getPropertyNameForColumn(final Column column) {
-	if(column instanceof CustomColumn) {
-	    return ((CustomColumn) column).getPropertyName();
-	}
-	return null;
+        if (column instanceof CustomColumn) {
+            return ((CustomColumn) column).getPropertyName();
+        }
+        return null;
     }
 
     @Override
     protected RequestContext createRequestContext() {
-	return requests.userRequest();
+        return requests.userRequest();
     }
 
     @Override
     protected Request<Long> createCountRequest(final RequestContext requestContext, final UsersSearchCriteriaProxy searchCriteria) {
-	return ((UserRequest) requestContext).countUsers(searchCriteria);
+        return ((UserRequest) requestContext).countUsers(searchCriteria);
     }
 
     @Override
     protected Request<List<UserProxy>> createSearchRequest(
-	    final RequestContext requestContext, final UsersSearchCriteriaProxy searchCriteria,
-	    final Range range, final ColumnSortList columnSortList) {
+            final RequestContext requestContext, final UsersSearchCriteriaProxy searchCriteria,
+            final Range range, final ColumnSortList columnSortList) {
 
-	String sortProperty = null;
-	boolean ascending = true;
-	if(columnSortList.size() > 0) {
-	    final Column sortColumn = columnSortList.get(0).getColumn();
-	    sortProperty = getPropertyNameForColumn(sortColumn);
-	    ascending = columnSortList.get(0).isAscending();
-	}
+        String sortProperty = null;
+        boolean ascending = true;
+        if (columnSortList.size() > 0) {
+            final Column sortColumn = columnSortList.get(0).getColumn();
+            sortProperty = getPropertyNameForColumn(sortColumn);
+            ascending = columnSortList.get(0).isAscending();
+        }
 
-	return ((UserRequest) requestContext).searchUsers(searchCriteria,
-		range.getStart(), range.getLength(),
-		sortProperty, ascending);
+        return ((UserRequest) requestContext).searchUsers(searchCriteria,
+                range.getStart(), range.getLength(),
+                sortProperty, ascending);
     }
 
     @Override
     public void onStop() {
-	//XXX view.removeColumnSortHandler(sortHandle);
-	sortHandler = null;
-	super.onStop();
+        // XXX view.removeColumnSortHandler(sortHandle);
+        sortHandler = null;
+        super.onStop();
     }
 }

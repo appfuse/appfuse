@@ -34,65 +34,65 @@ public abstract class AbstractBaseActivity extends AbstractActivity {
     /**
      */
     public AbstractBaseActivity(final Application application) {
-	super();
-	this.application = application;
-	this.shell = application.getShell();
-	this.eventBus = application.getEventBus();
-	this.requests = application.getRequestFactory();
-	this.placeController = application.getPlaceController();
-	this.currentPlace = placeController.getWhere();
-	this.proxyFactory = application.getProxyFactory();
-	this.validatorFactory = application.getValidatorFactory();
-	this.i18n = application.getI18n();
+        super();
+        this.application = application;
+        this.shell = application.getShell();
+        this.eventBus = application.getEventBus();
+        this.requests = application.getRequestFactory();
+        this.placeController = application.getPlaceController();
+        this.currentPlace = placeController.getWhere();
+        this.proxyFactory = application.getProxyFactory();
+        this.validatorFactory = application.getValidatorFactory();
+        this.i18n = application.getI18n();
     }
 
     protected void setDocumentTitleAndBodyAttributtes() {
-	// set document title and body class/id
-	if (getTitle() != null) {
-	    Document.get().setTitle(getTitle() + " | " + application.getI18n().webapp_name());
-	} else {
-	    Document.get().setTitle(application.getI18n().webapp_name());
-	}
+        // set document title and body class/id
+        if (getTitle() != null) {
+            Document.get().setTitle(getTitle() + " | " + application.getI18n().webapp_name());
+        } else {
+            Document.get().setTitle(application.getI18n().webapp_name());
+        }
 
-	if (getBodyId() != null) {
-	    Document.get().getBody().setId(getBodyId());
-	} else {
-	    Document.get().getBody().removeAttribute("id");
-	}
+        if (getBodyId() != null) {
+            Document.get().getBody().setId(getBodyId());
+        } else {
+            Document.get().getBody().removeAttribute("id");
+        }
 
-	if (getBodyClassName() != null) {
-	    Document.get().getBody().setClassName(getBodyClassName());
-	} else {
-	    Document.get().getBody().removeAttribute("class");
-	}
+        if (getBodyClassName() != null) {
+            Document.get().getBody().setClassName(getBodyClassName());
+        } else {
+            Document.get().getBody().removeAttribute("class");
+        }
     }
 
     public String getTitle() {
-	return title;
+        return title;
     }
 
     public String getBodyId() {
-	return bodyId;
+        return bodyId;
     }
 
     public String getBodyClassName() {
-	return bodyClassname;
+        return bodyClassname;
     }
 
     public String getBodyClassname() {
-	return bodyClassname;
+        return bodyClassname;
     }
 
     public void setBodyClassname(final String bodyClassname) {
-	this.bodyClassname = bodyClassname;
+        this.bodyClassname = bodyClassname;
     }
 
     public void setTitle(final String title) {
-	this.title = title;
+        this.title = title;
     }
 
     public void setBodyId(final String bodyId) {
-	this.bodyId = bodyId;
+        this.bodyId = bodyId;
     }
 
     /**
@@ -100,25 +100,25 @@ public abstract class AbstractBaseActivity extends AbstractActivity {
      * @return
      */
     protected Validator getValidator() {
-	return validatorFactory.getValidator();
+        return validatorFactory.getValidator();
     }
 
-    //Mobile interface
+    // Mobile interface
 
     protected Place getBackButtonPlace() {
-	return null;
+        return null;
     }
 
     protected String getBackButtonText() {
-	return null;
+        return null;
     }
 
     protected Place getEditButtonPlace() {
-	return null;
+        return null;
     }
 
     protected boolean hasEditButton() {
-	return false;
+        return false;
     }
 
 }

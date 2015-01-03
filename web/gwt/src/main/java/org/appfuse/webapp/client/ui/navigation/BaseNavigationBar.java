@@ -39,17 +39,17 @@ public abstract class BaseNavigationBar extends Composite implements PlaceChange
         this.application.getEventBus().addHandler(PlaceChangeEvent.TYPE, this);
     }
 
-    protected boolean isSamePlace(final Place newPlace,final Place menuPlace) {
-        if(newPlace == null || menuPlace == null) {
+    protected boolean isSamePlace(final Place newPlace, final Place menuPlace) {
+        if (newPlace == null || menuPlace == null) {
             return false;
         }
 
-        if(newPlace instanceof EntityProxyPlace && menuPlace instanceof EntityProxyPlace) {
+        if (newPlace instanceof EntityProxyPlace && menuPlace instanceof EntityProxyPlace) {
             final EntityProxyPlace newEntityPlace = (EntityProxyPlace) newPlace;
             final EntityProxyPlace menuEntityPlace = (EntityProxyPlace) menuPlace;
             return newEntityPlace.getProxyClass().equals(menuEntityPlace.getProxyClass());
         }
-        else if(newPlace instanceof EntitySearchPlace && menuPlace instanceof EntitySearchPlace) {
+        else if (newPlace instanceof EntitySearchPlace && menuPlace instanceof EntitySearchPlace) {
             final EntitySearchPlace newEntityPlace = (EntitySearchPlace) newPlace;
             final EntitySearchPlace menuEntityPlace = (EntitySearchPlace) menuPlace;
             return newEntityPlace.getProxyClass().equals(menuEntityPlace.getProxyClass());
@@ -63,7 +63,7 @@ public abstract class BaseNavigationBar extends Composite implements PlaceChange
 
     protected MenuItem findCurrentMenuItem(final Place currentPlace) {
         for (final MenuItem menuItem : menu.asList()) {
-            if(isSamePlace(currentPlace, menuItem.getPlace())) {
+            if (isSamePlace(currentPlace, menuItem.getPlace())) {
                 return menuItem;
             }
         }

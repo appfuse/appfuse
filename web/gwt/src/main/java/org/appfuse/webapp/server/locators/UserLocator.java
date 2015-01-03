@@ -10,7 +10,6 @@ import com.google.web.bindery.requestfactory.shared.Locator;
 @Component
 public class UserLocator extends Locator<User, Long> {
 
-	
     @Autowired
     private UserManager userManager;
 
@@ -19,9 +18,9 @@ public class UserLocator extends Locator<User, Long> {
     }
 
     public User find(Class<? extends User> clazz, Long id) {
-    	User user = userManager.get(id);
-    	user.setConfirmPassword(user.getPassword());
-    	return user;
+        User user = userManager.get(id);
+        user.setConfirmPassword(user.getPassword());
+        return user;
     }
 
     public Class<User> getDomainType() {
@@ -39,9 +38,9 @@ public class UserLocator extends Locator<User, Long> {
     public Object getVersion(User user) {
         return user.getVersion();
     }
-    
+
     @Override
     public boolean isLive(User domainObject) {
-    	return true;
+        return true;
     }
 }

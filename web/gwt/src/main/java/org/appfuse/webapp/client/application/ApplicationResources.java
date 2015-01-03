@@ -2,14 +2,19 @@ package org.appfuse.webapp.client.application;
 
 /**
  * Interface to represent the messages contained in resource bundle:
- * /home/opt/workspaces/AppFuse/appfuse.git/web/gwt/target/classes/org/appfuse/webapp/client/application/ApplicationResources.properties'.
+ * /home/opt/workspaces
+ * /AppFuse/appfuse.git/web/gwt/target/classes/org/appfuse/webapp
+ * /client/application/ApplicationResources.properties'.
  */
 public interface ApplicationResources extends com.google.gwt.i18n.client.Messages {
 
     /**
-     * Translated "Your current role does not allow you to view this page.  Please contact your system administrator if you believe you should have access.  In the meantime, how about a pretty picture to cheer you up?".
+     * Translated
+     * "Your current role does not allow you to view this page.  Please contact your system administrator if you believe you should have access.  In the meantime, how about a pretty picture to cheer you up?"
+     * .
      *
-     * @return translated "Your current role does not allow you to view this page.  Please contact your system administrator if you believe you should have access.  In the meantime, how about a pretty picture to cheer you up?"
+     * @return translated
+     *         "Your current role does not allow you to view this page.  Please contact your system administrator if you believe you should have access.  In the meantime, how about a pretty picture to cheer you up?"
      */
     @DefaultMessage("Your current role does not allow you to view this page.  Please contact your system administrator if you believe you should have access.  In the meantime, how about a pretty picture to cheer you up?")
     @Key("403.message")
@@ -25,9 +30,12 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String _03_title();
 
     /**
-     * Translated "The page you requested was not found.  You might try returning to the <a href=\"{0}\">Home</a>. While you&#39;re here, how about a pretty picture to cheer you up?".
+     * Translated
+     * "The page you requested was not found.  You might try returning to the <a href=\"{0}\">Home</a>. While you&#39;re here, how about a pretty picture to cheer you up?"
+     * .
      *
-     * @return translated "The page you requested was not found.  You might try returning to the <a href=\"{0}\">Home</a>. While you&#39;re here, how about a pretty picture to cheer you up?"
+     * @return translated
+     *         "The page you requested was not found.  You might try returning to the <a href=\"{0}\">Home</a>. While you&#39;re here, how about a pretty picture to cheer you up?"
      */
     @DefaultMessage("The page you requested was not found.  You might try returning to the <a href=\"{0}\">Home</a>. While you&#39;re here, how about a pretty picture to cheer you up?")
     @Key("404.message")
@@ -61,18 +69,24 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String activeUsers_heading();
 
     /**
-     * Translated "The following is a list of users that have logged in and their sessions have not expired.".
+     * Translated
+     * "The following is a list of users that have logged in and their sessions have not expired."
+     * .
      *
-     * @return translated "The following is a list of users that have logged in and their sessions have not expired."
+     * @return translated
+     *         "The following is a list of users that have logged in and their sessions have not expired."
      */
     @DefaultMessage("The following is a list of users that have logged in and their sessions have not expired.")
     @Key("activeUsers.message")
     String activeUsers_message();
 
     /**
-     * Translated "{0} User(s) found, displaying {1} user(s), from {2} to {3}. Page {4} / {5}".
+     * Translated
+     * "{0} User(s) found, displaying {1} user(s), from {2} to {3}. Page {4} / {5}"
+     * .
      *
-     * @return translated "{0} User(s) found, displaying {1} user(s), from {2} to {3}. Page {4} / {5}"
+     * @return translated
+     *         "{0} User(s) found, displaying {1} user(s), from {2} to {3}. Page {4} / {5}"
      */
     @DefaultMessage("{0} User(s) found, displaying {1} user(s), from {2} to {3}. Page {4} / {5}")
     @Key("activeUsers.summary")
@@ -349,9 +363,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String errors_cancel();
 
     /**
-     * Translated "An error occurred while converting web values to data values.".
+     * Translated
+     * "An error occurred while converting web values to data values.".
      *
-     * @return translated "An error occurred while converting web values to data values."
+     * @return translated
+     *         "An error occurred while converting web values to data values."
      */
     @DefaultMessage("An error occurred while converting web values to data values.")
     @Key("errors.conversion")
@@ -403,9 +419,12 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String errors_email(String arg0);
 
     /**
-     * Translated "This username ({0}) or e-mail address ({1}) already exists.  Please try a different username.".
+     * Translated
+     * "This username ({0}) or e-mail address ({1}) already exists.  Please try a different username."
+     * .
      *
-     * @return translated "This username ({0}) or e-mail address ({1}) already exists.  Please try a different username."
+     * @return translated
+     *         "This username ({0}) or e-mail address ({1}) already exists.  Please try a different username."
      */
     @DefaultMessage("This username ({0}) or e-mail address ({1}) already exists.  Please try a different username.")
     @Key("errors.existing.user")
@@ -538,9 +557,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String errors_short(String arg0);
 
     /**
-     * Translated "Request could not be completed. Operation is not in sequence.".
+     * Translated
+     * "Request could not be completed. Operation is not in sequence.".
      *
-     * @return translated "Request could not be completed. Operation is not in sequence."
+     * @return translated
+     *         "Request could not be completed. Operation is not in sequence."
      */
     @DefaultMessage("Request could not be completed. Operation is not in sequence.")
     @Key("errors.token")
@@ -549,7 +570,8 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     /**
      * Translated "The {0} field has to have the same value as the {1} field.".
      *
-     * @return translated "The {0} field has to have the same value as the {1} field."
+     * @return translated
+     *         "The {0} field has to have the same value as the {1} field."
      */
     @DefaultMessage("The {0} field has to have the same value as the {1} field.")
     @Key("errors.twofields")
@@ -583,9 +605,12 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String home_heading();
 
     /**
-     * Translated "Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:".
+     * Translated
+     * "Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:"
+     * .
      *
-     * @return translated "Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:"
+     * @return translated
+     *         "Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:"
      */
     @DefaultMessage("Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:")
     @Key("home.message")
@@ -682,9 +707,12 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String login_heading();
 
     /**
-     * Translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.".
+     * Translated
+     * "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>."
+     * .
      *
-     * @return translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>."
+     * @return translated
+     *         "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>."
      */
     @DefaultMessage("Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.")
     @Key("login.passwordHint")
@@ -720,7 +748,8 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     /**
      * Translated "Not a member? <a href=\"{0}\">Signup</a> for an account.".
      *
-     * @return translated "Not a member? <a href=\"{0}\">Signup</a> for an account."
+     * @return translated
+     *         "Not a member? <a href=\"{0}\">Signup</a> for an account."
      */
     @DefaultMessage("Not a member? <a href=\"{0}\">Signup</a> for an account.")
     @Key("login.signup")
@@ -736,9 +765,12 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String login_title();
 
     /**
-     * Translated "The file you are trying to upload is too big.  The maximum allowed size is 2 MB.".
+     * Translated
+     * "The file you are trying to upload is too big.  The maximum allowed size is 2 MB."
+     * .
      *
-     * @return translated "The file you are trying to upload is too big.  The maximum allowed size is 2 MB."
+     * @return translated
+     *         "The file you are trying to upload is too big.  The maximum allowed size is 2 MB."
      */
     @DefaultMessage("The file you are trying to upload is too big.  The maximum allowed size is 2 MB.")
     @Key("maxLengthExceeded")
@@ -790,9 +822,12 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String menu_user();
 
     /**
-     * Translated "{0} has created an AppFuse account for you.  Your username and password information is below.".
+     * Translated
+     * "{0} has created an AppFuse account for you.  Your username and password information is below."
+     * .
      *
-     * @return translated "{0} has created an AppFuse account for you.  Your username and password information is below."
+     * @return translated
+     *         "{0} has created an AppFuse account for you.  Your username and password information is below."
      */
     @DefaultMessage("{0} has created an AppFuse account for you.  Your username and password information is below.")
     @Key("newuser.email.message")
@@ -826,9 +861,12 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String search_enterTerms();
 
     /**
-     * Translated "You have successfully registered for access to AppFuse.  Your username and password information is below.".
+     * Translated
+     * "You have successfully registered for access to AppFuse.  Your username and password information is below."
+     * .
      *
-     * @return translated "You have successfully registered for access to AppFuse.  Your username and password information is below."
+     * @return translated
+     *         "You have successfully registered for access to AppFuse.  Your username and password information is below."
      */
     @DefaultMessage("You have successfully registered for access to AppFuse.  Your username and password information is below.")
     @Key("signup.email.message")
@@ -918,7 +956,8 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     /**
      * Translated "Password provided does not match your current password.".
      *
-     * @return translated "Password provided does not match your current password."
+     * @return translated
+     *         "Password provided does not match your current password."
      */
     @DefaultMessage("Password provided does not match your current password.")
     @Key("updatePassword.invalidPassword")
@@ -943,27 +982,34 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String updatePassword_newPassword_label();
 
     /**
-     * Translated "You have requested a password reset. Please input your new password.".
+     * Translated
+     * "You have requested a password reset. Please input your new password.".
      *
-     * @return translated "You have requested a password reset. Please input your new password."
+     * @return translated
+     *         "You have requested a password reset. Please input your new password."
      */
     @DefaultMessage("You have requested a password reset. Please input your new password.")
     @Key("updatePassword.passwordReset.message")
     String updatePassword_passwordReset_message();
 
     /**
-     * Translated "A password reset link was sent to your registered email address.".
+     * Translated
+     * "A password reset link was sent to your registered email address.".
      *
-     * @return translated "A password reset link was sent to your registered email address."
+     * @return translated
+     *         "A password reset link was sent to your registered email address."
      */
     @DefaultMessage("A password reset link was sent to your registered email address.")
     @Key("updatePassword.recoveryToken.sent")
     String updatePassword_recoveryToken_sent();
 
     /**
-     * Translated "Request a <a href=\"?\" onclick=\"requestRecoveryToken(); return false\">password reset</a> e-mailed to you.".
+     * Translated
+     * "Request a <a href=\"?\" onclick=\"requestRecoveryToken(); return false\">password reset</a> e-mailed to you."
+     * .
      *
-     * @return translated "Request a <a href=\"?\" onclick=\"requestRecoveryToken(); return false\">password reset</a> e-mailed to you."
+     * @return translated
+     *         "Request a <a href=\"?\" onclick=\"requestRecoveryToken(); return false\">password reset</a> e-mailed to you."
      */
     @DefaultMessage("Request a <a href=\"?\" onclick=\"requestRecoveryToken(); return false\">password reset</a> e-mailed to you.")
     @Key("updatePassword.requestRecoveryTokenLink")
@@ -997,9 +1043,12 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String upload_heading();
 
     /**
-     * Translated "Note that the maximum allowed size of an uploaded file for this application is 2 MB.".
+     * Translated
+     * "Note that the maximum allowed size of an uploaded file for this application is 2 MB."
+     * .
      *
-     * @return translated "Note that the maximum allowed size of an uploaded file for this application is 2 MB."
+     * @return translated
+     *         "Note that the maximum allowed size of an uploaded file for this application is 2 MB."
      */
     @DefaultMessage("Note that the maximum allowed size of an uploaded file for this application is 2 MB.")
     @Key("upload.message")
@@ -1053,7 +1102,8 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     /**
      * Translated "User information for {0} has been added successfully.".
      *
-     * @return translated "User information for {0} has been added successfully."
+     * @return translated
+     *         "User information for {0} has been added successfully."
      */
     @DefaultMessage("User information for {0} has been added successfully.")
     @Key("user.added")
@@ -1222,9 +1272,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String user_phoneNumber();
 
     /**
-     * Translated "You have successfully registered for access to this application. ".
+     * Translated
+     * "You have successfully registered for access to this application. ".
      *
-     * @return translated "You have successfully registered for access to this application. "
+     * @return translated
+     *         "You have successfully registered for access to this application. "
      */
     @DefaultMessage("You have successfully registered for access to this application. ")
     @Key("user.registered")
@@ -1260,7 +1312,8 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     /**
      * Translated "User information for {0} has been successfully updated.".
      *
-     * @return translated "User information for {0} has been successfully updated."
+     * @return translated
+     *         "User information for {0} has been successfully updated."
      */
     @DefaultMessage("User information for {0} has been successfully updated.")
     @Key("user.updated.byAdmin")
@@ -1384,9 +1437,12 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String userProfile_assignRoles();
 
     /**
-     * Translated "You cannot change passwords when logging in with the Remember Me feature.  Please logout and log back in to change passwords.".
+     * Translated
+     * "You cannot change passwords when logging in with the Remember Me feature.  Please logout and log back in to change passwords."
+     * .
      *
-     * @return translated "You cannot change passwords when logging in with the Remember Me feature.  Please logout and log back in to change passwords."
+     * @return translated
+     *         "You cannot change passwords when logging in with the Remember Me feature.  Please logout and log back in to change passwords."
      */
     @DefaultMessage("You cannot change passwords when logging in with the Remember Me feature.  Please logout and log back in to change passwords.")
     @Key("userProfile.cookieLogin")

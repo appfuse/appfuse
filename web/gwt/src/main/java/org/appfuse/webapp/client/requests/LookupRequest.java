@@ -18,7 +18,7 @@ import com.google.web.bindery.requestfactory.shared.Service;
 @Service(value = LookupRequestService.class, locator = GwtServiceLocator.class)
 public interface LookupRequest extends RequestContext {
 
-	public Request<LookupConstantsProxy> getApplicationConstants();
+    public Request<LookupConstantsProxy> getApplicationConstants();
 
-	public Request<LookupConstantsProxy> reloadOptions();
+    public Request<LookupConstantsProxy> reloadOptions();
 }

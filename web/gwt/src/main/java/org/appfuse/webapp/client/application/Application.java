@@ -24,7 +24,6 @@ import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 
-
 /**
  * @author ivangsa
  *
@@ -75,13 +74,13 @@ public abstract class Application {
         final NodeList<Element> metas = Document.get().getElementsByTagName("meta");
         for (int i = 0; i < metas.getLength(); i++) {
             final MetaElement meta = (MetaElement) metas.getItem(i);
-            if("rememberMeEnabled".equals(meta.getName())) {
+            if ("rememberMeEnabled".equals(meta.getName())) {
                 rememberMeEnabled = "true".equals(meta.getContent());
             }
         }
 
         contextPath = GWT.getModuleBaseURL()
-                .replace(GWT.getModuleName() + "/" , "");
+                .replace(GWT.getModuleName() + "/", "");
 
     }
 
@@ -152,21 +151,21 @@ public abstract class Application {
     }
 
     public String getCurrentUsername() {
-        if(getCurrentUser() == null) {
+        if (getCurrentUser() == null) {
             return null;
         }
         return getCurrentUser().getUsername();
     }
 
     public boolean isUserInRole(final String role) {
-        if(RoleProxy.ANONYMOUS.equals(role)) {
+        if (RoleProxy.ANONYMOUS.equals(role)) {
             return currentUser == null;
-        } else if(RoleProxy.AUTHENTICATED.equals(role)) {
+        } else if (RoleProxy.AUTHENTICATED.equals(role)) {
             return currentUser != null;
         }
-        else if(currentUser != null && currentUser.getRoles() != null && role != null) {
+        else if (currentUser != null && currentUser.getRoles() != null && role != null) {
             for (final RoleProxy roleProxy : currentUser.getRoles()) {
-                if(role.equalsIgnoreCase(roleProxy.getName())) {
+                if (role.equalsIgnoreCase(roleProxy.getName())) {
                     return true;
                 }
             }
@@ -175,9 +174,9 @@ public abstract class Application {
     }
 
     public boolean hasAnyRole(final String[] roles) {
-        if(roles != null) {
+        if (roles != null) {
             for (final String role : roles) {
-                if(isUserInRole(role)) {
+                if (isUserInRole(role)) {
                     return true;
                 }
             }

@@ -11,7 +11,7 @@ import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
 
-@Service(value = UserRequestService.class, locator=GwtServiceLocator.class)
+@Service(value = UserRequestService.class, locator = GwtServiceLocator.class)
 public interface UserRequest extends RequestContext {
 
     abstract Request<UserProxy> getCurrentUser();

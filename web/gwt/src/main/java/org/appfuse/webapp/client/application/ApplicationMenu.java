@@ -44,7 +44,7 @@ public class ApplicationMenu {
         adminMenu.add(new MenuItem(i18n.menu_selectFile(), new FileUploadPlace(), RoleProxy.ROLE_ADMIN));
 
         rootMenu.add(new MenuItem(i18n.login_title(), new LoginPlace(), RoleProxy.ANONYMOUS));
-        rootMenu.add( new MenuItem(i18n.user_logout(), new LogoutPlace(), RoleProxy.AUTHENTICATED));
+        rootMenu.add(new MenuItem(i18n.user_logout(), new LogoutPlace(), RoleProxy.AUTHENTICATED));
     }
 
     public MenuItem getRootMenu() {
@@ -52,14 +52,14 @@ public class ApplicationMenu {
     }
 
     public List<MenuItem> asList() {
-        if(allMenuItems == null) {
+        if (allMenuItems == null) {
             allMenuItems = new ArrayList<MenuItem>();
             appendChildrenToList(allMenuItems, rootMenu);
         }
         return allMenuItems;
     }
 
-    protected void appendChildrenToList(final List<MenuItem> menuItems, final MenuItem menuItem){
+    protected void appendChildrenToList(final List<MenuItem> menuItems, final MenuItem menuItem) {
         for (final MenuItem childItem : menuItem) {
             menuItems.add(childItem);
             appendChildrenToList(menuItems, childItem);
