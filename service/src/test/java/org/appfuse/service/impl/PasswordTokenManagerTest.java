@@ -1,5 +1,12 @@
 package org.appfuse.service.impl;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.net.BindException;
+import java.util.Random;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
@@ -16,11 +23,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.subethamail.wiser.Wiser;
 
-import javax.transaction.Transactional;
-import java.util.Random;
-
-import static org.junit.Assert.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
     "classpath:/applicationContext-resources.xml",
@@ -30,9 +32,12 @@ import static org.junit.Assert.*;
 })
 public class PasswordTokenManagerTest {
     protected transient final Log log = LogFactory.getLog(getClass());
+
     private int smtpPort;
     private UserManager userManager;
     private PasswordTokenManager passwordTokenManager;
+    @Autowired
+    private JavaMailSenderImpl mailSender;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -48,16 +53,30 @@ public class PasswordTokenManagerTest {
     public void setPasswordTokenManager(PasswordTokenManager passwordTokenManager) {
         this.passwordTokenManager = passwordTokenManager;
     }
+    
+    protected Wiser startWiser(int smtpPort) {
+        Wiser wiser = new Wiser();
+        wiser.setPort(smtpPort);
+        try {
+            wiser.start();
+        } catch (RuntimeException re) {
+            if (re.getCause() instanceof BindException) {
+                int nextPort = smtpPort + 1;
+                if (nextPort - smtpPort > 10) {
+                    log.error("Exceeded 10 attempts to start SMTP server, aborting...");
+                    throw re;
+                }
+                log.error("SMTP port " + smtpPort + " already in use, trying " + nextPort);
+                return startWiser(nextPort);
+            }
+        }
+        mailSender.setPort(smtpPort);
+        return wiser;
+    }    
 
     @Before
     public void before() throws Exception {
         smtpPort = (new Random().nextInt(9999 - 1000) + 1000);
-        log.debug("SMTP Port set to: " + smtpPort);
-        // change the port on the mailSender so it doesn't conflict with an
-        // existing SMTP server on localhost
-        final JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
-        mailSender.setPort(smtpPort);
-        mailSender.setHost("localhost");
 
         // create new user so conflicts don't occur with other tests
         User user = new User("token-test");
@@ -91,9 +110,7 @@ public class PasswordTokenManagerTest {
         assertTrue(passwordTokenManager.isRecoveryTokenValid(user, token));
 
         // start SMTP Server
-        final Wiser wiser = new Wiser();
-        wiser.setPort(smtpPort);
-        wiser.start();
+        Wiser wiser = startWiser(smtpPort);
 
         User updated = userManager.updatePassword(user.getUsername(), null, token, "user", "");
 
