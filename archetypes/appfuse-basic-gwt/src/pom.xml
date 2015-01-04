@@ -84,6 +84,11 @@
             <artifactId>gwt-user</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <scope>runtime</scope><!-- asm version is incompatible with gwt-maven-plugin -->
+        </dependency>        
         <!-- Selenium web tests -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>

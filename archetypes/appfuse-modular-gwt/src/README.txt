@@ -20,7 +20,7 @@ To get started, complete the following steps:
 
 2. From the command line, cd into the core directory and run "mvn install".
 
-3. From the command line, cd into the web directory and run "mvn jetty:run".
+3. From the command line, cd into the web directory and run "mvn jetty:run-war".
 
 4. View the application at http://localhost:8080.
 
