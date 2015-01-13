@@ -4,10 +4,10 @@
     <!-- CSS URL Rewriting fails when using webjar resource locator:
          https://github.com/alexo/wro4j/issues/127 -->
     <group name="main">
-        <css>classpath:META-INF/resources/webjars/bootswatch-spacelab/3.2.0/css/bootstrap.min.css</css>
+        <css>classpath:META-INF/resources/webjars/bootswatch-spacelab/3.3.1+2/css/bootstrap.min.css</css>
         <css>/styles/style.css</css>
         <!-- jQuery included by <h:outputScript> in assets.xhtml since PrimeFaces include its own JS -->
-        <js>classpath:META-INF/resources/webjars/bootstrap/3.3.0/js/bootstrap.min.js</js>
+        <js>classpath:META-INF/resources/webjars/bootstrap/3.3.1/js/bootstrap.min.js</js>
         <js>classpath:META-INF/resources/webjars/jquery-cookie/1.3.1/jquery.cookie.js</js>
         <js>/scripts/script.js</js>
     </group>

@@ -25,7 +25,7 @@ import org.appfuse.webapp.services.SecurityContext;
  */
 
 @Import(stack = {"core"}, module = {"bootstrap/collapse", "bootstrap/dropdown", "bootstrap/modal"},
-    stylesheet = {"classpath:/META-INF/resources/webjars/bootswatch-spacelab/3.2.0/css/bootstrap.min.css",
+    stylesheet = {"classpath:/META-INF/resources/webjars/bootswatch-spacelab/3.3.1+2/css/bootstrap.min.css",
         "app/layout.css", "app/t5-override.css",
     })
 public class Layout {

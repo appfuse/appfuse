@@ -21,7 +21,7 @@ pageContext.setAttribute("ctxPath", contextPath);
 	<c:set var="group" value="main" />
 	<c:choose>
 	    <c:when test="${param.debug}">
-	        <link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch-spacelab/3.2.0/css/bootstrap.min.css"/>
+	        <link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch-spacelab/3.3.1+2/css/bootstrap.min.css"/>
 	        <link rel="stylesheet" type="text/css" href="${base}/styles/style.css"/>
 	    </c:when>
 	    <c:otherwise>
@@ -39,7 +39,7 @@ pageContext.setAttribute("ctxPath", contextPath);
 	<c:choose>
 	    <c:when test="${param.debug}">
 	        <script type="text/javascript" src="${base}/webjars/jquery/1.11.1/jquery.min.js"></script>
-	        <script type="text/javascript" src="${base}/webjars/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	        <script type="text/javascript" src="${base}/webjars/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	        <script type="text/javascript" src="${base}/webjars/jquery-cookie/1.3.1/jquery.cookie.js"></script>
 	    </c:when>
 	    <c:otherwise>

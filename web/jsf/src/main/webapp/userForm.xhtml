@@ -149,26 +149,33 @@
 
             <c:choose>
                 <c:when test="${param.from == 'list' or param['editUser:add'] == addText}">
-                    <h:panelGroup styleClass="form-group" layout="block">
-                        <fieldset>
-                            <legend><h:outputText value="#{text['userProfile.accountSettings']}"/></legend>
-                            <h:outputLabel styleClass="checkbox" for="enabled" value="#{text['user.enabled']}">
-                                <h:selectBooleanCheckbox value="#{userForm.user.enabled}" id="enabled" styleClass="checkbox"/>
-                            </h:outputLabel>
-
-                            <h:outputLabel styleClass="checkbox" for="accountExpired" value="#{text['user.accountExpired']}">
-                                <h:selectBooleanCheckbox value="#{userForm.user.accountExpired}" id="accountExpired" styleClass="checkbox"/>
-                            </h:outputLabel>
-
-                            <h:outputLabel styleClass="checkbox" for="accountLocked" value="#{text['user.accountLocked']}">
-                                <h:selectBooleanCheckbox value="#{userForm.user.accountLocked}" id="accountLocked" styleClass="checkbox"/>
-                            </h:outputLabel>
-
-                            <h:outputLabel styleClass="checkbox" for="credentialsExpired" value="#{text['user.credentialsExpired']}">
-                                <h:selectBooleanCheckbox value="#{userForm.user.credentialsExpired}" id="credentialsExpired" styleClass="checkbox"/>
-                            </h:outputLabel>
-                        </fieldset>
-                    </h:panelGroup>
+                    <fieldset>
+                        <legend><h:outputText value="#{text['userProfile.accountSettings']}"/></legend>
+                        <div class="checkbox">
+                            <label for="enabled">
+                                <h:selectBooleanCheckbox value="#{userForm.user.enabled}" id="enabled"/>
+                                #{text['user.enabled']}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label for="accountExpired">
+                                <h:selectBooleanCheckbox value="#{userForm.user.accountExpired}" id="accountExpired"/>
+                                #{text['user.accountExpired']}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label for="accountLocked">
+                                <h:selectBooleanCheckbox value="#{userForm.user.accountLocked}" id="accountLocked"/>
+                                #{text['user.accountLocked']}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label for="credentialsExpired">
+                                <h:selectBooleanCheckbox value="#{userForm.user.credentialsExpired}" id="credentialsExpired"/>
+                                #{text['user.credentialsExpired']}
+                            </label>
+                        </div>
+                    </fieldset>
                     <h:panelGroup styleClass="form-group" layout="block">
                         <fieldset>
                             <legend>#{text['userProfile.assignRoles']}</legend>

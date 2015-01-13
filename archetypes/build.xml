@@ -411,9 +411,9 @@
                         <replacetoken><![CDATA[<fileSet encoding="UTF-8">
       <directory>src/main/resources</directory>
       <includes>
-        <include>**/*.js</include>
-        <include>**/*.tml</include>
         <include>**/*.css</include>
+        <include>**/*.tml</include>
+        <include>**/*.js</include>
       </includes>
     </fileSet>]]></replacetoken>
                         <replacevalue><![CDATA[<fileSet packaged="true" encoding="UTF-8">
@@ -425,8 +425,8 @@
     <fileSet encoding="UTF-8">
       <directory>src/main/resources</directory>
       <includes>
-        <include>**/*.js</include>
         <include>**/*.css</include>
+        <include>**/*.js</include>
       </includes>
     </fileSet>]]></replacevalue>
                     </replace>
@@ -445,9 +445,9 @@
                         <replacetoken><![CDATA[<fileSet encoding="UTF-8">
           <directory>src/main/resources</directory>
           <includes>
-            <include>**/*.js</include>
-            <include>**/*.tml</include>
             <include>**/*.css</include>
+            <include>**/*.tml</include>
+            <include>**/*.js</include>
           </includes>
         </fileSet>]]></replacetoken>
                         <replacevalue><![CDATA[<fileSet packaged="true" encoding="UTF-8">
@@ -459,8 +459,8 @@
         <fileSet encoding="UTF-8">
           <directory>src/main/resources</directory>
           <includes>
-            <include>**/*.js</include>
             <include>**/*.css</include>
+            <include>**/*.js</include>
           </includes>
         </fileSet>]]></replacevalue>
                     </replace>
