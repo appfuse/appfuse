@@ -48,6 +48,6 @@ pageContext.setAttribute("ctxPath", contextPath);
 	</c:choose>
 
   	<script type="text/javascript">$("#progressbar").css("width", "30%")</script>
-    <script type="text/javascript" src="script/script.nocache.js"></script>
+    <script type="text/javascript" src="application/application.nocache.js"></script>
 </body>
 </html>
