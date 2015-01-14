@@ -445,9 +445,9 @@
                         <replacetoken><![CDATA[<fileSet encoding="UTF-8">
           <directory>src/main/resources</directory>
           <includes>
-            <include>**/*.css</include>
-            <include>**/*.tml</include>
             <include>**/*.js</include>
+            <include>**/*.tml</include>
+            <include>**/*.css</include>
           </includes>
         </fileSet>]]></replacetoken>
                         <replacevalue><![CDATA[<fileSet packaged="true" encoding="UTF-8">
