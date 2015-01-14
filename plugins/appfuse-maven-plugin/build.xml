@@ -137,7 +137,7 @@
 
             <echo level="info">Generating Generic CRUD for Person entity...</echo>
             <!-- run gen install integration-test -->
-            <property name="test-command" value="verify -Duser.language=en"/>
+            <property name="test-command" value="verify -Pitest -Duser.language=en"/>
 
             <echo message="Using test command: ${test-command}"/>
 
@@ -194,7 +194,7 @@
 
             <!-- gen and test web -->
             <maven dir="${test.dir}/@{name}/web" command="appfuse:gen -Dentity=Person -Damp.genericCore=false -e"/>
-            <maven dir="${test.dir}/@{name}/web" command="install -Duser.language=en -Dsurefire.useFile=false -e"/>
+            <maven dir="${test.dir}/@{name}/web" command="install -Pitest -Duser.language=en -Dsurefire.useFile=false -e"/>
         </sequential>
     </macrodef>
 

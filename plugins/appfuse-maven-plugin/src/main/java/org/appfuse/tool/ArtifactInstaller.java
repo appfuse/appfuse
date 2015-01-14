@@ -73,6 +73,7 @@ public class ArtifactInstaller {
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/webapp/**/*.java");
 
             String webFramework = project.getProperties().getProperty("web.framework");
+            String pagesPath = (isAppFuse()) ? "/src/main/webapp/WEB-INF/pages/" : "/src/main/webapp/";
 
             if ("jsf".equalsIgnoreCase(webFramework)) {
                 log("Installing JSF views and configuring...");
@@ -87,13 +88,13 @@ public class ArtifactInstaller {
                         destinationDirectory + "/src/main/resources", "**/model/*.xml");
                 copyGeneratedObjects(sourceDirectory + "/src/main/resources",
                         destinationDirectory + "/src/main/resources", "**/webapp/action/*.xml");
-                installStrutsViews();
+                installStrutsViews(pagesPath);
             } else if ("spring".equalsIgnoreCase(webFramework)) {
                 log("Installing Spring views and configuring...");
                 //Controllers configured by Spring annotations in 2.1+
                 //installSpringControllerBeanDefinitions();
                 installSpringValidation();
-                installSpringViews();
+                installSpringViews(pagesPath);
             } else if ("tapestry".equalsIgnoreCase(webFramework)) {
                 log("Installing Tapestry views and configuring...");
                 installTapestryViews();
@@ -171,19 +172,6 @@ public class ArtifactInstaller {
         parseXMLFile(existingFile, null, "</dataset>", "sample.data");
     }
 
-    /* APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
-    private void installDaoAndManagerBeanDefinitions() {
-        createLoadFileTask("src/main/resources/" + pojoName + "Dao-bean.xml", "dao.context.file").execute();
-        File generatedFile = new File(destinationDirectory + getPathToApplicationContext());
-
-        parseXMLFile(generatedFile, pojoName + "Dao", "<!-- Add new DAOs here -->", "dao.context.file");
-
-        createLoadFileTask("src/main/resources/" + pojoName + "Manager-bean.xml", "mgr.context.file").execute();
-        generatedFile = new File(destinationDirectory + getPathToApplicationContext());
-
-        parseXMLFile(generatedFile, pojoName + "Manager", "<!-- Add new Managers here -->", "mgr.context.file");
-    }*/
-
     private void installiBATISFiles() {
         if (project.getProperties().getProperty("dao.framework").equals("ibatis")) {
             log("Installing iBATIS SQL Maps...");
@@ -235,19 +223,6 @@ public class ArtifactInstaller {
         createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-navigation.xml", "navigation.rules").execute();
         File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
         parseXMLFile(generatedFile, pojoName + "-nav", "<!-- Add additional rules here -->", "navigation.rules");
-
-        // JSF managed beans configured by Spring annotations in 2.1+
-        //createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-managed-beans.xml", "managed.beans").execute();
-        //generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
-        //parseXMLFile(generatedFile, pojoName + "-beans", "<!-- Add additional beans here -->", "managed.beans");
-    }
-
-    private void installSpringControllerBeanDefinitions() {
-        // Controllers configured by Spring annotations in 2.1+
-        //createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-beans.xml", "dispatcher.servlet").execute();
-        //File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/dispatcher-servlet.xml");
-
-        //parseXMLFile(generatedFile, pojoName, "<!-- Add additional controller beans here -->", "dispatcher.servlet");
     }
 
     private void installSpringValidation() {
@@ -277,25 +252,25 @@ public class ArtifactInstaller {
         copy.execute();
     }
 
-    private void installSpringViews() {
+    private void installSpringViews(String pagesPath) {
         Copy copy = (Copy) antProject.createTask("copy");
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "form.jsp"));
-        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "form.jsp"));
+        copy.setTofile(new File(destinationDirectory + pagesPath + pojoNameLower + "form.jsp"));
         copy.execute();
 
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "s.jsp"));
-        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + util.getPluralForWord(pojoNameLower) + ".jsp"));
+        copy.setTofile(new File(destinationDirectory + pagesPath + util.getPluralForWord(pojoNameLower) + ".jsp"));
         copy.execute();
     }
 
-    private void installStrutsViews() {
+    private void installStrutsViews(String pagesPath) {
         Copy copy = (Copy) antProject.createTask("copy");
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "Form.jsp"));
-        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "Form.jsp"));
+        copy.setTofile(new File(destinationDirectory + pagesPath + pojoNameLower + "Form.jsp"));
         copy.execute();
 
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "List.jsp"));
-        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "List.jsp"));
+        copy.setTofile(new File(destinationDirectory + pagesPath + pojoNameLower + "List.jsp"));
         copy.execute();
     }
 
@@ -394,10 +369,10 @@ public class ArtifactInstaller {
                 e.printStackTrace();
             }
             replace.execute();
-        } else {
-            log("Project doesn't use Canoo WebTest, disabling UI test generation.");
-            log("Support for jWebUnit will be added in a future release.");
-            log("See http://issues.appfuse.org/browse/EQX-215 for more information.");
+
+            // Delete any jWebUnit artifacts that may have been installed
+            File jwebunitTest = FileUtils.getFile(new File(destinationDirectory), pojoName + "WebTest.java");
+            jwebunitTest.delete();
         }
     }
 

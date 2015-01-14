@@ -3,12 +3,12 @@
           heading="message:${pojoNameLower}Detail.heading" menu="${pojo.shortName}Menu"
           xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
 
-<div class="col-sm-2">
+<div class="col-sm-3">
     <h2>${'$'}{message:${pojoNameLower}Detail.heading}</h2>
     ${'$'}{message:${pojoNameLower}Detail.message}
 </div>
 
-<div class="col-sm-7">
+<div class="col-sm-6">
     <form t:id="${pojoNameLower}Form" class="well" clientValidation="submit">
 
         <div class="t-beaneditor">

@@ -3,6 +3,8 @@ package org.appfuse.tool;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2x.GenericExporter;
 import org.hibernate.tool.hbm2x.pojo.POJOClass;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import java.io.File;
 import java.util.Map;
@@ -76,7 +78,7 @@ public class AppFuseExporter extends GenericExporter {
             configureExporter("appfuse/dao/" + daoFramework + "/dao-impl.ftl",
                     "src/main/java/{basepkg-name}/dao/" + daoFramework + "/{class-name}Dao" +
                             getDaoFilename(daoFramework) + ".java").start();
-            
+
             // Manager Test
             configureExporter("appfuse/service/manager-test.ftl",
                     "src/test/java/{basepkg-name}/service/impl/{class-name}ManagerImplTest.java").start();
@@ -115,6 +117,7 @@ public class AppFuseExporter extends GenericExporter {
         if (!webProject) return;
 
         String webFramework = getProperties().getProperty("webframework");
+        Resource jwebUnitTemplate = new ClassPathResource("appfuse/web/" + webFramework + "/jwebunit-tests.ftl");
         if (webFramework.equalsIgnoreCase("jsf")) {
             // tests
             configureExporter("appfuse/web/jsf/list-test.ftl", "src/test/java/{basepkg-name}/webapp/action/{class-name}ListTest.java").start();
@@ -130,9 +133,6 @@ public class AppFuseExporter extends GenericExporter {
 
             // configuration
             configureExporter("appfuse/web/jsf/navigation.ftl", "src/main/webapp/WEB-INF/{class-name}-navigation.xml").start();
-
-            // JSF managed beans configured by Spring annotations in 2.1+
-            //configureExporter("appfuse/web/jsf/managed-beans.ftl", "src/main/webapp/WEB-INF/{class-name}-managed-beans.xml").start();
         } else if (webFramework.equalsIgnoreCase("spring")) {
             // tests
             configureExporter("appfuse/web/spring/controller-test.ftl", "src/test/java/{basepkg-name}/webapp/controller/{class-name}ControllerTest.java").start();
@@ -145,9 +145,6 @@ public class AppFuseExporter extends GenericExporter {
             // views
             configureExporter("appfuse/web/spring/list-view.ftl", "src/main/webapp/WEB-INF/pages/{class-name}s.jsp").start();
             configureExporter("appfuse/web/spring/form-view.ftl", "src/main/webapp/WEB-INF/pages/{class-name}form.jsp").start();
-
-            // Controllers configured by Spring annotations in 2.1+
-            //configureExporter("appfuse/web/spring/controller-beans.ftl", "src/main/webapp/WEB-INF/{class-name}-beans.xml").start();
 
             // validation
             configureExporter("appfuse/web/spring/form-validation.ftl", "src/main/webapp/WEB-INF/{class-name}-validation.xml").start();
@@ -166,7 +163,9 @@ public class AppFuseExporter extends GenericExporter {
             // This template is not used anymore (APF-798), but retained in case we do want to create definitions by default in the future
             configureExporter("appfuse/web/struts/action-beans.ftl", "src/main/webapp/WEB-INF/{class-name}-struts-bean.xml").start();
 
-            configureExporter("appfuse/web/struts/struts.ftl", "src/main/resources/{class-name}-struts.xml").start();
+            GenericExporter exporter = configureExporter("appfuse/web/struts/struts.ftl", "src/main/resources/{class-name}-struts.xml");
+            exporter.getProperties().put("pagesPath", jwebUnitTemplate.exists() ? "" : "/WEB-INF/pages");
+            exporter.start();
 
             // validation
             configureExporter("appfuse/web/struts/model-validation.ftl", "src/main/resources/{basepkg-name}/model/{class-name}-validation.xml").start();
@@ -186,7 +185,6 @@ public class AppFuseExporter extends GenericExporter {
         } else {
             log.warn("Your project's web framework '" + webFramework + "' is not supported by AMP at this time.");
             log.warn("See http://issues.appfuse.org/browse/EQX-211 for more information.");
-
         }
 
         // menu
@@ -201,10 +199,11 @@ public class AppFuseExporter extends GenericExporter {
         // i18n
         configureExporter("appfuse/web/ApplicationResources.ftl", "src/main/resources/{class-name}-ApplicationResources.properties").start();
 
-        // ui tests
-        if (!webFramework.equals("wicket") && !webFramework.equals("spring-security") &&
-                !webFramework.equals("spring-freemarker") && !webFramework.equals("stripes")) {
-            configureExporter("appfuse/web/" + webFramework + "/web-tests.ftl", "src/test/resources/{class-name}-web-tests.xml").start();
+        // canoo tests
+        configureExporter("appfuse/web/" + webFramework + "/web-tests.ftl", "src/test/resources/{class-name}-web-tests.xml").start();
+        // jwebunit tests
+        if (jwebUnitTemplate.exists()) {
+            configureExporter("appfuse/web/" + webFramework + "/jwebunit-tests.ftl", "src/test/java/{basepkg-name}/webapp/{class-name}WebTest.java").start();
         }
     }
 
@@ -231,7 +230,7 @@ public class AppFuseExporter extends GenericExporter {
                 }
             }
         } else {
-            templatePaths = getTemplatePaths();   
+            templatePaths = getTemplatePaths();
         }
 
         GenericExporter exporter = new GenericExporter(getConfiguration(), getOutputDirectory()) {

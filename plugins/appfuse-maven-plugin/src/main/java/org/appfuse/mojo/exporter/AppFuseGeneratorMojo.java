@@ -193,7 +193,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
                     File existingConfig = new File(hibernateConfig);
                     if (!existingConfig.exists()) {
                         InputStream in = this.getClass().getResourceAsStream("/appfuse/dao/ibatis/hibernate.cfg.ftl");
-                        StringBuffer configFile = new StringBuffer();
+                        StringBuilder configFile = new StringBuilder();
                         try {
                             InputStreamReader isr = new InputStreamReader(in);
                             BufferedReader reader = new BufferedReader(isr);

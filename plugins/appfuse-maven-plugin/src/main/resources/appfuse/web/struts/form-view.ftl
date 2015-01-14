@@ -12,12 +12,12 @@
    "<fmt:message key="delete.confirm"><fmt:param value=${'"'}${r"${delObject}"}${'"'}/></fmt:message>";
 </script>
 
-<div class="col-sm-2">
+<div class="col-sm-3">
     <h2><fmt:message key="${pojoNameLower}Detail.heading"/></h2>
     <fmt:message key="${pojoNameLower}Detail.message"/>
 </div>
 
-<div class="col-sm-7">
+<div class="col-sm-6">
     <s:form id="${pojoNameLower}Form" action="save${pojo.shortName}" method="post" validate="true" cssClass="well">
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>
@@ -47,28 +47,27 @@
 </#if>
 </#foreach>
 
-        <div id="actions" class="form-group">
-            <s:submit type="button" cssClass="btn btn-primary" method="save" key="button.save" theme="simple">
+        <div class="form-group">
+            <s:submit type="button" id="save" cssClass="btn btn-primary" method="save" key="button.save" theme="simple">
                 <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
             </s:submit>
             <c:if test="${'$'}{not empty ${pojoNameLower}.${idFieldName}}">
-                <s:submit type="button" cssClass="btn btn-danger" method="delete" key="button.delete"
+                <s:submit type="button" id="delete" cssClass="btn btn-danger" method="delete" key="button.delete"
                     onclick="return confirmMessage(msgDelConfirm)" theme="simple">
                     <i class="icon-trash icon-white"></i> <fmt:message key="button.delete"/>
                 </s:submit>
             </c:if>
-            <s:submit type="button" cssClass="btn btn-default" method="cancel" key="button.cancel" theme="simple">
-                <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
-            </s:submit>
+            <a href="${'$'}{ctx}/${util.getPluralForWord(pojoNameLower)}" class="btn btn-default">
+                <i class="icon-remove"></i> <fmt:message key="button.cancel"/></a>
         </div>
     </s:form>
 </div>
 
 <#if dateExists><#rt/>
-<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/webjars/bootstrap-datepicker/1.2.0/css/datepicker.css'/>" />
-<script type="text/javascript" src="<c:url value='/webjars/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.js'/>"></script>
+<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/webjars/bootstrap-datepicker/1.3.1/css/datepicker.css'/>" />
+<script type="text/javascript" src="<c:url value='/webjars/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.js'/>"></script>
 <c:if test="${'$'}{pageContext.request.locale.language != 'en'}">
-<script type="text/javascript" src="<c:url value='/webjars/bootstrap-datepicker/1.2.0/js/locales/bootstrap-datepicker.${r"${pageContext.request.locale.language}"}.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/webjars/bootstrap-datepicker/1.3.1/js/locales/bootstrap-datepicker.${r"${pageContext.request.locale.language}"}.js'/>"></script>
 </c:if>
 </#if><#rt/>
 <script type="text/javascript">
