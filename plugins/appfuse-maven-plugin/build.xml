@@ -72,6 +72,10 @@
         <create-gen-basic archetype="appfuse-light-spring" name="light-spring"/>
     </target>
 
+    <target name="test-spring-security-light" description="tests plugin with spring security light archetype">
+        <create-gen-basic archetype="appfuse-light-spring-security" name="light-spring-security"/>
+    </target>
+
     <target name="test-struts-light" description="tests plugin with struts light archetype">
         <create-gen-basic archetype="appfuse-light-struts" name="light-struts"/>
     </target>

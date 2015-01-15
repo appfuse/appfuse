@@ -133,7 +133,7 @@ public class AppFuseExporter extends GenericExporter {
 
             // configuration
             configureExporter("appfuse/web/jsf/navigation.ftl", "src/main/webapp/WEB-INF/{class-name}-navigation.xml").start();
-        } else if (webFramework.equalsIgnoreCase("spring")) {
+        } else if (webFramework.equalsIgnoreCase("spring") || webFramework.equalsIgnoreCase("spring-security")) {
             // tests
             configureExporter("appfuse/web/spring/controller-test.ftl", "src/test/java/{basepkg-name}/webapp/controller/{class-name}ControllerTest.java").start();
             configureExporter("appfuse/web/spring/formcontroller-test.ftl", "src/test/java/{basepkg-name}/webapp/controller/{class-name}FormControllerTest.java").start();
@@ -200,7 +200,9 @@ public class AppFuseExporter extends GenericExporter {
         configureExporter("appfuse/web/ApplicationResources.ftl", "src/main/resources/{class-name}-ApplicationResources.properties").start();
 
         // canoo tests
-        configureExporter("appfuse/web/" + webFramework + "/web-tests.ftl", "src/test/resources/{class-name}-web-tests.xml").start();
+        if (!webFramework.equals("spring-security")) {
+            configureExporter("appfuse/web/" + webFramework + "/web-tests.ftl", "src/test/resources/{class-name}-web-tests.xml").start();
+        }
         // jwebunit tests
         if (jwebUnitTemplate.exists()) {
             configureExporter("appfuse/web/" + webFramework + "/jwebunit-tests.ftl", "src/test/java/{basepkg-name}/webapp/{class-name}WebTest.java").start();
