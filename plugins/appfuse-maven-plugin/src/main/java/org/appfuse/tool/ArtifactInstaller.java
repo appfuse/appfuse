@@ -89,10 +89,8 @@ public class ArtifactInstaller {
                 copyGeneratedObjects(sourceDirectory + "/src/main/resources",
                         destinationDirectory + "/src/main/resources", "**/webapp/action/*.xml");
                 installStrutsViews(pagesPath);
-            } else if ("spring".equalsIgnoreCase(webFramework)) {
+            } else if ("spring".equalsIgnoreCase(webFramework) || "spring-security".equalsIgnoreCase(webFramework)) {
                 log("Installing Spring views and configuring...");
-                //Controllers configured by Spring annotations in 2.1+
-                //installSpringControllerBeanDefinitions();
                 installSpringValidation();
                 installSpringViews(pagesPath);
             } else if ("tapestry".equalsIgnoreCase(webFramework)) {
