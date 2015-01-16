@@ -7,7 +7,6 @@
     <h2>${'$'}{message:${pojoNameLower}Detail.heading}</h2>
     ${'$'}{message:${pojoNameLower}Detail.message}
 </div>
-
 <div class="col-sm-6">
     <form t:id="${pojoNameLower}Form" class="well" clientValidation="submit">
 
