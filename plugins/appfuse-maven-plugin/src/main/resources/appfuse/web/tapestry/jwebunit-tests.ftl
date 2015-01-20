@@ -17,8 +17,12 @@ public class ${pojo.shortName}WebTest {
 
     @Before
     public void setUp() {
-        setScriptingEnabled(false);
-        getTestContext().setBaseUrl("http://" + System.getProperty("cargo.host") + ":" + System.getProperty("cargo.port"));
+        setScriptingEnabled(true);
+        if (System.getProperty("cargo.host") != null) {
+            getTestContext().setBaseUrl("http://" + System.getProperty("cargo.host") + ":" + System.getProperty("cargo.port"));
+        } else {
+            getTestContext().setBaseUrl("http://localhost:8080");
+        }
         getTestContext().setResourceBundleName("messages");
         messages = ResourceBundle.getBundle("messages");
     }
@@ -41,7 +45,7 @@ public class ${pojo.shortName}WebTest {
 
     @Test
     public void list${util.getPluralForWord(pojo.shortName)}() {
-        beginAt("/${util.getPluralForWord(pojoNameLower)}list");
+        beginAt("/${pojoNameLower}list");
         assertTitleKeyMatches("${pojoNameLower}List.title");
 
         // check that table is present
@@ -50,14 +54,14 @@ public class ${pojo.shortName}WebTest {
 
     @Test
     public void edit${pojo.shortName}() {
-        beginAt("/${pojoNameLower}form?id=" + getInsertedId());
+        beginAt("/${pojoNameLower}form/" + getInsertedId());
         clickButton("save");
         assertTitleKeyMatches("${pojoNameLower}Detail.title");
     }
 
     @Test
     public void save${pojo.shortName}() {
-        beginAt("/${pojoNameLower}form?id=" + getInsertedId());
+        beginAt("/${pojoNameLower}form/" + getInsertedId());
         assertTitleKeyMatches("${pojoNameLower}Detail.title");
 
         // update some of the required fields
@@ -77,14 +81,15 @@ public class ${pojo.shortName}WebTest {
     public void testCancel() {
         beginAt("/${pojoNameLower}form");
         assertTitleKeyMatches("${pojoNameLower}Detail.title");
-        submit("cancel_0");
+        clickLink("cancel");
         assertTitleKeyMatches("${pojoNameLower}List.title");
     }
 
     @After
     public void remove${pojo.shortName}() {
-        beginAt("/${pojoNameLower}form?id=" + getInsertedId());
-        clickButton("delete");
+        beginAt("/${pojoNameLower}form/" + getInsertedId());
+        setExpectedJavaScriptConfirm("Are you sure you want to delete this ${pojo.shortName}?", true);
+        clickLink("delete");
         assertTitleKeyMatches("${pojoNameLower}List.title");
         assertKeyPresent("${pojoNameLower}.deleted");
     }
@@ -95,7 +100,7 @@ public class ${pojo.shortName}WebTest {
      * @return last id in the table
      */
     protected String getInsertedId() {
-        beginAt("/${util.getPluralForWord(pojoNameLower)}");
+        beginAt("/${pojoNameLower}list");
         assertTablePresent("${pojoNameLower}List");
         Table table = getTable("${pojoNameLower}List");
         // Find link in last row, skip header row
