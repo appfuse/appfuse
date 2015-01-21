@@ -13,27 +13,27 @@
     </div>
 </c:if>
 
-    <h2><fmt:message key="${pojoNameLower}List.heading"/></h2>
+<h2><fmt:message key="${pojoNameLower}List.heading"/></h2>
 
-    <form method="get" action="${'$'}{ctx}/${util.getPluralForWord(pojoNameLower)}" id="searchForm" class="form-inline">
-    <div id="search" class="text-right">
-        <span class="col-sm-9">
-            <input type="text" size="20" name="q" id="query" value="${'$'}{param.q}"
-                   placeholder="<fmt:message key="search.enterTerms"/>" class="form-control input-sm"/>
-        </span>
-        <button id="button.search" class="btn btn-default btn-sm" type="submit">
-            <i class="icon-search"></i> <fmt:message key="button.search"/>
-        </button>
-    </div>
-    </form>
+<form method="get" action="${'$'}{ctx}/${util.getPluralForWord(pojoNameLower)}" id="searchForm" class="form-inline">
+<div id="search" class="text-right">
+    <span class="col-sm-9">
+        <input type="text" size="20" name="q" id="query" value="${'$'}{param.q}"
+               placeholder="<fmt:message key="search.enterTerms"/>" class="form-control input-sm"/>
+    </span>
+    <button id="button.search" class="btn btn-default btn-sm" type="submit">
+        <i class="icon-search"></i> <fmt:message key="button.search"/>
+    </button>
+</div>
+</form>
 
-    <p><fmt:message key="${pojoNameLower}List.message"/></p>
+<p><fmt:message key="${pojoNameLower}List.message"/></p>
 
-    <div id="actions" class="btn-group">
-        <a href='<c:url value="/${pojoNameLower}form"/>' class="btn btn-primary">
-            <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
-        <a href='<c:url value="/home"/>' class="btn btn-default"><i class="icon-ok"></i> <fmt:message key="button.done"/></a>
-    </div>
+<div id="actions" class="btn-group">
+    <a href='<c:url value="/${pojoNameLower}form"/>' class="btn btn-primary">
+        <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
+    <a href='<c:url value="/home"/>' class="btn btn-default"><i class="icon-ok"></i> <fmt:message key="button.done"/></a>
+</div>
 
 <display:table name="${pojoNameLower}List" class="table table-condensed table-striped table-hover" requestURI="" id="${pojoNameLower}List" export="true" pagesize="25">
 <#foreach field in pojo.getAllPropertiesIterator()>
