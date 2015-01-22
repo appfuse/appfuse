@@ -221,6 +221,10 @@ public class ArtifactUninstaller {
             if (jsfConfig.exists()) {
                 existingFile = new File(installedDirectory + "/src/main/webapp/layouts/default.xhtml");
             }
+            File freemarker = new File(installedDirectory + "/src/main/webapp/decorators/default.ftl");
+            if (freemarker.exists()) {
+                existingFile = new File(installedDirectory + "/src/main/webapp/decorators/default.ftl");
+            }
             parseXMLFile(existingFile, pojoName);
         }
     }

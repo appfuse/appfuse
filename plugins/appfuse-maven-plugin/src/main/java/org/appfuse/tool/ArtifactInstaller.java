@@ -93,6 +93,9 @@ public class ArtifactInstaller {
                 log("Installing Spring views and configuring...");
                 installSpringValidation();
                 installSpringViews(pagesPath);
+            } else if ("spring-freemarker".equalsIgnoreCase(webFramework)) {
+                log("Installing Freemarker views...");
+                installSpringFreemarkerViews(pagesPath);
             } else if ("tapestry".equalsIgnoreCase(webFramework)) {
                 log("Installing Tapestry views and configuring...");
                 installTapestryViews();
@@ -261,6 +264,17 @@ public class ArtifactInstaller {
         copy.execute();
     }
 
+    private void installSpringFreemarkerViews(String pagesPath) {
+        Copy copy = (Copy) antProject.createTask("copy");
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "form.ftl"));
+        copy.setTofile(new File(destinationDirectory + pagesPath + pojoNameLower + "form.ftl"));
+        copy.execute();
+
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "list.ftl"));
+        copy.setTofile(new File(destinationDirectory + pagesPath + util.getPluralForWord(pojoNameLower) + ".ftl"));
+        copy.execute();
+    }
+
     private void installStrutsViews(String pagesPath) {
         Copy copy = (Copy) antProject.createTask("copy");
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "Form.jsp"));
@@ -310,12 +324,20 @@ public class ArtifactInstaller {
 
             parseXMLFile(existingFile, pojoName, "    </Menus>", "menu.config");
         } else {
-            createLoadFileTask("src/main/webapp/common/" + pojoName + "-menu-light.jsp", "menu-light.jsp").execute();
+            File freemarker = new File(destinationDirectory + "/src/main/webapp/decorators/default.ftl");
+            if (freemarker.exists()) {
+                createLoadFileTask("src/main/webapp/common/" + pojoName + "-menu-light.ftl", "menu-light.jsp").execute();
+            } else {
+                createLoadFileTask("src/main/webapp/common/" + pojoName + "-menu-light.jsp", "menu-light.jsp").execute();
+            }
 
             File existingFile = new File(destinationDirectory + "/src/main/webapp/decorators/default.jsp");
             File jsfConfig = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
             if (jsfConfig.exists()) {
                 existingFile = new File(destinationDirectory + "/src/main/webapp/layouts/default.xhtml");
+            }
+            if (freemarker.exists()) {
+                existingFile = new File(destinationDirectory + "/src/main/webapp/decorators/default.ftl");
             }
 
             parseXMLFile(existingFile, pojoName, "<!-- Add new menu items here -->", "menu-light.jsp");

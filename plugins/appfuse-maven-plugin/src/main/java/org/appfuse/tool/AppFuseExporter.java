@@ -133,7 +133,7 @@ public class AppFuseExporter extends GenericExporter {
 
             // configuration
             configureExporter("appfuse/web/jsf/navigation.ftl", "src/main/webapp/WEB-INF/{class-name}-navigation.xml").start();
-        } else if (webFramework.equalsIgnoreCase("spring") || webFramework.equalsIgnoreCase("spring-security")) {
+        } else if (webFramework.equalsIgnoreCase("spring") || webFramework.equalsIgnoreCase("spring-security") || webFramework.equalsIgnoreCase("spring-freemarker")) {
             // tests
             configureExporter("appfuse/web/spring/controller-test.ftl", "src/test/java/{basepkg-name}/webapp/controller/{class-name}ControllerTest.java").start();
             configureExporter("appfuse/web/spring/formcontroller-test.ftl", "src/test/java/{basepkg-name}/webapp/controller/{class-name}FormControllerTest.java").start();
@@ -143,8 +143,13 @@ public class AppFuseExporter extends GenericExporter {
             configureExporter("appfuse/web/spring/formcontroller.ftl", "src/main/java/{basepkg-name}/webapp/controller/{class-name}FormController.java").start();
 
             // views
-            configureExporter("appfuse/web/spring/list-view.ftl", "src/main/webapp/WEB-INF/pages/{class-name}s.jsp").start();
-            configureExporter("appfuse/web/spring/form-view.ftl", "src/main/webapp/WEB-INF/pages/{class-name}form.jsp").start();
+            if (!webFramework.equalsIgnoreCase("spring-freemarker")) {
+                configureExporter("appfuse/web/spring/list-view.ftl", "src/main/webapp/WEB-INF/pages/{class-name}s.jsp").start();
+                configureExporter("appfuse/web/spring/form-view.ftl", "src/main/webapp/WEB-INF/pages/{class-name}form.jsp").start();
+            } else {
+                configureExporter("appfuse/web/spring-freemarker/list-view.ftl", "src/main/webapp/{class-name}list.ftl").start();
+                configureExporter("appfuse/web/spring-freemarker/form-view.ftl", "src/main/webapp/{class-name}form.ftl").start();
+            }
 
             // validation
             configureExporter("appfuse/web/spring/form-validation.ftl", "src/main/webapp/WEB-INF/{class-name}-validation.xml").start();
@@ -190,7 +195,11 @@ public class AppFuseExporter extends GenericExporter {
         // menu
         if (!webFramework.equalsIgnoreCase("tapestry")) {
             configureExporter("appfuse/web/menu.ftl", "src/main/webapp/common/{class-name}-menu.jsp").start();
-            configureExporter("appfuse/web/menu-light.ftl", "src/main/webapp/common/{class-name}-menu-light.jsp").start();
+            if (webFramework.equalsIgnoreCase("spring-freemarker")) {
+                configureExporter("appfuse/web/menu-light-freemarker.ftl", "src/main/webapp/common/{class-name}-menu-light.ftl").start();
+            } else {
+                configureExporter("appfuse/web/menu-light.ftl", "src/main/webapp/common/{class-name}-menu-light.jsp").start();
+            }
             configureExporter("appfuse/web/menu-config.ftl", "src/main/webapp/WEB-INF/{class-name}-menu-config.xml").start();
         } else {
             configureExporter("appfuse/web/tapestry/menu.ftl", "src/main/webapp/{class-name}-menu.tml").start();
@@ -200,10 +209,14 @@ public class AppFuseExporter extends GenericExporter {
         configureExporter("appfuse/web/ApplicationResources.ftl", "src/main/resources/{class-name}-ApplicationResources.properties").start();
 
         // canoo tests
-        if (!webFramework.equals("spring-security")) {
+        if (!webFramework.equals("spring-security") && !webFramework.equalsIgnoreCase("spring-freemarker")) {
             configureExporter("appfuse/web/" + webFramework + "/web-tests.ftl", "src/test/resources/{class-name}-web-tests.xml").start();
         }
         // jwebunit tests
+        if (webFramework.equalsIgnoreCase("spring-freemarker")) {
+            webFramework = "spring";
+            jwebUnitTemplate = new ClassPathResource("appfuse/web/" + webFramework + "/jwebunit-tests.ftl");
+        }
         if (jwebUnitTemplate.exists()) {
             configureExporter("appfuse/web/" + webFramework + "/jwebunit-tests.ftl", "src/test/java/{basepkg-name}/webapp/{class-name}WebTest.java").start();
         }
