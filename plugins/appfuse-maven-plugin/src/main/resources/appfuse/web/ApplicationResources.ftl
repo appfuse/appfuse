@@ -10,6 +10,7 @@
 ${pojoNameLower}.added=${pojo.shortName} has been added successfully.
 ${pojoNameLower}.updated=${pojo.shortName} has been updated successfully.
 ${pojoNameLower}.deleted=${pojo.shortName} has been deleted successfully.
+${pojoNameLower}.missing=${pojo.shortName} has been deleted successfully.
 
 # -- ${pojoNameLower} list page --
 ${pojoNameLower}List.title=${pojo.shortName} List

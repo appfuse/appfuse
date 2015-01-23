@@ -175,6 +175,18 @@ public class AppFuseExporter extends GenericExporter {
             // validation
             configureExporter("appfuse/web/struts/model-validation.ftl", "src/main/resources/{basepkg-name}/model/{class-name}-validation.xml").start();
             configureExporter("appfuse/web/struts/action-validation.ftl", "src/main/resources/{basepkg-name}/webapp/action/{class-name}Action-validation.xml").start();
+        } else if (webFramework.equalsIgnoreCase("stripes")) {
+            // tests
+            configureExporter("appfuse/web/stripes/list-action-test.ftl", "src/test/java/{basepkg-name}/webapp/action/{class-name}ListBeanTest.java").start();
+            configureExporter("appfuse/web/stripes/form-action-test.ftl", "src/test/java/{basepkg-name}/webapp/action/{class-name}FormBeanTest.java").start();
+
+            // actions
+            configureExporter("appfuse/web/stripes/list-action.ftl", "src/main/java/{basepkg-name}/webapp/action/{class-name}ListBean.java").start();
+            configureExporter("appfuse/web/stripes/form-action.ftl", "src/main/java/{basepkg-name}/webapp/action/{class-name}FormBean.java").start();
+
+            // views
+            configureExporter("appfuse/web/stripes/list-view.ftl", "src/main/webapp/{class-name}List.jsp").start();
+            configureExporter("appfuse/web/stripes/form-view.ftl", "src/main/webapp/{class-name}Form.jsp").start();
         } else if (webFramework.equalsIgnoreCase("tapestry")) {
             // tests
             configureExporter("appfuse/web/tapestry/list-test.ftl", "src/test/java/{basepkg-name}/webapp/pages/{class-name}ListTest.java").start();
@@ -207,9 +219,9 @@ public class AppFuseExporter extends GenericExporter {
 
         // i18n
         configureExporter("appfuse/web/ApplicationResources.ftl", "src/main/resources/{class-name}-ApplicationResources.properties").start();
-
+        
         // canoo tests
-        if (!webFramework.equals("spring-security") && !webFramework.equalsIgnoreCase("spring-freemarker")) {
+        if (!webFramework.equals("spring-security") && !webFramework.equalsIgnoreCase("spring-freemarker") && !webFramework.equalsIgnoreCase("stripes")) {
             configureExporter("appfuse/web/" + webFramework + "/web-tests.ftl", "src/test/resources/{class-name}-web-tests.xml").start();
         }
         // jwebunit tests

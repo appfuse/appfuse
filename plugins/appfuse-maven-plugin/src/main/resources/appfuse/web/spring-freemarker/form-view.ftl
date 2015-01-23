@@ -95,7 +95,6 @@ ${'</#if>'}
 </form>
 </div>
 
-
 <#if dateExists><#rt/>
 <link rel="stylesheet" type="text/css" media="all" href="${'$'}{rc.contextPath}/webjars/bootstrap-datepicker/1.3.1/css/datepicker.css" />
 <script type="text/javascript" src="${'$'}{rc.contextPath}/webjars/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.js"></script>

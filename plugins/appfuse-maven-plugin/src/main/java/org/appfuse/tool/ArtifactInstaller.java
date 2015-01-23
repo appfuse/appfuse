@@ -96,6 +96,9 @@ public class ArtifactInstaller {
             } else if ("spring-freemarker".equalsIgnoreCase(webFramework)) {
                 log("Installing Freemarker views...");
                 installSpringFreemarkerViews(pagesPath);
+            } else if ("stripes".equalsIgnoreCase(webFramework)) {
+                log("Installing Stripes views...");
+                installStripesViews();
             } else if ("tapestry".equalsIgnoreCase(webFramework)) {
                 log("Installing Tapestry views and configuring...");
                 installTapestryViews();
@@ -272,6 +275,17 @@ public class ArtifactInstaller {
 
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "list.ftl"));
         copy.setTofile(new File(destinationDirectory + pagesPath + util.getPluralForWord(pojoNameLower) + ".ftl"));
+        copy.execute();
+    }
+
+    private void installStripesViews() {
+        Copy copy = (Copy) antProject.createTask("copy");
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "Form.jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/" + pojoNameLower + "Form.jsp"));
+        copy.execute();
+
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "List.jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/" + pojoNameLower + "List.jsp"));
         copy.execute();
     }
 

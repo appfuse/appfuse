@@ -25,12 +25,17 @@ public class ${pojo.shortName}WebTest {
 
     @Before
     public void add${pojo.shortName}() {
-        beginAt("/edit${pojo.shortName}");
+        beginAt("/${pojoNameLower}form");
         assertTitleKeyMatches("${pojoNameLower}Detail.title");
 <#foreach field in pojo.getAllPropertiesIterator()>
+    <#assign isBoolean = false>
+    <#if field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
+        <#assign isBoolean = true>
+    </#if>
     <#foreach column in field.getColumnIterator()>
         <#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
-            <#lt/>        setTextField("${pojoNameLower}.${field.name}", "${data.getValueForWebTest(column)}");
+            <#if isBoolean><#lt/>        checkCheckbox("${pojoNameLower}.${field.name}");
+            <#else><#lt/>        setTextField("${pojoNameLower}.${field.name}", "${data.getValueForWebTest(column)}");</#if>
         </#if>
     </#foreach>
 </#foreach>
@@ -50,14 +55,14 @@ public class ${pojo.shortName}WebTest {
 
     @Test
     public void edit${pojo.shortName}() {
-        beginAt("/edit${pojo.shortName}?${pojo.identifierProperty.name}=" + getInsertedId());
+        beginAt("/${pojoNameLower}form?${pojo.identifierProperty.name}=" + getInsertedId());
         clickButton("save");
         assertTitleKeyMatches("${pojoNameLower}Detail.title");
     }
 
     @Test
     public void save${pojo.shortName}() {
-        beginAt("/edit${pojo.shortName}?id=" + getInsertedId());
+        beginAt("/${pojoNameLower}form?${pojo.identifierProperty.name}=" + getInsertedId());
         assertTitleKeyMatches("${pojoNameLower}Detail.title");
 
         // update some of the required fields
@@ -75,7 +80,7 @@ public class ${pojo.shortName}WebTest {
 
     @After
     public void remove${pojo.shortName}() {
-        beginAt("/edit${pojo.shortName}?id=" + getInsertedId());
+        beginAt("/${pojoNameLower}form?${pojo.identifierProperty.name}=" + getInsertedId());
         clickButton("delete");
         assertTitleKeyMatches("${pojoNameLower}List.title");
         assertKeyPresent("${pojoNameLower}.deleted");

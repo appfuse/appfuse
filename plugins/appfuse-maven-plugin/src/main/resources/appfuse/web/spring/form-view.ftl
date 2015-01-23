@@ -26,7 +26,7 @@
 <#if field.equals(pojo.identifierProperty)>
     <#assign idFieldName = field.name>
     <#if field.value.identifierGeneratorStrategy == "assigned">
-        <#lt/><ul>
+        <#lt/>
     <spring:bind path="${pojoNameLower}.${field.name}">
     <div class="form-group${'$'}{(not empty status.errorMessage) ? ' has-error' : ''}">
     </spring:bind>
