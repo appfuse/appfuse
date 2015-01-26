@@ -302,7 +302,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
     /**
      * Executes the plugin in an isolated classloader.
      *
-     * @throws MojoExecutionException When there is an erro executing the plugin
+     * @throws MojoExecutionException When there is an error executing the plugin
      */
     @Override
     protected void doExecute() throws MojoExecutionException {
