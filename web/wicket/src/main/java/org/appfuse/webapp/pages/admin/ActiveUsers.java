@@ -8,7 +8,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.model.ResourceModel;
 import org.appfuse.model.User;
-import org.appfuse.webapp.AbstractWebPage;
+import org.appfuse.webapp.pages.AbstractWebPage;
 import org.appfuse.webapp.SSAuthenticatedWebSession;
 import org.appfuse.webapp.pages.Home;
 import org.wicketstuff.annotation.mount.MountPath;

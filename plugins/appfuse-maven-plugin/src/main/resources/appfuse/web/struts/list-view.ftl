@@ -5,8 +5,7 @@
     <title><fmt:message key="${pojoNameLower}List.title"/></title>
     <meta name="menu" content="${pojo.shortName}Menu"/>
 </head>
-
-<div class="col-sm-10">
+<body>
     <h2><fmt:message key="${pojoNameLower}List.heading"/></h2>
 
     <form method="get" action="${'$'}{ctx}/${util.getPluralForWord(pojoNameLower)}" id="searchForm" class="form-inline">
@@ -15,13 +14,13 @@
             <input type="text" size="20" name="q" id="query" value="${'$'}{param.q}"
                    placeholder="<fmt:message key="search.enterTerms"/>" class="form-control input-sm"/>
         </span>
-        <button id="button.search" class="btn btn-default" type="submit">
+        <button id="button.search" class="btn btn-default btn-sm" type="submit">
             <i class="icon-search"></i> <fmt:message key="button.search"/>
         </button>
     </div>
     </form>
 
-    <fmt:message key="${pojoNameLower}List.message"/>
+    <p><fmt:message key="${pojoNameLower}List.message"/></p>
 
     <div id="actions" class="btn-group">
         <a class="btn btn-primary" href="<c:url value='/edit${pojo.shortName}'/>" >
@@ -60,4 +59,4 @@
         <display:setProperty name="export.csv.filename"><fmt:message key="${pojoNameLower}List.title"/>.csv</display:setProperty>
         <display:setProperty name="export.pdf.filename"><fmt:message key="${pojoNameLower}List.title"/>.pdf</display:setProperty>
     </display:table>
-</div>
+</body>

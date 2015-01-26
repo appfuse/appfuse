@@ -2,6 +2,7 @@ package org.appfuse.tool;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.project.MavenProject;
@@ -73,6 +74,7 @@ public class ArtifactInstaller {
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/webapp/**/*.java");
 
             String webFramework = project.getProperties().getProperty("web.framework");
+            String pagesPath = (isAppFuse()) ? "/src/main/webapp/WEB-INF/pages/" : "/src/main/webapp/";
 
             if ("jsf".equalsIgnoreCase(webFramework)) {
                 log("Installing JSF views and configuring...");
@@ -87,16 +89,23 @@ public class ArtifactInstaller {
                         destinationDirectory + "/src/main/resources", "**/model/*.xml");
                 copyGeneratedObjects(sourceDirectory + "/src/main/resources",
                         destinationDirectory + "/src/main/resources", "**/webapp/action/*.xml");
-                installStrutsViews();
-            } else if ("spring".equalsIgnoreCase(webFramework)) {
-                log("Installing Spring views and configuring...");
-                //Controllers configured by Spring annotations in 2.1+
-                //installSpringControllerBeanDefinitions();
+                installStrutsViews(pagesPath);
+            } else if ("spring".equalsIgnoreCase(webFramework) || "spring-security".equalsIgnoreCase(webFramework)) {
+                log("Installing Spring views...");
                 installSpringValidation();
-                installSpringViews();
+                installSpringViews(pagesPath);
+            } else if ("spring-freemarker".equalsIgnoreCase(webFramework)) {
+                log("Installing Freemarker views...");
+                installSpringFreemarkerViews(pagesPath);
+            } else if ("stripes".equalsIgnoreCase(webFramework)) {
+                log("Installing Stripes views...");
+                installStripesViews();
             } else if ("tapestry".equalsIgnoreCase(webFramework)) {
-                log("Installing Tapestry views and configuring...");
+                log("Installing Tapestry views...");
                 installTapestryViews();
+            } else if ("wicket".equalsIgnoreCase(webFramework)) {
+                log("Installing Wicket views...");
+                installWicketViews();
             }
 
             log("Installing i18n messages...");
@@ -108,7 +117,7 @@ public class ArtifactInstaller {
             }
 
             log("Installing UI tests...");
-            installUITests();
+            installUITests(webFramework);
         }
     }
 
@@ -171,19 +180,6 @@ public class ArtifactInstaller {
         parseXMLFile(existingFile, null, "</dataset>", "sample.data");
     }
 
-    /* APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
-    private void installDaoAndManagerBeanDefinitions() {
-        createLoadFileTask("src/main/resources/" + pojoName + "Dao-bean.xml", "dao.context.file").execute();
-        File generatedFile = new File(destinationDirectory + getPathToApplicationContext());
-
-        parseXMLFile(generatedFile, pojoName + "Dao", "<!-- Add new DAOs here -->", "dao.context.file");
-
-        createLoadFileTask("src/main/resources/" + pojoName + "Manager-bean.xml", "mgr.context.file").execute();
-        generatedFile = new File(destinationDirectory + getPathToApplicationContext());
-
-        parseXMLFile(generatedFile, pojoName + "Manager", "<!-- Add new Managers here -->", "mgr.context.file");
-    }*/
-
     private void installiBATISFiles() {
         if (project.getProperties().getProperty("dao.framework").equals("ibatis")) {
             log("Installing iBATIS SQL Maps...");
@@ -235,19 +231,6 @@ public class ArtifactInstaller {
         createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-navigation.xml", "navigation.rules").execute();
         File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
         parseXMLFile(generatedFile, pojoName + "-nav", "<!-- Add additional rules here -->", "navigation.rules");
-
-        // JSF managed beans configured by Spring annotations in 2.1+
-        //createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-managed-beans.xml", "managed.beans").execute();
-        //generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
-        //parseXMLFile(generatedFile, pojoName + "-beans", "<!-- Add additional beans here -->", "managed.beans");
-    }
-
-    private void installSpringControllerBeanDefinitions() {
-        // Controllers configured by Spring annotations in 2.1+
-        //createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-beans.xml", "dispatcher.servlet").execute();
-        //File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/dispatcher-servlet.xml");
-
-        //parseXMLFile(generatedFile, pojoName, "<!-- Add additional controller beans here -->", "dispatcher.servlet");
     }
 
     private void installSpringValidation() {
@@ -277,25 +260,47 @@ public class ArtifactInstaller {
         copy.execute();
     }
 
-    private void installSpringViews() {
+    private void installSpringViews(String pagesPath) {
         Copy copy = (Copy) antProject.createTask("copy");
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "form.jsp"));
-        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "form.jsp"));
+        copy.setTofile(new File(destinationDirectory + pagesPath + pojoNameLower + "form.jsp"));
         copy.execute();
 
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "s.jsp"));
-        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + util.getPluralForWord(pojoNameLower) + ".jsp"));
+        copy.setTofile(new File(destinationDirectory + pagesPath + util.getPluralForWord(pojoNameLower) + ".jsp"));
         copy.execute();
     }
 
-    private void installStrutsViews() {
+    private void installSpringFreemarkerViews(String pagesPath) {
+        Copy copy = (Copy) antProject.createTask("copy");
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "form.ftl"));
+        copy.setTofile(new File(destinationDirectory + pagesPath + pojoNameLower + "form.ftl"));
+        copy.execute();
+
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "list.ftl"));
+        copy.setTofile(new File(destinationDirectory + pagesPath + util.getPluralForWord(pojoNameLower) + ".ftl"));
+        copy.execute();
+    }
+
+    private void installStripesViews() {
+        Copy copy = (Copy) antProject.createTask("copy");
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "Form.jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/" + pojoNameLower + "Form.jsp"));
+        copy.execute();
+
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "List.jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/" + pojoNameLower + "List.jsp"));
+        copy.execute();
+    }
+
+    private void installStrutsViews(String pagesPath) {
         Copy copy = (Copy) antProject.createTask("copy");
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "Form.jsp"));
-        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "Form.jsp"));
+        copy.setTofile(new File(destinationDirectory + pagesPath + pojoNameLower + "Form.jsp"));
         copy.execute();
 
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "List.jsp"));
-        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "List.jsp"));
+        copy.setTofile(new File(destinationDirectory + pagesPath + pojoNameLower + "List.jsp"));
         copy.execute();
     }
 
@@ -313,6 +318,10 @@ public class ArtifactInstaller {
         File existingFile = new File(destinationDirectory + "/src/main/resources/" +
                 project.getGroupId().replace(".", "/") + "/webapp/components/Layout.tml");
         parseXMLFile(existingFile, pojoName, "<!-- Add new menu items here -->", "tapestry-menu");
+    }
+
+    private void installWicketViews() {
+        copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/pages/*.html");
     }
 
     private boolean isAppFuse() {
@@ -337,12 +346,20 @@ public class ArtifactInstaller {
 
             parseXMLFile(existingFile, pojoName, "    </Menus>", "menu.config");
         } else {
-            createLoadFileTask("src/main/webapp/common/" + pojoName + "-menu-light.jsp", "menu-light.jsp").execute();
+            File freemarker = new File(destinationDirectory + "/src/main/webapp/decorators/default.ftl");
+            if (freemarker.exists()) {
+                createLoadFileTask("src/main/webapp/common/" + pojoName + "-menu-light.ftl", "menu-light.jsp").execute();
+            } else {
+                createLoadFileTask("src/main/webapp/common/" + pojoName + "-menu-light.jsp", "menu-light.jsp").execute();
+            }
 
             File existingFile = new File(destinationDirectory + "/src/main/webapp/decorators/default.jsp");
             File jsfConfig = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
             if (jsfConfig.exists()) {
                 existingFile = new File(destinationDirectory + "/src/main/webapp/layouts/default.xhtml");
+            }
+            if (freemarker.exists()) {
+                existingFile = new File(destinationDirectory + "/src/main/webapp/decorators/default.ftl");
             }
 
             parseXMLFile(existingFile, pojoName, "<!-- Add new menu items here -->", "menu-light.jsp");
@@ -355,7 +372,12 @@ public class ArtifactInstaller {
 
         // if ApplicationResources doesn't exist, assume appfuse-light and use messages instead
         if (!existingFile.exists()) {
-            existingFile = new File(destinationDirectory + "/src/main/resources/messages.properties");
+            if ("wicket".equalsIgnoreCase(webFramework) && !isAppFuse()) {
+                existingFile = new File(destinationDirectory + "/src/main/java/" + project.getGroupId().replace(".", "/")
+                        + "/webapp/pages/AbstractWebPage.properties");
+            } else {
+                existingFile = new File(destinationDirectory + "/src/main/resources/messages.properties");
+            }
         }
 
         parsePropertiesFile(existingFile, pojoName);
@@ -367,7 +389,7 @@ public class ArtifactInstaller {
         echoTask.execute();
     }
 
-    private void installUITests() {
+    private void installUITests(String webFramework) {
         // Gracefully handle when ui tests don't exist
         boolean webTestsExist = new File("src/test/resources/" + "web-tests.xml").exists();
         File existingFile = new File(destinationDirectory + "/src/test/resources/web-tests.xml");
@@ -383,8 +405,13 @@ public class ArtifactInstaller {
                 if (FileUtils.readFileToString(existingFile).contains("FileUpload")) {
                     // todo: figure out how to fix the 2 lines below so they don't include pojoNameTest
                     // multiple times on subsequent installs
-                    replace.setToken(",FileUpload");
-                    replace.setValue(",FileUpload," + pojoName + "Tests");
+                    if ("wicket".equalsIgnoreCase(webFramework)) {
+                        replace.setToken(",DWR");
+                        replace.setValue(",DWR," + pojoName + "Tests");
+                    } else {
+                        replace.setToken(",FileUpload");
+                        replace.setValue(",FileUpload," + pojoName + "Tests");
+                    }
                 } else {
                     // AppFuse Light
                     replace.setToken("depends=\"UserTests");
@@ -394,10 +421,11 @@ public class ArtifactInstaller {
                 e.printStackTrace();
             }
             replace.execute();
-        } else {
-            log("Project doesn't use Canoo WebTest, disabling UI test generation.");
-            log("Support for jWebUnit will be added in a future release.");
-            log("See http://issues.appfuse.org/browse/EQX-215 for more information.");
+
+            // Delete any jWebUnit artifacts that may have been installed
+            File jwebunitTest = new File(destinationDirectory + "/src/test/java/" +
+                    project.getGroupId().replace(".", "/") + "/webapp/" + pojoName + "WebTest.java");
+            jwebunitTest.delete();
         }
     }
 

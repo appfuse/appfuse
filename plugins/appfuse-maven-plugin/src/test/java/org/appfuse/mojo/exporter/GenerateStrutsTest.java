@@ -15,6 +15,9 @@ public final class GenerateStrutsTest extends AbstractAppFuseMojoTestCase {
         assertTrue("can't find PersonAction.java",
                 checkExists("target/appfuse/generated/src/main/java/annotationconfiguration/webapp/action/PersonAction.java"));
 
+        assertTrue("can't find /PersonWebTest.java",
+                checkExists("target/appfuse/generated/src/test/java/annotationconfiguration/webapp/PersonWebTest.java"));
+
         assertTrue("can't find PersonList.jsp",
                 checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/pages/PersonList.jsp"));
 

@@ -35,7 +35,7 @@ import java.util.Set;
 public class AppFuseWicketApplication extends AuthenticatedWebApplication {
 
     private static final String BASE_PACKAGE_FOR_PAGES = "org.appfuse.webapp.pages";
-    public static final String APP_FUSE_RESOURCE_FILE_NAME = "ApplicationResources";
+    public static final String APPFUSE_RESOURCE_FILE_NAME = "ApplicationResources";
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -93,7 +93,7 @@ public class AppFuseWicketApplication extends AuthenticatedWebApplication {
 
     private Class<?> getOrCreateArtificialApplicationResourcesClass() {
         try {
-            return Class.forName(APP_FUSE_RESOURCE_FILE_NAME);
+            return Class.forName(APPFUSE_RESOURCE_FILE_NAME);
         } catch (ClassNotFoundException e) {
             return createArtificialApplicationResourcesClass();
         }
@@ -102,7 +102,7 @@ public class AppFuseWicketApplication extends AuthenticatedWebApplication {
     private Class<?> createArtificialApplicationResourcesClass() {
         try {
             ClassPool classPool = ClassPool.getDefault();
-            CtClass applicationResourcesCtClass = classPool.makeClass(APP_FUSE_RESOURCE_FILE_NAME);
+            CtClass applicationResourcesCtClass = classPool.makeClass(APPFUSE_RESOURCE_FILE_NAME);
             return applicationResourcesCtClass.toClass();
         } catch (CannotCompileException e) {
             throw new RuntimeException("Unable to instantiate Wicket application", e);

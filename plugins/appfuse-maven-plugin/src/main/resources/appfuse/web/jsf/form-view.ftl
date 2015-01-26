@@ -13,10 +13,11 @@
            "<h:outputFormat value="${'#'}{text['delete.confirm']}"><f:param value="${'#'}{delObject}" /></h:outputFormat>";
         </script>
 
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <h2>${'#'}{text['${pojoNameLower}Detail.heading']}</h2>
+            ${'#'}{text['${pojoNameLower}Detail.message']}
         </div>
-        <div class="col-sm-7">
+        <div class="col-sm-6">
         <h:form id="${pojoNameLower}Form" styleClass="well">
         <#rt/>
         <#foreach field in pojo.getAllPropertiesIterator()>

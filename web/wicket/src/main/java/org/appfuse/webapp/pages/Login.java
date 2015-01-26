@@ -14,7 +14,6 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.appfuse.Constants;
-import org.appfuse.webapp.AbstractWebPage;
 import org.appfuse.webapp.pages.components.PlaceholderBehavior;
 import org.appfuse.webapp.pages.components.RequiredBehavior;
 import org.wicketstuff.annotation.mount.MountPath;

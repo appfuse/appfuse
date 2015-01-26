@@ -20,7 +20,6 @@ import java.util.ArrayList;
  */
 public class ArtifactUninstaller {
     private Log log;
-    static final String FILE_SEP = System.getProperty("file.separator");
     Project antProject;
     String pojoName;
     String pojoNameLower;
@@ -58,28 +57,35 @@ public class ArtifactUninstaller {
         if (project.getPackaging().equalsIgnoreCase("war")) {
             removeGeneratedFiles(installedDirectory, "**/webapp/**/" + pojoName + "*.java");
 
+            String pagesPath = (isAppFuse()) ? "/src/main/webapp/WEB-INF/pages/" : "/src/main/webapp/";
             String webFramework = project.getProperties().getProperty("web.framework");
 
             if ("jsf".equalsIgnoreCase(webFramework)) {
-                log("Removing JSF views and configuring...");
+                log("Removing JSF views and configuration...");
                 removeJSFNavigationAndBeans();
                 removeJSFViews();
             } else if ("struts".equalsIgnoreCase(webFramework)) {
-                log("Removing Struts views and configuring...");
+                log("Removing Struts views and configuration...");
                 // A bean definition for an Action is not used anymore (APF-798)
                 // installStrutsBeanDefinition();
                 removeStrutsActionDefinitions();
                 removeGeneratedFiles(installedDirectory + "/src/main/resources", "**/model/" + pojoName + "*.xml");
                 removeGeneratedFiles(installedDirectory + "/src/main/resources", "**/webapp/action/" + pojoName + "*.xml");
-                removeStrutsViews();
-            } else if ("spring".equalsIgnoreCase(webFramework)) {
-                log("Removing Spring views and configuring...");
+                removeStrutsViews(pagesPath);
+            } else if (webFramework.contains("spring")) {
+                log("Removing Spring views...");
                 removeSpringControllerBeanDefinitions();
                 removeSpringValidation();
-                removeSpringViews();
+                removeSpringViews(pagesPath);
+            } else if ("stripes".equalsIgnoreCase(webFramework)) {
+                log("Removing Stripes views...");
+                removeStripesViews();
             } else if ("tapestry".equalsIgnoreCase(webFramework)) {
-                log("Removing Tapestry views and configuring...");
+                log("Removing Tapestry views...");
                 removeTapestryViews();
+            } else if ("wicket".equalsIgnoreCase(webFramework)) {
+                log("Removing Wicket views...");
+                removeWicketViews();
             }
 
             log("Removing i18n messages...");
@@ -128,15 +134,6 @@ public class ArtifactUninstaller {
         parseXMLFile(existingFile, null);
     }
 
-    /* APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
-    private void removeDaoAndManagerBeanDefinitions() {
-        File generatedFile = new File(installedDirectory + getPathToApplicationContext());
-        parseXMLFile(generatedFile, pojoName + "Dao");
-
-        generatedFile = new File(installedDirectory + getPathToApplicationContext());
-        parseXMLFile(generatedFile, pojoName + "Manager");
-    }*/
-
     private void removeiBATISFiles() {
         if (project.getProperties().getProperty("dao.framework").equals("ibatis")) {
             log("Removing iBATIS SQL Maps...");
@@ -160,10 +157,6 @@ public class ArtifactUninstaller {
     private void removeJSFNavigationAndBeans() {
         File generatedFile = new File(installedDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
         parseXMLFile(generatedFile, pojoName + "-nav");
-
-        // JSF managed beans configured by Spring annotations in 2.1+
-        //generatedFile = new File(installedDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
-        //parseXMLFile(generatedFile, pojoName + "-beans");
     }
 
     private void removeSpringControllerBeanDefinitions() {
@@ -187,16 +180,25 @@ public class ArtifactUninstaller {
         removeGeneratedFiles(installedDirectory + "/src/main/webapp", pojoNameLower + "*.xhtml");
     }
 
-    private void removeSpringViews() {
-        removeGeneratedFiles(installedDirectory + "/src/main/webapp/WEB-INF/pages", pojoNameLower + "*.jsp");
+    private void removeSpringViews(String pagesPath) {
+        removeGeneratedFiles(installedDirectory + pagesPath, pojoNameLower + "*.jsp");
     }
 
-    private void removeStrutsViews() {
-        removeGeneratedFiles(installedDirectory + "/src/main/webapp/WEB-INF/pages", pojoNameLower + "*.jsp");
+    private void removeStrutsViews(String pagesPath) {
+        removeGeneratedFiles(installedDirectory + pagesPath, pojoNameLower + "*.jsp");
+    }
+
+    private void removeStripesViews() {
+        removeGeneratedFiles(installedDirectory + "/src/main/webapp", pojoNameLower + "*.jsp");
     }
 
     private void removeTapestryViews() {
         removeGeneratedFiles(installedDirectory + "/src/main/webapp", pojoName + "*.tml");
+    }
+
+    private void removeWicketViews() {
+        removeGeneratedFiles(installedDirectory + "/src/main/java", "**/pages/" + pojoName + "*.html");
+        removeGeneratedFiles(installedDirectory, "**/webapp/**/*" + pojoName + "*.java");
     }
 
     // =================== End of Views ===================
@@ -220,6 +222,10 @@ public class ArtifactUninstaller {
             File jsfConfig = new File(installedDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
             if (jsfConfig.exists()) {
                 existingFile = new File(installedDirectory + "/src/main/webapp/layouts/default.xhtml");
+            }
+            File freemarker = new File(installedDirectory + "/src/main/webapp/decorators/default.ftl");
+            if (freemarker.exists()) {
+                existingFile = new File(installedDirectory + "/src/main/webapp/decorators/default.ftl");
             }
             parseXMLFile(existingFile, pojoName);
         }

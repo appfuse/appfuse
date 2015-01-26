@@ -39,11 +39,16 @@
         <create-gen-basic archetype="appfuse-basic-tapestry" name="basic-tapestry"/>
     </target>
 
+    <target name="test-wicket-basic" description="tests plugin with wicket basic archetype">
+        <create-gen-basic archetype="appfuse-basic-wicket" name="basic-wicket"/>
+    </target>
+
     <target name="test-basic" description="Runs all basic archetype tests using Ant">
         <antcall target="test-jsf-basic"/>
         <antcall target="test-spring-basic"/>
         <antcall target="test-struts-basic"/>
         <antcall target="test-tapestry-basic"/>
+        <antcall target="test-wicket-basic"/>
     </target>
 
     <!-- Modular Archetypes -->
@@ -63,6 +68,10 @@
         <create-gen-modular archetype="appfuse-modular-tapestry" name="modular-tapestry"/>
     </target>
 
+    <target name="test-wicket-modular" description="tests plugin with wicket modular archetype">
+        <create-gen-modular archetype="appfuse-modular-wicket" name="modular-wicket"/>
+    </target>
+
     <!-- Light Archetypes -->
     <target name="test-jsf-light" description="tests plugin with jsf light archetype">
         <create-gen-basic archetype="appfuse-light-jsf" name="light-jsf"/>
@@ -70,6 +79,18 @@
 
     <target name="test-spring-light" description="tests plugin with spring light archetype">
         <create-gen-basic archetype="appfuse-light-spring" name="light-spring"/>
+    </target>
+
+    <target name="test-spring-freemarker-light" description="tests plugin with spring light freemarker archetype">
+        <create-gen-basic archetype="appfuse-light-spring-freemarker" name="light-spring-freemarker"/>
+    </target>
+
+    <target name="test-spring-security-light" description="tests plugin with spring security light archetype">
+        <create-gen-basic archetype="appfuse-light-spring-security" name="light-spring-security"/>
+    </target>
+
+    <target name="test-stripes-light" description="tests plugin with stripes light archetype">
+        <create-gen-basic archetype="appfuse-light-stripes" name="light-stripes"/>
     </target>
 
     <target name="test-struts-light" description="tests plugin with struts light archetype">
@@ -87,8 +108,12 @@
     <target name="test-light" description="Runs all light archetype tests using Ant">
         <antcall target="test-jsf-light"/>
         <antcall target="test-spring-light"/>
+        <antcall target="test-spring-freemarker-light"/>
+        <antcall target="test-spring-security-light"/>
         <antcall target="test-struts-light"/>
+        <antcall target="test-stripes-light"/>
         <antcall target="test-tapestry-light"/>
+        <antcall target="test-wicket-light"/>
     </target>
 
     <target name="test-modular" description="Runs all modular archetype tests using Ant">
@@ -96,6 +121,7 @@
         <antcall target="test-spring-modular"/>
         <antcall target="test-struts-modular"/>
         <antcall target="test-tapestry-modular"/>
+        <antcall target="test-wicket-modular"/>
     </target>
 
     <target name="test-all" description="Tests AMP, Full Source and JPA with AppFuse archetypes">
@@ -137,7 +163,7 @@
 
             <echo level="info">Generating Generic CRUD for Person entity...</echo>
             <!-- run gen install integration-test -->
-            <property name="test-command" value="verify -Duser.language=en"/>
+            <property name="test-command" value="verify -Pitest -Duser.language=en"/>
 
             <echo message="Using test command: ${test-command}"/>
 
@@ -194,7 +220,7 @@
 
             <!-- gen and test web -->
             <maven dir="${test.dir}/@{name}/web" command="appfuse:gen -Dentity=Person -Damp.genericCore=false -e"/>
-            <maven dir="${test.dir}/@{name}/web" command="install -Duser.language=en -Dsurefire.useFile=false -e"/>
+            <maven dir="${test.dir}/@{name}/web" command="install -Pitest -Duser.language=en -Dsurefire.useFile=false -e"/>
         </sequential>
     </macrodef>
 

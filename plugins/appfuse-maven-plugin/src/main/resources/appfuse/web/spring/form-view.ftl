@@ -12,12 +12,12 @@
    "<fmt:message key="delete.confirm"><fmt:param value=${'"'}${r"${delObject}"}${'"'}/></fmt:message>";
 </script>
 
-<div class="col-sm-2">
+<div class="col-sm-3">
     <h2><fmt:message key="${pojoNameLower}Detail.heading"/></h2>
     <fmt:message key="${pojoNameLower}Detail.message"/>
 </div>
 
-<div class="col-sm-7">
+<div class="col-sm-6">
 <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
 <form:form commandName="${pojoNameLower}" method="post" action="${pojoNameLower}form" cssClass="well"
            id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}(this)">
@@ -26,7 +26,7 @@
 <#if field.equals(pojo.identifierProperty)>
     <#assign idFieldName = field.name>
     <#if field.value.identifierGeneratorStrategy == "assigned">
-        <#lt/><ul>
+        <#lt/>
     <spring:bind path="${pojoNameLower}.${field.name}">
     <div class="form-group${'$'}{(not empty status.errorMessage) ? ' has-error' : ''}">
     </spring:bind>
@@ -63,16 +63,16 @@
 </#foreach>
 
     <div class="form-group">
-        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+        <button type="submit" class="btn btn-primary" id="save" name="save" onclick="bCancel=false">
             <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
         </button>
         <c:if test="${'$'}{not empty ${pojoNameLower}.${idFieldName}}">
-            <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+            <button type="submit" class="btn btn-danger" id="delete" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
                 <i class="icon-trash icon-white"></i> <fmt:message key="button.delete"/>
             </button>
         </c:if>
 
-        <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
+        <button type="submit" class="btn btn-default" id="cancel" name="cancel" onclick="bCancel=true">
             <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
         </button>
     </div>
@@ -83,10 +83,10 @@
 <script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
 
 <#if dateExists><#rt/>
-<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/webjars/bootstrap-datepicker/1.2.0/css/datepicker.css'/>" />
-<script type="text/javascript" src="<c:url value='/webjars/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.js'/>"></script>
+<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/webjars/bootstrap-datepicker/1.3.1/css/datepicker.css'/>" />
+<script type="text/javascript" src="<c:url value='/webjars/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.js'/>"></script>
 <c:if test="${'$'}{pageContext.request.locale.language != 'en'}">
-<script type="text/javascript" src="<c:url value='/webjars/bootstrap-datepicker/1.2.0/js/locales/bootstrap-datepicker.${r"${pageContext.request.locale.language}"}.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/webjars/bootstrap-datepicker/1.3.1/js/locales/bootstrap-datepicker.${r"${pageContext.request.locale.language}"}.js'/>"></script>
 </c:if>
 </#if><#rt/>
 <script type="text/javascript">

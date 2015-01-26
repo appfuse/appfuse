@@ -193,7 +193,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
                     File existingConfig = new File(hibernateConfig);
                     if (!existingConfig.exists()) {
                         InputStream in = this.getClass().getResourceAsStream("/appfuse/dao/ibatis/hibernate.cfg.ftl");
-                        StringBuffer configFile = new StringBuffer();
+                        StringBuilder configFile = new StringBuilder();
                         try {
                             InputStreamReader isr = new InputStreamReader(in);
                             BufferedReader reader = new BufferedReader(isr);
@@ -283,7 +283,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
         exporter.getProperties().setProperty("hasSecurity", String.valueOf(hasSecurity));
 
-        // determine if using Home or Home for Tapestry
+        // determine if using Main or Home for Tapestry
         if (webFramework.equals("tapestry")) {
             boolean useHome = true;
             Collection<File> sourceFiles = FileUtils.listFiles(getProject().getBasedir(), new String[]{"java"}, true);
@@ -302,7 +302,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
     /**
      * Executes the plugin in an isolated classloader.
      *
-     * @throws MojoExecutionException When there is an erro executing the plugin
+     * @throws MojoExecutionException When there is an error executing the plugin
      */
     @Override
     protected void doExecute() throws MojoExecutionException {

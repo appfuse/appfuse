@@ -13,12 +13,13 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click View ${pojo.shortName} link" url="/${pojo.shortName}List"/>
+                <invoke description="click View ${pojo.shortName} link" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <verifytitle description="we should see the ${pojoNameLower}List title"
                     text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
-                <setinputfield description="set search term" name="q" value="*"/>
+                <!--APF-1463: still need to add support for search to generated ${pojo.shortName}List.java-->
+                <!--setinputfield description="set search term" name="searchQuery" value="*"/>
                 <clickbutton label="${'$'}{button.search}" description="Click Search"/>
-                <verifytitle text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
+                <verifytitle text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/-->
             </steps>
         </webtest>
     </target>
@@ -29,7 +30,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View ${pojo.shortName} List" url="/${pojoNameLower}list"/>
+                <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <clicklink description="click on first record in list" label="-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
@@ -43,7 +44,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View ${pojo.shortName} List" url="/${pojoNameLower}list"/>
+                <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <clicklink description="click on first record in list" label="-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
@@ -110,9 +111,9 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View ${pojo.shortName} List" url="/${pojoNameLower}list"/>
+                <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <clicklink description="click on first record in list" label="-1"/>
-                <clicklink label="${'$'}{button.delete}" description="Click button 'Delete'"/>
+                <clickbutton label="${'$'}{button.delete}" description="Click button 'Delete'"/>
                 <verifytitle description="display ${pojo.shortName} List" text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${'$'}{${pojoNameLower}.deleted}"/>
             </steps>

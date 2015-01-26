@@ -1,4 +1,4 @@
-package org.appfuse.webapp;
+package org.appfuse.webapp.pages;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
