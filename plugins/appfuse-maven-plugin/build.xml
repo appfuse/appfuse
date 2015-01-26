@@ -68,6 +68,10 @@
         <create-gen-modular archetype="appfuse-modular-tapestry" name="modular-tapestry"/>
     </target>
 
+    <target name="test-wicket-modular" description="tests plugin with wicket modular archetype">
+        <create-gen-modular archetype="appfuse-modular-wicket" name="modular-wicket"/>
+    </target>
+
     <!-- Light Archetypes -->
     <target name="test-jsf-light" description="tests plugin with jsf light archetype">
         <create-gen-basic archetype="appfuse-light-jsf" name="light-jsf"/>
@@ -117,6 +121,7 @@
         <antcall target="test-spring-modular"/>
         <antcall target="test-struts-modular"/>
         <antcall target="test-tapestry-modular"/>
+        <antcall target="test-wicket-modular"/>
     </target>
 
     <target name="test-all" description="Tests AMP, Full Source and JPA with AppFuse archetypes">
