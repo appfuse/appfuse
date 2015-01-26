@@ -13,7 +13,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click View ${pojo.shortName} link" url="/${pojo.shortName}List"/>
+                <invoke description="click View ${pojo.shortName} link" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <verifytitle description="we should see the ${pojoNameLower}List title"
                     text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
                 <setinputfield description="set search term" name="q" value="*"/>
@@ -29,7 +29,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View ${pojo.shortName} List" url="/${pojoNameLower}list"/>
+                <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <clicklink description="click on first record in list" label="-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
@@ -43,7 +43,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View ${pojo.shortName} List" url="/${pojoNameLower}list"/>
+                <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <clicklink description="click on first record in list" label="-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
@@ -110,7 +110,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View ${pojo.shortName} List" url="/${pojoNameLower}list"/>
+                <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <clicklink description="click on first record in list" label="-1"/>
                 <clicklink label="${'$'}{button.delete}" description="Click button 'Delete'"/>
                 <verifytitle description="display ${pojo.shortName} List" text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>

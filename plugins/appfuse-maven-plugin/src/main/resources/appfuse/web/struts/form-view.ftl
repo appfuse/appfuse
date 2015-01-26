@@ -32,7 +32,7 @@
     <#foreach column in field.getColumnIterator()>
         <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
             <#assign dateExists = true>
-            <#lt/>        <s:textfield cssClass="form-control" key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>size="11" title="date" datepicker="true"/>
+            <#lt/>        <s:textfield cssClass="form-control date" key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>size="11" title="date" datepicker="true"/>
         <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
             <#lt/>        <s:checkbox key="${pojoNameLower}.${field.name}" theme="css_xhtml"/>
         <#else>
@@ -73,7 +73,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
 <#if dateExists>
-        ${'$'}('.text-right.date').datepicker({format: "<fmt:message key='calendar.format'/>", weekStart: "<fmt:message key='calendar.weekstart'/>", language: '${r"${pageContext.request.locale.language}"}'});
+        ${'$'}('.date').datepicker({format: "<fmt:message key='calendar.format'/>", weekStart: "<fmt:message key='calendar.weekstart'/>", language: '${r"${pageContext.request.locale.language}"}'});
 </#if>
     });
 </script>

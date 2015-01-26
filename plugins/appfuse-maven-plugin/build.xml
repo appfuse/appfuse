@@ -71,11 +71,11 @@
     <target name="test-spring-light" description="tests plugin with spring light archetype">
         <create-gen-basic archetype="appfuse-light-spring" name="light-spring"/>
     </target>
-    
+
     <target name="test-spring-freemarker-light" description="tests plugin with spring light freemarker archetype">
         <create-gen-basic archetype="appfuse-light-spring-freemarker" name="light-spring-freemarker"/>
     </target>
-    
+
     <target name="test-spring-security-light" description="tests plugin with spring security light archetype">
         <create-gen-basic archetype="appfuse-light-spring-security" name="light-spring-security"/>
     </target>
@@ -83,7 +83,7 @@
     <target name="test-stripes-light" description="tests plugin with stripes light archetype">
         <create-gen-basic archetype="appfuse-light-stripes" name="light-stripes"/>
     </target>
-    
+
     <target name="test-struts-light" description="tests plugin with struts light archetype">
         <create-gen-basic archetype="appfuse-light-struts" name="light-struts"/>
     </target>
@@ -104,6 +104,7 @@
         <antcall target="test-struts-light"/>
         <antcall target="test-stripes-light"/>
         <antcall target="test-tapestry-light"/>
+        <antcall target="test-wicket-light"/>
     </target>
 
     <target name="test-modular" description="Runs all modular archetype tests using Ant">

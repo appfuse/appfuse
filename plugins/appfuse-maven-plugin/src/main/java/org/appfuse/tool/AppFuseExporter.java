@@ -192,16 +192,31 @@ public class AppFuseExporter extends GenericExporter {
             configureExporter("appfuse/web/tapestry/list-test.ftl", "src/test/java/{basepkg-name}/webapp/pages/{class-name}ListTest.java").start();
             configureExporter("appfuse/web/tapestry/form-test.ftl", "src/test/java/{basepkg-name}/webapp/pages/{class-name}FormTest.java").start();
 
-            // managed beans
+            // pages
             configureExporter("appfuse/web/tapestry/list.ftl", "src/main/java/{basepkg-name}/webapp/pages/{class-name}List.java").start();
             configureExporter("appfuse/web/tapestry/form.ftl", "src/main/java/{basepkg-name}/webapp/pages/{class-name}Form.java").start();
 
             // views
             configureExporter("appfuse/web/tapestry/list-view.ftl", "src/main/webapp/{class-name}List.tml").start();
             configureExporter("appfuse/web/tapestry/form-view.ftl", "src/main/webapp/{class-name}Form.tml").start();
+        } else if (webFramework.equalsIgnoreCase("wicket")) {
+            // tests
+            configureExporter("appfuse/web/wicket/list-test.ftl", "src/test/java/{basepkg-name}/webapp/pages/{class-name}ListTest.java").start();
+            configureExporter("appfuse/web/wicket/form-test.ftl", "src/test/java/{basepkg-name}/webapp/pages/{class-name}FormTest.java").start();
+
+            // pages
+            configureExporter("appfuse/web/wicket/model.ftl", "src/main/java/{basepkg-name}/webapp/pages/{class-name}Model.java").start();
+            configureExporter("appfuse/web/wicket/data-provider.ftl", "src/main/java/{basepkg-name}/webapp/pages/Sortable{class-name}DataProvider.java").start();
+            configureExporter("appfuse/web/wicket/list.ftl", "src/main/java/{basepkg-name}/webapp/pages/{class-name}List.java").start();
+            configureExporter("appfuse/web/wicket/form.ftl", "src/main/java/{basepkg-name}/webapp/pages/{class-name}Form.java").start();
+            configureExporter("appfuse/web/wicket/application.ftl", "src/main/java/{basepkg-name}/webapp/{class-name}Application.tmp").start();
+
+            // views
+            configureExporter("appfuse/web/wicket/list-view.ftl", "src/main/java/{basepkg-name}/webapp/pages/{class-name}List.html").start();
+            configureExporter("appfuse/web/wicket/form-view.ftl", "src/main/java/{basepkg-name}/webapp/pages/{class-name}Form.html").start();
         } else {
             log.warn("Your project's web framework '" + webFramework + "' is not supported by AMP at this time.");
-            log.warn("See http://issues.appfuse.org/browse/EQX-211 for more information.");
+            log.warn("See enter an issue in JIRA if you'd like to see support. http://issues.appfuse.org/browse/APF");
         }
 
         // menu
@@ -219,7 +234,7 @@ public class AppFuseExporter extends GenericExporter {
 
         // i18n
         configureExporter("appfuse/web/ApplicationResources.ftl", "src/main/resources/{class-name}-ApplicationResources.properties").start();
-        
+
         // canoo tests
         if (!webFramework.equals("spring-security") && !webFramework.equalsIgnoreCase("spring-freemarker") && !webFramework.equalsIgnoreCase("stripes")) {
             configureExporter("appfuse/web/" + webFramework + "/web-tests.ftl", "src/test/resources/{class-name}-web-tests.xml").start();

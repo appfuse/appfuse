@@ -2,6 +2,7 @@ package org.appfuse.tool;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.project.MavenProject;
@@ -90,7 +91,7 @@ public class ArtifactInstaller {
                         destinationDirectory + "/src/main/resources", "**/webapp/action/*.xml");
                 installStrutsViews(pagesPath);
             } else if ("spring".equalsIgnoreCase(webFramework) || "spring-security".equalsIgnoreCase(webFramework)) {
-                log("Installing Spring views and configuring...");
+                log("Installing Spring views...");
                 installSpringValidation();
                 installSpringViews(pagesPath);
             } else if ("spring-freemarker".equalsIgnoreCase(webFramework)) {
@@ -100,8 +101,11 @@ public class ArtifactInstaller {
                 log("Installing Stripes views...");
                 installStripesViews();
             } else if ("tapestry".equalsIgnoreCase(webFramework)) {
-                log("Installing Tapestry views and configuring...");
+                log("Installing Tapestry views...");
                 installTapestryViews();
+            } else if ("wicket".equalsIgnoreCase(webFramework)) {
+                log("Installing Wicket views...");
+                installWicketViews();
             }
 
             log("Installing i18n messages...");
@@ -316,6 +320,16 @@ public class ArtifactInstaller {
         parseXMLFile(existingFile, pojoName, "<!-- Add new menu items here -->", "tapestry-menu");
     }
 
+    private void installWicketViews() {
+        copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/pages/*.html");
+        log("Installing Wicket pages...");
+        createLoadFileTask("/src/main/java/" + project.getGroupId().replace(".", "/") + "/webapp/" + pojoName +
+                "Application.tmp", "wicket.app").execute();
+        File existingFile = new File(destinationDirectory + "/src/main/java/" +
+                project.getGroupId().replace(".", "/") + "/webapp/Application.java");
+        parseJavaFile(existingFile, pojoName, "// add additional pages here", "wicket.app");
+    }
+
     private boolean isAppFuse() {
         return (project.getParent().getArtifactId().contains("appfuse-web"));
     }
@@ -364,7 +378,12 @@ public class ArtifactInstaller {
 
         // if ApplicationResources doesn't exist, assume appfuse-light and use messages instead
         if (!existingFile.exists()) {
-            existingFile = new File(destinationDirectory + "/src/main/resources/messages.properties");
+            if ("wicket".equalsIgnoreCase(webFramework)) {
+                existingFile = new File(destinationDirectory + "/src/main/java/" + project.getGroupId().replace(".", "/")
+                        + "/webapp/pages/BasePage.properties");
+            } else {
+                existingFile = new File(destinationDirectory + "/src/main/resources/messages.properties");
+            }
         }
 
         parsePropertiesFile(existingFile, pojoName);
@@ -491,6 +510,46 @@ public class ArtifactInstaller {
         regExpTask.setReplace("");
         regExpTask.setFlags("g");
         regExpTask.execute();
+    }
+
+    /**
+     * This file is the same as the two methods above, except for different comment placeholder formats.
+     * Yeah, I know, it's ugly.
+     *
+     * @param existingFile file to merge with in project
+     * @param beanName     name of placeholder string that goes in comment
+     */
+    private void parseJavaFile(File existingFile, String beanName, String tokenToReplace, String fileVariable) {
+        String nameInComment = beanName;
+        if (beanName == null) {
+            nameInComment = pojoName;
+        }
+
+        Replace replace1 = (Replace) antProject.createTask("replace");
+        replace1.setFile(existingFile);
+        replace1.setToken("// " + nameInComment + "-START");
+        replace1.setValue("REGULAR-START");
+        replace1.execute();
+
+        Replace replace2 = (Replace) antProject.createTask("replace");
+        replace2.setFile(existingFile);
+        replace2.setToken("//" + nameInComment + "-END");
+        replace2.setValue("REGULAR-END");
+        replace2.execute();
+
+        ReplaceRegExp regExpTask = (ReplaceRegExp) antProject.createTask("replaceregexp");
+        regExpTask.setFile(existingFile);
+        regExpTask.setMatch("REGULAR-START(?s:.)*REGULAR-END");
+        regExpTask.setReplace("");
+        regExpTask.setFlags("g");
+        regExpTask.execute();
+
+        Replace replaceData = (Replace) antProject.createTask("replace");
+        replaceData.setFile(existingFile);
+        replaceData.setToken(tokenToReplace);
+        String stringWithProperLineEndings = adjustLineEndingsForOS(antProject.getProperty(fileVariable));
+        replaceData.setValue(stringWithProperLineEndings);
+        replaceData.execute();
     }
 
     private static String adjustLineEndingsForOS(String property) {
