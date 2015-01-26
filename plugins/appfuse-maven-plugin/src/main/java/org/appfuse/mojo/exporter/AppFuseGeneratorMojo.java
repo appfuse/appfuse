@@ -296,19 +296,6 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             exporter.getProperties().setProperty("useHome", String.valueOf(useHome));
         }
 
-        // determine if using BasePage or AbstractWebPage for Wicket
-        if (webFramework.equals("wicket")) {
-            boolean isAppFuse = false;
-            Collection<File> sourceFiles = FileUtils.listFiles(getProject().getBasedir(), new String[]{"java"}, true);
-            for (File file : sourceFiles) {
-                if (file.getPath().contains("AbstractWebPage.java")) {
-                    isAppFuse = true;
-                    break;
-                }
-            }
-            exporter.getProperties().setProperty("isAppFuse", String.valueOf(isAppFuse));
-        }
-
         return exporter;
     }
 
