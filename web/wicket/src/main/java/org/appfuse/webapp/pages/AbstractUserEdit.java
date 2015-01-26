@@ -8,7 +8,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
-import org.appfuse.webapp.AbstractWebPage;
 import org.appfuse.webapp.pages.components.UserEditPanel;
 
 /**

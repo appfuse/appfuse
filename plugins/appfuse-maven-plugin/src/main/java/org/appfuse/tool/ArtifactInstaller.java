@@ -117,7 +117,7 @@ public class ArtifactInstaller {
             }
 
             log("Installing UI tests...");
-            installUITests();
+            installUITests(webFramework);
         }
     }
 
@@ -322,12 +322,6 @@ public class ArtifactInstaller {
 
     private void installWicketViews() {
         copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/pages/*.html");
-        log("Installing Wicket pages...");
-        createLoadFileTask("/src/main/java/" + project.getGroupId().replace(".", "/") + "/webapp/" + pojoName +
-                "Application.tmp", "wicket.app").execute();
-        File existingFile = new File(destinationDirectory + "/src/main/java/" +
-                project.getGroupId().replace(".", "/") + "/webapp/Application.java");
-        parseJavaFile(existingFile, pojoName, "// add additional pages here", "wicket.app");
     }
 
     private boolean isAppFuse() {
@@ -378,9 +372,9 @@ public class ArtifactInstaller {
 
         // if ApplicationResources doesn't exist, assume appfuse-light and use messages instead
         if (!existingFile.exists()) {
-            if ("wicket".equalsIgnoreCase(webFramework)) {
+            if ("wicket".equalsIgnoreCase(webFramework) && !isAppFuse()) {
                 existingFile = new File(destinationDirectory + "/src/main/java/" + project.getGroupId().replace(".", "/")
-                        + "/webapp/pages/BasePage.properties");
+                        + "/webapp/pages/AbstractWebPage.properties");
             } else {
                 existingFile = new File(destinationDirectory + "/src/main/resources/messages.properties");
             }
@@ -395,7 +389,7 @@ public class ArtifactInstaller {
         echoTask.execute();
     }
 
-    private void installUITests() {
+    private void installUITests(String webFramework) {
         // Gracefully handle when ui tests don't exist
         boolean webTestsExist = new File("src/test/resources/" + "web-tests.xml").exists();
         File existingFile = new File(destinationDirectory + "/src/test/resources/web-tests.xml");
@@ -411,8 +405,13 @@ public class ArtifactInstaller {
                 if (FileUtils.readFileToString(existingFile).contains("FileUpload")) {
                     // todo: figure out how to fix the 2 lines below so they don't include pojoNameTest
                     // multiple times on subsequent installs
-                    replace.setToken(",FileUpload");
-                    replace.setValue(",FileUpload," + pojoName + "Tests");
+                    if ("wicket".equalsIgnoreCase(webFramework)) {
+                        replace.setToken(",DWR");
+                        replace.setValue(",DWR," + pojoName + "Tests");
+                    } else {
+                        replace.setToken(",FileUpload");
+                        replace.setValue(",FileUpload," + pojoName + "Tests");
+                    }
                 } else {
                     // AppFuse Light
                     replace.setToken("depends=\"UserTests");
@@ -424,7 +423,8 @@ public class ArtifactInstaller {
             replace.execute();
 
             // Delete any jWebUnit artifacts that may have been installed
-            File jwebunitTest = FileUtils.getFile(new File(destinationDirectory), pojoName + "WebTest.java");
+            File jwebunitTest = new File(destinationDirectory + "/src/test/java/" +
+                    project.getGroupId().replace(".", "/") + "/webapp/" + pojoName + "WebTest.java");
             jwebunitTest.delete();
         }
     }
@@ -510,46 +510,6 @@ public class ArtifactInstaller {
         regExpTask.setReplace("");
         regExpTask.setFlags("g");
         regExpTask.execute();
-    }
-
-    /**
-     * This file is the same as the two methods above, except for different comment placeholder formats.
-     * Yeah, I know, it's ugly.
-     *
-     * @param existingFile file to merge with in project
-     * @param beanName     name of placeholder string that goes in comment
-     */
-    private void parseJavaFile(File existingFile, String beanName, String tokenToReplace, String fileVariable) {
-        String nameInComment = beanName;
-        if (beanName == null) {
-            nameInComment = pojoName;
-        }
-
-        Replace replace1 = (Replace) antProject.createTask("replace");
-        replace1.setFile(existingFile);
-        replace1.setToken("// " + nameInComment + "-START");
-        replace1.setValue("REGULAR-START");
-        replace1.execute();
-
-        Replace replace2 = (Replace) antProject.createTask("replace");
-        replace2.setFile(existingFile);
-        replace2.setToken("//" + nameInComment + "-END");
-        replace2.setValue("REGULAR-END");
-        replace2.execute();
-
-        ReplaceRegExp regExpTask = (ReplaceRegExp) antProject.createTask("replaceregexp");
-        regExpTask.setFile(existingFile);
-        regExpTask.setMatch("REGULAR-START(?s:.)*REGULAR-END");
-        regExpTask.setReplace("");
-        regExpTask.setFlags("g");
-        regExpTask.execute();
-
-        Replace replaceData = (Replace) antProject.createTask("replace");
-        replaceData.setFile(existingFile);
-        replaceData.setToken(tokenToReplace);
-        String stringWithProperLineEndings = adjustLineEndingsForOS(antProject.getProperty(fileVariable));
-        replaceData.setValue(stringWithProperLineEndings);
-        replaceData.execute();
     }
 
     private static String adjustLineEndingsForOS(String property) {

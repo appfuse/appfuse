@@ -5,10 +5,7 @@
 package ${basepackage}.webapp.pages;
 
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
-import org.apache.wicket.spring.test.ApplicationContextMock;
 import org.apache.wicket.util.tester.FormTester;
-import org.apache.wicket.util.tester.WicketTester;
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
     <#assign managerClass = 'GenericManager'>
@@ -18,29 +15,26 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${pojo.packageName}.${pojo.shortName};
 import ${appfusepackage}.util.DateUtil;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import org.springframework.web.context.support.StaticWebApplicationContext;
 
-public class ${pojo.shortName}FormTest {
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
-    private WicketTester tester;
+public class ${pojo.shortName}FormTest extends BasePageTest {
+
 <#if genericcore>
     private GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager;
 <#else>
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
 
-    @Before
-    public void onSetUp() {
-        tester = new WicketTester();
+    @Override
+    protected void initSpringBeans(StaticWebApplicationContext context) {
+        super.initSpringBeans(context);
         ${pojoNameLower}Manager = mock(${managerClass}.class);
-        ApplicationContextMock applicationContextMock = new ApplicationContextMock();
-        applicationContextMock.putBean("${pojoNameLower}Manager", ${pojoNameLower}Manager);
-        tester.getApplication().getComponentInstantiationListeners().add(
-            new SpringComponentInjector(tester.getApplication(), applicationContextMock));
+        context.getBeanFactory().registerSingleton("${pojoNameLower}Manager", ${pojoNameLower}Manager);
         ${pojo.shortName}Form ${pojoNameLower}Form = new ${pojo.shortName}Form();
         tester.startPage(${pojoNameLower}Form);
     }
@@ -87,7 +81,7 @@ public class ${pojo.shortName}FormTest {
         verify(${pojoNameLower}Manager).save(${pojoNameLower});
         tester.assertRenderedPage(${pojo.shortName}List.class);
         tester.assertNoErrorMessage();
-        tester.assertInfoMessages(new String[] {"${pojo.shortName} has been added successfully."});
+        tester.assertInfoMessages("${pojo.shortName} has been added successfully.");
     }
 
     private ${pojo.shortName} createTest${pojo.shortName}() {

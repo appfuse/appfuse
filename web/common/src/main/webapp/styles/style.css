@@ -48,6 +48,11 @@ h1, h2 {
 
 /* FORMS */
 
+ul.feedbackPanel {
+    list-style: none;
+    padding-left: 10px;
+}
+
 .controls.readonly {
     padding-top: 5px;
 }

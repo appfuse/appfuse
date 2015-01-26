@@ -19,8 +19,8 @@ public class ${pojo.shortName}WebTest {
     public void setUp() {
         setScriptingEnabled(false);
         getTestContext().setBaseUrl("http://" + System.getProperty("cargo.host") + ":" + System.getProperty("cargo.port"));
-        getTestContext().setResourceBundleName("${basepackage}.webapp.pages.BasePage");
-        messages = ResourceBundle.getBundle("${basepackage}.webapp.pages.BasePage");
+        getTestContext().setResourceBundleName("${basepackage}.webapp.pages.AbstractWebPage");
+        messages = ResourceBundle.getBundle("${basepackage}.webapp.pages.AbstractWebPage");
     }
 
     @Before

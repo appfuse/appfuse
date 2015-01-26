@@ -209,7 +209,6 @@ public class AppFuseExporter extends GenericExporter {
             configureExporter("appfuse/web/wicket/data-provider.ftl", "src/main/java/{basepkg-name}/webapp/pages/Sortable{class-name}DataProvider.java").start();
             configureExporter("appfuse/web/wicket/list.ftl", "src/main/java/{basepkg-name}/webapp/pages/{class-name}List.java").start();
             configureExporter("appfuse/web/wicket/form.ftl", "src/main/java/{basepkg-name}/webapp/pages/{class-name}Form.java").start();
-            configureExporter("appfuse/web/wicket/application.ftl", "src/main/java/{basepkg-name}/webapp/{class-name}Application.tmp").start();
 
             // views
             configureExporter("appfuse/web/wicket/list-view.ftl", "src/main/java/{basepkg-name}/webapp/pages/{class-name}List.html").start();

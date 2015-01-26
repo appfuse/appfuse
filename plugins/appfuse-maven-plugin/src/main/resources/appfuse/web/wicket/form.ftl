@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.panel.ComponentFeedbackPanel;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.*;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.wicketstuff.annotation.mount.MountPath;
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
 <#else>
@@ -21,7 +22,8 @@ import ${pojo.packageName}.${pojo.shortName};
 
 import java.util.Date;
 
-public class ${pojo.shortName}Form extends BasePage {
+@MountPath("${pojoNameLower}form")
+public class ${pojo.shortName}Form extends AbstractWebPage {
     @SpringBean(name = "${pojoNameLower}Manager")
 <#if genericcore>
     private GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager;

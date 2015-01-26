@@ -198,9 +198,6 @@ public class ArtifactUninstaller {
 
     private void removeWicketViews() {
         removeGeneratedFiles(installedDirectory + "/src/main/java", "**/pages/" + pojoName + "*.html");
-        File existingFile = new File(installedDirectory + "/src/main/java/" +
-                project.getGroupId().replace(".", "/") + "/webapp/Application.java");
-        parseJavaFile(existingFile, pojoName);
         removeGeneratedFiles(installedDirectory, "**/webapp/**/*" + pojoName + "*.java");
     }
 
@@ -307,31 +304,6 @@ public class ArtifactUninstaller {
         Replace replace2 = (Replace) antProject.createTask("replace");
         replace2.setFile(existingFile);
         replace2.setToken("# -- " + nameInComment + "-END");
-        replace2.setValue("REGULAR-END");
-        replace2.execute();
-
-        ReplaceRegExp regExpTask = (ReplaceRegExp) antProject.createTask("replaceregexp");
-        regExpTask.setFile(existingFile);
-        regExpTask.setMatch("REGULAR-START(?s:.)*REGULAR-END");
-        regExpTask.setReplace("");
-        regExpTask.setFlags("g");
-        regExpTask.execute();
-    }
-
-    private void parseJavaFile(File existingFile, String beanName) {
-        String nameInComment = beanName;
-        if (beanName == null) {
-            nameInComment = pojoName;
-        }
-        Replace replace1 = (Replace) antProject.createTask("replace");
-        replace1.setFile(existingFile);
-        replace1.setToken("// -- " + nameInComment + "-START");
-        replace1.setValue("REGULAR-START");
-        replace1.execute();
-
-        Replace replace2 = (Replace) antProject.createTask("replace");
-        replace2.setFile(existingFile);
-        replace2.setToken("// -- " + nameInComment + "-END");
         replace2.setValue("REGULAR-END");
         replace2.execute();
 

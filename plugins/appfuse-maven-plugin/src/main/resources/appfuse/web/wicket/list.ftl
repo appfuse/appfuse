@@ -25,8 +25,10 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.wicketstuff.annotation.mount.MountPath;
 
-public class ${pojo.shortName}List extends BasePage {
+@MountPath("${util.getPluralForWord(pojoNameLower)}")
+public class ${pojo.shortName}List extends AbstractWebPage {
     @SpringBean(name = "${pojoNameLower}Manager")
     <#if genericcore>
     private GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager;

@@ -39,11 +39,16 @@
         <create-gen-basic archetype="appfuse-basic-tapestry" name="basic-tapestry"/>
     </target>
 
+    <target name="test-wicket-basic" description="tests plugin with wicket basic archetype">
+        <create-gen-basic archetype="appfuse-basic-wicket" name="basic-wicket"/>
+    </target>
+
     <target name="test-basic" description="Runs all basic archetype tests using Ant">
         <antcall target="test-jsf-basic"/>
         <antcall target="test-spring-basic"/>
         <antcall target="test-struts-basic"/>
         <antcall target="test-tapestry-basic"/>
+        <antcall target="test-wicket-basic"/>
     </target>
 
     <!-- Modular Archetypes -->

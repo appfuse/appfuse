@@ -9,7 +9,7 @@
         <wicket:message key="${pojoNameLower}Detail.message"/>
     </div>
     <div class="col-sm-6">
-        <div wicket:id="feedback" class="alert alert-error alert-dismissable"></div>
+        <div wicket:id="feedback" class="alert alert-dismissable"></div>
 
         <form wicket:id="${pojoNameLower}-form" id="${pojoNameLower}Form" class="well">
     <#foreach field in pojo.getAllPropertiesIterator()>
@@ -21,7 +21,7 @@
                 <#lt/>
                 <div class="form-group">
                     <label for="${field.name}" class="control-label"><wicket:message key="${pojoNameLower}.${field.name}">${data.getFieldDescription(field.name)}</wicket:message>:</label>
-                    <input type="text" wicket:id="${field.name}" class="form-control"/>
+                    <input type="text" wicket:id="${field.name}" id="${field.name}" class="form-control"/>
                     <div wicket:id="${field.name}-feedback" class="help-block">[${field.name} errors]</div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <#if isBoolean>
                     <#lt/>            <div class="checkbox">
                     <#lt/>                <label for="${field.name}">
-                    <#lt/>                    <input type="checkbox" wicket:id="${field.name}"/>
+                    <#lt/>                    <input type="checkbox" id="${field.name}" wicket:id="${field.name}"/>
                     <#lt/>                    <wicket:message key="${pojoNameLower}.${field.name}">${data.getFieldDescription(field.name)}</wicket:message>
                     <#lt/>                </label>
                     <#lt/>                <div wicket:id="${field.name}-feedback" class="help-block">[${field.name} errors]</div>
@@ -45,7 +45,7 @@
                 <#else>
                     <#lt/>            <div class="form-group">
                     <#lt/>                <label for="${field.name}" class="control-label"><wicket:message key="${pojoNameLower}.${field.name}">${data.getFieldDescription(field.name)}</wicket:message>:</label>
-                    <#lt/>                <input type="text" wicket:id="${field.name}" class="form-control"/>
+                    <#lt/>                <input type="text" wicket:id="${field.name}" id="${field.name}" class="form-control"/>
                     <#lt/>                <div wicket:id="${field.name}-feedback" class="help-block">[${field.name} errors]</div>
                     <#lt/>            </div>
                 </#if>
@@ -53,12 +53,12 @@
         </#if>
     </#foreach>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" name="save" id="save" wicket:id="save">
+                <button type="submit" class="btn btn-primary" id="save" wicket:id="save">
                     <i class="icon-ok icon-white"></i> <wicket:message key="button.save">Save</wicket:message>
                 </button>
 
-                <button type="submit" class="btn btn-danger" name="delete" id="delete" wicket:id="delete">
-                    <i class="icon-trash"></i> <wicket:message key="button.delete">Save</wicket:message>
+                <button type="submit" class="btn btn-danger" id="delete" wicket:id="delete">
+                    <i class="icon-trash"></i> <wicket:message key="button.delete">Delete</wicket:message>
                 </button>
 
                 <a href="${util.getPluralForWord(pojoNameLower)}" class="btn btn-default" wicket:id="cancel">

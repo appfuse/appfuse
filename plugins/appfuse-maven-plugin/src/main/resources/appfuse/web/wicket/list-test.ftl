@@ -5,9 +5,6 @@
 package ${basepackage}.webapp.pages;
 
 import org.apache.wicket.markup.repeater.data.DataView;
-import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
-import org.apache.wicket.spring.test.ApplicationContextMock;
-import org.apache.wicket.util.tester.WicketTester;
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
     <#assign managerClass = 'GenericManager'>
@@ -15,21 +12,18 @@ import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.service.${pojo.shortName}Manager;
     <#assign managerClass = pojo.shortName + 'Manager'>
 </#if>
-import org.junit.Before;
 import org.junit.Test;
+import org.springframework.web.context.support.StaticWebApplicationContext;
 
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
-public class ${pojo.shortName}ListTest {
-    private WicketTester tester;
+public class ${pojo.shortName}ListTest extends BasePageTest {
 
-    @Before
-    public void onSetUp() {
-        tester = new WicketTester();
-        ApplicationContextMock applicationContextMock = new ApplicationContextMock();
-        applicationContextMock.putBean("${pojoNameLower}Manager", mock(${managerClass}.class));
-        tester.getApplication().getComponentInstantiationListeners().add(
-            new SpringComponentInjector(tester.getApplication(), applicationContextMock));
+    @Override
+    protected void initSpringBeans(StaticWebApplicationContext context) {
+        super.initSpringBeans(context);
+        context.getBeanFactory().registerSingleton("${pojoNameLower}Manager", mock(${managerClass}.class));
     }
 
     @Test

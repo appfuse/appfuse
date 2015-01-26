@@ -1,7 +1,6 @@
 package org.appfuse.webapp.pages;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.appfuse.webapp.AbstractWebPage;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

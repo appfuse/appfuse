@@ -20,7 +20,7 @@ import org.appfuse.service.UserManager;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.appfuse.webapp.AbstractWebPage;
+import org.appfuse.webapp.pages.AbstractWebPage;
 import org.appfuse.webapp.pages.FromListUserEdit;
 import org.appfuse.webapp.pages.Home;
 import org.appfuse.webapp.pages.components.PlaceholderBehavior;
@@ -54,7 +54,7 @@ public class UserList extends AbstractWebPage {
         add(createSearchForm());
         add(createAddButton());
         add(createDoneButton());
-        
+
         add(createUserListTable());
     }
 
