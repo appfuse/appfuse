@@ -280,11 +280,6 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
                 }
             }
         }
-
-        boolean isAppFuse = (getProject().getParent().getArtifactId().contains("appfuse-web") || 
-                getProject().getParent().getParent().getGroupId().contains("appfuse"));
-        exporter.getProperties().setProperty("isAppFuse", String.valueOf(isAppFuse));
-
         exporter.getProperties().setProperty("hasSecurity", String.valueOf(hasSecurity));
 
         // determine if using Main or Home for Tapestry

@@ -74,7 +74,6 @@ public class ArtifactInstaller {
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/webapp/**/*.java");
 
             String webFramework = project.getProperties().getProperty("web.framework");
-            String pagesPath = isAppFuse() ? "/src/main/webapp/WEB-INF/pages/" : "/src/main/webapp/";
 
             if ("jsf".equalsIgnoreCase(webFramework)) {
                 log("Installing JSF views and configuring...");
@@ -87,14 +86,14 @@ public class ArtifactInstaller {
                         destinationDirectory + "/src/main/resources", "**/model/*.xml");
                 copyGeneratedObjects(sourceDirectory + "/src/main/resources",
                         destinationDirectory + "/src/main/resources", "**/webapp/action/*.xml");
-                installStrutsViews(pagesPath);
+                installStrutsViews();
             } else if ("spring".equalsIgnoreCase(webFramework) || "spring-security".equalsIgnoreCase(webFramework)) {
                 log("Installing Spring views...");
                 installSpringValidation();
-                installSpringViews(pagesPath);
+                installSpringViews();
             } else if ("spring-freemarker".equalsIgnoreCase(webFramework)) {
                 log("Installing Freemarker views...");
-                installSpringFreemarkerViews(pagesPath);
+                installSpringFreemarkerViews();
             } else if ("stripes".equalsIgnoreCase(webFramework)) {
                 log("Installing Stripes views...");
                 installStripesViews();
@@ -258,25 +257,25 @@ public class ArtifactInstaller {
         copy.execute();
     }
 
-    private void installSpringViews(String pagesPath) {
+    private void installSpringViews() {
         Copy copy = (Copy) antProject.createTask("copy");
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "form.jsp"));
-        copy.setTofile(new File(destinationDirectory + pagesPath + pojoNameLower + "form.jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "form.jsp"));
         copy.execute();
 
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "s.jsp"));
-        copy.setTofile(new File(destinationDirectory + pagesPath + util.getPluralForWord(pojoNameLower) + ".jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + util.getPluralForWord(pojoNameLower) + ".jsp"));
         copy.execute();
     }
 
-    private void installSpringFreemarkerViews(String pagesPath) {
+    private void installSpringFreemarkerViews() {
         Copy copy = (Copy) antProject.createTask("copy");
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "form.ftl"));
-        copy.setTofile(new File(destinationDirectory + pagesPath + pojoNameLower + "form.ftl"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/" + pojoNameLower + "form.ftl"));
         copy.execute();
 
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "list.ftl"));
-        copy.setTofile(new File(destinationDirectory + pagesPath + util.getPluralForWord(pojoNameLower) + ".ftl"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/" + util.getPluralForWord(pojoNameLower) + ".ftl"));
         copy.execute();
     }
 
@@ -291,14 +290,14 @@ public class ArtifactInstaller {
         copy.execute();
     }
 
-    private void installStrutsViews(String pagesPath) {
+    private void installStrutsViews() {
         Copy copy = (Copy) antProject.createTask("copy");
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "Form.jsp"));
-        copy.setTofile(new File(destinationDirectory + pagesPath + pojoNameLower + "Form.jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "Form.jsp"));
         copy.execute();
 
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "List.jsp"));
-        copy.setTofile(new File(destinationDirectory + pagesPath + pojoNameLower + "List.jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "List.jsp"));
         copy.execute();
     }
 
@@ -371,7 +370,7 @@ public class ArtifactInstaller {
 
         // if ApplicationResources doesn't exist, assume appfuse-light and use messages instead
         if (!existingFile.exists()) {
-            if ("wicket".equalsIgnoreCase(webFramework) && !isAppFuse()) {
+            if ("wicket".equalsIgnoreCase(webFramework)) {
                 existingFile = new File(destinationDirectory + "/src/main/java/" + project.getGroupId().replace(".", "/")
                         + "/webapp/pages/AbstractWebPage.properties");
             } else {
