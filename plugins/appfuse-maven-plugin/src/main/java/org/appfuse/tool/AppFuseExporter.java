@@ -112,6 +112,7 @@ public class AppFuseExporter extends GenericExporter {
 
     private void generateWeb() {
         String packaging = getProperties().getProperty("packaging");
+        boolean isAppFuse = Boolean.valueOf(getProperties().getProperty("isAppFuse"));
         boolean webProject = packaging != null && packaging.equalsIgnoreCase("war");
 
         if (!webProject) return;
@@ -169,7 +170,7 @@ public class AppFuseExporter extends GenericExporter {
             configureExporter("appfuse/web/struts/action-beans.ftl", "src/main/webapp/WEB-INF/{class-name}-struts-bean.xml").start();
 
             GenericExporter exporter = configureExporter("appfuse/web/struts/struts.ftl", "src/main/resources/{class-name}-struts.xml");
-            exporter.getProperties().put("pagesPath", jwebUnitTemplate.exists() ? "" : "/WEB-INF/pages");
+            exporter.getProperties().put("pagesPath", isAppFuse ? "/WEB-INF/pages" : "");
             exporter.start();
 
             // validation

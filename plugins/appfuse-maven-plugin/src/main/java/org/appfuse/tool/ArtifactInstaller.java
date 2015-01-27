@@ -74,7 +74,7 @@ public class ArtifactInstaller {
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/webapp/**/*.java");
 
             String webFramework = project.getProperties().getProperty("web.framework");
-            String pagesPath = (isAppFuse()) ? "/src/main/webapp/WEB-INF/pages/" : "/src/main/webapp/";
+            String pagesPath = isAppFuse() ? "/src/main/webapp/WEB-INF/pages/" : "/src/main/webapp/";
 
             if ("jsf".equalsIgnoreCase(webFramework)) {
                 log("Installing JSF views and configuring...");
@@ -82,8 +82,6 @@ public class ArtifactInstaller {
                 installJSFViews();
             } else if ("struts".equalsIgnoreCase(webFramework)) {
                 log("Installing Struts views and configuring...");
-                // A bean definition for an Action is not used anymore (APF-798)
-                // installStrutsBeanDefinition();
                 installStrutsActionDefinitions();
                 copyGeneratedObjects(sourceDirectory + "/src/main/resources",
                         destinationDirectory + "/src/main/resources", "**/model/*.xml");
@@ -325,7 +323,8 @@ public class ArtifactInstaller {
     }
 
     private boolean isAppFuse() {
-        return (project.getParent().getArtifactId().contains("appfuse-web"));
+        return (project.getParent().getArtifactId().contains("appfuse-web") ||
+                project.getParent().getParent().getGroupId().contains("appfuse"));
     }
 
     // =================== End of Views ===================
