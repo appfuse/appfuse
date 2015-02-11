@@ -24,9 +24,14 @@ body#login {
     color: #0099ff;
 }
 
-/* added to fix non clickable dropdown nested menus on mobile browsers APF-1384 */
+/* Fix for non-clickable dropdown nested menus on mobile browsers: APF-1384 */
 .navbar .dropdown-backdrop {
 	position: static;
+}
+
+/* Fix for dropdowns not working in IE: APF-1448 */
+.navbar { 
+    filter:none !important; 
 }
 
 #switchLocale {
