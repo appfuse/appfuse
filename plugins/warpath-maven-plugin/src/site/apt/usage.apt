@@ -1,5 +1,5 @@
   -----
-  Maven Warpath Plugin : Usage
+  Warpath Maven Plugin : Usage
   -----
   The AppFuse Team
   -----
@@ -14,7 +14,7 @@ Usage
   <plugins>
     <plugin>
       <groupId>org.appfuse</groupId>
-      <artifactId>maven-warpath-plugin</artifactId>
+      <artifactId>warpath-maven-plugin</artifactId>
       <version>1.0-SNAPSHOT</version>
       <extensions>true</extensions>
       <executions>
