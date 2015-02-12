@@ -262,9 +262,9 @@ public class InstallSourceMojo extends AbstractMojo {
                 } else {
                     pom = pom.replaceAll("<artifactId>hibernate4-maven-plugin</artifactId>",
                         "<artifactId>hibernate4-maven-plugin</artifactId>\n" +
-                            "                <configuration>\n" +
-                            "                    <scanDependencies>none</scanDependencies>\n" +
-                            "                </configuration>");
+                        "                <configuration>\n" +
+                        "                    <scanDependencies>none</scanDependencies>\n" +
+                        "                </configuration>");
                 }
 
                 // remove appfuse-data-common as a dependency
@@ -289,12 +289,20 @@ public class InstallSourceMojo extends AbstractMojo {
         for (Object pluginArtifact : project.getPluginArtifacts()) {
             if (((Artifact) pluginArtifact).getArtifactId().contains("enunciate")) {
                 isWebServicesProject = true;
+                try {
+                    String enunciate = FileUtils.readFileToString(new File("enunciate.xml"), "UTF-8");
+                    enunciate = enunciate.replaceAll("org.appfuse", project.getGroupId());
+                    enunciate = adjustLineEndingsForOS(enunciate);
+                    FileUtils.writeStringToFile(new File("enunciate.xml"), enunciate, "UTF-8");
+                } catch (IOException e) {
+                    getLog().error("Failed to rename 'org.appfuse' to '" + project.getGroupId() + 
+                            " in enunciate.xml'. Please make this change manually.");
+                }
                 break;
             }
         }
 
         if (project.getPackaging().equalsIgnoreCase("war")) {
-
             if (webFramework == null && !isWebServicesProject) {
                 getLog().error("The web.framework property is not specified - please modify your pom.xml to add " +
                     " this property. For example: <web.framework>struts</web.framework>.");
