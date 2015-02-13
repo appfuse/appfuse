@@ -28,7 +28,6 @@
         </repository>
     </repositories>
 
-
     <build>
         <plugins>
             <plugin>
@@ -38,11 +37,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
-            </plugin>
-            <!-- Sets cargo.port and cargo.ajp.port to open ports -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

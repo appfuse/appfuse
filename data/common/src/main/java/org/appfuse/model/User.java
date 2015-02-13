@@ -207,8 +207,9 @@ public class User extends BaseObject implements Serializable, UserDetails {
      * @see org.springframework.security.core.userdetails.UserDetails#getAuthorities()
      */
     @Transient
+    @JsonIgnore // needed for UserApiITest in appfuse-ws archetype
     public Set<GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new LinkedHashSet<GrantedAuthority>();
+        Set<GrantedAuthority> authorities = new LinkedHashSet<>();
         authorities.addAll(roles);
         return authorities;
     }

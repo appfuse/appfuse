@@ -1,5 +1,5 @@
  -----
-  Maven Warpath Plugin : Including and Excluding Classpath Resources
+  Warpath Maven Plugin : Including and Excluding Classpath Resources
   -----
   The AppFuse Team
   -----
@@ -16,7 +16,7 @@ Including and Excluding Classpath Resources
   <plugins>
     <plugin>
       <groupId>org.appfuse</groupId>
-      <artifactId>maven-warpath-plugin</artifactId>
+      <artifactId>warpath-maven-plugin</artifactId>
       <version>1.0-SNAPSHOT</version>
       <extensions>true</extensions>
       <executions>
