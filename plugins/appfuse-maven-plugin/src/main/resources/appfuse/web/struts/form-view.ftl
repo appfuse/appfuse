@@ -26,7 +26,7 @@
     <#if field.value.identifierGeneratorStrategy == "assigned">
         <#lt/>        <s:textfield cssClass="form-control" key="${pojoNameLower}.${field.name}" required="true" autofocus="true"/>
     <#else>
-            <s:hidden key="${pojoNameLower}.${field.name}"/>
+        <s:hidden key="${pojoNameLower}.${field.name}"/>
     </#if>
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#foreach column in field.getColumnIterator()>
@@ -70,10 +70,10 @@
 <script type="text/javascript" src="<c:url value='/webjars/bootstrap-datepicker/1.3.1/js/locales/bootstrap-datepicker.${r"${pageContext.request.locale.language}"}.js'/>"></script>
 </c:if>
 </#if><#rt/>
+<#if dateExists>
 <script type="text/javascript">
     $(document).ready(function() {
-<#if dateExists>
         ${'$'}('.date').datepicker({format: "<fmt:message key='calendar.format'/>", weekStart: "<fmt:message key='calendar.weekstart'/>", language: '${r"${pageContext.request.locale.language}"}'});
-</#if>
     });
 </script>
+</#if>
