@@ -52,10 +52,6 @@ public class ${pojo.shortName}Form {
     @Persist
     private ${pojo.shortName} ${pojoNameLower};
 
-    <#--public ${pojo.shortName} get${pojo.shortName}() {-->
-        <#--return ${pojoNameLower};-->
-    <#--}-->
-
     /**
      * Allows setting ${pojoNameLower} object from another class (i.e. ${pojo.shortName}List)
      *
@@ -93,20 +89,11 @@ public class ${pojo.shortName}Form {
         else {
             throw new IllegalStateException("Invalid Request");
         }
-
     }
-
-    <#--void onActivate(${identifierType} ${pojo.identifierProperty.name}) {-->
-        <#--if (${pojo.identifierProperty.name} != null) {-->
-            <#--${pojoNameLower} = ${pojoNameLower}Manager.get(${pojo.identifierProperty.name});-->
-        <#--}-->
-    <#--}-->
 
     Long onPassivate() {
-        return   ${pojoNameLower} != null ? ${pojoNameLower}.getId() : null;
+        return ${pojoNameLower} != null ? ${pojoNameLower}.getId() : null;
     }
-
-
 
     void onPrepare() {
         if (${pojoNameLower} == null) {
@@ -116,7 +103,6 @@ public class ${pojo.shortName}Form {
 
     Object onException(Throwable cause) {
         log.error("Exception: " +  cause.getMessage());
-
         return this;
     }
 
