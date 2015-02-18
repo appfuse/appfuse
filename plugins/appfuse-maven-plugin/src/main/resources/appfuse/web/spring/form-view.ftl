@@ -4,6 +4,7 @@
 
 <head>
     <title><fmt:message key="${pojoNameLower}Detail.title"/></title>
+    <meta name="menu" content="${pojo.shortName}Menu"/>
     <meta name="heading" content="<fmt:message key='${pojoNameLower}Detail.heading'/>"/>
 </head>
 
