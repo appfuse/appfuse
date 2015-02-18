@@ -5,7 +5,7 @@ ${'<#assign xhtmlCompliant = true in spring>'}
 
 <head>
     <title>${'<@spring'}.message "${pojoNameLower}Detail.title"/></title>
-    <meta name="heading" content="${'<@spring'}.message "${pojoNameLower}Detail.heading"/>"/>
+    <meta name="menu" content="${pojo.shortName}Menu"/>
 </head>
 
 <div class="col-sm-3">

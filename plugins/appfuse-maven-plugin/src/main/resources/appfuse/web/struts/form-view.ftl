@@ -4,7 +4,7 @@
 
 <head>
     <title><fmt:message key="${pojoNameLower}Detail.title"/></title>
-    <meta name="heading" content="<fmt:message key='${pojoNameLower}Detail.heading'/>"/>
+    <meta name="menu" content="${pojo.shortName}Menu"/>
 </head>
 
 <c:set var="delObject" scope="request"><fmt:message key="${pojoNameLower}List.${pojoNameLower}"/></c:set>
