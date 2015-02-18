@@ -28,7 +28,6 @@ import org.springframework.security.access.AccessDeniedException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -286,6 +285,4 @@ public class UserEdit {
     public void setFrom(String from) {
         this.from = from;
     }
-
-
 }

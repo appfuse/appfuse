@@ -1,6 +1,5 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
-<html t:type="layout" title="message:${pojoNameLower}Detail.title"
-          heading="message:${pojoNameLower}Detail.heading" menu="${pojo.shortName}Menu"
+<html t:type="layout" title="message:${pojoNameLower}Detail.title" menu="${pojo.shortName}Menu"
           xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
 
 <div class="col-sm-3">

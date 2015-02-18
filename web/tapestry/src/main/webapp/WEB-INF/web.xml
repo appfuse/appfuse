@@ -98,13 +98,7 @@
             <param-value>springSecurityFilterChain</param-value>
         </init-param>
     </filter>
-<!--
-    <filter>
-        <filter-name>sitemesh</filter-name>
-        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
-    </filter>
--->
-
+    
     <!-- T5/Spring Filter -->
     <filter>
         <filter-name>app</filter-name>
@@ -131,14 +125,6 @@
         <filter-name>rewriteFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-<!--
-    <filter-mapping>
-        <filter-name>sitemesh</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-    </filter-mapping>
--->
     <!-- T5 Filter Mapping -->
     <filter-mapping>
         <filter-name>app</filter-name>

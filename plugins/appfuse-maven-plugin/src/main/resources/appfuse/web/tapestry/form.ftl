@@ -14,9 +14,7 @@ import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Service;
-import org.apache.tapestry5.corelib.components.EventLink;
 import org.apache.tapestry5.corelib.components.Form;
-import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.EventContext;
 
 <#if genericcore>
@@ -27,8 +25,6 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 import ${pojo.packageName}.${pojo.shortName};
 
 import org.slf4j.Logger;
-
-import java.util.List;
 
 public class ${pojo.shortName}Form {
     @Inject

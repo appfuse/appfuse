@@ -3,7 +3,7 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd" xmlns:p="tapestry:parameter">
 
 <t:if test="errorMessage">
-    <div class="alert alert-error fade in">
+    <div class="alert alert-error alert-dismissable">
         <a href="#" data-dismiss="alert" class="close">&times;</a>
         ${errorMessage}
     </div>
@@ -17,9 +17,9 @@
             <div id="search" class="input-group">
                 <input t:type="textfield" size="20" name="q" t:id="q" placeholder="${message:search.enterTerms}"
                        class="form-control"/>
-        <span class="input-group-btn">
-        <button type="submit" class="btn btn-default">${message:button.search}</button>
-        </span>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default">${message:button.search}</button>
+                </span>
             </div>
         </form>
     </div>

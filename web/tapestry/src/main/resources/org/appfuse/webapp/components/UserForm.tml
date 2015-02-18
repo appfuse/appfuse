@@ -196,12 +196,8 @@
 
                 <a t:type="eventlink" id="cancel" event="canceled" class="btn btn-default">${message:button.cancel}
                 </a>
-
             </div>
-
         </fieldset>
-
     </form>
-
 </div>
 </t:container>

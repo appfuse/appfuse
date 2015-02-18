@@ -11,7 +11,6 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.webapp.AppFuseEventConstants;
-import org.appfuse.webapp.pages.PasswordUpdate;
 import org.appfuse.webapp.services.CountryService;
 import org.appfuse.webapp.services.impl.RoleEncoder;
 import org.slf4j.Logger;
