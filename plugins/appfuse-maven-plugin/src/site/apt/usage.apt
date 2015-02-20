@@ -41,7 +41,7 @@ Usage
 
 * Using in pre 2.0-M5 Projects
 
-   You should be able to use this plugin in AppFuse projects created with an older 2.x release of AppFuse. However,
+   You should be able to use this plugin in AppFuse projects created with an older release of AppFuse. However,
    it does rely on a few "placeholders", so you'll need to make sure the following files have the following text.
 
 *------------------------------------------------+-------------------------------------------------+-------------------+
