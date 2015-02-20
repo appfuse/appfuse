@@ -1231,7 +1231,7 @@
         <profile>
             <id>postgresql</id>
             <properties>
-                <hibernate.dialect>org.hibernate.dialect.Postgres9Dialect</hibernate.dialect>
+                <hibernate.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.dialect>
                 <jdbc.groupId>postgresql</jdbc.groupId>
                 <jdbc.artifactId>postgresql</jdbc.artifactId>
                 <jdbc.version>9.1-901-1.jdbc4</jdbc.version>
