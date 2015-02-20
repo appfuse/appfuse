@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse</artifactId>
-        <version>3.5.0-SNAPSHOT</version>
+        <version>3.5.1-SNAPSHOT</version>
     </parent>
 
     <repositories>
@@ -173,7 +173,7 @@
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
         <!-- Framework/Plugin versions -->
-        <appfuse.version>3.5.0-SNAPSHOT</appfuse.version>
+        <appfuse.version>3.5.1-SNAPSHOT</appfuse.version>
         <!-- Enunciate doesn't work with CXF 3.x -->
         <cxf.version>2.6.0</cxf.version>
         <enunciate.version>1.28</enunciate.version>

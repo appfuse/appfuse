@@ -2,56 +2,56 @@
 <html>
 <title>Create AppFuse Archetype</title>
 <head>
-<style type="text/css">
-    body {
-        font-family: arial, sans-serif;
-        font-size: 12px;
-        padding-left: 20px;
-    }
-    #mvncmd label {
-        text-align: right;
-        font-weight: bold;
-        width: 180px;
-        float: left;
-        margin: 5px 5px;
-    }
+    <style type="text/css">
+        body {
+            font-family: arial, sans-serif;
+            font-size: 12px;
+            padding-left: 20px;
+        }
+        #mvncmd label {
+            text-align: right;
+            font-weight: bold;
+            width: 180px;
+            float: left;
+            margin: 5px 5px;
+        }
 
-    #mvncmd input, #mvncmd select, #mvncmd span {
-        width: 180px;
-        margin-bottom: 5px;
-        float: left;
-    }
+        #mvncmd input, #mvncmd select, #mvncmd span {
+            width: 180px;
+            margin-bottom: 5px;
+            float: left;
+        }
 
-    #mvncmd span {
-        margin-top: 3px;
-    }
+        #mvncmd span {
+            margin-top: 3px;
+        }
 
-    #mvncmd textarea {
-        margin-top: 5px;
-        width: 400px;
-        height: 100px;
-        color: blue;
-    }
+        #mvncmd textarea {
+            margin-top: 5px;
+            width: 400px;
+            height: 100px;
+            color: blue;
+        }
 
-    #mvncmd br {
-        clear: both;
-    }
+        #mvncmd br {
+            clear: both;
+        }
 
-    #mvncmd div {
-        float: left;
-    }
+        #mvncmd div {
+            float: left;
+        }
 
-    p.choose {
-        border-bottom: 1px dotted silver;
-        padding-bottom: 5px;
-    }
-    label.chosen {
-        font-weight: bold;
-        color: blue;
-    }
-</style>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js"></script>
+        p.choose {
+            border-bottom: 1px dotted silver;
+            padding-bottom: 5px;
+        }
+        label.chosen {
+            font-weight: bold;
+            color: blue;
+        }
+    </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js"></script>
 </head>
 <body>
 <div id="ajaxLoading" style="display: none; position: absolute; top: 0; right: 0; background: red; padding: 5px 10px; color: white">Loading...</div>
@@ -72,13 +72,15 @@
         <span title="Project Name">&nbsp;(?)</span><br/>
         <label for="version" title="AppFuse Version">Version:</label>
         <select id="version" onchange="changeIt();">
-            <option value="3.5.0-SNAPSHOT">3.5.0-SNAPSHOT</option>
-            <option value="3.0.0" selected="selected">3.0.0</option>
+            <option value="3.5.1-SNAPSHOT">3.5.1-SNAPSHOT</option>
+            <option value="3.5.0" selected="selected">3.5.0</option>
+            <option value="3.0.0">3.0.0</option>
             <option value="2.2.1">2.2.1</option>
         </select><span title="AppFuse Version">&nbsp;(?)</span><br/>
         <label for="webFramework" title="Web Framework">Web Framework:</label>
         <select id="webFramework" onchange="changeIt();">
             <option value="core">-- None --</option>
+            <option value="gwt">GWT</option>
             <option value="jsf">JSF</option>
             <option value="spring" selected="selected">Spring MVC</option>
             <option value="struts">Struts 2</option>
@@ -127,66 +129,66 @@
 </body>
 <script type="text/javascript">
 
-function get(url) {
-    // if hostname in URL, assume is absolute and strip protocol/server/port
-    if (url.indexOf("http") > -1 && url.indexOf(document.location.hostname) > -1) {
-        if (document.location.port == "") {
-            url = url.substring(url.indexOf(document.location.hostname) + document.location.hostname.length);
-        } else {
-            url = url.substring(url.indexOf(document.location.port) + document.location.port.length);
-        }
-        if (url.indexOf(document.location.pathname) > -1) {
-            url = url.substring(url.indexOf(document.location.pathname) + document.location.pathname.length);
-        }
-    }
-    new Effect.Appear('ajaxLoading', { duration: 0 });
-    new Ajax.Request(url + ((url.indexOf('?') > -1) ? "&" : "?") + "ajax=true", {
-        method: 'get',
-        onComplete: function(response) {
-            var text = response.responseText;
-            if (200 == response.status) {
-                // get body of returned document
-                if (text.indexOf('<div id="mvncmd">') > -1) {
-                    var body = text.substring(text.indexOf('<div id="mvncmd">') + 17, text.indexOf("</body>"));
-                    $('mvncmd').innerHTML = body;
-                    evalJS($('mvncmd'));
-                }
+    function get(url) {
+        // if hostname in URL, assume is absolute and strip protocol/server/port
+        if (url.indexOf("http") > -1 && url.indexOf(document.location.hostname) > -1) {
+            if (document.location.port == "") {
+                url = url.substring(url.indexOf(document.location.hostname) + document.location.hostname.length);
             } else {
-                // rather than alerting the error messages, just go to the page and show error page from server
-                location.href = url;
+                url = url.substring(url.indexOf(document.location.port) + document.location.port.length);
+            }
+            if (url.indexOf(document.location.pathname) > -1) {
+                url = url.substring(url.indexOf(document.location.pathname) + document.location.pathname.length);
             }
         }
+        new Effect.Appear('ajaxLoading', { duration: 0 });
+        new Ajax.Request(url + ((url.indexOf('?') > -1) ? "&" : "?") + "ajax=true", {
+            method: 'get',
+            onComplete: function(response) {
+                var text = response.responseText;
+                if (200 == response.status) {
+                    // get body of returned document
+                    if (text.indexOf('<div id="mvncmd">') > -1) {
+                        var body = text.substring(text.indexOf('<div id="mvncmd">') + 17, text.indexOf("</body>"));
+                        $('mvncmd').innerHTML = body;
+                        evalJS($('mvncmd'));
+                    }
+                } else {
+                    // rather than alerting the error messages, just go to the page and show error page from server
+                    location.href = url;
+                }
+            }
 
-    });
-    new Effect.Fade('ajaxLoading', {duration: 1});
-    $('ajaxLoading').style.display = "none";
-}
+        });
+        new Effect.Fade('ajaxLoading', {duration: 1});
+        $('ajaxLoading').style.display = "none";
+    }
 
-function evalJS(element) {
-    var scripts = element.getElementsByTagName("script");
-    for (i=0; i < scripts.length; i++) {
-        // if src, eval it, otherwise eval the body
-        if (scripts[i].hasAttribute("src")) {
-            eval(scripts[i].getAttribute("src"));
-        } else {
-            // alert(scripts[i].innerHTML)
-            eval(scripts[i].innerHTML);
+    function evalJS(element) {
+        var scripts = element.getElementsByTagName("script");
+        for (i=0; i < scripts.length; i++) {
+            // if src, eval it, otherwise eval the body
+            if (scripts[i].hasAttribute("src")) {
+                eval(scripts[i].getAttribute("src"));
+            } else {
+                // alert(scripts[i].innerHTML)
+                eval(scripts[i].innerHTML);
+            }
         }
     }
-}
 
-function load(submodule) {
-    var base = (document.location.toString().startsWith("http") ? "/" : "http://static.appfuse.org/")
-    if (submodule) base += submodule + "/";
-    base += 'archetypes.html';
-    get(base);
-    if (submodule) {
-        $('appfuse-light-label').className = "chosen";
-        $('appfuse-label').className = "";
-    } else {
-        $('appfuse-light-label').className = "";
-        $('appfuse-label').className = "chosen";
+    function load(submodule) {
+        var base = (document.location.toString().startsWith("http") ? "/" : "http://static.appfuse.org/")
+        if (submodule) base += submodule + "/";
+        base += 'archetypes.html';
+        get(base);
+        if (submodule) {
+            $('appfuse-light-label').className = "chosen";
+            $('appfuse-label').className = "";
+        } else {
+            $('appfuse-light-label').className = "";
+            $('appfuse-label').className = "chosen";
+        }
     }
-}
 </script>
 </html>
