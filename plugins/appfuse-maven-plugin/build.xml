@@ -18,7 +18,7 @@
     </exec>
 
     <property name="branch" value="${git.branch}"/>
-    <property name="version" value="3.5.0-SNAPSHOT"/>
+    <property name="version" value="3.5.0"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
 

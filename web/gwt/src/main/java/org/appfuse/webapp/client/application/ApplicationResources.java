@@ -1503,11 +1503,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
     String webapp_tagline();
 
     /**
-     * Translated "Version 3.5.0-SNAPSHOT".
+     * Translated "Version 3.5.0".
      *
-     * @return translated "Version 3.5.0-SNAPSHOT"
+     * @return translated "Version 3.5.0"
      */
-    @DefaultMessage("Version 3.5.0-SNAPSHOT")
+    @DefaultMessage("Version 3.5.0")
     @Key("webapp.version")
     String webapp_version();
 }

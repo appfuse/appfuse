@@ -20,14 +20,14 @@
     <parent>
         <groupId>org.appfuse.archetypes</groupId>
         <artifactId>appfuse-archetypes</artifactId>
-        <version>3.5.0-SNAPSHOT</version>
+        <version>3.5.0</version>
     </parent>
 
     <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-modular-gwt</artifactId>
     <name>AppFuse Modular Archetype - GWT</name>
     <packaging>pom</packaging>
-    <version>3.5.0-SNAPSHOT</version>
+    <version>3.5.0</version>
 
     <description>
         Maven 2 archetype that creates a modular web application with AppFuse. This archetype creates two modules:
