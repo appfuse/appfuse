@@ -5,6 +5,7 @@
          https://github.com/alexo/wro4j/issues/127 -->
     <group name="main">
         <css>classpath:META-INF/resources/webjars/bootswatch-spacelab/3.3.1+2/css/bootstrap.min.css</css>
+	<css>classpath:META-INF/resources/webjars/font-awesome/4.3.0/css/font-awesome.min.css</css>
         <css>/styles/style.css</css>
         <js>classpath:META-INF/resources/webjars/jquery/1.11.1/jquery.min.js</js>
         <js>classpath:META-INF/resources/webjars/bootstrap/3.3.1/js/bootstrap.min.js</js>
