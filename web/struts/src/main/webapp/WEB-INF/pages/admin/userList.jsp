@@ -15,7 +15,7 @@
                    placeholder="<fmt:message key="search.enterTerms"/>" class="form-control input-sm"/>
         </span>
         <button id="button.search" class="btn btn-default btn-sm" type="submit">
-            <i class="icon-search"></i>
+            <i class="glyphicon-search"></i>
             <fmt:message key="button.search"/>
         </button>
     </div>
@@ -23,10 +23,10 @@
 
     <div id="actions" class="btn-group">
         <a class="btn btn-primary" href="<c:url value='/editUser?method=Add&from=list'/>" >
-            <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/>
+            <i class="fa fa-plus-circle"></i> <fmt:message key="button.add"/>
         </a>
         <a class="btn btn-default" href="<c:url value="/home"/>">
-            <i class="icon-ok"></i> <fmt:message key="button.done"/>
+            <i class="glyphicon-ok-sign"></i> <fmt:message key="button.done"/>
         </a>
     </div>
 
