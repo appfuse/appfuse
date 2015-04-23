@@ -4,7 +4,8 @@ import org.appfuse.model.File;
 import java.util.List;
 
 /**
- * Class description goes here ...
+ * This interface defines the method signatures for the File upload/attachnment meta-data
+ * DAO object.
  *
  * @author <a href="mailto:david@citechnical.com">David L. Whitehurst</a>
  *         created: 4/22/15
