@@ -134,10 +134,10 @@
         <developer>
             <id>dlwhitehurst</id>
             <name>David Whitehurst</name>
-            <email>dlwhitehurst@gmail.com</email>
-            <organization>Cape Henry Technologies Inc.</organization>
-            <organizationUrl>http://www.capehenrytech.com</organizationUrl>
-            <timezone>-6</timezone>
+            <email>david@citechnical.com</email>
+            <organization>CITechnical, Inc.</organization>
+            <organizationUrl>http://www.citechnical.com</organizationUrl>
+            <timezone>-5</timezone>
         </developer>
         <developer>
             <id>bnoll</id>
