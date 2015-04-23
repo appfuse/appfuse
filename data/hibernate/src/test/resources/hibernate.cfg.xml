@@ -8,5 +8,6 @@
     <session-factory>
         <mapping class="org.appfuse.model.User"/>
         <mapping class="org.appfuse.model.Role"/>
+        <mapping class="org.appfuse.model.File"/>
     </session-factory>
 </hibernate-configuration>
