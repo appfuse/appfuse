@@ -4,6 +4,7 @@ import org.appfuse.dao.FileDao;
 import org.appfuse.model.File;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -15,13 +16,23 @@ import java.util.List;
  * @version CHANGEME
  */
 @Repository("fileDao")
+@Transactional
 public class FileDaoHibernate extends GenericDaoHibernate<File, Long> implements FileDao {
+
+    /**
+     * Constructor that sets the entity to File.class.
+     */
+    public FileDaoHibernate() {
+        super(File.class);
+    }
+
     /**
      * @Todo implement
      * Method returns a list of file objects
      *
      * @return
      */
+    //@Transactional(readOnly = true)
     public List<File> getFiles() {
         return null;
     }
@@ -38,12 +49,25 @@ public class FileDaoHibernate extends GenericDaoHibernate<File, Long> implements
     }
 
     /**
+     * @param id
+     * @return
+     * @Todo - method needs analysis - incomplete!
+     * This method needs to override the similar method in GenericDao. The implementation
+     * will use @Transactional(readOnly = true) and thereby protect the file from update
+     * or revision. The delete method may also be removed. Unsure at this time.
+     */
+    public File getFile(Long id) {
+        return null;
+    }
+
+    /**
      * @Todo implement
      * Method obtains the file object from the database using just the filename
      *
      * @param filename the name of the object to get
      * @return
      */
+    //@Transactional(readOnly = true)
     public File getFileByFilename(String filename) {
         return null;
     }
