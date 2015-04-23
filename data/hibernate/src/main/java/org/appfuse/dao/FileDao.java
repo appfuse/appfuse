@@ -29,6 +29,16 @@ public interface FileDao extends GenericDao<File, Long>{
     public File saveFile(File file);
 
     /**
+     * @Todo - method needs analysis - incomplete!
+     * This method needs to override the similar method in GenericDao. The implementation
+     * will use @Transactional(readOnly = true) and thereby protect the file from update
+     * or revision. The delete method may also be removed. Unsure at this time.
+     * @param id
+     * @return
+     */
+    public File getFile(Long id);
+
+    /**
      * Method obtains the file object from the database using just the filename
      * @param filename the name of the object to get
      * @return
