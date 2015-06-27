@@ -12,16 +12,18 @@
 		
 		
 		<div class="container-fluid">
-			<g:SimplePanel  ui:field="messages"/>
-			
-			<g:SimplePanel styleName="row-fluid" ui:field="contentsPanel" />
+			<g:FlowPanel  ui:field="messages"/>
+
+            <div class="row">
+                <g:SimplePanel ui:field="contentsPanel" />
+            </div>
 		</div>
 	
-	    <div id="footer" class="container navbar-fixed-bottom">
-	        <span class="col-sm-6 text-left"><ui:text from="{i18n.webapp_version}"/> <span ui:field="currentUserInfo"></span></span>
-	        <span class="col-sm-6 text-right">
-	            &copy; <ui:text from="{i18n.copyright_year}"/> <a href="{i18n.company_url}"><ui:text from="{i18n.company_name}"/></a>
-	        </span>
-	    </div>
+        <div id="footer" class="container navbar-fixed-bottom">
+            <span class="col-sm-6 text-left"><ui:text from="{i18n.webapp_version}"/> <span ui:field="currentUserInfo"></span></span>
+            <span class="col-sm-6 text-right">
+                &copy; <ui:text from="{i18n.copyright_year}"/> <a href="{i18n.company_url}"><ui:text from="{i18n.company_name}"/></a>
+            </span>
+        </div>
 	</g:HTMLPanel>
 </ui:UiBinder>

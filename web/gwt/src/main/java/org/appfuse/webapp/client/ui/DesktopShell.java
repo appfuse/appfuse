@@ -6,9 +6,6 @@ import org.appfuse.webapp.client.application.base.security.LogoutEvent;
 import org.appfuse.webapp.client.ui.navigation.NavigationBar;
 import org.appfuse.webapp.client.ui.navigation.SideNavigationBar;
 
-import com.github.gwtbootstrap.client.ui.Alert;
-import com.github.gwtbootstrap.client.ui.base.AlertBase;
-import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.place.shared.PlaceChangeEvent;
@@ -16,8 +13,6 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.NotificationMole;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -35,10 +30,6 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
     @UiField
     SideNavigationBar sideNavigationBar;
 
-    @UiField
-    FlowPanel messages;
-    @UiField
-    NotificationMole mole;
 
     @UiField
     Element currentUserInfo;
@@ -52,44 +43,6 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
         super.setApplication(application);
         navigationBar.setApplication(application);
         sideNavigationBar.setApplication(application);
-    }
-
-    /**
-     * @return the notification mole for loading feedback
-     */
-    @Override
-    public NotificationMole getMole() {
-        return mole;
-    }
-
-    @Override
-    public void clearMessages() {
-        messages.clear();
-    }
-
-    /**
-     * Add an user message to the shell.
-     * 
-     * Messages live on screen until next {@link PlaceChangeEvent}.
-     * 
-     * @param alert
-     */
-    @Override
-    public void addMessage(final AlertBase alert) {
-        messages.add(alert);
-        Window.scrollTo(0, 0);
-    }
-
-    /**
-     * 
-     * @param html
-     * @param alertType
-     */
-    @Override
-    public void addMessage(final String html, final AlertType alertType) {
-        final Alert alert = new Alert(html);
-        alert.setType(alertType);
-        addMessage(alert);
     }
 
     @Override

@@ -3,7 +3,6 @@ package org.appfuse.webapp.client.ui;
 import org.appfuse.webapp.client.application.base.security.LoginEvent;
 import org.appfuse.webapp.client.application.base.security.LogoutEvent;
 
-import com.github.gwtbootstrap.client.ui.base.AlertBase;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -75,12 +74,6 @@ public class MobileShell extends Shell {
      */
     public void setTitleText(final String text) {
         title.setInnerText(text);
-    }
-
-    @Override
-    public void addMessage(final AlertBase alert) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
