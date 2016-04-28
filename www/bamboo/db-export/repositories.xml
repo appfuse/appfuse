@@ -1,0 +1,2886 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <repositories>
+  <repository>
+   <id>11010049</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+<username/>
+<password/>
+<branch>APPFUSE_2.2.1</branch>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438343</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>true</enabled>
+<period>30</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse~svn/trunk</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<webRepository>
+<fisheyeRepositoryViewer>
+<webRepositoryRepoName>appfuse</webRepositoryRepoName>
+<webRepositoryPath/>
+<webRepositoryUrl>http://source.appfuse.org</webRepositoryUrl>
+</fisheyeRepositoryViewer>
+</webRepository>
+<selectedWebRepositoryViewer>com.atlassian.bamboo.webRepositoryViewer.fisheye:fisheyeRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438350</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438341</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse~svn/trunk</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7897089</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:gh</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>true</enabled>
+<period>30</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<github>
+<username>mraible</username>
+<password/>
+<repository>appfuse/appfuse</repository>
+<branch>master</branch>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</github>
+</repository>
+<webRepository>
+<fisheyeRepositoryViewer>
+<webRepositoryRepoName>appfuse</webRepositoryRepoName>
+<webRepositoryPath/>
+<webRepositoryUrl>http://source.appfuse.org</webRepositoryUrl>
+</fisheyeRepositoryViewer>
+</webRepository>
+<selectedWebRepositoryViewer>com.atlassian.bamboo.webRepositoryViewer.fisheye:fisheyeRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>11010050</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438342</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse~svn/trunk</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438339</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse~svn/trunk</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438340</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse~svn/trunk</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>8716293</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+  </repository>
+  <repository>
+   <id>7438337</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse~svn/trunk/plugins/appfuse-maven-plugin</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk/plugins/appfuse-maven-plugin</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk/plugins/appfuse-maven-plugin</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438348</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438349</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>8716295</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438347</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>8716299</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+  </repository>
+  <repository>
+   <id>8716298</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438346</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438345</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438344</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>https://svn.java.net/svn/appfuse~svn/trunk/plugins/appfuse-maven-plugin</repositoryUrl>
+<username>guest</username>
+<authType>password</authType>
+<userPassword/>
+<useExternals>false</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk/plugins/appfuse-maven-plugin</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>https://svn.java.net/svn/appfuse~svn/trunk/plugins/appfuse-maven-plugin</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>7438338</id>
+   <name>Plan Repository</name>
+   <description>A Subversion Repository</description>
+   <pluginKey>com.atlassian.bamboo.plugin.system.repository:svn</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<svn>
+<repositoryUrl>http://appfuse-demos.googlecode.com/svn/trunk</repositoryUrl>
+<username/>
+<authType>password</authType>
+<userPassword/>
+<useExternals>true</useExternals>
+<useExport>false</useExport>
+<branch>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>http://appfuse-demos.googlecode.com/svn/trunk</manualRootUrl>
+</branch>
+<tag>
+<autodetectRootUrl>true</autodetectRootUrl>
+<manualRootUrl>http://appfuse-demos.googlecode.com/svn/trunk</manualRootUrl>
+</tag>
+</svn>
+</repository>
+<commit>
+<isolation>
+<option>false</option>
+</isolation>
+</commit>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>8716303</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>8716300</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>8716290</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>true</enabled>
+<period>30</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<webRepository>
+<fisheyeRepositoryViewer>
+<webRepositoryRepoName>appfuse</webRepositoryRepoName>
+<webRepositoryPath/>
+<webRepositoryUrl>http://source.appfuse.org</webRepositoryUrl>
+</fisheyeRepositoryViewer>
+</webRepository>
+<selectedWebRepositoryViewer>com.atlassian.bamboo.webRepositoryViewer.fisheye:fisheyeRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>8716297</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>16482308</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>true</enabled>
+        <period>30</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+      <branch>simplify-version-management</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <webRepository>
+    <fisheyeRepositoryViewer>
+      <webRepositoryRepoName>appfuse</webRepositoryRepoName>
+      <webRepositoryPath/>
+      <webRepositoryUrl>http://source.appfuse.org</webRepositoryUrl>
+    </fisheyeRepositoryViewer>
+  </webRepository>
+  <selectedWebRepositoryViewer>com.atlassian.bamboo.webRepositoryViewer.fisheye:fisheyeRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>8716294</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>16482309</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+      <branch>simplify-version-management</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>8716296</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>8716301</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>16482311</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+      <branch>simplify-version-management</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793026</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+      <branch>simplify-version-management</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793025</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+      <branch>simplify-version-management</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793028</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+      <branch>simplify-version-management</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>16482310</id>
+   <name>AppFuse Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>true</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+      <branch>simplify-version-management</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793027</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+      <branch>simplify-version-management</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793035</id>
+   <name>AppFuse Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:gh</pluginKey>
+   <isGlobal>true</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <github>
+      <username>mraible</username>
+      <password>YjRfERYYLfMuVZLjHOc3rA==</password>
+      <repository>appfuse/appfuse</repository>
+      <branch>master</branch>
+      <useShallowClones>true</useShallowClones>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+    </github>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+  </repository>
+  <repository>
+   <id>17793031</id>
+   <name>AppFuse Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:gh</pluginKey>
+   <isGlobal>true</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <github>
+      <username>mraible</username>
+      <password>YjRfERYYLfMuVZLjHOc3rA==</password>
+      <repository>appfuse/appfuse</repository>
+      <branch>simplify-version-management</branch>
+      <useShallowClones>true</useShallowClones>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+    </github>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793033</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+      <branch>master</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793036</id>
+   <name>AppFuse Light Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:gh</pluginKey>
+   <isGlobal>true</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <github>
+      <username>mraible</username>
+      <password>YjRfERYYLfMuVZLjHOc3rA==</password>
+      <repository>appfuse/appfuse-light</repository>
+      <branch>master</branch>
+      <useShallowClones>true</useShallowClones>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+    </github>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+  </repository>
+  <repository>
+   <id>17793039</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+      <branch>master</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793037</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+      <branch>master</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793029</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+      <branch>simplify-version-management</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793032</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+      <branch>master</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793034</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>true</enabled>
+        <period>30</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+      <branch>master</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <webRepository>
+    <fisheyeRepositoryViewer>
+      <webRepositoryRepoName>appfuse</webRepositoryRepoName>
+      <webRepositoryPath/>
+      <webRepositoryUrl>http://source.appfuse.org</webRepositoryUrl>
+    </fisheyeRepositoryViewer>
+  </webRepository>
+  <selectedWebRepositoryViewer>com.atlassian.bamboo.webRepositoryViewer.fisheye:fisheyeRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>8716292</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>8716291</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse.git</repositoryUrl>
+<username/>
+<password/>
+<branch/>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793041</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+      <branch>master</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793040</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+      <branch>master</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>17793038</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse-light.git</repositoryUrl>
+      <branch>master</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>10354690</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<filter>
+<pattern>
+<option>none</option>
+<regex/>
+</pattern>
+</filter>
+<changeset>
+<filter>
+<pattern>
+<regex/>
+</pattern>
+</filter>
+</changeset>
+<repository>
+<common>
+<quietPeriod>
+<enabled>false</enabled>
+<period>10</period>
+<maxRetries>5</maxRetries>
+</quietPeriod>
+</common>
+<git>
+<repositoryUrl>git://github.com/appfuse/appfuse-demos.git</repositoryUrl>
+<username/>
+<password/>
+<branch>master</branch>
+<ssh>
+<key/>
+<passphrase/>
+</ssh>
+<authenticationType>NONE</authenticationType>
+<useShallowClones>true</useShallowClones>
+<useSubmodules>false</useSubmodules>
+<commandTimeout>180</commandTimeout>
+<verbose>
+<logs>false</logs>
+</verbose>
+</git>
+</repository>
+<selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+</configuration>
+]]></xml>
+   <markedForDeletion>true</markedForDeletion>
+  </repository>
+  <repository>
+   <id>19562497</id>
+   <name>Plan Repository</name>
+   <pluginKey>com.atlassian.bamboo.plugins.atlassian-bamboo-plugin-git:git</pluginKey>
+   <isGlobal>false</isGlobal>
+   <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <changeset>
+    <filter>
+      <pattern>
+        <regex/>
+      </pattern>
+    </filter>
+  </changeset>
+  <repository>
+    <common>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </common>
+    <git>
+      <repositoryUrl>git://github.com/appfuse/appfuse-demos.git</repositoryUrl>
+      <branch>3.5-upgrade</branch>
+      <useShallowClones>true</useShallowClones>
+      <useRemoteAgentCache>false</useRemoteAgentCache>
+      <useSubmodules>false</useSubmodules>
+      <commandTimeout>180</commandTimeout>
+      <verbose>
+        <logs>false</logs>
+      </verbose>
+      <fetch>
+        <whole>
+          <repository>false</repository>
+        </whole>
+      </fetch>
+      <ssh>
+        <key/>
+        <passphrase/>
+      </ssh>
+      <username/>
+      <password/>
+      <authenticationType>NONE</authenticationType>
+    </git>
+  </repository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+  </repository>
+ </repositories>
+</bamboo>

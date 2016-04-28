@@ -1,0 +1,610 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <bandanaItems>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>bamboo.plugin.state</key>
+   <serializedData>&lt;com.atlassian.plugin.manager.DefaultPluginPersistentState>
+  &lt;map class="java.util.Collections$UnmodifiableMap">
+    &lt;m/>
+  &lt;/map>
+&lt;/com.atlassian.plugin.manager.DefaultPluginPersistentState></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.bamboo.plugins.tomcat.bamboo-tomcat-plugin:build</key>
+   <serializedData>&lt;string>11&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.bamboo.plugins.bamboo-scp-plugin:build</key>
+   <serializedData>&lt;string>2&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:notification-plugin.request</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:notification-user.mismatch</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:notification-evaluation.expired</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:notification-evaluation.nearlyexpired</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:notification-maintenance.expired</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:notification-maintenance.nearlyexpired</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:notification-edition.mismatch</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-update:com.atlassian.upm.a2bf5e40a7ef65f2c621d51d87c41be3d</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-evaluation.expired:com.atlbae935a50e56249b66ab2c8c04a90ca1</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-evaluation.nearlyexpired:c9dbd09450bf6b8d302b940614c7ebd4e</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-edition.mismatch:com.atlas0fa4c02ed2aecb7d22ebac9617269cf4</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-maintenance.expired:com.at25cb37ed12faa1d1929e4073966cf3e7</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-maintenance.nearlyexpired:133f1b9e611c010bd8ef15c33c3b01de</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.local.APF.bamboo_project.linked.entities</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.local.APL.bamboo_project.linked.entities</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.f5319ebd-24db-32de-8528-2e5efb689fff.type</key>
+   <serializedData>&lt;string>confluence&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm.Sys:upm-settings:updated-upm-version</key>
+   <serializedData>&lt;string>2.14.4&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.f5319ebd-24db-32de-8528-2e5efb689fff.display.url</key>
+   <serializedData>&lt;string>http://appfuse.org&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.f5319ebd-24db-32de-8528-2e5efb689fff.rpc.url</key>
+   <serializedData>&lt;string>http://appfuse.org&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.f5319ebd-24db-32de-8528-2e5efb689fff.primary</key>
+   <serializedData>&lt;string>true&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.oauth.serviceprovider.ServiceProviderConsumerStore.consumer.Confluence:7117799767</key>
+   <serializedData>&lt;properties>
+  &lt;property name="twoLOImpersonationAllowed" value="true"/>
+  &lt;property name="name" value="Confluence"/>
+  &lt;property name="description" value="Atlassian Confluence at http://appfuse.org "/>
+  &lt;property name="threeLOAllowed" value="true"/>
+  &lt;property name="twoLOAllowed" value="true"/>
+  &lt;property name="publicKey" value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeFvFjnedNzXBcZy8KYe0OT8DEtu/CBppW5WNNZo9nAGJm30ACNzEEUmZxg6UDfCILl+OCcR4mr0bjQ75DduDA0UEMRO7NLNfJpy1H5NKzN0PjyxASgQd48zWRJRQW5Hm0B8FX3ffIOLvkDzSFEx+CC8Xv5ciWg6fgsswG5dLyWQIDAQAB"/>
+&lt;/properties></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.application.f5319ebd-24db-32de-8528-2e5efb689fff.oauth.incoming.consumerkey</key>
+   <serializedData>&lt;string>Confluence:7117799767&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.f5319ebd-24db-32de-8528-2e5efb689fff.propertyKeys</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag>
+  &lt;string>oauth.incoming.consumerkey&lt;/string>
+&lt;/net.sf.hibernate.collection.Bag></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.oauth.consumer.ConsumerService:host.__HOST_SERVICE__</key>
+   <serializedData>&lt;properties>
+  &lt;property name="privateKey" value="MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDZ0kiKo8sOXb7KbRN4iWgUGDDwIXWDPMxYTK0tN97Suk/jijvkjasjGTSIz9qKai5OVdUGNuhaWIR/PCDhRF4sObJL/7cLfneTBvz11GnhAQ2zpyPL4d2BBppNUKx9mxz2cl4+8yGKMYRdGqAud7iJ8X1bL7eaI1hMSQpEQX/A7nbSab/Xud1jfaagmkkYFBCRzvN/jUwEO4uWFfleW/psUeL/XMpCOFzMrJnfDDlHE3vGRaDkWbA0HlbsfQEuXHX+1lq0YnEk+EqiSVLdK4jr81fIi/M2CeSfVNfQTwaMMM/ui8e+Z1Yyn/bWjmrPdH9pkPj4QkjbzjiQE/Rkhf4tAgMBAAECggEAB/u/EOXD8XjaH000I3zVxbbFRGfViMPXsXzN9BRSJGMTvoE4hL30gcrQtBr6JYySuehHcHzes0D/SjKH+fmpgfFzaXmr2c3+z/K3nsL0RnzlZapAk55poer+CMtmJwxiWV4Dukbq+ceq1Ea/jDRzHQsuzwLGte2JtPIQYEQOTKHfgEe1RmF6xdwexqFwA5Rj0a2SHfkw1/I/h0bINDKLCtBXXbnOe2MUI/UxyE87I0JGzcPgiT5BhFS93jnvCHkorz2ncNZc/VxJAxQQOINZERKE4NcV3A0j75W8gvwKNE8/YGesshEQyHU+Ycf3lKCwTPx3JoBc0wHHP4uNHEpGuQKBgQD4GW3yzz9OhI5y6chmt0YIQGDDfQ7plO1OyY6nzDi809PwNZ/edtVcGO5O1IsA0KpN4RaJpWM3k/T4SXBuPGXoRJlHfKPwBeNd2dg7mkB3IzcnVvuiwKe7xophMuHspW33LwzN4Ij6G3t0femzYXXwb+air0u8q9QrY0bOrymzAwKBgQDgwgU6KMxJc9XEywwB0RhGVtMIMr2azMO+BZ8Ix8X1nhmIaouo8xScnyNbSzIy3ke1CBGkqXTKoMYElQCAyJcmTetdIWI59PRFvJqEjIC/4zXoCflTUlG/eHq7mb5mYxbdDFVLG0hrs5iW6cPnwKuKvy3W7ZI5H7Z0M4mBzwErDwKBgQC36PnU5QZTqPWDf4NbiP4z/az9HMYiJpCnN8g04LEqYIgZ51Zj7YkJpT16WBnWd9fWtUUkseHTgC02pBHg1YrhW4CYOm+37FV365Vb0WN6LTOkSNlt8wwjqPBJTxOkfZj/g/Qk5Q4FALxKRVAo9dUcb4bzD6i/6kv0AbqqWbQ6iwKBgQCgNGv5ar9C1BhZr8mdOeetq5G81D4mKzKTLfqQDaXjT5AvlpJ6GNpmUWCoYE8lxx8hwOCimE8xZ6v99B9prJFgskXEGlmjqiC73JXfSS80l8YC4akgZRrz+fKx6gK3hIX1hib95DKY4mkvmO0VMlaUDXWlL638ncg1x86KAn14rQKBgCN0FMFZr0rev/ry6YVgIZhEXmWx3293gi5I8LYojYCB4bEgI+Nkj+9hILjQTPgMvr6Ht2Z+A98N3rOhgrJw4CnfFkITAI2qarMViUlkx+tWSl/0TiBkZdZjEQV1K6AP68HNN5t1Uya/GlzfblqgHsZmTsFVUUXXBbtsQllcey9i"/>
+  &lt;property name="name" value="Bamboo"/>
+  &lt;property name="key" value="Bamboo:7002080338"/>
+  &lt;property name="description" value="Atlassian Bamboo at http://builds.appfuse.org "/>
+  &lt;property name="signatureMethod" value="RSA_SHA1"/>
+  &lt;property name="publicKey" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2dJIiqPLDl2+ym0TeIloFBgw8CF1gzzMWEytLTfe0rpP44o75I2rIxk0iM/aimouTlXVBjboWliEfzwg4UReLDmyS/+3C353kwb89dRp4QENs6cjy+HdgQaaTVCsfZsc9nJePvMhijGEXRqgLne4ifF9Wy+3miNYTEkKREF/wO520mm/17ndY32moJpJGBQQkc7zf41MBDuLlhX5Xlv6bFHi/1zKQjhczKyZ3ww5RxN7xkWg5FmwNB5W7H0BLlx1/tZatGJxJPhKoklS3SuI6/NXyIvzNgnkn1TX0E8GjDDP7ovHvmdWMp/21o5qz3R/aZD4+EJI2844kBP0ZIX+LQIDAQAB"/>
+&lt;/properties></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.oauth.serviceprovider.ServiceProviderConsumerStore.allConsumerKeys</key>
+   <serializedData>&lt;string>jira%3A14673078/FishEye%3A2178247711/Confluence%3A7117799767&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.f5319ebd-24db-32de-8528-2e5efb689fff.auth.52e4d6463f02700eeefbefc74233de4f</key>
+   <serializedData>&lt;properties/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.plugins.custom_apps.hasCustomOrder</key>
+   <serializedData>&lt;string>false&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.plugins.atlassian-nav-links-plugin:build</key>
+   <serializedData>&lt;string>1&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.f5319ebd-24db-32de-8528-2e5efb689fff.auth.4e751871359fc86ed973d2a58b40c2b7</key>
+   <serializedData>&lt;properties/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.application.dfe4b62f-dcd2-3403-979f-f9fc9a68eb80.oauth.incoming.consumerkey</key>
+   <serializedData>&lt;string>jira:14673078&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm.mail.impl.PluginSettingsLicenseEmailStorelicense-emails_v2</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-plugin.request</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-evaluation.expired</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.f5319ebd-24db-32de-8528-2e5efb689fff.providerKeys</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag>
+  &lt;string>com.atlassian.applinks.api.auth.types.OAuthAuthenticationProvider&lt;/string>
+  &lt;string>com.atlassian.applinks.api.auth.types.TwoLeggedOAuthAuthenticationProvider&lt;/string>
+  &lt;string>com.atlassian.applinks.api.auth.types.TwoLeggedOAuthWithImpersonationAuthenticationProvider&lt;/string>
+&lt;/net.sf.hibernate.collection.Bag></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-edition.mismatch</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-maintenance.expired</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm.atlassian-universal-plugin-manager-plugin:build</key>
+   <serializedData>&lt;string>4&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-new.licenses</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-updated.licenses</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-auto.updated.plugin</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:dismissal-auto.updated.upm</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm.request.PluginSettingsPluginRequestStore:requests:requests_v2</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.dfe4b62f-dcd2-3403-979f-f9fc9a68eb80.propertyKeys</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag>
+  &lt;string>oauth.incoming.consumerkey&lt;/string>
+&lt;/net.sf.hibernate.collection.Bag></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.dfe4b62f-dcd2-3403-979f-f9fc9a68eb80.auth.4e751871359fc86ed973d2a58b40c2b7</key>
+   <serializedData>&lt;properties/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.dfe4b62f-dcd2-3403-979f-f9fc9a68eb80.auth.2efcebf5f05b53ae91b408f6151f3b16</key>
+   <serializedData>&lt;properties/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.oauth.serviceprovider.ServiceProviderTokenStore.consumerTokens.jira:14673078</key>
+   <serializedData>&lt;properties>
+  &lt;property name="keys" value="MVqwXlML9XqmjtbRH1M7YBRHHiAnbIBY/8v4YviOohAvAS2S0zIZWSytmyTJpgom3"/>
+  &lt;property name="consumerKey" value="jira:14673078"/>
+&lt;/properties></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.oauth.serviceprovider.ServiceProviderConsumerStore.consumer.jira:14673078</key>
+   <serializedData>&lt;properties>
+  &lt;property name="twoLOImpersonationAllowed" value="true"/>
+  &lt;property name="name" value="AppFuse JIRA"/>
+  &lt;property name="description" value="Atlassian JIRA at http://issues.appfuse.org"/>
+  &lt;property name="threeLOAllowed" value="true"/>
+  &lt;property name="twoLOAllowed" value="true"/>
+  &lt;property name="publicKey" value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCQKs1v8E2ZwhqZKaVW0o7CUGGShK9hTXofMs1RBQgkAjnjWo9Eap76tBhdFEKeJovkwg2wmjWruICEufWUT5mmqRNwThP5PqdO6FSOgML6Tp24M6NaVSYeD5+FGhYee8spGipkv89Yxf+rwrhkPQwNHsW5kNXrU6KI9yInSQo2nwIDAQAB"/>
+&lt;/properties></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.oauth.serviceprovider.ServiceProviderTokenStore.tokenKeys</key>
+   <serializedData>&lt;string>MVqwXlML9XqmjtbRH1M7YBRHHiAnbIBY/8v4YviOohAvAS2S0zIZWSytmyTJpgom3&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.f5319ebd-24db-32de-8528-2e5efb689fff.auth.2efcebf5f05b53ae91b408f6151f3b16</key>
+   <serializedData>&lt;properties/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm.impl.PluginSettingsPluginUpdateRequestStoreplugin-update-requests</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm.license.internal.impl.PluginSettingsLicenseTokenStore:license-tokens</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm.notification.ManualUpdateRequiredNotificationServi4132bc4b6b94205656e44360bcb38069</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.f5319ebd-24db-32de-8528-2e5efb689fff.name</key>
+   <serializedData>&lt;string>Documentation&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.7999be98-26d8-3567-9efa-5261b0fc6d32.type</key>
+   <serializedData>&lt;string>fecru&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.7999be98-26d8-3567-9efa-5261b0fc6d32.display.url</key>
+   <serializedData>&lt;string>http://source.appfuse.org&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.7999be98-26d8-3567-9efa-5261b0fc6d32.rpc.url</key>
+   <serializedData>&lt;string>http://source.appfuse.org&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.7999be98-26d8-3567-9efa-5261b0fc6d32.primary</key>
+   <serializedData>&lt;string>true&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.oauth.serviceprovider.ServiceProviderConsumerStore.consumer.FishEye:2178247711</key>
+   <serializedData>&lt;properties>
+  &lt;property name="twoLOImpersonationAllowed" value="false"/>
+  &lt;property name="name" value="FishEye"/>
+  &lt;property name="description" value="Atlassian FishEye at http://source.appfuse.org "/>
+  &lt;property name="threeLOAllowed" value="true"/>
+  &lt;property name="twoLOAllowed" value="true"/>
+  &lt;property name="publicKey" value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCIIl7SoBP0RH4rGferkvMdKREUEcEDSsSNYXI+HlQTXRKFthWb0qDpHAP3pikjtXGoKwdzF8mpXuf3gfpD1Gk3MfVdOHQt7YlMXMKMiXVBF0UJ9V3l8HLKMytDickNVzbvuViuyAz5Ua7E5FW7B4jLC/vhI9g8YNDcF0t3IxznDwIDAQAB"/>
+&lt;/properties></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.application.7999be98-26d8-3567-9efa-5261b0fc6d32.oauth.incoming.consumerkey</key>
+   <serializedData>&lt;string>FishEye:2178247711&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.7999be98-26d8-3567-9efa-5261b0fc6d32.propertyKeys</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag>
+  &lt;string>oauth.incoming.consumerkey&lt;/string>
+&lt;/net.sf.hibernate.collection.Bag></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.7999be98-26d8-3567-9efa-5261b0fc6d32.auth.52e4d6463f02700eeefbefc74233de4f</key>
+   <serializedData>&lt;properties/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.7999be98-26d8-3567-9efa-5261b0fc6d32.auth.4e751871359fc86ed973d2a58b40c2b7</key>
+   <serializedData>&lt;properties/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.7999be98-26d8-3567-9efa-5261b0fc6d32.providerKeys</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag>
+  &lt;string>com.atlassian.applinks.api.auth.types.OAuthAuthenticationProvider&lt;/string>
+  &lt;string>com.atlassian.applinks.api.auth.types.TwoLeggedOAuthAuthenticationProvider&lt;/string>
+&lt;/net.sf.hibernate.collection.Bag></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.7999be98-26d8-3567-9efa-5261b0fc6d32.name</key>
+   <serializedData>&lt;string>Source Code&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.global.application.ids</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag>
+  &lt;string>f5319ebd-24db-32de-8528-2e5efb689fff&lt;/string>
+  &lt;string>7999be98-26d8-3567-9efa-5261b0fc6d32&lt;/string>
+  &lt;string>dfe4b62f-dcd2-3403-979f-f9fc9a68eb80&lt;/string>
+&lt;/net.sf.hibernate.collection.Bag></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.oauth.serviceprovider.ServiceProviderTokenStore.userAccessTokens.ivangsa</key>
+   <serializedData>&lt;properties>
+  &lt;property name="keys" value="8v4YviOohAvAS2S0zIZWSytmyTJpgom3"/>
+  &lt;property name="username" value="ivangsa"/>
+&lt;/properties></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.oauth.serviceprovider.ServiceProviderTokenStore.token.MVqwXlML9XqmjtbRH1M7YBRHHiAnbIBY</key>
+   <serializedData>&lt;properties>
+  &lt;property name="session.handle" value="7ORHuTq8UAgdAsyCCKitU6lBQw0JAIrh"/>
+  &lt;property name="token" value="MVqwXlML9XqmjtbRH1M7YBRHHiAnbIBY"/>
+  &lt;property name="session.timeToLive" value="160272000000"/>
+  &lt;property name="creationTime" value="1401318043996"/>
+  &lt;property name="session.creationTime" value="1401318043996"/>
+  &lt;property name="tokenSecret" value="zQiaiyq0qqSImJx7mRaN9fcvwqJBfeqi"/>
+  &lt;property name="session.lastRenewalTime" value="1401318043996"/>
+  &lt;property name="authorization" value="AUTHORIZED"/>
+  &lt;property name="type" value="ACCESS"/>
+  &lt;property name="userName" value="mraible"/>
+  &lt;property name="consumerKey" value="jira:14673078"/>
+  &lt;property name="timeToLive" value="157680000000"/>
+&lt;/properties></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm.core.Sys:upm-settings:updated-upm-version</key>
+   <serializedData>&lt;string>2.16.2&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.oauth.serviceprovider.ServiceProviderTokenStore.token.8v4YviOohAvAS2S0zIZWSytmyTJpgom3</key>
+   <serializedData>&lt;properties>
+  &lt;property name="session.handle" value="UShRjLCc4sDU1RhpjPlbVkXjM39Wtr5v"/>
+  &lt;property name="token" value="8v4YviOohAvAS2S0zIZWSytmyTJpgom3"/>
+  &lt;property name="session.timeToLive" value="160272000000"/>
+  &lt;property name="creationTime" value="1400310803551"/>
+  &lt;property name="session.creationTime" value="1400310803551"/>
+  &lt;property name="tokenSecret" value="T1CHsIuCWnROEV6UTW35P2GQIA7joThG"/>
+  &lt;property name="session.lastRenewalTime" value="1400310803551"/>
+  &lt;property name="authorization" value="AUTHORIZED"/>
+  &lt;property name="type" value="ACCESS"/>
+  &lt;property name="userName" value="ivangsa"/>
+  &lt;property name="consumerKey" value="jira:14673078"/>
+  &lt;property name="timeToLive" value="157680000000"/>
+&lt;/properties></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.oauth.serviceprovider.ServiceProviderTokenStore.userAccessTokens.mraible</key>
+   <serializedData>&lt;properties>
+  &lt;property name="keys" value="MVqwXlML9XqmjtbRH1M7YBRHHiAnbIBY"/>
+  &lt;property name="username" value="mraible"/>
+&lt;/properties></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.dfe4b62f-dcd2-3403-979f-f9fc9a68eb80.type</key>
+   <serializedData>&lt;string>jira&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.dfe4b62f-dcd2-3403-979f-f9fc9a68eb80.name</key>
+   <serializedData>&lt;string>AppFuse JIRA&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.dfe4b62f-dcd2-3403-979f-f9fc9a68eb80.display.url</key>
+   <serializedData>&lt;string>http://issues.appfuse.org&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.dfe4b62f-dcd2-3403-979f-f9fc9a68eb80.rpc.url</key>
+   <serializedData>&lt;string>http://issues.appfuse.org&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.dfe4b62f-dcd2-3403-979f-f9fc9a68eb80.primary</key>
+   <serializedData>&lt;string>true&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.dfe4b62f-dcd2-3403-979f-f9fc9a68eb80.auth.52e4d6463f02700eeefbefc74233de4f</key>
+   <serializedData>&lt;properties/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>applinks.admin.dfe4b62f-dcd2-3403-979f-f9fc9a68eb80.providerKeys</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag>
+  &lt;string>com.atlassian.applinks.api.auth.types.OAuthAuthenticationProvider&lt;/string>
+  &lt;string>com.atlassian.applinks.api.auth.types.TwoLeggedOAuthAuthenticationProvider&lt;/string>
+  &lt;string>com.atlassian.applinks.api.auth.types.TwoLeggedOAuthWithImpersonationAuthenticationProvider&lt;/string>
+&lt;/net.sf.hibernate.collection.Bag></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>196614</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>196617</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>196613</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>196615</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>196616</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>753665</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>196611</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>5177345</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>4521985</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>4521988</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>4521987</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>4521986</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>4521989</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>1277953</buildId>
+   <key>bamboo.chain.branch.next.key</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.bamboo.index.quicksearch.QuickSearchIndexerImpl:approximateTimePerResult</key>
+   <serializedData>&lt;long>0&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>expiry.build.successful</key>
+   <serializedData>&lt;boolean>true&lt;/boolean></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.bamboo.index.buildresult.DefaultBuildResultsIndexer:approximateTimePerResult</key>
+   <serializedData>&lt;long>14&lt;/long></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm:notifications:notification-update</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag/></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.activeobjects.admin.ActiveObjectsPluginToTablesMapping</key>
+   <serializedData>&lt;string>{&amp;quot;AO_B9DACA_AOTRACKING_RESULT&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;com.atlassian.bamboo.brokenbuildtracker&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;Broken Build Responsibility Tracker&amp;quot;,&amp;quot;version&amp;quot;:&amp;quot;4.2.0&amp;quot;,&amp;quot;vendorName&amp;quot;:&amp;quot;Atlassian Software Systems Pty Ltd&amp;quot;,&amp;quot;vendorUrl&amp;quot;:&amp;quot;http://www.atlassian.com&amp;quot;},&amp;quot;AO_7A45FB_AOTRACKING_USER&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;com.atlassian.bamboo.brokenbuildtracker&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;Broken Build Responsibility Tracker&amp;quot;,&amp;quot;version&amp;quot;:&amp;quot;5.7.2&amp;quot;,&amp;quot;vendorName&amp;quot;:&amp;quot;Atlassian Software Systems Pty Ltd&amp;quot;,&amp;quot;vendorUrl&amp;quot;:&amp;quot;http://www.atlassian.com&amp;quot;},&amp;quot;AO_B9DACA_AOTRACKING_USER&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;com.atlassian.bamboo.brokenbuildtracker&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;Broken Build Responsibility Tracker&amp;quot;,&amp;quot;version&amp;quot;:&amp;quot;4.2.0&amp;quot;,&amp;quot;vendorName&amp;quot;:&amp;quot;Atlassian Software Systems Pty Ltd&amp;quot;,&amp;quot;vendorUrl&amp;quot;:&amp;quot;http://www.atlassian.com&amp;quot;},&amp;quot;AO_38321B_CUSTOM_CONTENT_LINK&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;com.atlassian.plugins.atlassian-nav-links-plugin&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;Atlassian Navigation Links Plugin&amp;quot;,&amp;quot;version&amp;quot;:&amp;quot;3.3.9&amp;quot;,&amp;quot;vendorName&amp;quot;:&amp;quot;Atlassian&amp;quot;,&amp;quot;vendorUrl&amp;quot;:&amp;quot;http://www.atlassian.com/&amp;quot;},&amp;quot;AO_7A45FB_AOTRACKING_RESULT&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;com.atlassian.bamboo.brokenbuildtracker&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;Broken Build Responsibility Tracker&amp;quot;,&amp;quot;version&amp;quot;:&amp;quot;5.7.2&amp;quot;,&amp;quot;vendorName&amp;quot;:&amp;quot;Atlassian Software Systems Pty Ltd&amp;quot;,&amp;quot;vendorUrl&amp;quot;:&amp;quot;http://www.atlassian.com&amp;quot;},&amp;quot;AO_A0B856_WEB_HOOK_LISTENER_AO&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;com.atlassian.webhooks.atlassian-webhooks-plugin&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;Atlassian WebHooks Plugin&amp;quot;,&amp;quot;version&amp;quot;:&amp;quot;0.17.6&amp;quot;,&amp;quot;vendorName&amp;quot;:&amp;quot;Atlassian&amp;quot;,&amp;quot;vendorUrl&amp;quot;:&amp;quot;http://www.atlassian.com/&amp;quot;},&amp;quot;AO_7A45FB_AOTRACKING_ENTRY&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;com.atlassian.bamboo.brokenbuildtracker&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;Broken Build Responsibility Tracker&amp;quot;,&amp;quot;version&amp;quot;:&amp;quot;5.7.2&amp;quot;,&amp;quot;vendorName&amp;quot;:&amp;quot;Atlassian Software Systems Pty Ltd&amp;quot;,&amp;quot;vendorUrl&amp;quot;:&amp;quot;http://www.atlassian.com&amp;quot;},&amp;quot;AO_B9DACA_AOTRACKING_ENTRY&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;com.atlassian.bamboo.brokenbuildtracker&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;Broken Build Responsibility Tracker&amp;quot;,&amp;quot;version&amp;quot;:&amp;quot;4.2.0&amp;quot;,&amp;quot;vendorName&amp;quot;:&amp;quot;Atlassian Software Systems Pty Ltd&amp;quot;,&amp;quot;vendorUrl&amp;quot;:&amp;quot;http://www.atlassian.com&amp;quot;}}&lt;/string></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>com.atlassian.upm.log.PluginSettingsAuditLogService:log:upm_audit_log_v3</key>
+   <serializedData>&lt;net.sf.hibernate.collection.Bag>
+  &lt;string>{&amp;quot;userKey&amp;quot;:&amp;quot;Bamboo&amp;quot;,&amp;quot;date&amp;quot;:1457927321557,&amp;quot;i18nKey&amp;quot;:&amp;quot;upm.auditLog.upm.startup&amp;quot;,&amp;quot;entryType&amp;quot;:&amp;quot;UPM_STARTUP&amp;quot;,&amp;quot;params&amp;quot;:[]}&lt;/string>
+&lt;/net.sf.hibernate.collection.Bag></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>expiry.build.lastRun</key>
+   <serializedData>&lt;date>1461715200001&lt;/date></serializedData>
+  </bandanaItem>
+  <bandanaItem>
+   <buildId>0</buildId>
+   <key>expiry.build.lastFinished</key>
+   <serializedData>&lt;date>1461715200252&lt;/date></serializedData>
+  </bandanaItem>
+ </bandanaItems>
+</bamboo>

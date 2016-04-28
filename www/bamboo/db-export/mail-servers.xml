@@ -1,0 +1,19 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <mail-servers>
+  <smtp-server>
+   <name>Bamboo</name>
+   <defaultFrom>builds@appfuse.org</defaultFrom>
+   <prefix>[Bamboo]</prefix>
+   <removePrecedence>true</removePrecedence>
+   <hostname>localhost</hostname>
+   <username>mraible</username>
+   <tlsRequired>false</tlsRequired>
+  </smtp-server>
+ </mail-servers>
+</bamboo>

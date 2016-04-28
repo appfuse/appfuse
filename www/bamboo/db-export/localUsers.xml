@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <localUsers>
+  <localUser>
+   <id>1</id>
+   <name>contegix</name>
+   <password>qqELOkCM5rWay2iwXcCr+fHBMyESrk1gm+wW0y51CS6EQfadvkA6fVR/hnFtHmjGHWfctxAl/CkSmrNChV5NLw==</password>
+   <fullName>Contegix Support</fullName>
+   <email>support@contegix.com</email>
+  </localUser>
+ </localUsers>
+</bamboo>

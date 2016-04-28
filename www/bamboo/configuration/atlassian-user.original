@@ -1,0 +1,47 @@
+<atlassian-user>
+    <repositories>
+
+        <!--LDAP: Uncomment the following block and modify accordingly for LDAP integration-->
+        <!--<ldap key="adRepository" name="AD Repository" cache="true">-->
+            <!--<host>host</host>-->
+            <!--<port>389</port>-->
+
+            <!--<securityPrincipal>CN=Administrator,CN=Users,DC=ad,DC=yourorg,DC=com</securityPrincipal>-->
+            <!--<securityCredential>administrator</securityCredential>-->
+            <!--<securityProtocol>plain</securityProtocol>-->
+            <!--<securityAuthentication>simple</securityAuthentication>-->
+            <!--<baseContext>dc=yourorg,dc=com</baseContext>-->
+
+            <!--<baseUserNamespace>CN=Users,DC=ad,DC=yourorg,DC=com</baseUserNamespace>-->
+
+            <!--<baseGroupNamespace>CN=Users,DC=ad,DC=yourorg,DC=com</baseGroupNamespace>-->
+            <!--<usernameAttribute>sAMAccountName</usernameAttribute>-->
+
+            <!--<userSearchFilter>(objectClass=person)</userSearchFilter>-->
+            <!--<firstnameAttribute>givenname</firstnameAttribute>-->
+            <!--<surnameAttribute>sn</surnameAttribute>-->
+            <!--<emailAttribute>mail</emailAttribute>-->
+            <!--<groupnameAttribute>cn</groupnameAttribute>-->
+
+            <!--<groupSearchFilter>(objectClass=group)</groupSearchFilter>-->
+            <!--<membershipAttribute>member</membershipAttribute>-->
+        <!--</ldap>-->
+
+        <!--<hibernate name="Hibernate Repository" key="hibernateRepository" description="Hibernate Repository" cache="true"/>-->
+
+        <!-- CROWD respository -->
+
+        <!--
+             You will need to uncomment the Crowd Repository below to enable Crowd integration. For more information,
+             please see:
+
+             http://confluence.atlassian.com/display/CROWD/Integrating+Crowd+with+Atlassian+Bamboo
+
+             You must also comment out the Hibernate Repository above.
+        -->
+        <crowd key="crowd" name="Crowd Repository"/>
+
+        <!-- END of CROWD repository -->
+
+    </repositories>
+</atlassian-user>

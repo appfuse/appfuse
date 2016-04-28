@@ -1,0 +1,184 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <authors>
+  <author>
+   <id>11075585</id>
+   <name>Marcin Zajaczkowski &lt;szpak@users.sourceforge.net></name>
+   <email>szpak@users.sourceforge.net</email>
+   <linkedUser>szpak</linkedUser>
+  </author>
+  <author>
+   <id>11075586</id>
+   <name>szpak</name>
+   <linkedUser>szpak</linkedUser>
+  </author>
+  <author>
+   <id>11665409</id>
+   <name>Ivan Garcia Sainz-Aja &lt;ivangsa@gmail.com></name>
+   <email>ivangsa@gmail.com</email>
+   <linkedUser>ivangsa</linkedUser>
+  </author>
+  <author>
+   <id>12156929</id>
+   <name>Tibor Strausz &lt;tibor@strausz.nl></name>
+   <email>tibor@strausz.nl</email>
+  </author>
+  <author>
+   <id>12156930</id>
+   <name>ivangsa &lt;ivangsa@gmail.com></name>
+   <email>ivangsa@gmail.com</email>
+   <linkedUser>ivangsa</linkedUser>
+  </author>
+  <author>
+   <id>524294</id>
+   <name>bendg25</name>
+   <linkedUser>bendg25</linkedUser>
+  </author>
+  <author>
+   <id>6946817</id>
+   <name>sdeby</name>
+   <linkedUser>sdeby</linkedUser>
+  </author>
+  <author>
+   <id>524301</id>
+   <name>bnoll</name>
+   <linkedUser>bnoll</linkedUser>
+  </author>
+  <author>
+   <id>524296</id>
+   <name>ddcarter</name>
+  </author>
+  <author>
+   <id>524304</id>
+   <name>root</name>
+  </author>
+  <author>
+   <id>524289</id>
+   <name>Unknown</name>
+  </author>
+  <author>
+   <id>524300</id>
+   <name>dlwhitehurst</name>
+   <linkedUser>dlwhitehurst</linkedUser>
+  </author>
+  <author>
+   <id>524297</id>
+   <name>thogau</name>
+   <linkedUser>thogau</linkedUser>
+  </author>
+  <author>
+   <id>524292</id>
+   <name>RickHigh</name>
+  </author>
+  <author>
+   <id>524303</id>
+   <name>Ov3rdriv3</name>
+  </author>
+  <author>
+   <id>524302</id>
+   <name>mhorwitz</name>
+  </author>
+  <author>
+   <id>8126465</id>
+   <name>David Whitehurst &lt;dlwhitehurst@gmail.com></name>
+   <linkedUser>dlwhitehurst</linkedUser>
+  </author>
+  <author>
+   <id>524290</id>
+   <name>httpd</name>
+  </author>
+  <author>
+   <id>524293</id>
+   <name>melinate</name>
+   <linkedUser>melinate</linkedUser>
+  </author>
+  <author>
+   <id>524295</id>
+   <name>sjivan</name>
+   <linkedUser>sjivan</linkedUser>
+  </author>
+  <author>
+   <id>8126466</id>
+   <name>Nathan Anderson &lt;nathan@melinate.com></name>
+   <linkedUser>melinate</linkedUser>
+  </author>
+  <author>
+   <id>524299</id>
+   <name>scryan</name>
+  </author>
+  <author>
+   <id>8126467</id>
+   <name>Matt Raible &lt;matt@raibledesigns.com></name>
+   <linkedUser>mraible</linkedUser>
+  </author>
+  <author>
+   <id>458753</id>
+   <name>mraible</name>
+   <linkedUser>mraible</linkedUser>
+  </author>
+  <author>
+   <id>8126468</id>
+   <name>jogaco &lt;jogaco.en@gmail.com></name>
+   <linkedUser>jogaco</linkedUser>
+  </author>
+  <author>
+   <id>524298</id>
+   <name>ov3rdriv3</name>
+  </author>
+  <author>
+   <id>8126469</id>
+   <name>David L. Whitehurst &lt;dlwhitehurst@me.com></name>
+  </author>
+  <author>
+   <id>8126470</id>
+   <name>Serge Eby &lt;serge.eby@gmail.com></name>
+  </author>
+  <author>
+   <id>524291</id>
+   <name>baudrate</name>
+  </author>
+  <author>
+   <id>9076737</id>
+   <name>olivier lamy &lt;olamy@apache.org></name>
+   <email>olamy@apache.org</email>
+   <linkedUser>olamy</linkedUser>
+  </author>
+  <author>
+   <id>9076738</id>
+   <name>Serge Eby &lt;serge.eby@nokia.com></name>
+   <email>serge.eby@nokia.com</email>
+  </author>
+  <author>
+   <id>14319617</id>
+   <name>Iván García Sainz-Aja &lt;ivangsa@gmail.com></name>
+   <email>ivangsa@gmail.com</email>
+   <linkedUser>ivangsa</linkedUser>
+  </author>
+  <author>
+   <id>15335425</id>
+   <name>trerginl &lt;lemiorhan.ergin@eu.sony.com></name>
+   <email>lemiorhan.ergin@eu.sony.com</email>
+  </author>
+  <author>
+   <id>15335426</id>
+   <name>schrootenb &lt;ben.schrooten@gmail.com></name>
+   <email>ben.schrooten@gmail.com</email>
+   <linkedUser>ben.schrooten</linkedUser>
+  </author>
+  <author>
+   <id>16809985</id>
+   <name>[unknown]</name>
+  </author>
+  <author>
+   <id>19496961</id>
+   <name>mraible &lt;matt@raibledesigns.com></name>
+   <email>matt@raibledesigns.com</email>
+   <linkedUser>mraible</linkedUser>
+  </author>
+ </authors>
+</bamboo>

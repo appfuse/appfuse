@@ -1,0 +1,19 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <pipelines>
+  <pipeline>
+   <id>131073</id>
+   <creationDate>portable AD 2009-05-06 05:30:00.935 +0000</creationDate>
+   <modificationDate>portable AD 2009-05-06 05:30:00.935 +0000</modificationDate>
+   <type>LOCAL</type>
+   <name>Default Queue</name>
+   <enabled>true</enabled>
+   <capabilities/>
+  </pipeline>
+ </pipelines>
+</bamboo>

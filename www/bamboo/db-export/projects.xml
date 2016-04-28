@@ -1,0 +1,4210 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <projects>
+  <project>
+   <id>163843</id>
+   <creationDate>portable AD 2007-07-26 19:39:36.899 +0000</creationDate>
+   <modificationDate>portable AD 2007-07-28 17:07:58.125 +0000</modificationDate>
+   <key>APF</key>
+   <name>AppFuse</name>
+   <subplans>
+    <subplan>
+     <id>5799937</id>
+     <creationDate>portable AD 2011-07-12 14:45:56.894 +0000</creationDate>
+     <modificationDate>portable AD 2014-12-12 17:17:50.172 +0000</modificationDate>
+     <key>APF-AMP-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>885</lastBuildNumber>
+     <nextBuildNumber>886</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931009</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>3</id>
+      <userDescription>Install AMP</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value/>
+        </item>
+        <item>
+          <key>useMavenReturnCode</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK 1.7</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 3</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value>plugins/appfuse-maven-plugin</value>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>clean install -DskipTests</value>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>1</id>
+      <userDescription>Run test-all</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.ant:task.builder.ant</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildFile</key>
+          <value>build.xml</value>
+        </item>
+        <item>
+          <key>target</key>
+          <value>test-all</value>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value/>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Ant</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value>plugins/appfuse-maven-plugin</value>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value>ANT_OPTS="-Xmx768m"</value>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  <clover>
+      
+    
+    
+    
+    
+    <path/>
+    </clover>
+    <ncover>
+      
+    
+    
+    
+    
+    <path/>
+    </ncover>
+    <auto>
+      
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    <label/>
+      <regex/>
+    </auto>
+  </custom>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832705</id>
+      <requirement>
+       <id>17760287</id>
+       <key>system.builder.ant.Ant</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.ant:task.builder.ant</pluginModuleKey>
+       <ownerId>1</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>17760288</id>
+       <key>system.jdk.JDK 1.7</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>17760290</id>
+       <key>system.builder.mvn3.Maven 3</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>17760289</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.ant:task.builder.ant</pluginModuleKey>
+       <ownerId>1</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <subplans>
+    <subplan>
+     <id>5799939</id>
+     <creationDate>portable AD 2011-07-12 14:45:56.945 +0000</creationDate>
+     <modificationDate>portable AD 2015-02-18 17:06:13.911 +0000</modificationDate>
+     <key>APF-DEMO-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>63</lastBuildNumber>
+     <nextBuildNumber>64</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931011</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>3</id>
+      <userDescription/>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>useMavenReturnCode</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 3</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value/>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value/>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>clean install -Pitest</value>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832707</id>
+      <requirement>
+       <id>19628033</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>19628034</id>
+       <key>system.builder.mvn3.Maven 3</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <subplans>
+    <subplan>
+     <id>5799938</id>
+     <creationDate>portable AD 2011-07-12 14:45:56.962 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:13:54.766 +0000</modificationDate>
+     <key>APF-DEPLOY-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>2</firstBuildNumber>
+     <lastBuildNumber>1221</lastBuildNumber>
+     <nextBuildNumber>1222</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931010</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>3</id>
+      <userDescription/>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value/>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>useMavenReturnCode</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 3</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value/>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value/>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>deploy -DskipTests=true</value>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832706</id>
+      <requirement>
+       <id>18907143</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>18907144</id>
+       <key>system.builder.mvn3.Maven 3</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <subplans>
+    <subplan>
+     <id>5799940</id>
+     <creationDate>portable AD 2011-07-12 14:45:56.194 +0000</creationDate>
+     <modificationDate>portable AD 2013-03-01 19:09:25.351 +0000</modificationDate>
+     <key>APF-IBATIS-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>642</lastBuildNumber>
+     <nextBuildNumber>643</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931012</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>1</id>
+      <userDescription/>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn2</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK 1.6</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 2</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value/>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>clean install -Ddao.framework=ibatis</value>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+    <issueLinking>true</issueLinking>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <ncover>
+      <path/>
+    </ncover>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832708</id>
+      <requirement>
+       <id>8552459</id>
+       <key>system.jdk.JDK 1.6</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn2</pluginModuleKey>
+       <ownerId>1</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>8552460</id>
+       <key>system.builder.mvn2.Maven 2</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn2</pluginModuleKey>
+       <ownerId>1</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <subplans>
+    <subplan>
+     <id>5799941</id>
+     <creationDate>portable AD 2011-07-12 14:45:57.008 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:13:21.311 +0000</modificationDate>
+     <key>APF-JPA-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>1078</lastBuildNumber>
+     <nextBuildNumber>1079</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931013</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>3</id>
+      <userDescription/>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>useMavenReturnCode</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 3</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value/>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value/>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>clean verify -Ddao.framework=jpa -Pitest</value>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832709</id>
+      <requirement>
+       <id>18907141</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>18907142</id>
+       <key>system.builder.mvn3.Maven 3</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <subplans>
+    <subplan>
+     <id>5799942</id>
+     <creationDate>portable AD 2011-07-12 14:45:57.028 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:12:57.552 +0000</modificationDate>
+     <key>APF-SITE-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>1093</lastBuildNumber>
+     <nextBuildNumber>1094</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931014</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>3</id>
+      <userDescription/>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value/>
+        </item>
+        <item>
+          <key>useMavenReturnCode</key>
+          <value/>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 3</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value/>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>site-deploy</value>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value>MAVEN_OPTS="-Xmx512M"</value>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832710</id>
+      <requirement>
+       <id>18907139</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>18907140</id>
+       <key>system.builder.mvn3.Maven 3</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <subplans>
+    <subplan>
+     <id>5799944</id>
+     <creationDate>portable AD 2011-07-12 14:45:57.048 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:12:25.957 +0000</modificationDate>
+     <key>APF-TRUNK-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>954</lastBuildNumber>
+     <nextBuildNumber>955</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931016</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>3</id>
+      <userDescription/>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>useMavenReturnCode</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>customTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 3</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value/>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value/>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml, **/target/site/webtest/**</value>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>clean install -Pitest</value>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832712</id>
+      <requirement>
+       <id>18907137</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>18907138</id>
+       <key>system.builder.mvn3.Maven 3</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <chains>
+    <chain>
+     <id>196614</id>
+     <creationDate>portable AD 2007-07-26 19:45:29.411 +0000</creationDate>
+     <modificationDate>portable AD 2014-12-15 18:31:14.633 +0000</modificationDate>
+     <key>APF-AMP</key>
+     <buildKey>AMP</buildKey>
+     <buildName>amp</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>885</lastBuildNumber>
+     <nextBuildNumber>886</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>262150</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>0</repositoryDefiningWorkingDirectory>
+  <buildStrategies>
+    <defined>true</defined>
+    <buildStrategy>
+      <id>0</id>
+      <key>poll</key>
+      <name/>
+      <triggeringRepositories>17793035</triggeringRepositories>
+      <config>
+        <item>
+          <key>repository.change.poll.pollingPeriod</key>
+          <value>180</value>
+        </item>
+        <item>
+          <key>repository.change.poll.cronExpression</key>
+          <value>0 0 0 ? * *</value>
+        </item>
+        <item>
+          <key>repository.change.poll.type</key>
+          <value>PERIOD</value>
+        </item>
+        <item>
+          <key>bambooDelimiterParsingDisabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.enabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.plans</key>
+          <value>APF-TRUNK</value>
+        </item>
+      </config>
+    </buildStrategy>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>true</monitoringEnabled>
+    <matchingPattern>simplify</matchingPattern>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <ncover>
+      <path/>
+    </ncover>
+    <clover>
+      <path/>
+    </clover>
+    <maven>
+      <sharing>
+        <repository>
+          <config>
+            <expire>true</expire>
+            <enabled>true</enabled>
+          </config>
+        </repository>
+      </sharing>
+    </maven>
+    <triggerrCondition>
+      <plansGreen>
+        <enabled>true</enabled>
+        <plans>APF-TRUNK</plans>
+      </plansGreen>
+    </triggerrCondition>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>720902</id>
+       <creationDate>portable AD 2007-07-31 10:35:30.789 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-31 10:35:30.790 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+      <labelling>
+       <id>1015810</id>
+       <creationDate>portable AD 2007-08-27 21:16:57.020 +0000</creationDate>
+       <modificationDate>portable AD 2007-08-27 21:16:57.021 +0000</modificationDate>
+       <label>589830</label>
+       <user>dlwhitehurst</user>
+      </labelling>
+      <labelling>
+       <id>11468801</id>
+       <creationDate>portable AD 2013-01-28 16:29:55.928 +0000</creationDate>
+       <modificationDate>portable AD 2013-01-28 16:29:56.054 +0000</modificationDate>
+       <label>11173889</label>
+       <user>szpak</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>229382</id>
+      <notification>
+       <id>2883585</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.email</recipientType>
+       <recipientDetails>matt@raibledesigns.com</recipientDetails>
+      </notification>
+      <notification>
+       <id>2883586</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.committer</recipientType>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767169</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APF-AMP-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+    <chain>
+     <id>196617</id>
+     <creationDate>portable AD 2007-07-26 19:53:27.142 +0000</creationDate>
+     <modificationDate>portable AD 2015-02-18 17:06:14.087 +0000</modificationDate>
+     <key>APF-DEMO</key>
+     <buildKey>DEMO</buildKey>
+     <buildName>demos</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>63</lastBuildNumber>
+     <nextBuildNumber>64</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>262153</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <buildStrategies>
+    <defined>true</defined>
+    <buildStrategy>
+      <id>0</id>
+      <key>poll</key>
+      <name/>
+      <triggeringRepositories>19562497</triggeringRepositories>
+      <config>
+        <item>
+          <key>repository.change.poll.pollingPeriod</key>
+          <value>180</value>
+        </item>
+        <item>
+          <key>repository.change.poll.cronExpression</key>
+          <value>0 0 0 ? * *</value>
+        </item>
+        <item>
+          <key>repository.change.poll.type</key>
+          <value>PERIOD</value>
+        </item>
+        <item>
+          <key>bambooDelimiterParsingDisabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.enabled</key>
+          <value>false</value>
+        </item>
+      </config>
+    </buildStrategy>
+  </buildStrategies>
+  <custom>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>720897</id>
+       <creationDate>portable AD 2007-07-27 10:33:20.617 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-27 10:33:20.619 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>229385</id>
+      <notification>
+       <id>2883587</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.email</recipientType>
+       <recipientDetails>matt@raibledesigns.com</recipientDetails>
+      </notification>
+      <notification>
+       <id>2883588</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.committer</recipientType>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767171</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APF-DEMO-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+    <chain>
+     <id>196613</id>
+     <creationDate>portable AD 2007-07-26 19:43:16.001 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:13:54.830 +0000</modificationDate>
+     <key>APF-DEPLOY</key>
+     <buildKey>DEPLOY</buildKey>
+     <buildName>deploy</buildName>
+     <firstBuildNumber>2</firstBuildNumber>
+     <lastBuildNumber>1221</lastBuildNumber>
+     <nextBuildNumber>1222</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>262149</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <buildStrategies>
+    <defined>true</defined>
+    <buildStrategy>
+      <id>0</id>
+      <key>poll</key>
+      <name/>
+      <triggeringRepositories>17793035</triggeringRepositories>
+      <config>
+        <item>
+          <key>repository.change.poll.pollingPeriod</key>
+          <value>180</value>
+        </item>
+        <item>
+          <key>repository.change.poll.cronExpression</key>
+          <value>0 0 0 ? * *</value>
+        </item>
+        <item>
+          <key>repository.change.poll.type</key>
+          <value>PERIOD</value>
+        </item>
+        <item>
+          <key>bambooDelimiterParsingDisabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.enabled</key>
+          <value>false</value>
+        </item>
+      </config>
+    </buildStrategy>
+  </buildStrategies>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>622593</id>
+       <creationDate>portable AD 2007-07-27 00:35:42.230 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-27 00:35:42.234 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+      <labelling>
+       <id>622594</id>
+       <creationDate>portable AD 2007-07-27 00:41:01.154 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-27 00:41:01.154 +0000</modificationDate>
+       <label>589826</label>
+       <user>melinate</user>
+      </labelling>
+      <labelling>
+       <id>622595</id>
+       <creationDate>portable AD 2007-07-27 00:41:46.809 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-27 00:41:46.810 +0000</modificationDate>
+       <label>589827</label>
+       <user>bendg25</user>
+      </labelling>
+      <labelling>
+       <id>622596</id>
+       <creationDate>portable AD 2007-07-27 00:41:55.900 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-27 00:41:55.901 +0000</modificationDate>
+       <label>589828</label>
+       <user>sjivan</user>
+      </labelling>
+      <labelling>
+       <id>622597</id>
+       <creationDate>portable AD 2007-07-27 00:43:50.686 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-27 00:43:50.686 +0000</modificationDate>
+       <label>589829</label>
+       <user>thogau</user>
+      </labelling>
+      <labelling>
+       <id>622598</id>
+       <creationDate>portable AD 2007-07-27 00:46:47.873 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-27 00:46:47.873 +0000</modificationDate>
+       <label>589830</label>
+       <user>dlwhitehurst</user>
+      </labelling>
+      <labelling>
+       <id>622599</id>
+       <creationDate>portable AD 2007-07-27 00:46:51.588 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-27 00:46:51.588 +0000</modificationDate>
+       <label>589831</label>
+       <user>bnoll</user>
+      </labelling>
+      <labelling>
+       <id>6914053</id>
+       <creationDate>portable AD 2012-01-03 12:05:08.899 +0000</creationDate>
+       <modificationDate>portable AD 2012-01-03 12:05:08.974 +0000</modificationDate>
+       <label>6979585</label>
+       <user>sdeby</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>229381</id>
+      <notification>
+       <id>2883589</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.email</recipientType>
+       <recipientDetails>matt@raibledesigns.com</recipientDetails>
+      </notification>
+      <notification>
+       <id>2883590</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.committer</recipientType>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767170</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APF-DEPLOY-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+    <chain>
+     <id>196615</id>
+     <creationDate>portable AD 2007-07-26 19:47:36.529 +0000</creationDate>
+     <modificationDate>portable AD 2013-03-01 19:08:54.485 +0000</modificationDate>
+     <key>APF-IBATIS</key>
+     <buildKey>IBATIS</buildKey>
+     <buildName>ibatis</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>642</lastBuildNumber>
+     <nextBuildNumber>643</nextBuildNumber>
+     <suspendedFromBuilding>true</suspendedFromBuilding>
+     <definition>
+      <id>262151</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+  <selectedRepository>com.atlassian.bamboo.plugin.system.repository:svn</selectedRepository>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <repository>
+    <common>
+      <cleanCheckout>false</cleanCheckout>
+      <cleanWorkingDirectory>false</cleanWorkingDirectory>
+    </common>
+    <svn>
+      <repositoryUrl>https://svn.java.net/svn/appfuse~svn/trunk</repositoryUrl>
+      <username>guest</username>
+      <authType>password</authType>
+      <userPassword/>
+      <useExternals>true</useExternals>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    </svn>
+  </repository>
+  <inheritRepository>false</inheritRepository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+  <repository>
+    <change>
+      <poll>
+        <pollingPeriod>180</pollingPeriod>
+      </poll>
+    </change>
+  <svn>
+      <branch>
+        <autodetectRootUrl>true</autodetectRootUrl>
+      </branch>
+      <tag>
+        <autodetectRootUrl>true</autodetectRootUrl>
+      </tag>
+    </svn>
+  </repository>
+  <selectedBuildStrategy>poll</selectedBuildStrategy>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+<branches>
+    <inactivityInDays>0</inactivityInDays>
+  </branches>
+<buildStrategies>
+    <defined>true</defined>
+    <buildStrategy>
+      <id>0</id>
+      <key>poll</key>
+      <name/>
+      <triggeringRepositories>8716293</triggeringRepositories>
+      <config>
+        <item>
+          <key>repository.change.poll.pollingPeriod</key>
+          <value>180</value>
+        </item>
+        <item>
+          <key>repository.change.poll.cronExpression</key>
+          <value>0 0 0 ? * *</value>
+        </item>
+        <item>
+          <key>repository.change.poll.type</key>
+          <value>PERIOD</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.enabled</key>
+          <value>false</value>
+        </item>
+      </config>
+    </buildStrategy>
+  </buildStrategies>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>720898</id>
+       <creationDate>portable AD 2007-07-27 15:00:27.857 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-27 15:00:27.859 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+      <labelling>
+       <id>1015811</id>
+       <creationDate>portable AD 2007-08-27 21:28:25.111 +0000</creationDate>
+       <modificationDate>portable AD 2007-08-27 21:28:25.132 +0000</modificationDate>
+       <label>589830</label>
+       <user>dlwhitehurst</user>
+      </labelling>
+      <labelling>
+       <id>6914049</id>
+       <creationDate>portable AD 2011-11-29 16:22:22.368 +0000</creationDate>
+       <modificationDate>portable AD 2011-11-29 16:22:22.438 +0000</modificationDate>
+       <label>589826</label>
+       <user>melinate</user>
+      </labelling>
+      <labelling>
+       <id>6914056</id>
+       <creationDate>portable AD 2012-01-03 13:38:03.134 +0000</creationDate>
+       <modificationDate>portable AD 2012-01-03 13:38:03.158 +0000</modificationDate>
+       <label>6979585</label>
+       <user>sdeby</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>229383</id>
+      <notification>
+       <id>2883591</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.email</recipientType>
+       <recipientDetails>matt@raibledesigns.com</recipientDetails>
+      </notification>
+      <notification>
+       <id>2883592</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.committer</recipientType>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767172</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APF-IBATIS-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+    <chain>
+     <id>196616</id>
+     <creationDate>portable AD 2007-07-26 19:51:40.025 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:13:21.362 +0000</modificationDate>
+     <key>APF-JPA</key>
+     <buildKey>JPA</buildKey>
+     <buildName>jpa</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>1078</lastBuildNumber>
+     <nextBuildNumber>1079</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>262152</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>0</repositoryDefiningWorkingDirectory>
+  <buildStrategies>
+    <defined>true</defined>
+    <buildStrategy>
+      <id>0</id>
+      <key>poll</key>
+      <name/>
+      <triggeringRepositories>17793035</triggeringRepositories>
+      <config>
+        <item>
+          <key>repository.change.poll.pollingPeriod</key>
+          <value>180</value>
+        </item>
+        <item>
+          <key>repository.change.poll.cronExpression</key>
+          <value>0 0 0 ? * *</value>
+        </item>
+        <item>
+          <key>repository.change.poll.type</key>
+          <value>PERIOD</value>
+        </item>
+        <item>
+          <key>bambooDelimiterParsingDisabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.enabled</key>
+          <value>false</value>
+        </item>
+      </config>
+    </buildStrategy>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>true</monitoringEnabled>
+    <matchingPattern>simplify</matchingPattern>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>720899</id>
+       <creationDate>portable AD 2007-07-27 15:09:13.260 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-27 15:09:13.261 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+      <labelling>
+       <id>1015813</id>
+       <creationDate>portable AD 2007-08-27 21:52:01.797 +0000</creationDate>
+       <modificationDate>portable AD 2007-08-27 21:52:01.798 +0000</modificationDate>
+       <label>589830</label>
+       <user>dlwhitehurst</user>
+      </labelling>
+      <labelling>
+       <id>6914050</id>
+       <creationDate>portable AD 2011-11-29 16:28:52.673 +0000</creationDate>
+       <modificationDate>portable AD 2011-11-29 16:28:52.755 +0000</modificationDate>
+       <label>589826</label>
+       <user>melinate</user>
+      </labelling>
+      <labelling>
+       <id>6914055</id>
+       <creationDate>portable AD 2012-01-03 13:14:17.802 +0000</creationDate>
+       <modificationDate>portable AD 2012-01-03 13:14:17.845 +0000</modificationDate>
+       <label>6979585</label>
+       <user>sdeby</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>229384</id>
+      <notification>
+       <id>2883593</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.email</recipientType>
+       <recipientDetails>matt@raibledesigns.com</recipientDetails>
+      </notification>
+      <notification>
+       <id>2883594</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.committer</recipientType>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767173</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APF-JPA-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+    <chain>
+     <id>753665</id>
+     <creationDate>portable AD 2007-07-28 17:06:39.049 +0000</creationDate>
+     <modificationDate>portable AD 2015-02-20 21:28:10.176 +0000</modificationDate>
+     <key>APF-SITE</key>
+     <buildKey>SITE</buildKey>
+     <buildName>site</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>1093</lastBuildNumber>
+     <nextBuildNumber>1094</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>819201</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <buildStrategies>
+    <defined>true</defined>
+    <buildStrategy>
+      <id>0</id>
+      <key>poll</key>
+      <name/>
+      <triggeringRepositories>17793035</triggeringRepositories>
+      <config>
+        <item>
+          <key>repository.change.poll.pollingPeriod</key>
+          <value>180</value>
+        </item>
+        <item>
+          <key>repository.change.poll.cronExpression</key>
+          <value>0 0 0 ? * *</value>
+        </item>
+        <item>
+          <key>repository.change.poll.type</key>
+          <value>PERIOD</value>
+        </item>
+        <item>
+          <key>bambooDelimiterParsingDisabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.enabled</key>
+          <value>false</value>
+        </item>
+      </config>
+    </buildStrategy>
+  </buildStrategies>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>720901</id>
+       <creationDate>portable AD 2007-07-31 03:09:24.019 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-31 03:09:24.020 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+      <labelling>
+       <id>1015809</id>
+       <creationDate>portable AD 2007-08-27 20:03:16.293 +0000</creationDate>
+       <modificationDate>portable AD 2007-08-27 20:03:16.295 +0000</modificationDate>
+       <label>589830</label>
+       <user>dlwhitehurst</user>
+      </labelling>
+      <labelling>
+       <id>6914051</id>
+       <creationDate>portable AD 2011-11-29 17:13:29.921 +0000</creationDate>
+       <modificationDate>portable AD 2011-11-29 17:13:29.938 +0000</modificationDate>
+       <label>589826</label>
+       <user>melinate</user>
+      </labelling>
+      <labelling>
+       <id>6914054</id>
+       <creationDate>portable AD 2012-01-03 12:44:16.051 +0000</creationDate>
+       <modificationDate>portable AD 2012-01-03 12:44:16.071 +0000</modificationDate>
+       <label>6979585</label>
+       <user>sdeby</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>786433</id>
+      <notification>
+       <id>5144577</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.user</recipientType>
+       <recipientDetails>mraible</recipientDetails>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767174</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APF-SITE-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+    <chain>
+     <id>196611</id>
+     <creationDate>portable AD 2007-07-26 19:39:36.899 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:12:26.047 +0000</modificationDate>
+     <key>APF-TRUNK</key>
+     <buildKey>TRUNK</buildKey>
+     <buildName>trunk</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>954</lastBuildNumber>
+     <nextBuildNumber>955</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>262147</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>0</repositoryDefiningWorkingDirectory>
+  <buildStrategies>
+    <defined>true</defined>
+    <buildStrategy>
+      <id>0</id>
+      <key>poll</key>
+      <name/>
+      <triggeringRepositories>17793035</triggeringRepositories>
+      <config>
+        <item>
+          <key>repository.change.poll.pollingPeriod</key>
+          <value>180</value>
+        </item>
+        <item>
+          <key>repository.change.poll.cronExpression</key>
+          <value>0 0 0 ? * *</value>
+        </item>
+        <item>
+          <key>repository.change.poll.type</key>
+          <value>PERIOD</value>
+        </item>
+        <item>
+          <key>bambooDelimiterParsingDisabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.enabled</key>
+          <value>false</value>
+        </item>
+      </config>
+    </buildStrategy>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <ncover>
+      <path/>
+    </ncover>
+    <clover>
+      <path/>
+    </clover>
+    <maven>
+      <sharing>
+        <repository>
+          <config>
+            <enabled>false</enabled>
+          </config>
+        </repository>
+      </sharing>
+    </maven>
+    <buildExpiryConfig>
+      <enabled>false</enabled>
+    </buildExpiryConfig>
+    <triggerrCondition>
+      <plansGreen>
+        <plans/>
+      </plansGreen>
+    </triggerrCondition>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>720900</id>
+       <creationDate>portable AD 2007-07-27 15:18:15.927 +0000</creationDate>
+       <modificationDate>portable AD 2007-07-27 15:18:15.929 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+      <labelling>
+       <id>1015812</id>
+       <creationDate>portable AD 2007-08-27 21:40:00.445 +0000</creationDate>
+       <modificationDate>portable AD 2007-08-27 21:40:00.446 +0000</modificationDate>
+       <label>589830</label>
+       <user>dlwhitehurst</user>
+      </labelling>
+      <labelling>
+       <id>6914052</id>
+       <creationDate>portable AD 2011-11-29 17:21:29.639 +0000</creationDate>
+       <modificationDate>portable AD 2011-11-29 17:21:29.641 +0000</modificationDate>
+       <label>589826</label>
+       <user>melinate</user>
+      </labelling>
+      <labelling>
+       <id>6914057</id>
+       <creationDate>portable AD 2012-01-03 14:08:49.375 +0000</creationDate>
+       <modificationDate>portable AD 2012-01-03 14:08:49.396 +0000</modificationDate>
+       <label>6979585</label>
+       <user>sdeby</user>
+      </labelling>
+      <labelling>
+       <id>11206657</id>
+       <creationDate>portable AD 2013-01-20 12:12:18.245 +0000</creationDate>
+       <modificationDate>portable AD 2013-01-20 12:12:18.353 +0000</modificationDate>
+       <label>11173889</label>
+       <user>szpak</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>229379</id>
+      <notification>
+       <id>2883595</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.email</recipientType>
+       <recipientDetails>matt@raibledesigns.com</recipientDetails>
+      </notification>
+      <notification>
+       <id>2883596</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.committer</recipientType>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767176</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APF-TRUNK-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+   </chains>
+  </project>
+  <project>
+   <id>1245185</id>
+   <creationDate>portable AD 2007-11-27 11:47:58.704 +0000</creationDate>
+   <modificationDate>portable AD 2007-11-27 11:47:58.704 +0000</modificationDate>
+   <key>APL</key>
+   <name>AppFuse Light</name>
+   <subplans>
+    <subplan>
+     <id>5799943</id>
+     <creationDate>portable AD 2011-07-12 14:45:56.246 +0000</creationDate>
+     <modificationDate>portable AD 2014-12-12 17:20:33.048 +0000</modificationDate>
+     <key>APL-AMP-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>24</firstBuildNumber>
+     <lastBuildNumber>536</lastBuildNumber>
+     <nextBuildNumber>537</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931015</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>3</id>
+      <userDescription>Install AMP</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value/>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>useMavenReturnCode</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 3</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value>plugins/appfuse-maven-plugin</value>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value/>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>clean install -DskipTests</value>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>1</id>
+      <userDescription>Run test-all-light</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.ant:task.builder.ant</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildFile</key>
+          <value>build.xml</value>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>target</key>
+          <value>test-all-light</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value/>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Ant</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value>plugins/appfuse-maven-plugin</value>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value>JAVA_OPTS="-Xmx512m"</value>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/surefire-reports/*.xml</value>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    
+    
+    
+  
+    
+    
+  <clover>
+      
+    
+    <path/>
+    </clover>
+    <auto>
+      
+      
+    
+      
+    <label/>
+      <regex/>
+    </auto>
+    <ncover>
+      
+    
+    <path/>
+    </ncover>
+  </custom>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832711</id>
+      <requirement>
+       <id>17760295</id>
+       <key>system.builder.ant.Ant</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.ant:task.builder.ant</pluginModuleKey>
+       <ownerId>1</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>17760296</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>17760298</id>
+       <key>system.builder.mvn3.Maven 3</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>17760297</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.ant:task.builder.ant</pluginModuleKey>
+       <ownerId>1</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <subplans>
+    <subplan>
+     <id>5799945</id>
+     <creationDate>portable AD 2011-07-12 14:45:57.080 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:18:13.004 +0000</modificationDate>
+     <key>APL-ARCH-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>146</firstBuildNumber>
+     <lastBuildNumber>386</lastBuildNumber>
+     <nextBuildNumber>387</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931017</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>3</id>
+      <userDescription/>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>useMavenReturnCode</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 3</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value/>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>clean install -Pitest,create-archetype -Djdbc.password=${bamboo.jdbcPassword}</value>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <ncover>
+      <path/>
+    </ncover>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832713</id>
+      <requirement>
+       <id>18907153</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>18907154</id>
+       <key>system.builder.mvn3.Maven 3</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <subplans>
+    <subplan>
+     <id>5799946</id>
+     <creationDate>portable AD 2011-07-12 14:45:56.264 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:17:42.668 +0000</modificationDate>
+     <key>APL-DEP-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>145</firstBuildNumber>
+     <lastBuildNumber>349</lastBuildNumber>
+     <nextBuildNumber>350</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931018</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>3</id>
+      <userDescription/>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value/>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>useMavenReturnCode</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 3</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value/>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value/>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>clean deploy -DskipTests=true -Pcreate-archetype</value>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <ncover>
+      <path/>
+    </ncover>
+    <clover>
+      <path/>
+      <license/>
+      <useLocalLicenseKey>true</useLocalLicenseKey>
+      <integration>custom</integration>
+    </clover>
+    <buildHangingConfig>
+      <enabled>false</enabled>
+    </buildHangingConfig>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832714</id>
+      <requirement>
+       <id>18907151</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>18907152</id>
+       <key>system.builder.mvn3.Maven 3</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <subplans>
+    <subplan>
+     <id>5799947</id>
+     <creationDate>portable AD 2011-07-12 14:45:57.114 +0000</creationDate>
+     <modificationDate>portable AD 2013-03-01 19:09:25.811 +0000</modificationDate>
+     <key>APL-IBATIS-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>135</firstBuildNumber>
+     <lastBuildNumber>149</lastBuildNumber>
+     <nextBuildNumber>150</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931019</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>1</id>
+      <userDescription/>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn2</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK 1.6</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 2</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value/>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>clean install -Ddao.framework=ibatis -P!db</value>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+    <issueLinking>true</issueLinking>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <ncover>
+      <path/>
+    </ncover>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832715</id>
+      <requirement>
+       <id>8552473</id>
+       <key>system.jdk.JDK 1.6</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn2</pluginModuleKey>
+       <ownerId>1</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>8552474</id>
+       <key>system.builder.mvn2.Maven 2</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn2</pluginModuleKey>
+       <ownerId>1</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <subplans>
+    <subplan>
+     <id>5799948</id>
+     <creationDate>portable AD 2011-07-12 14:45:57.132 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:17:10.611 +0000</modificationDate>
+     <key>APL-JPA-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>131</firstBuildNumber>
+     <lastBuildNumber>353</lastBuildNumber>
+     <nextBuildNumber>354</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931020</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>3</id>
+      <userDescription/>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>useMavenReturnCode</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 3</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value/>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value/>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>clean install -Ddao.framework=jpa -Pitest</value>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <ncover>
+      <path/>
+    </ncover>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832716</id>
+      <requirement>
+       <id>18907149</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>18907150</id>
+       <key>system.builder.mvn3.Maven 3</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <subplans>
+    <subplan>
+     <id>5799949</id>
+     <creationDate>portable AD 2011-07-12 14:45:57.152 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:16:46.036 +0000</modificationDate>
+     <key>APL-SITE-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>126</firstBuildNumber>
+     <lastBuildNumber>360</lastBuildNumber>
+     <nextBuildNumber>361</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931021</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>3</id>
+      <userDescription>site:site site:deploy</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value/>
+        </item>
+        <item>
+          <key>useMavenReturnCode</key>
+          <value/>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 3</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value/>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>site:site site:deploy</value>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value>MAVEN_OPTS="-Xmx512m"</value>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832717</id>
+      <requirement>
+       <id>18907147</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>18907148</id>
+       <key>system.builder.mvn3.Maven 3</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <subplans>
+    <subplan>
+     <id>5799950</id>
+     <creationDate>portable AD 2011-07-12 14:45:57.171 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:16:22.268 +0000</modificationDate>
+     <key>APL-TRUNK-JOB1</key>
+     <buildKey>JOB1</buildKey>
+     <buildName>Default Job</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>576</lastBuildNumber>
+     <nextBuildNumber>577</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5931022</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>-1</repositoryDefiningWorkingDirectory>
+  <buildTasks>
+    <taskDefinition>
+      <id>2</id>
+      <userDescription>Checkout Default Repository</userDescription>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.vcs:task.vcs.checkout</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>selectedRepository_0</key>
+          <value>defaultRepository</value>
+        </item>
+        <item>
+          <key>cleanCheckout</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>checkoutDir_0</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+    <taskDefinition>
+      <id>3</id>
+      <userDescription/>
+      <isEnabled>true</isEnabled>
+      <pluginKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginKey>
+      <finalising>false</finalising>
+      <rootDirectoryType>INHERITED</rootDirectoryType>
+      <repositoryDefiningWorkingDir>-1</repositoryDefiningWorkingDir>
+      <config>
+        <item>
+          <key>testChecked</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>useMavenReturnCode</key>
+          <value>false</value>
+        </item>
+        <item>
+          <key>projectFile</key>
+          <value/>
+        </item>
+        <item>
+          <key>buildJdk</key>
+          <value>JDK</value>
+        </item>
+        <item>
+          <key>testDirectoryOption</key>
+          <value>standardTestDirectory</value>
+        </item>
+        <item>
+          <key>label</key>
+          <value>Maven 3</value>
+        </item>
+        <item>
+          <key>workingSubDirectory</key>
+          <value/>
+        </item>
+        <item>
+          <key>goal</key>
+          <value>clean install -Pitest</value>
+        </item>
+        <item>
+          <key>testResultsDirectory</key>
+          <value>**/target/surefire-reports/*.xml</value>
+        </item>
+        <item>
+          <key>environmentVariables</key>
+          <value/>
+        </item>
+      </config>
+    </taskDefinition>
+  </buildTasks>
+  <buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <ncover>
+      <path/>
+    </ncover>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <requirementSet>
+      <id>5832718</id>
+      <requirement>
+       <id>18907145</id>
+       <key>system.jdk.JDK</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+      <requirement>
+       <id>18907146</id>
+       <key>system.builder.mvn3.Maven 3</key>
+       <pluginModuleKey>com.atlassian.bamboo.plugins.maven:task.builder.mvn3</pluginModuleKey>
+       <ownerId>3</ownerId>
+       <value readOnly="true" regex="true">.*</value>
+      </requirement>
+     </requirementSet>
+    </subplan>
+   </subplans>
+   <chains>
+    <chain>
+     <id>5177345</id>
+     <creationDate>portable AD 2011-03-28 17:57:11.648 +0000</creationDate>
+     <modificationDate>portable AD 2014-12-12 17:20:33.071 +0000</modificationDate>
+     <key>APL-AMP</key>
+     <buildKey>AMP</buildKey>
+     <buildName>amp</buildName>
+     <firstBuildNumber>24</firstBuildNumber>
+     <lastBuildNumber>536</lastBuildNumber>
+     <nextBuildNumber>537</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>5275649</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>0</repositoryDefiningWorkingDirectory>
+  <buildStrategies>
+    <defined>true</defined>
+    <buildStrategy>
+      <id>0</id>
+      <key>poll</key>
+      <name/>
+      <triggeringRepositories>17793035</triggeringRepositories>
+      <config>
+        <item>
+          <key>repository.change.poll.pollingPeriod</key>
+          <value>180</value>
+        </item>
+        <item>
+          <key>repository.change.poll.cronExpression</key>
+          <value>0 0 0 ? * *</value>
+        </item>
+        <item>
+          <key>repository.change.poll.type</key>
+          <value>PERIOD</value>
+        </item>
+        <item>
+          <key>bambooDelimiterParsingDisabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.enabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.plans</key>
+          <value>APL-TRUNK</value>
+        </item>
+      </config>
+    </buildStrategy>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  <clover>
+      
+    
+    <path/>
+    </clover>
+    <auto>
+      
+      
+    
+      
+    <label/>
+      <regex/>
+    </auto>
+    <maven>
+      
+    
+    <sharing>
+        
+      
+      <repository>
+          
+        
+        <config>
+            
+            
+          
+            
+          <expire>true</expire>
+            <enabled>true</enabled>
+          </config>
+        </repository>
+      </sharing>
+    </maven>
+    <ncover>
+      
+    
+    <path/>
+    </ncover>
+    <triggerrCondition>
+      
+    
+    <plansGreen>
+        
+        
+      
+        
+      <enabled>true</enabled>
+        <plans>APL-TRUNK</plans>
+      </plansGreen>
+    </triggerrCondition>
+  </custom>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>5373953</id>
+       <creationDate>portable AD 2011-03-29 09:30:59.418 +0000</creationDate>
+       <modificationDate>portable AD 2011-03-29 09:30:59.624 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+      <labelling>
+       <id>12124161</id>
+       <creationDate>portable AD 2013-03-03 16:29:27.274 +0000</creationDate>
+       <modificationDate>portable AD 2013-03-03 16:29:27.405 +0000</modificationDate>
+       <label>11173889</label>
+       <user>szpak</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>5210113</id>
+      <notification>
+       <id>5144578</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.email</recipientType>
+       <recipientDetails>matt@raibledesigns.com</recipientDetails>
+      </notification>
+      <notification>
+       <id>5144579</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.committer</recipientType>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767175</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APL-AMP-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+    <chain>
+     <id>4521985</id>
+     <creationDate>portable AD 2009-10-25 04:31:06.622 +0000</creationDate>
+     <modificationDate>portable AD 2013-03-01 19:08:54.771 +0000</modificationDate>
+     <key>APL-ARCH</key>
+     <buildKey>ARCH</buildKey>
+     <buildName>archetypes</buildName>
+     <firstBuildNumber>146</firstBuildNumber>
+     <lastBuildNumber>386</lastBuildNumber>
+     <nextBuildNumber>387</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>4685825</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+  <selectedRepository>com.atlassian.bamboo.plugin.system.repository:svn</selectedRepository>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <repository>
+    <common>
+      <cleanCheckout>true</cleanCheckout>
+      <cleanWorkingDirectory>false</cleanWorkingDirectory>
+    </common>
+    <svn>
+      <repositoryUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</repositoryUrl>
+      <username>guest</username>
+      <authType>password</authType>
+      <userPassword/>
+      <useExternals>true</useExternals>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    <branch>
+        <autodetectRootUrl>true</autodetectRootUrl>
+      </branch>
+      <tag>
+        <autodetectRootUrl>true</autodetectRootUrl>
+      </tag>
+    </svn>
+  </repository>
+  <inheritRepository>false</inheritRepository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+  <selectedBuildStrategy>manualOnly</selectedBuildStrategy>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+<branches>
+    <inactivityInDays>0</inactivityInDays>
+  </branches>
+<buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>4751361</id>
+       <creationDate>portable AD 2009-10-25 15:12:34.268 +0000</creationDate>
+       <modificationDate>portable AD 2009-10-25 15:12:34.288 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>4554753</id>
+      <notification>
+       <id>4587523</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.watcher</recipientType>
+      </notification>
+      <notification>
+       <id>4587521</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.email</recipientType>
+       <recipientDetails>matt@raibledesigns.com</recipientDetails>
+      </notification>
+      <notification>
+       <id>4587522</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.committer</recipientType>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767177</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APL-ARCH-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+    <chain>
+     <id>4521988</id>
+     <creationDate>portable AD 2009-10-26 12:28:43.491 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:17:42.722 +0000</modificationDate>
+     <key>APL-DEP</key>
+     <buildKey>DEP</buildKey>
+     <buildName>deploy</buildName>
+     <firstBuildNumber>145</firstBuildNumber>
+     <lastBuildNumber>349</lastBuildNumber>
+     <nextBuildNumber>350</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>4685828</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>0</repositoryDefiningWorkingDirectory>
+  <buildStrategies>
+    <defined>true</defined>
+    <buildStrategy>
+      <id>0</id>
+      <key>poll</key>
+      <name/>
+      <triggeringRepositories>17793036</triggeringRepositories>
+      <config>
+        <item>
+          <key>repository.change.poll.pollingPeriod</key>
+          <value>180</value>
+        </item>
+        <item>
+          <key>repository.change.poll.cronExpression</key>
+          <value>0 0 0 ? * *</value>
+        </item>
+        <item>
+          <key>repository.change.poll.type</key>
+          <value>PERIOD</value>
+        </item>
+        <item>
+          <key>bambooDelimiterParsingDisabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.enabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.plans</key>
+          <value>APL-TRUNK</value>
+        </item>
+      </config>
+    </buildStrategy>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <ncover>
+      <path/>
+    </ncover>
+    <clover>
+      <path/>
+    </clover>
+    <triggerrCondition>
+      <plansGreen>
+        <enabled>true</enabled>
+        <plans>APL-TRUNK</plans>
+      </plansGreen>
+    </triggerrCondition>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>4751362</id>
+       <creationDate>portable AD 2009-10-26 12:37:06.312 +0000</creationDate>
+       <modificationDate>portable AD 2009-10-26 12:37:06.396 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>4554756</id>
+      <notification>
+       <id>4587532</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.watcher</recipientType>
+      </notification>
+      <notification>
+       <id>4587530</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.email</recipientType>
+       <recipientDetails>matt@raibledesigns.com</recipientDetails>
+      </notification>
+      <notification>
+       <id>4587531</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.committer</recipientType>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767178</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APL-DEP-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+    <chain>
+     <id>4521987</id>
+     <creationDate>portable AD 2009-10-25 04:34:32.078 +0000</creationDate>
+     <modificationDate>portable AD 2013-03-01 19:08:54.904 +0000</modificationDate>
+     <key>APL-IBATIS</key>
+     <buildKey>IBATIS</buildKey>
+     <buildName>ibatis</buildName>
+     <firstBuildNumber>135</firstBuildNumber>
+     <lastBuildNumber>149</lastBuildNumber>
+     <nextBuildNumber>150</nextBuildNumber>
+     <suspendedFromBuilding>true</suspendedFromBuilding>
+     <definition>
+      <id>4685827</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+  <selectedRepository>com.atlassian.bamboo.plugin.system.repository:svn</selectedRepository>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <repository>
+    <common>
+      <cleanCheckout>true</cleanCheckout>
+      <cleanWorkingDirectory>false</cleanWorkingDirectory>
+    </common>
+    <svn>
+      <repositoryUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</repositoryUrl>
+      <username>guest</username>
+      <authType>password</authType>
+      <userPassword/>
+      <useExternals>true</useExternals>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    <branch>
+        <autodetectRootUrl>true</autodetectRootUrl>
+      </branch>
+      <tag>
+        <autodetectRootUrl>true</autodetectRootUrl>
+      </tag>
+    </svn>
+  </repository>
+  <inheritRepository>false</inheritRepository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+  <selectedBuildStrategy>manualOnly</selectedBuildStrategy>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+<branches>
+    <inactivityInDays>0</inactivityInDays>
+  </branches>
+<buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>4751363</id>
+       <creationDate>portable AD 2009-10-26 13:39:07.359 +0000</creationDate>
+       <modificationDate>portable AD 2009-10-26 13:39:07.368 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>4554755</id>
+      <notification>
+       <id>4587529</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.watcher</recipientType>
+      </notification>
+      <notification>
+       <id>4587527</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.email</recipientType>
+       <recipientDetails>matt@raibledesigns.com</recipientDetails>
+      </notification>
+      <notification>
+       <id>4587528</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.committer</recipientType>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767179</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APL-IBATIS-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+    <chain>
+     <id>4521986</id>
+     <creationDate>portable AD 2009-10-25 04:33:45.483 +0000</creationDate>
+     <modificationDate>portable AD 2013-03-01 19:08:54.927 +0000</modificationDate>
+     <key>APL-JPA</key>
+     <buildKey>JPA</buildKey>
+     <buildName>jpa</buildName>
+     <firstBuildNumber>131</firstBuildNumber>
+     <lastBuildNumber>353</lastBuildNumber>
+     <nextBuildNumber>354</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>4685826</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+  <selectedRepository>com.atlassian.bamboo.plugin.system.repository:svn</selectedRepository>
+  <filter>
+    <pattern>
+      <option>none</option>
+      <regex/>
+    </pattern>
+  </filter>
+  <repository>
+    <common>
+      <cleanCheckout>true</cleanCheckout>
+      <cleanWorkingDirectory>false</cleanWorkingDirectory>
+    </common>
+    <svn>
+      <repositoryUrl>https://svn.java.net/svn/appfuse-light~svn/trunk</repositoryUrl>
+      <username>guest</username>
+      <authType>password</authType>
+      <userPassword/>
+      <useExternals>true</useExternals>
+      <quietPeriod>
+        <enabled>false</enabled>
+        <period>10</period>
+        <maxRetries>5</maxRetries>
+      </quietPeriod>
+    <branch>
+        <autodetectRootUrl>true</autodetectRootUrl>
+      </branch>
+      <tag>
+        <autodetectRootUrl>true</autodetectRootUrl>
+      </tag>
+    </svn>
+  </repository>
+  <inheritRepository>false</inheritRepository>
+  <selectedWebRepositoryViewer>bamboo.webrepositoryviewer.provided:noRepositoryViewer</selectedWebRepositoryViewer>
+  <selectedBuildStrategy>manualOnly</selectedBuildStrategy>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+<branches>
+    <inactivityInDays>0</inactivityInDays>
+  </branches>
+<buildStrategies>
+    <defined>true</defined>
+  </buildStrategies>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>4751364</id>
+       <creationDate>portable AD 2009-10-26 15:00:07.946 +0000</creationDate>
+       <modificationDate>portable AD 2009-10-26 15:00:07.989 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>4554754</id>
+      <notification>
+       <id>4587526</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.watcher</recipientType>
+      </notification>
+      <notification>
+       <id>4587524</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.email</recipientType>
+       <recipientDetails>matt@raibledesigns.com</recipientDetails>
+      </notification>
+      <notification>
+       <id>4587525</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.committer</recipientType>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767180</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APL-JPA-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+    <chain>
+     <id>4521989</id>
+     <creationDate>portable AD 2009-11-03 15:17:24.254 +0000</creationDate>
+     <modificationDate>portable AD 2015-02-20 21:28:15.495 +0000</modificationDate>
+     <key>APL-SITE</key>
+     <buildKey>SITE</buildKey>
+     <buildName>site</buildName>
+     <firstBuildNumber>126</firstBuildNumber>
+     <lastBuildNumber>360</lastBuildNumber>
+     <nextBuildNumber>361</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>4685829</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <buildStrategies>
+    <defined>true</defined>
+    <buildStrategy>
+      <id>0</id>
+      <key>poll</key>
+      <name/>
+      <triggeringRepositories>17793036</triggeringRepositories>
+      <config>
+        <item>
+          <key>repository.change.poll.pollingPeriod</key>
+          <value>180</value>
+        </item>
+        <item>
+          <key>repository.change.poll.cronExpression</key>
+          <value>0 0 0 ? * *</value>
+        </item>
+        <item>
+          <key>repository.change.poll.type</key>
+          <value>PERIOD</value>
+        </item>
+        <item>
+          <key>bambooDelimiterParsingDisabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.enabled</key>
+          <value>false</value>
+        </item>
+      </config>
+    </buildStrategy>
+  </buildStrategies>
+  <custom>
+    <ncover>
+      <path/>
+    </ncover>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>4751365</id>
+       <creationDate>portable AD 2009-11-05 09:27:18.858 +0000</creationDate>
+       <modificationDate>portable AD 2009-11-05 09:27:18.960 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>4554757</id>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767181</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APL-SITE-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+    <chain>
+     <id>1277953</id>
+     <creationDate>portable AD 2007-11-27 11:47:58.713 +0000</creationDate>
+     <modificationDate>portable AD 2015-01-29 20:16:22.290 +0000</modificationDate>
+     <key>APL-TRUNK</key>
+     <buildKey>TRUNK</buildKey>
+     <buildName>trunk</buildName>
+     <firstBuildNumber>1</firstBuildNumber>
+     <lastBuildNumber>576</lastBuildNumber>
+     <nextBuildNumber>577</nextBuildNumber>
+     <suspendedFromBuilding>false</suspendedFromBuilding>
+     <definition>
+      <id>1343489</id>
+      <xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xml:space="preserve">
+  <isMergedConfiguration>false</isMergedConfiguration>
+  <cleanWorkingDirectory>false</cleanWorkingDirectory>
+  <repositoryDefiningWorkingDirectory>0</repositoryDefiningWorkingDirectory>
+  <buildStrategies>
+    <defined>true</defined>
+    <buildStrategy>
+      <id>0</id>
+      <key>poll</key>
+      <name/>
+      <triggeringRepositories>17793036</triggeringRepositories>
+      <config>
+        <item>
+          <key>repository.change.poll.pollingPeriod</key>
+          <value>180</value>
+        </item>
+        <item>
+          <key>repository.change.poll.cronExpression</key>
+          <value>0 0 0 ? * *</value>
+        </item>
+        <item>
+          <key>repository.change.poll.type</key>
+          <value>PERIOD</value>
+        </item>
+        <item>
+          <key>bambooDelimiterParsingDisabled</key>
+          <value>true</value>
+        </item>
+        <item>
+          <key>custom.triggerrCondition.plansGreen.enabled</key>
+          <value>false</value>
+        </item>
+      </config>
+    </buildStrategy>
+  </buildStrategies>
+  <branches>
+    <monitoringEnabled>false</monitoringEnabled>
+    <matchingPattern/>
+    <inactivityInDays>30</inactivityInDays>
+    <defaultNotificationStrategy>notifyCommitters</defaultNotificationStrategy>
+    <issueLinking>true</issueLinking>
+    <monitorPullRequests>false</monitorPullRequests>
+  </branches>
+  <branches>
+    <defaultBranchIntegration>
+      <enabled>false</enabled>
+    </defaultBranchIntegration>
+  </branches>
+  <branchIntegration>
+    <enabled>false</enabled>
+  </branchIntegration>
+  <branchConfiguration>
+    <cleanup>
+      <disabled>false</disabled>
+    </cleanup>
+    <notificationStrategy>notifyCommitters</notificationStrategy>
+  </branchConfiguration>
+  <custom>
+    <auto>
+      <label/>
+      <regex/>
+    </auto>
+    <ncover>
+      <path/>
+    </ncover>
+    <clover>
+      <path/>
+    </clover>
+  </custom>
+  <bambooDelimiterParsingDisabled>true</bambooDelimiterParsingDisabled>
+</configuration>
+]]></xml>
+     </definition>
+     <labellings>
+      <labelling>
+       <id>1507329</id>
+       <creationDate>portable AD 2007-11-27 12:39:21.130 +0000</creationDate>
+       <modificationDate>portable AD 2007-11-27 12:39:21.131 +0000</modificationDate>
+       <label>589825</label>
+       <user>mraible</user>
+      </labelling>
+     </labellings>
+     <notificationSet>
+      <id>1310721</id>
+      <notification>
+       <id>2883597</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.watcher</recipientType>
+      </notification>
+      <notification>
+       <id>2883598</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.email</recipientType>
+       <recipientDetails>matt@raibledesigns.com</recipientDetails>
+      </notification>
+      <notification>
+       <id>2883599</id>
+       <conditionKey>com.atlassian.bamboo.plugin.system.notifications:chainCompleted.failedChains</conditionKey>
+       <recipientType>com.atlassian.bamboo.plugin.system.notifications:recipient.committer</recipientType>
+      </notification>
+     </notificationSet>
+     <stages>
+      <stage>
+       <id>5767182</id>
+       <name>Default Stage</name>
+       <builds>
+        <build>
+         <buildKey>APL-TRUNK-JOB1</buildKey>
+        </build>
+       </builds>
+      </stage>
+     </stages>
+    </chain>
+   </chains>
+  </project>
+ </projects>
+</bamboo>

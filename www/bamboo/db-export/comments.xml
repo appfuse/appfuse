@@ -1,0 +1,53 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <comments>
+  <comment>
+   <id>11501569</id>
+   <creationDate>portable AD 2013-01-28 21:44:05.893 +0000</creationDate>
+   <modificationDate>portable AD 2013-01-28 21:44:05.893 +0000</modificationDate>
+   <user>mraible</user>
+   <content>If it helps, this test is failing on "test-jsf-modular-source". You can test it locally using "ant test-jsf-modular-source" from the plugins/appfuse-maven-plugin directory.</content>
+   <entityId>11239441</entityId>
+  </comment>
+  <comment>
+   <id>11501570</id>
+   <creationDate>portable AD 2013-01-29 03:44:07.454 +0000</creationDate>
+   <modificationDate>portable AD 2013-01-29 03:44:07.454 +0000</modificationDate>
+   <user>szpak</user>
+   <content>I will try to fix it in the evening. If you need to make APM green earlier please revert my changes (I don't have my GitHub key with me right now).
+
+I have to take a look at an Ant task, how to pass -e to Maven. The following error message isn't very verbose:
+> Execution default-cli of goal org.appfuse.plugins:appfuse-maven-plugin:2.2.2-SNAPSHOT:full-source failed. NullPointerException -> [Help 1]</content>
+   <entityId>11239441</entityId>
+  </comment>
+  <comment>
+   <id>11763713</id>
+   <creationDate>portable AD 2013-03-02 07:06:21.246 +0000</creationDate>
+   <modificationDate>portable AD 2013-03-02 07:06:21.246 +0000</modificationDate>
+   <user>szpak</user>
+   <content>Any idea why it seems to be not built?</content>
+   <entityId>11239807</entityId>
+  </comment>
+  <comment>
+   <id>11763714</id>
+   <creationDate>portable AD 2013-03-03 15:44:43.793 +0000</creationDate>
+   <modificationDate>portable AD 2013-03-03 15:44:43.793 +0000</modificationDate>
+   <user>szpak</user>
+   <content>This error seems to be here for a while, but I don't know why my changes in #235 could cause it.</content>
+   <entityId>11796517</entityId>
+  </comment>
+  <comment>
+   <id>11763715</id>
+   <creationDate>portable AD 2013-03-03 16:28:50.981 +0000</creationDate>
+   <modificationDate>portable AD 2013-03-03 16:28:50.981 +0000</modificationDate>
+   <user>szpak</user>
+   <content>All archetypes build fine locally. The same plugins (from Maven and Ant). I remember I have seen this error before on Bamboo, but not sure what was a reason. Any idea?</content>
+   <entityId>11796509</entityId>
+  </comment>
+ </comments>
+</bamboo>

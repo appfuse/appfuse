@@ -1,0 +1,27 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <sharedCapabilities>
+  <local>
+   <capability key="system.builder.ant.Ant" value="/opt/java/tools/ant/apache-ant-1.8.2"/>
+   <capability key="system.builder.command.Bash" value="/bin/bash"/>
+   <capability key="system.builder.mvn3.Maven 3" value="/opt/java/tools/maven/apache-maven-3.2.3"/>
+   <capability key="system.git.executable" value="/usr/bin/git"/>
+   <capability key="system.jdk.JDK" value="/opt/java/sdk/1.7"/>
+   <capability key="system.jdk.JDK 1.5" value="/opt/java/sdk/1.5"/>
+   <capability key="system.jdk.JDK 1.6" value="/opt/java/sdk/1.6"/>
+   <capability key="system.jdk.JDK 1.6.0_32" value="/opt/java/sdk/Sun/jdk1.6.0_32"/>
+   <capability key="system.jdk.JDK 1.7" value="/opt/java/sdk/current"/>
+   <capability key="system.jdk.JDK 1.7.0_40" value="/opt/java/sdk/current"/>
+  </local>
+  <remote>
+   <capability key="system.builder.ant.Ant" value="/opt/tools/ant"/>
+   <capability key="system.git.executable" value="system.git.executable"/>
+   <capability key="system.jdk.JDK 1.6" value="'/usr/libexec/java_home -v 1.6'"/>
+  </remote>
+ </sharedCapabilities>
+</bamboo>

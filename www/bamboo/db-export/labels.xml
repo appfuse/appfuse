@@ -1,0 +1,73 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <labels>
+  <label>
+   <id>589825</id>
+   <creationDate>portable AD 2007-07-27 00:35:42.230 +0000</creationDate>
+   <modificationDate>portable AD 2011-03-29 09:30:59.440 +0000</modificationDate>
+   <name>:favourite</name>
+   <namespace>mraible</namespace>
+  </label>
+  <label>
+   <id>589826</id>
+   <creationDate>portable AD 2007-07-27 00:41:01.154 +0000</creationDate>
+   <modificationDate>portable AD 2011-11-29 17:21:29.641 +0000</modificationDate>
+   <name>:favourite</name>
+   <namespace>melinate</namespace>
+  </label>
+  <label>
+   <id>589827</id>
+   <creationDate>portable AD 2007-07-27 00:41:46.809 +0000</creationDate>
+   <modificationDate>portable AD 2007-07-27 00:41:46.810 +0000</modificationDate>
+   <name>:favourite</name>
+   <namespace>bendg25</namespace>
+  </label>
+  <label>
+   <id>589828</id>
+   <creationDate>portable AD 2007-07-27 00:41:55.900 +0000</creationDate>
+   <modificationDate>portable AD 2007-07-27 00:41:55.901 +0000</modificationDate>
+   <name>:favourite</name>
+   <namespace>sjivan</namespace>
+  </label>
+  <label>
+   <id>589829</id>
+   <creationDate>portable AD 2007-07-27 00:43:50.686 +0000</creationDate>
+   <modificationDate>portable AD 2007-07-27 00:43:50.686 +0000</modificationDate>
+   <name>:favourite</name>
+   <namespace>thogau</namespace>
+  </label>
+  <label>
+   <id>589830</id>
+   <creationDate>portable AD 2007-07-27 00:46:47.873 +0000</creationDate>
+   <modificationDate>portable AD 2007-08-27 21:52:01.798 +0000</modificationDate>
+   <name>:favourite</name>
+   <namespace>dlwhitehurst</namespace>
+  </label>
+  <label>
+   <id>589831</id>
+   <creationDate>portable AD 2007-07-27 00:46:51.588 +0000</creationDate>
+   <modificationDate>portable AD 2007-07-27 00:46:51.588 +0000</modificationDate>
+   <name>:favourite</name>
+   <namespace>bnoll</namespace>
+  </label>
+  <label>
+   <id>6979585</id>
+   <creationDate>portable AD 2012-01-03 12:05:08.899 +0000</creationDate>
+   <modificationDate>portable AD 2012-01-03 14:08:49.396 +0000</modificationDate>
+   <name>:favourite</name>
+   <namespace>sdeby</namespace>
+  </label>
+  <label>
+   <id>11173889</id>
+   <creationDate>portable AD 2013-01-20 12:12:18.245 +0000</creationDate>
+   <modificationDate>portable AD 2013-03-03 16:29:27.286 +0000</modificationDate>
+   <name>:favourite</name>
+   <namespace>szpak</namespace>
+  </label>
+ </labels>
+</bamboo>

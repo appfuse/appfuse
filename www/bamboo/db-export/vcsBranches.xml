@@ -1,0 +1,46 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <vcsBranches>
+  <vcsBranch>
+   <name>simplify-version-management</name>
+   <chainId>196611</chainId>
+  </vcsBranch>
+  <vcsBranch>
+   <name>password_recovery</name>
+   <chainId>196611</chainId>
+  </vcsBranch>
+  <vcsBranch>
+   <name>tapestry-5.4</name>
+   <chainId>196611</chainId>
+  </vcsBranch>
+  <vcsBranch>
+   <name>wicket</name>
+   <chainId>196611</chainId>
+  </vcsBranch>
+  <vcsBranch>
+   <name>master</name>
+   <chainId>196611</chainId>
+  </vcsBranch>
+  <vcsBranch>
+   <name>bootstrap-2.3.2</name>
+   <chainId>196611</chainId>
+  </vcsBranch>
+  <vcsBranch>
+   <name>master</name>
+   <chainId>1277953</chainId>
+  </vcsBranch>
+  <vcsBranch>
+   <name>master</name>
+   <chainId>196614</chainId>
+  </vcsBranch>
+  <vcsBranch>
+   <name>master</name>
+   <chainId>196616</chainId>
+  </vcsBranch>
+ </vcsBranches>
+</bamboo>

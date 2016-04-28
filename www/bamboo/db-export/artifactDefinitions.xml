@@ -1,0 +1,40 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <artifactDefinitions>
+  <definition>
+   <id>6193153</id>
+   <name>WebTest</name>
+   <copyPattern>**/target/webtest-data/*</copyPattern>
+   <sharedArtifact>false</sharedArtifact>
+   <producerJob>APF-IBATIS-JOB1</producerJob>
+  </definition>
+  <definition>
+   <id>6193154</id>
+   <name>Generated Apps</name>
+   <location>target</location>
+   <copyPattern>light-*/**</copyPattern>
+   <sharedArtifact>false</sharedArtifact>
+   <producerJob>APL-AMP-JOB1</producerJob>
+  </definition>
+  <definition>
+   <id>6193155</id>
+   <name>Archetypes</name>
+   <copyPattern>**/*-archetype*.jar</copyPattern>
+   <sharedArtifact>false</sharedArtifact>
+   <producerJob>APL-DEP-JOB1</producerJob>
+  </definition>
+  <definition>
+   <id>14254081</id>
+   <name>WebTests</name>
+   <location>target/site</location>
+   <copyPattern>webtest/**</copyPattern>
+   <sharedArtifact>true</sharedArtifact>
+   <producerJob>APF-AMP-JOB1</producerJob>
+  </definition>
+ </artifactDefinitions>
+</bamboo>

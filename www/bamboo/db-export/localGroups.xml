@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8' standalone='yes'?>
+<bamboo>
+ <date>Wed Apr 27 21:12:02 GMT 2016</date>
+ <version>5.7.2</version>
+ <buildDate>02-Dec-2014</buildDate>
+ <build>5716</build>
+ <serverID>AORB-GTNC-1NPH-LJXV</serverID>
+ <localGroups>
+  <localGroup>
+   <id>32769</id>
+   <name>bamboo-admin</name>
+   <localMembers>
+    <member>1</member>
+   </localMembers>
+  </localGroup>
+ </localGroups>
+</bamboo>
